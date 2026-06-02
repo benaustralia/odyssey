@@ -72,10 +72,11 @@ function App() {
 
   const sel = selected
   const selArts = artsOf(sel)
-  const slides = selArts.map((a) => ({
-    src: a.file,
-    description: `${a.artist} · ${a.title}${a.year ? `, ${a.year}` : ""}`,
-  }))
+  const slides = selArts.map((a) => {
+    const credit = [a.artist, a.title].filter(Boolean).join(" · ")
+    const desc = credit ? `${credit}${a.year ? `, ${a.year}` : ""}` : a.year
+    return { src: a.file, description: desc || undefined }
+  })
 
   return (
     <div className="min-h-screen bg-base-100 text-base-content">
@@ -123,7 +124,7 @@ function App() {
           </label>
 
           <form
-            className="filter w-full flex-nowrap overflow-x-auto whitespace-nowrap pb-1 [&::-webkit-scrollbar]:hidden lg:w-auto lg:overflow-visible"
+            className="filter w-full flex-nowrap justify-center overflow-x-auto whitespace-nowrap pb-1 [&::-webkit-scrollbar]:hidden lg:w-auto lg:justify-start lg:overflow-visible"
             style={{ scrollbarWidth: "none" }}
             onReset={() => setCat("all")}
             aria-label="Filter by category"

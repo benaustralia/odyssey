@@ -50,7 +50,6 @@
   "zhDef": "趁阿伽门农战后归家时将其谋杀的人，诗中以他为反面警示。",
   "art": [
    "aegisthus-1",
-   "aegisthus-2",
    "aegisthus-3",
    "aegisthus-4"
   ]
@@ -143,8 +142,8 @@
   "zhPinyin": "Āntínuò'èsī",
   "zhDef": "求婚者中最粗暴狠毒者，第一个被射杀。",
   "art": [
-   "antinous-1",
    "antinous-2",
+   "antinous-1",
    "antinous-3",
    "antinous-4"
   ]
@@ -173,8 +172,7 @@
   "art": [
    "apollo-1",
    "apollo-2",
-   "apollo-3",
-   "apollo-4"
+   "apollo-3"
   ]
  },
  {
@@ -255,8 +253,7 @@
   "zhDef": "弹奏里拉琴、吟唱故事的诗人，如得摩多科斯与菲弥俄斯。",
   "art": [
    "phemius-1",
-   "bard-2",
-   "bard-3"
+   "bard-2"
   ]
  },
  {
@@ -351,8 +348,7 @@
   "art": [
    "cyclops-1",
    "cyclops-2",
-   "cyclops-3",
-   "cyclops-4"
+   "cyclops-3"
   ]
  },
  {
@@ -432,8 +428,7 @@
   "zhDef": "奥德修斯的老乳母，为乔装的他洗脚时凭旧疤认出主人。",
   "art": [
    "eurycleia-1",
-   "eurycleia-3",
-   "eurycleia-4"
+   "eurycleia-3"
   ]
  },
  {
@@ -595,9 +590,7 @@
   "zhPinyin": "Yīluòsī",
   "zhDef": "当地乞丐，欲欺凌乔装的奥德修斯，结果被打败。",
   "art": [
-   "irus-1",
-   "irus-3",
-   "irus-4"
+   "irus-1"
   ]
  },
  {
@@ -623,7 +616,6 @@
   "art": [
    "laertes-1",
    "laertes-2",
-   "laertes-3",
    "laertes-4"
   ]
  },
@@ -868,7 +860,6 @@
   "zhDef": "阿伽门农之子，长大后为遇害的父亲复仇，被树为忒勒马科斯的榜样。",
   "art": [
    "orestes-1",
-   "orestes-3",
    "orestes-4"
   ]
  },
@@ -881,8 +872,8 @@
   "zhPinyin": "Pònièluópò",
   "zhDef": "奥德修斯忠贞而聪慧的妻子，以耐心与智计周旋于众多求婚者之间多年。",
   "art": [
-   "penelope-2",
    "penelope-3",
+   "penelope-2",
    "penelope-4"
   ]
  },
@@ -897,8 +888,7 @@
   "art": [
    "persephone-1",
    "persephone-2",
-   "persephone-3",
-   "persephone-4"
+   "persephone-3"
   ]
  },
  {
@@ -1119,8 +1109,7 @@
   "zhDef": "内藏伏兵的巨型空心木马，奥德修斯借此攻陷特洛伊。",
   "art": [
    "trojan-horse-1",
-   "trojan-horse-2",
-   "trojan-horse-3"
+   "trojan-horse-2"
   ]
  },
  {
