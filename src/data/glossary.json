@@ -1,0 +1,780 @@
+[
+ {
+  "term": "Achaeans",
+  "pron": "/uh-KEE-unz/",
+  "tag": "people",
+  "def": "Another name Homer uses for the Greeks.",
+  "zhName": "阿开亚人",
+  "zhPinyin": "Ākāiyà rén",
+  "zhDef": "荷马对希腊人的别称。"
+ },
+ {
+  "term": "Achilles",
+  "pron": "/uh-KILL-eez/",
+  "tag": "person",
+  "def": "The greatest Greek warrior of the Trojan War. He is dead now; Odysseus meets his ghost in the land of the dead.",
+  "zhName": "阿喀琉斯",
+  "zhPinyin": "Ākāliúsī",
+  "zhDef": "特洛伊战争中最伟大的希腊勇士，已故；奥德修斯在冥界遇见他的鬼魂。"
+ },
+ {
+  "term": "Aeaea",
+  "pron": "/ee-EE-uh/",
+  "tag": "place",
+  "def": "The island where the witch-goddess Circe lives.",
+  "zhName": "埃埃亚岛",
+  "zhPinyin": "Āi'āiyà dǎo",
+  "zhDef": "女巫喀耳刻居住的海岛。"
+ },
+ {
+  "term": "Aegisthus",
+  "pron": "/ee-JISS-thus/",
+  "tag": "person",
+  "def": "The man who murdered King Agamemnon when he came home from the war. The poem uses him as a warning.",
+  "zhName": "埃癸斯托斯",
+  "zhPinyin": "Āiguǐsītuōsī",
+  "zhDef": "趁阿伽门农战后归家时将其谋杀的人，诗中以他为反面警示。"
+ },
+ {
+  "term": "Aeolus",
+  "pron": "/EE-oh-lus/",
+  "tag": "god",
+  "def": "The god who keeps the winds. He gives Odysseus a bag holding the winds.",
+  "zhName": "埃俄罗斯",
+  "zhPinyin": "Āi'èluósī",
+  "zhDef": "掌管风的神，赠给奥德修斯一只装风的皮袋。"
+ },
+ {
+  "term": "Agamemnon",
+  "pron": "/ag-uh-MEM-non/",
+  "tag": "person",
+  "def": "The leader of the whole Greek army at Troy; brother of Menelaus. He was killed by his wife and her lover at home.",
+  "zhName": "阿伽门农",
+  "zhPinyin": "Ājiāménnóng",
+  "zhDef": "特洛伊希腊联军统帅，墨涅拉俄斯之兄，归国后被妻子及其情夫所杀。",
+  "art": "agamemnon"
+ },
+ {
+  "term": "Ajax",
+  "pron": "/AY-jaks/",
+  "tag": "person",
+  "def": "A great Greek warrior, now dead. He is still angry with Odysseus when they meet among the dead.",
+  "zhName": "埃阿斯",
+  "zhPinyin": "Āi'āsī",
+  "zhDef": "伟大的希腊勇士，已故；在冥界仍对奥德修斯心怀怨恨。"
+ },
+ {
+  "term": "Alcinous",
+  "pron": "/al-SIN-oh-us/",
+  "tag": "person",
+  "def": "The kind king of the Phaeacians, who listens to Odysseus's story and gives him a ship home.",
+  "zhName": "阿尔喀诺俄斯",
+  "zhPinyin": "Ā'ěrkānuò'èsī",
+  "zhDef": "善良的费阿喀亚国王，听完奥德修斯的故事后送他船只回乡。"
+ },
+ {
+  "term": "ambrosia",
+  "pron": "/am-BROH-zhuh/",
+  "tag": "thing",
+  "def": "The special food of the gods, which keeps them young forever.",
+  "zhName": "神食 / 仙馔",
+  "zhPinyin": "shénshí",
+  "zhDef": "神所食用的食物，使其永葆青春。"
+ },
+ {
+  "term": "Amphinomus",
+  "pron": "/am-FIN-oh-mus/",
+  "tag": "person",
+  "def": "The most polite and least cruel of the suitors. He still dies with the rest.",
+  "zhName": "安菲诺摩斯",
+  "zhPinyin": "Ānfēinuòmósī",
+  "zhDef": "求婚者中最有礼、最不残暴的一个，但仍与众人一同被杀。"
+ },
+ {
+  "term": "Antinous",
+  "pron": "/an-TIN-oh-us/",
+  "tag": "person",
+  "def": "The rudest and most violent of the suitors who crowd Odysseus's house. He is the first to be killed.",
+  "zhName": "安提诺俄斯",
+  "zhPinyin": "Āntínuò'èsī",
+  "zhDef": "求婚者中最粗暴狠毒者，第一个被射杀。"
+ },
+ {
+  "term": "Aphrodite",
+  "pron": "/af-roh-DY-tee/",
+  "tag": "god",
+  "def": "The goddess of love and beauty.",
+  "zhName": "阿佛洛狄忒",
+  "zhPinyin": "Āfóluòdítè",
+  "zhDef": "爱与美的女神。",
+  "art": "aphrodite"
+ },
+ {
+  "term": "Apollo",
+  "pron": "/uh-POL-oh/",
+  "tag": "god",
+  "def": "The god of the sun, music, healing, and archery.",
+  "zhName": "阿波罗",
+  "zhPinyin": "Āboluó",
+  "zhDef": "太阳、音乐、医疗与射箭之神。"
+ },
+ {
+  "term": "Arete",
+  "pron": "/uh-REE-tee/",
+  "tag": "person",
+  "def": "The wise and respected queen of the Phaeacians, wife of Alcinous.",
+  "zhName": "阿瑞忒",
+  "zhPinyin": "Āruìtè",
+  "zhDef": "费阿喀亚睿智而受敬重的王后，阿尔喀诺俄斯之妻。"
+ },
+ {
+  "term": "Ares",
+  "pron": "/AIR-eez/",
+  "tag": "god",
+  "def": "The god of war.",
+  "zhName": "阿瑞斯",
+  "zhPinyin": "Āruìsī",
+  "zhDef": "战神。",
+  "art": "ares"
+ },
+ {
+  "term": "Argos",
+  "pron": "/AR-goss/",
+  "tag": "animal",
+  "def": "Odysseus's old hunting dog. He waits twenty years, recognizes his master, and then dies.",
+  "zhName": "阿耳戈斯",
+  "zhPinyin": "Ā'ěrgēsī",
+  "zhDef": "奥德修斯的老猎犬，苦等二十年，认出主人后即死去。"
+ },
+ {
+  "term": "Artemis",
+  "pron": "/AR-tuh-miss/",
+  "tag": "god",
+  "def": "The goddess of hunting and wild animals; sister of Apollo.",
+  "zhName": "阿耳忒弥斯",
+  "zhPinyin": "Ā'ěrtèmísī",
+  "zhDef": "狩猎与野兽女神，阿波罗之妹。"
+ },
+ {
+  "term": "Athena",
+  "pron": "/uh-THEE-nuh/",
+  "tag": "god",
+  "def": "The goddess of wisdom and skill in war. She loves clever Odysseus and protects both him and his son Telemachus.",
+  "zhName": "雅典娜",
+  "zhPinyin": "Yǎdiǎnnà",
+  "zhDef": "智慧与战争技艺女神，钟爱机敏的奥德修斯，并护佑他与其子忒勒马科斯。",
+  "art": "athena"
+ },
+ {
+  "term": "bard (singer)",
+  "pron": "/bard/",
+  "tag": "thing",
+  "def": "A poet who sings stories out loud while playing a lyre. Demodocus and Phemius are bards in the poem.",
+  "zhName": "吟游诗人",
+  "zhPinyin": "yínyóu shīrén",
+  "zhDef": "弹奏里拉琴、吟唱故事的诗人，如得摩多科斯与菲弥俄斯。"
+ },
+ {
+  "term": "Calypso",
+  "pron": "/kuh-LIP-soh/",
+  "tag": "god",
+  "def": "A beautiful goddess-nymph who keeps Odysseus on her island for seven years and wants him to stay forever.",
+  "zhName": "卡吕普索",
+  "zhPinyin": "Kǎlǚpǔsuǒ",
+  "zhDef": "美丽的女神，将奥德修斯困于岛上七年，欲留他永世相伴。",
+  "art": "calypso"
+ },
+ {
+  "term": "Charybdis",
+  "pron": "/kuh-RIB-diss/",
+  "tag": "monster",
+  "def": "A deadly whirlpool monster that swallows the sea three times a day. Sailors must pass it and Scylla together.",
+  "zhName": "卡律布狄斯",
+  "zhPinyin": "Kǎlǜbùdísī",
+  "zhDef": "每日三次吞吐海水的致命大漩涡怪物，与斯库拉相邻。"
+ },
+ {
+  "term": "Cicones",
+  "pron": "/sih-KOH-neez/",
+  "tag": "people",
+  "def": "A people whose town Odysseus and his men raid right after leaving Troy. The raid goes badly.",
+  "zhName": "喀孔涅斯人",
+  "zhPinyin": "Kākǒngnièsī rén",
+  "zhDef": "奥德修斯离开特洛伊后劫掠的部族，劫掠以失败告终。"
+ },
+ {
+  "term": "Circe",
+  "pron": "/SUR-see/",
+  "tag": "god",
+  "def": "A witch-goddess who turns Odysseus's men into pigs, then becomes his helper and lover for a year.",
+  "zhName": "喀耳刻",
+  "zhPinyin": "Kā'ěrkè",
+  "zhDef": "女巫，先把奥德修斯的同伴变成猪，后成为帮助他的爱人，相处一年。",
+  "art": "circe"
+ },
+ {
+  "term": "Clytemnestra",
+  "pron": "/kly-tem-NESS-truh/",
+  "tag": "person",
+  "def": "Agamemnon's wife, who helped kill him. She is the dark opposite of loyal Penelope.",
+  "zhName": "克吕泰墨斯特拉",
+  "zhPinyin": "Kèlǚtàimòsītèlā",
+  "zhDef": "阿伽门农之妻，参与谋杀丈夫，与忠贞的珀涅罗珀形成鲜明对比。"
+ },
+ {
+  "term": "Cronus",
+  "pron": "/KROH-nus/",
+  "tag": "god",
+  "def": "An older god, the father of Zeus. Zeus is often called \"son of Cronus.\"",
+  "zhName": "克洛诺斯",
+  "zhPinyin": "Kèluònuòsī",
+  "zhDef": "年长的神，宙斯之父；宙斯常被称为\"克洛诺斯之子\"。"
+ },
+ {
+  "term": "Cyclops (pl. Cyclopes)",
+  "pron": "/SY-klops/",
+  "tag": "monster",
+  "def": "A giant with a single eye in the middle of his forehead. They live without laws. The most famous one is Polyphemus.",
+  "zhName": "独眼巨人",
+  "zhPinyin": "dúyǎn jùrén",
+  "zhDef": "额心仅有一目的巨人，无法无天；最著名者为波吕斐摩斯。"
+ },
+ {
+  "term": "Dawn",
+  "pron": "/dawn/",
+  "tag": "god",
+  "def": "The goddess of the morning. Wilson often calls her \"rosy-fingered Dawn,\" marking the start of a new day.",
+  "zhName": "黎明女神",
+  "zhPinyin": "límíng nǚshén",
+  "zhDef": "即厄俄斯，威尔逊常称其为\"玫瑰色手指的黎明\"，标志新一天的开始。",
+  "art": "dawn"
+ },
+ {
+  "term": "Demodocus",
+  "pron": "/dee-MOD-oh-kus/",
+  "tag": "person",
+  "def": "A blind singer (bard) at the Phaeacian court. His songs about Troy make Odysseus weep.",
+  "zhName": "得摩多科斯",
+  "zhPinyin": "Démóduōkēsī",
+  "zhDef": "费阿喀亚宫廷的盲人歌手，其特洛伊之歌使奥德修斯落泪。"
+ },
+ {
+  "term": "Egypt",
+  "pron": "/EE-jipt/",
+  "tag": "place",
+  "def": "A far-off, rich land in travelers' tales. Odysseus invents stories about going there.",
+  "zhName": "埃及",
+  "zhPinyin": "Āijí",
+  "zhDef": "旅人故事中遥远而富庶的国度；奥德修斯曾编造去过该地的经历。"
+ },
+ {
+  "term": "Elpenor",
+  "pron": "/el-PEE-nor/",
+  "tag": "person",
+  "def": "A young crewman who dies by falling off Circe's roof. His ghost begs Odysseus for a proper burial.",
+  "zhName": "厄尔佩诺耳",
+  "zhPinyin": "È'ěrpèinuò'ěr",
+  "zhDef": "从喀耳刻屋顶坠亡的年轻船员，其鬼魂恳求奥德修斯予以安葬。"
+ },
+ {
+  "term": "Eumaeus",
+  "pron": "/yoo-MEE-us/",
+  "tag": "person",
+  "def": "The loyal swineherd (pig farmer). He shelters the disguised Odysseus and helps fight the suitors.",
+  "zhName": "欧迈俄斯",
+  "zhPinyin": "Ōumài'èsī",
+  "zhDef": "忠诚的牧猪奴，收留乔装的奥德修斯，并助其铲除求婚者。"
+ },
+ {
+  "term": "Eurycleia",
+  "pron": "/yoo-rih-KLY-uh/",
+  "tag": "person",
+  "def": "Odysseus's old nurse. While washing the disguised stranger's feet, she knows him by an old scar.",
+  "zhName": "欧律克勒亚",
+  "zhPinyin": "Ōulǜkèlèyà",
+  "zhDef": "奥德修斯的老乳母，为乔装的他洗脚时凭旧疤认出主人。"
+ },
+ {
+  "term": "Eurylochus",
+  "pron": "/yoo-RIL-oh-kus/",
+  "tag": "person",
+  "def": "Odysseus's second-in-command. He often argues, panics, or makes bad choices for the crew.",
+  "zhName": "欧律罗科斯",
+  "zhPinyin": "Ōulǜluókēsī",
+  "zhDef": "奥德修斯的副手，常争辩、惊慌或为船员做出错误决定。"
+ },
+ {
+  "term": "Eurymachus",
+  "pron": "/yoo-RIM-uh-kus/",
+  "tag": "person",
+  "def": "A smooth-talking, two-faced suitor who lies easily.",
+  "zhName": "欧律马科斯",
+  "zhPinyin": "Ōulǜmǎkēsī",
+  "zhDef": "能言善辩、口蜜腹剑的求婚者。"
+ },
+ {
+  "term": "Hades",
+  "pron": "/HAY-deez/",
+  "tag": "god / place",
+  "def": "The god who rules the dead — and also the name of the underworld, the dark place where dead souls go.",
+  "zhName": "哈得斯",
+  "zhPinyin": "Hādésī",
+  "zhDef": "统治亡者的冥王，亦指死者所去的幽暗冥界。",
+  "art": "hades"
+ },
+ {
+  "term": "Helen",
+  "pron": "/HEL-en/",
+  "tag": "person",
+  "def": "The most beautiful woman in the world. Her running away with Paris started the Trojan War. Now back home in Sparta.",
+  "zhName": "海伦",
+  "zhPinyin": "Hǎilún",
+  "zhDef": "世上最美的女子，与帕里斯私奔引发特洛伊战争，如今已回到斯巴达。",
+  "art": "helen"
+ },
+ {
+  "term": "Helius",
+  "pron": "/HEE-lee-us/",
+  "tag": "god",
+  "def": "The sun god. Odysseus's starving men kill and eat his sacred cattle — a deadly mistake.",
+  "zhName": "赫利俄斯",
+  "zhPinyin": "Hèlì'èsī",
+  "zhDef": "太阳神；奥德修斯饥饿的同伴宰食了他的圣牛，铸成致命大错。"
+ },
+ {
+  "term": "Hephaestus",
+  "pron": "/heh-FESS-tus/",
+  "tag": "god",
+  "def": "The god of fire and metalworking — the blacksmith who makes things for the gods.",
+  "zhName": "赫淮斯托斯",
+  "zhPinyin": "Hèhuáisītuōsī",
+  "zhDef": "火与锻造之神，为众神打造器物的铁匠。"
+ },
+ {
+  "term": "Hera",
+  "pron": "/HEER-uh/",
+  "tag": "god",
+  "def": "The queen of the gods and wife of Zeus.",
+  "zhName": "赫拉",
+  "zhPinyin": "Hèlā",
+  "zhDef": "天后，宙斯之妻。"
+ },
+ {
+  "term": "Heracles",
+  "pron": "/HAIR-uh-kleez/",
+  "tag": "person",
+  "def": "A famous super-strong hero (also known by the Roman name Hercules).",
+  "zhName": "赫拉克勒斯",
+  "zhPinyin": "Hèlākèlèsī",
+  "zhDef": "著名的大力英雄（罗马名为赫丘利）。"
+ },
+ {
+  "term": "Hermes",
+  "pron": "/HUR-meez/",
+  "tag": "god",
+  "def": "The messenger god, who wears winged sandals and carries orders from Zeus.",
+  "zhName": "赫尔墨斯",
+  "zhPinyin": "Hè'ěrmòsī",
+  "zhDef": "传信之神，脚穿带翼凉鞋，传达宙斯的命令。",
+  "art": "hermes"
+ },
+ {
+  "term": "hospitality (xenia)",
+  "pron": "/hoss-pih-TAL-ih-tee/",
+  "tag": "idea",
+  "def": "The sacred custom of treating guests and strangers with kindness — food, a bath, a bed, a gift. Breaking it angers the gods. A central theme.",
+  "zhName": "待客之道 / 宾客之礼",
+  "zhPinyin": "dàikè zhī dào",
+  "zhDef": "善待客人与陌生人的神圣习俗（款待饮食、沐浴、留宿、馈赠）；违背者将触怒神明，是全诗核心主题。"
+ },
+ {
+  "term": "Ino (Leucothea)",
+  "pron": "/EYE-noh/",
+  "tag": "god",
+  "def": "A sea goddess who gives Odysseus a magic veil to keep him afloat in a terrible storm.",
+  "zhName": "伊诺 / 琉科忒亚",
+  "zhPinyin": "Yīnuò / Liúkētèyà",
+  "zhDef": "海中女神，赠奥德修斯神巾，助他在狂风暴雨中漂浮求生。"
+ },
+ {
+  "term": "Irus",
+  "pron": "/EYE-rus/",
+  "tag": "person",
+  "def": "A local beggar who tries to bully the disguised Odysseus, and is beaten in a fight.",
+  "zhName": "伊洛斯",
+  "zhPinyin": "Yīluòsī",
+  "zhDef": "当地乞丐，欲欺凌乔装的奥德修斯，结果被打败。"
+ },
+ {
+  "term": "Ithaca",
+  "pron": "/ITH-uh-kuh/",
+  "tag": "place",
+  "def": "Odysseus's home — the rocky island kingdom he spends the whole poem trying to reach.",
+  "zhName": "伊塔卡",
+  "zhPinyin": "Yītǎkǎ",
+  "zhDef": "奥德修斯的故乡，他穷尽全篇努力归返的多石岛国。"
+ },
+ {
+  "term": "Laertes",
+  "pron": "/lay-UR-teez/",
+  "tag": "person",
+  "def": "Odysseus's aged father, who lives alone and grieving on a country farm.",
+  "zhName": "拉厄耳忒斯",
+  "zhPinyin": "Lā'è'ěrtèsī",
+  "zhDef": "奥德修斯年迈的父亲，独自悲居乡间农庄。"
+ },
+ {
+  "term": "Laestrygonians",
+  "pron": "/less-trih-GOH-nee-ans/",
+  "tag": "monster",
+  "def": "Giant cannibals who smash and eat the crews of all but one of Odysseus's ships.",
+  "zhName": "莱斯特律戈涅斯人",
+  "zhPinyin": "Láisītèlǜgēnièsī rén",
+  "zhDef": "食人巨人，摧毁并吞食了奥德修斯除一艘外的全部船队。"
+ },
+ {
+  "term": "libation",
+  "pron": "/ly-BAY-shun/",
+  "tag": "thing",
+  "def": "Pouring out a little wine on the ground as a gift to the gods before drinking.",
+  "zhName": "奠酒",
+  "zhPinyin": "diànjiǔ",
+  "zhDef": "饮酒前把少许酒洒在地上献给神灵的仪式。"
+ },
+ {
+  "term": "Lotus-Eaters",
+  "pron": "/LOH-tus EE-ters/",
+  "tag": "people",
+  "def": "A peaceful people who eat a flower that makes visitors forget home and never want to leave.",
+  "zhName": "食莲族",
+  "zhPinyin": "shíliánzú",
+  "zhDef": "性情平和的部族，食用一种使人忘乡、不愿离去的莲花。"
+ },
+ {
+  "term": "lyre",
+  "pron": "/LY-er/",
+  "tag": "thing",
+  "def": "A small harp-like string instrument that singers play while telling stories.",
+  "zhName": "里拉琴",
+  "zhPinyin": "lǐlāqín",
+  "zhDef": "形似小竖琴的弦乐器，歌手讲故事时弹奏。"
+ },
+ {
+  "term": "Melanthius",
+  "pron": "/meh-LAN-thee-us/",
+  "tag": "person",
+  "def": "A disloyal goatherd who insults and kicks the disguised Odysseus and sides with the suitors.",
+  "zhName": "墨兰透斯",
+  "zhPinyin": "Mòlántòusī",
+  "zhDef": "不忠的牧羊奴，辱骂、踢打乔装的奥德修斯，投靠求婚者。"
+ },
+ {
+  "term": "Menelaus",
+  "pron": "/men-eh-LAY-us/",
+  "tag": "person",
+  "def": "King of Sparta, husband of Helen, brother of Agamemnon. Telemachus visits him for news.",
+  "zhName": "墨涅拉俄斯",
+  "zhPinyin": "Mònièlā'èsī",
+  "zhDef": "斯巴达国王，海伦之夫，阿伽门农之弟；忒勒马科斯曾往访探询消息。"
+ },
+ {
+  "term": "Mentor",
+  "pron": "/MEN-tor/",
+  "tag": "person",
+  "def": "An old friend of Odysseus. Athena often takes his form to advise Telemachus. (The English word \"mentor\" comes from this name.)",
+  "zhName": "门托耳",
+  "zhPinyin": "Méntuō'ěr",
+  "zhDef": "奥德修斯的老友，雅典娜常化作他来指点忒勒马科斯（英文\"mentor\"一词即源于此名）。"
+ },
+ {
+  "term": "Muse",
+  "pron": "/myooz/",
+  "tag": "god",
+  "def": "A goddess who gives poets their inspiration. The poem opens by asking the Muse to tell the story.",
+  "zhName": "缪斯",
+  "zhPinyin": "Miùsī",
+  "zhDef": "赐予诗人灵感的女神；全诗开篇即祈请缪斯讲述这个故事。",
+  "art": "muse"
+ },
+ {
+  "term": "Nausicaa",
+  "pron": "/naw-SIK-ay-uh/",
+  "tag": "person",
+  "def": "A young Phaeacian princess who finds the shipwrecked Odysseus on the beach and leads him to her parents' palace.",
+  "zhName": "瑙西卡",
+  "zhPinyin": "Nǎoxīkǎ",
+  "zhDef": "费阿喀亚年轻公主，在海滩发现遇难的奥德修斯，引他前往父母的宫殿。",
+  "art": "nausicaa"
+ },
+ {
+  "term": "nectar",
+  "pron": "/NEK-ter/",
+  "tag": "thing",
+  "def": "The special drink of the gods (the partner of ambrosia).",
+  "zhName": "神饮 / 琼浆",
+  "zhPinyin": "shényǐn",
+  "zhDef": "神所饮用的饮料，与神食相配。"
+ },
+ {
+  "term": "Nestor",
+  "pron": "/NESS-tor/",
+  "tag": "person",
+  "def": "The very old, wise king of Pylos who fought at Troy. Telemachus visits him for news of his father.",
+  "zhName": "涅斯托耳",
+  "zhPinyin": "Nièsītuō'ěr",
+  "zhDef": "年迈睿智的皮洛斯国王，曾征战特洛伊；忒勒马科斯往访探询父讯。"
+ },
+ {
+  "term": "nymph",
+  "pron": "/nimf/",
+  "tag": "thing",
+  "def": "A minor female nature-goddess linked to a place such as a spring, river, or wood. Calypso is one.",
+  "zhName": "宁芙 / 山林水泽女神",
+  "zhPinyin": "níngfú",
+  "zhDef": "与泉、河、林等自然之地相关的次级女神，卡吕普索即为其一。"
+ },
+ {
+  "term": "Nobody",
+  "pron": "/NOH-bod-ee/",
+  "tag": "trick",
+  "def": "The false name Odysseus gives the Cyclops. So when the blinded giant shouts \"Nobody is hurting me!\" no neighbours come to help.",
+  "zhName": "\"无人\" / 没有人",
+  "zhPinyin": "méiyǒu rén",
+  "zhDef": "奥德修斯骗独眼巨人时所报的假名；故当被刺瞎的巨人喊\"没有人在害我\"时，无人前来相助。"
+ },
+ {
+  "term": "Odysseus",
+  "pron": "/oh-DISS-ee-us/",
+  "tag": "hero",
+  "def": "The hero of the poem: the clever, daring king of Ithaca who spends ten years struggling home after the Trojan War.",
+  "zhName": "奥德修斯",
+  "zhPinyin": "Àodéxiūsī",
+  "zhDef": "史诗主角，机智勇敢的伊塔卡国王，特洛伊战后历经十年艰险返乡。",
+  "art": "odysseus"
+ },
+ {
+  "term": "Ogygia",
+  "pron": "/oh-JIH-jee-uh/",
+  "tag": "place",
+  "def": "Calypso's lonely island, where Odysseus is trapped for seven years.",
+  "zhName": "俄吉吉亚",
+  "zhPinyin": "Éjíjíyà",
+  "zhDef": "卡吕普索孤寂的海岛，奥德修斯被困于此七年。"
+ },
+ {
+  "term": "Olympus",
+  "pron": "/oh-LIM-pus/",
+  "tag": "place",
+  "def": "The high mountain where the gods live.",
+  "zhName": "奥林波斯山",
+  "zhPinyin": "Àolínbōsī shān",
+  "zhDef": "众神居住的高山。"
+ },
+ {
+  "term": "omen",
+  "pron": "/OH-men/",
+  "tag": "idea",
+  "def": "A sign — often an eagle or other bird — believed to reveal what the gods plan.",
+  "zhName": "预兆",
+  "zhPinyin": "yùzhào",
+  "zhDef": "被认为显示神意的征兆，常表现为雄鹰等飞鸟。"
+ },
+ {
+  "term": "Orestes",
+  "pron": "/oh-RESS-teez/",
+  "tag": "person",
+  "def": "Agamemnon's son, who grows up and takes revenge for his murdered father. He is held up as a model for Telemachus.",
+  "zhName": "俄瑞斯忒斯",
+  "zhPinyin": "Éruìsītèsī",
+  "zhDef": "阿伽门农之子，长大后为遇害的父亲复仇，被树为忒勒马科斯的榜样。"
+ },
+ {
+  "term": "Penelope",
+  "pron": "/puh-NEL-oh-pee/",
+  "tag": "person",
+  "def": "Odysseus's faithful and clever wife. She holds off dozens of suitors for years with patience and tricks.",
+  "zhName": "珀涅罗珀",
+  "zhPinyin": "Pònièluópò",
+  "zhDef": "奥德修斯忠贞而聪慧的妻子，以耐心与智计周旋于众多求婚者之间多年。",
+  "art": "penelope"
+ },
+ {
+  "term": "Persephone",
+  "pron": "/per-SEF-oh-nee/",
+  "tag": "god",
+  "def": "The queen of the underworld, who rules the dead with Hades.",
+  "zhName": "珀耳塞福涅",
+  "zhPinyin": "Pò'ěrsàifúniè",
+  "zhDef": "冥后，与哈得斯共治亡者之国。",
+  "art": "persephone"
+ },
+ {
+  "term": "Phaeacians",
+  "pron": "/fee-AY-shuns/",
+  "tag": "people",
+  "def": "A friendly, sea-loving people whose ships are almost magic. They listen to Odysseus's tale and carry him home. (Their land is Scheria.)",
+  "zhName": "费阿喀亚人",
+  "zhPinyin": "Fèi'ākāyà rén",
+  "zhDef": "友善、热爱航海的民族，其船近乎神奇；他们听罢奥德修斯的故事后送他归乡（其国为斯刻里亚）。"
+ },
+ {
+  "term": "Phemius",
+  "pron": "/FEE-mee-us/",
+  "tag": "person",
+  "def": "A singer forced to perform for the suitors in Odysseus's hall. Odysseus spares his life in the end.",
+  "zhName": "菲弥俄斯",
+  "zhPinyin": "Fēimí'èsī",
+  "zhDef": "被迫在奥德修斯厅堂为求婚者献唱的歌手，最终获奥德修斯赦免。"
+ },
+ {
+  "term": "Polyphemus",
+  "pron": "/pol-ih-FEE-mus/",
+  "tag": "monster",
+  "def": "The man-eating Cyclops (one-eyed giant), a son of Poseidon. Odysseus blinds him to escape his cave — which earns Poseidon's anger.",
+  "zhName": "波吕斐摩斯",
+  "zhPinyin": "Bōlǚfěimósī",
+  "zhDef": "食人的独眼巨人，波塞冬之子；奥德修斯刺瞎他以逃出山洞，因而招致波塞冬的愤怒。",
+  "art": "polyphemus"
+ },
+ {
+  "term": "Poseidon",
+  "pron": "/poh-SY-dun/",
+  "tag": "god",
+  "def": "The powerful god of the sea and earthquakes. He hates Odysseus for blinding his son and keeps him from home.",
+  "zhName": "波塞冬",
+  "zhPinyin": "Bōsàidōng",
+  "zhDef": "威力强大的海洋与地震之神；因儿子被刺瞎而仇视奥德修斯，百般阻其归乡。",
+  "art": "poseidon"
+ },
+ {
+  "term": "prophecy",
+  "pron": "/PROF-uh-see/",
+  "tag": "idea",
+  "def": "A message telling the future, usually sent by the gods. A person who gives one is a prophet or seer.",
+  "zhName": "预言",
+  "zhPinyin": "yùyán",
+  "zhDef": "预告未来的话语，多由神明降下；传达预言者称先知或预言家。"
+ },
+ {
+  "term": "Proteus",
+  "pron": "/PROH-tee-us/",
+  "tag": "god",
+  "def": "The \"Old Man of the Sea,\" a god who changes shape to escape questions but must answer if held tight.",
+  "zhName": "普罗透斯",
+  "zhPinyin": "Pǔluótòusī",
+  "zhDef": "\"海中老人\"，善变形以躲避盘问，但被紧紧擒住后必须作答。"
+ },
+ {
+  "term": "Pylos",
+  "pron": "/PY-loss/",
+  "tag": "place",
+  "def": "Nestor's seaside kingdom, the first place Telemachus sails to for news.",
+  "zhName": "皮洛斯",
+  "zhPinyin": "Píluòsī",
+  "zhDef": "涅斯托耳的海滨王国，忒勒马科斯出海探讯的第一站。"
+ },
+ {
+  "term": "Scheria",
+  "pron": "/SKEER-ee-uh/",
+  "tag": "place",
+  "def": "The island land of the Phaeacians, Odysseus's last stop before he finally reaches Ithaca.",
+  "zhName": "斯刻里亚",
+  "zhPinyin": "Sīkèlǐyà",
+  "zhDef": "费阿喀亚人的海岛之国，奥德修斯抵达伊塔卡前的最后一站。"
+ },
+ {
+  "term": "Scylla",
+  "pron": "/SIL-uh/",
+  "tag": "monster",
+  "def": "A six-headed monster living on a cliff. She snatches and eats six of Odysseus's men as the ship passes.",
+  "zhName": "斯库拉",
+  "zhPinyin": "Sīkùlā",
+  "zhDef": "栖于峭壁、长有六头的怪物；船只经过时，她攫食了奥德修斯的六名同伴。",
+  "art": "scylla"
+ },
+ {
+  "term": "shroud",
+  "pron": "/shrowd/",
+  "tag": "thing",
+  "def": "A cloth for covering a dead body. Penelope says she must finish weaving one before she can remarry — then secretly unpicks it each night.",
+  "zhName": "裹尸布",
+  "zhPinyin": "guǒshībù",
+  "zhDef": "包裹尸体的布；珀涅罗珀诡称织完才肯改嫁，却夜夜偷偷拆解。"
+ },
+ {
+  "term": "Sirens",
+  "pron": "/SY-renz/",
+  "tag": "monster",
+  "def": "Creatures whose beautiful singing lures sailors to steer onto the rocks and die. Odysseus has himself tied to the mast to hear them safely.",
+  "zhName": "塞壬",
+  "zhPinyin": "Sāirén",
+  "zhDef": "以美妙歌声诱使水手触礁丧命的海妖；奥德修斯命人把自己绑在桅杆上，以便安全聆听。",
+  "art": "sirens"
+ },
+ {
+  "term": "Sparta",
+  "pron": "/SPAR-tuh/",
+  "tag": "place",
+  "def": "The kingdom of Menelaus and Helen, which Telemachus visits.",
+  "zhName": "斯巴达",
+  "zhPinyin": "Sībādá",
+  "zhDef": "墨涅拉俄斯与海伦的王国，忒勒马科斯曾往访。"
+ },
+ {
+  "term": "suitors",
+  "pron": "/SOO-ters/",
+  "tag": "people",
+  "def": "The crowd of rude young men who fill Odysseus's house, eat his food, and pressure Penelope to marry one of them.",
+  "zhName": "求婚者",
+  "zhPinyin": "qiúhūnzhě",
+  "zhDef": "一群无礼的年轻人，占据奥德修斯的家、耗食其财，逼迫珀涅罗珀从中择一改嫁。"
+ },
+ {
+  "term": "Telemachus",
+  "pron": "/tuh-LEM-uh-kus/",
+  "tag": "person",
+  "def": "The son of Odysseus and Penelope. The poem follows him as he grows up and sails out to seek news of his father.",
+  "zhName": "忒勒马科斯",
+  "zhPinyin": "Tèlèmǎkēsī",
+  "zhDef": "奥德修斯与珀涅罗珀之子；诗中追随他逐渐成长、出海寻访父亲的消息。"
+ },
+ {
+  "term": "Tiresias",
+  "pron": "/ty-REE-see-us/",
+  "tag": "person",
+  "def": "A famous blind prophet. Odysseus journeys to the land of the dead to ask his ghost the way home.",
+  "zhName": "忒瑞西阿斯",
+  "zhPinyin": "Tèruìxī'āsī",
+  "zhDef": "著名的盲眼先知；奥德修斯远赴冥界，向其鬼魂问询归途。",
+  "art": "tiresias"
+ },
+ {
+  "term": "Troy",
+  "pron": "/troy/",
+  "tag": "place",
+  "def": "The great city where the Greeks fought a ten-year war that ends just before the poem starts.",
+  "zhName": "特洛伊",
+  "zhPinyin": "Tèluòyī",
+  "zhDef": "希腊人鏖战十年的雄城，战事于全诗开篇前不久方告结束。"
+ },
+ {
+  "term": "Trojan Horse",
+  "pron": "/TROH-jun hors/",
+  "tag": "thing",
+  "def": "The giant hollow wooden horse, full of hidden soldiers, that Odysseus used to capture Troy.",
+  "zhName": "特洛伊木马",
+  "zhPinyin": "Tèluòyī mùmǎ",
+  "zhDef": "内藏伏兵的巨型空心木马，奥德修斯借此攻陷特洛伊。",
+  "art": "trojan_horse"
+ },
+ {
+  "term": "Zeus",
+  "pron": "/zooss/",
+  "tag": "god",
+  "def": "The king of all the gods; god of the sky, of storms, and of justice. He especially protects guests and strangers.",
+  "zhName": "宙斯",
+  "zhPinyin": "Zhòusī",
+  "zhDef": "众神之王，天空、雷霆与正义之神，尤其护佑宾客与异乡人。",
+  "art": "zeus"
+ }
+]

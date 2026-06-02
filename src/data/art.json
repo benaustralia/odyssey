@@ -1,0 +1,156 @@
+{
+  "sirens": {
+    "file": "/art/sirens.jpg",
+    "artist": "Herbert James Draper",
+    "title": "Ulysses and the Sirens",
+    "year": "1909",
+    "source": "https://commons.wikimedia.org/wiki/File:Herbert-James-Draper-Ulysses-and-the-Sirens.jpg"
+  },
+  "circe": {
+    "file": "/art/circe.jpg",
+    "artist": "John William Waterhouse",
+    "title": "Circe Offering the Cup to Ulysses",
+    "year": "1891",
+    "source": "https://commons.wikimedia.org/wiki/File:Circe_Offering_the_Cup_to_Odysseus.jpg"
+  },
+  "calypso": {
+    "file": "/art/calypso.jpg",
+    "artist": "Arnold Böcklin",
+    "title": "Odysseus and Calypso",
+    "year": "1883",
+    "source": "https://commons.wikimedia.org/wiki/File:Arnold_B%C3%B6cklin_008.jpg"
+  },
+  "polyphemus": {
+    "file": "/art/polyphemus.jpg",
+    "artist": "J. M. W. Turner",
+    "title": "Ulysses deriding Polyphemus",
+    "year": "1829",
+    "source": "https://commons.wikimedia.org/wiki/File:London_National_Gallery_Turner_Ulysses_deriding_Polyphemus.jpg"
+  },
+  "penelope": {
+    "file": "/art/penelope.jpg",
+    "artist": "John William Waterhouse",
+    "title": "Penelope and the Suitors",
+    "year": "1912",
+    "source": "https://commons.wikimedia.org/wiki/File:JohnWilliamWaterhouse-PenelopeandtheSuitors(1912).jpg"
+  },
+  "athena": {
+    "file": "/art/athena.jpg",
+    "artist": "Gustav Klimt",
+    "title": "Pallas Athene",
+    "year": "1898",
+    "source": "https://commons.wikimedia.org/wiki/File:Klimt_-_Pallas_Athene.jpeg"
+  },
+  "poseidon": {
+    "file": "/art/poseidon.jpg",
+    "artist": "Unknown (Severe style)",
+    "title": "The Artemision Bronze (Zeus or Poseidon)",
+    "year": "c. 460 BC",
+    "source": "https://commons.wikimedia.org/wiki/File:Bronze_Zeus_or_Poseidon_NAMA_X_15161_Athens_Greece.jpg"
+  },
+  "zeus": {
+    "file": "/art/zeus.jpg",
+    "artist": "Roman, after Greek original",
+    "title": "Zeus (Jupiter of Smyrna)",
+    "year": "2nd c. AD",
+    "source": "https://commons.wikimedia.org/wiki/File:Jupiter_Smyrna_Louvre_Ma13.jpg"
+  },
+  "tiresias": {
+    "file": "/art/tiresias.jpg",
+    "artist": "Henry Fuseli",
+    "title": "Tiresias Foretells the Future to Odysseus",
+    "year": "c. 1800",
+    "source": "https://commons.wikimedia.org/wiki/File:John_Henry_Fuseli_-_Teiresias_Foretells_the_Future_to_Odysseus,_1780-1785_-_Google_Art_Project.jpg"
+  },
+  "trojan_horse": {
+    "file": "/art/trojan_horse.jpg",
+    "artist": "Giovanni Domenico Tiepolo",
+    "title": "The Procession of the Trojan Horse into Troy",
+    "year": "c. 1760",
+    "source": "https://commons.wikimedia.org/wiki/File:The_Procession_of_the_Trojan_Horse_in_Troy_by_Giovanni_Domenico_Tiepolo_(cropped).jpg"
+  },
+  "nausicaa": {
+    "file": "/art/nausicaa.jpg",
+    "artist": "Frederic Leighton",
+    "title": "Nausicaa",
+    "year": "1878",
+    "source": "https://commons.wikimedia.org/wiki/File:1878_Frederick_Leighton_-_Nausicaa.jpg"
+  },
+  "persephone": {
+    "file": "/art/persephone.jpg",
+    "artist": "Dante Gabriel Rossetti",
+    "title": "Proserpine",
+    "year": "1874",
+    "source": "https://commons.wikimedia.org/wiki/File:Dante_Gabriel_Rossetti_-_Proserpine_-_Google_Art_Project.jpg"
+  },
+  "helen": {
+    "file": "/art/helen.jpg",
+    "artist": "Evelyn De Morgan",
+    "title": "Helen of Troy",
+    "year": "1898",
+    "source": "https://commons.wikimedia.org/wiki/File:Helen_of_Troy.jpg"
+  },
+  "aphrodite": {
+    "file": "/art/aphrodite.jpg",
+    "artist": "Sandro Botticelli",
+    "title": "The Birth of Venus",
+    "year": "c. 1485",
+    "source": "https://commons.wikimedia.org/wiki/File:Sandro_Botticelli_046.jpg"
+  },
+  "ares": {
+    "file": "/art/ares.jpg",
+    "artist": "Diego Velázquez",
+    "title": "Mars Resting",
+    "year": "c. 1640",
+    "source": "https://commons.wikimedia.org/wiki/File:Diego_Vel%C3%A1zquez_-_Mars,_God_of_War_-_WGA24429.jpg"
+  },
+  "hermes": {
+    "file": "/art/hermes.jpg",
+    "artist": "Giambologna",
+    "title": "Mercury",
+    "year": "1580",
+    "source": "https://commons.wikimedia.org/wiki/File:Mercurius_by_Giambologna-Bargello.jpg"
+  },
+  "hades": {
+    "file": "/art/hades.jpg",
+    "artist": "Gian Lorenzo Bernini",
+    "title": "The Rape of Proserpina",
+    "year": "1622",
+    "source": "https://commons.wikimedia.org/wiki/File:Rape_of_Prosepina_September_2015-3a.jpg"
+  },
+  "scylla": {
+    "file": "/art/scylla.jpg",
+    "artist": "J. M. W. Turner",
+    "title": "Glaucus and Scylla",
+    "year": "1841",
+    "source": "https://commons.wikimedia.org/wiki/File:(Barcelona)_Glaucus_and_Scylla_-_1810-15_-_William_Turner_-_Tate_Britain.jpg"
+  },
+  "agamemnon": {
+    "file": "/art/agamemnon.jpg",
+    "artist": "Mycenaean Greek",
+    "title": "The Mask of Agamemnon",
+    "year": "c. 1550 BC",
+    "source": "https://commons.wikimedia.org/wiki/File:Agamemnon_mask_NAMA_Athens_Greece.jpg"
+  },
+  "dawn": {
+    "file": "/art/dawn.jpg",
+    "artist": "Evelyn De Morgan",
+    "title": "Aurora Triumphans",
+    "year": "1886",
+    "source": "https://commons.wikimedia.org/wiki/File:Morgan,_Evelyn_de_-_Aurora_Triumphans_-_c._1886.jpg"
+  },
+  "odysseus": {
+    "file": "/art/odysseus.jpg",
+    "artist": "Hellenistic Greek",
+    "title": "Head of Odysseus (Sperlonga)",
+    "year": "2nd c. BC",
+    "source": "https://commons.wikimedia.org/wiki/File:Head_Odysseus_MAR_Sperlonga.jpg"
+  },
+  "muse": {
+    "file": "/art/muse.jpg",
+    "artist": "Eustache Le Sueur",
+    "title": "Melpomene, Erato and Polymnia",
+    "year": "c. 1652",
+    "source": "https://commons.wikimedia.org/wiki/File:Eustache_Le_Sueur_002.jpg"
+  }
+}
