@@ -1,5 +1,15 @@
 import { useEffect, useMemo, useState } from "react"
-import { ChevronLeft, ChevronRight, Search } from "lucide-react"
+import { Search } from "lucide-react"
+import Lightbox from "yet-another-react-lightbox"
+import Captions from "yet-another-react-lightbox/plugins/captions"
+import Counter from "yet-another-react-lightbox/plugins/counter"
+import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen"
+import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails"
+import Zoom from "yet-another-react-lightbox/plugins/zoom"
+import "yet-another-react-lightbox/styles.css"
+import "yet-another-react-lightbox/plugins/captions.css"
+import "yet-another-react-lightbox/plugins/counter.css"
+import "yet-another-react-lightbox/plugins/thumbnails.css"
 import glossaryData from "@/data/glossary.json"
 import artData from "@/data/art.json"
 
@@ -47,6 +57,7 @@ function App() {
   const [query, setQuery] = useState("")
   const [cat, setCat] = useState("all")
   const [selected, setSelected] = useState<Entry | null>(null)
+  const [lbIndex, setLbIndex] = useState(-1) // >=0 => lightbox open at that slide
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
@@ -64,17 +75,23 @@ function App() {
     })
   }, [query, cat])
 
-  // close the modal on Escape (the rest of the lightbox is DaisyUI's carousel)
+  // Esc closes the info panel — but only when the lightbox isn't open (it has its own Esc)
   useEffect(() => {
     if (!selected) return
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setSelected(null)
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && lbIndex < 0) setSelected(null)
+    }
     window.addEventListener("keydown", onKey)
     return () => window.removeEventListener("keydown", onKey)
-  }, [selected])
+  }, [selected, lbIndex])
 
   const sel = selected
   const selArts = artsOf(sel)
-  const n = selArts.length
+  const slides = selArts.map((a) => ({
+    src: a.file,
+    title: a.title,
+    description: `${a.artist}${a.year ? `, ${a.year}` : ""} · Public domain (Wikimedia Commons)`,
+  }))
 
   return (
     <div className="min-h-screen bg-base-100 text-base-content">
@@ -122,12 +139,7 @@ function App() {
           </label>
 
           <form className="filter" onReset={() => setCat("all")} aria-label="Filter by category">
-            <input
-              className="btn btn-sm btn-square"
-              type="reset"
-              value="×"
-              aria-label="All categories"
-            />
+            <input className="btn btn-sm btn-square" type="reset" value="×" aria-label="All categories" />
             {CATEGORIES.filter((c) => c.id !== "all").map((c) => (
               <input
                 key={c.id}
@@ -162,7 +174,10 @@ function App() {
                 <button
                   key={e.term}
                   type="button"
-                  onClick={() => setSelected(e)}
+                  onClick={() => {
+                    setSelected(e)
+                    setLbIndex(-1)
+                  }}
                   aria-label={`Open ${e.term}`}
                   className="card card-border flex h-full w-full cursor-pointer flex-col overflow-hidden border-base-300 bg-base-200 text-left shadow-md transition-shadow duration-300 hover:shadow-xl"
                 >
@@ -215,85 +230,60 @@ function App() {
             (W.&nbsp;W.&nbsp;Norton).
           </p>
           <p className="text-sm opacity-80">
-            Artworks are in the public domain, via Wikimedia Commons. Built with React, Vite
-            &amp; DaisyUI.
+            Artworks are in the public domain, via Wikimedia Commons. Built with React, Vite,
+            DaisyUI &amp; yet-another-react-lightbox.
           </p>
         </aside>
       </footer>
 
-      {/* ---------- Detail modal — DaisyUI carousel lightbox ---------- */}
+      {/* ---------- Info panel (DaisyUI) ---------- */}
       <dialog className={`modal ${sel ? "modal-open" : ""}`} aria-label={sel?.term}>
-        <div className="modal-box max-h-[90vh] max-w-3xl overflow-y-auto">
+        <div className="modal-box max-h-[90vh] max-w-2xl overflow-y-auto">
           {sel && (
             <>
               <button
                 onClick={() => setSelected(null)}
-                className="btn btn-circle btn-sm absolute right-2 top-2 z-10"
+                className="btn btn-circle btn-sm absolute right-3 top-3 z-10"
                 aria-label="Close"
               >
                 ✕
               </button>
 
-              {/* official DaisyUI carousel: native swipe + anchor prev/next */}
-              {n > 0 && (
-                <div className="carousel w-full rounded-box border border-base-300 bg-black/40">
+              {selArts[0] && (
+                <button
+                  type="button"
+                  onClick={() => setLbIndex(0)}
+                  aria-label="View artwork full screen"
+                  className="group block w-full overflow-hidden rounded-box border border-base-300"
+                >
+                  <img
+                    src={selArts[0].file}
+                    alt={selArts[0].title}
+                    className="aspect-[3/2] w-full bg-black/30 object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                  />
+                </button>
+              )}
+
+              {selArts.length > 1 && (
+                <div className="mt-3 flex gap-2 overflow-x-auto">
                   {selArts.map((a, i) => (
-                    <div
+                    <button
                       key={a.file}
-                      id={`slide-${i}`}
-                      className="carousel-item w-full flex-col p-3"
+                      type="button"
+                      onClick={() => setLbIndex(i)}
+                      aria-label={`View painting ${i + 1}: ${a.title}`}
+                      className="size-16 shrink-0 overflow-hidden rounded ring-offset-2 ring-offset-base-100 hover:ring-2 hover:ring-primary"
                     >
-                      <div className="relative w-full">
-                        <img
-                          src={a.file}
-                          alt={a.title}
-                          className="mx-auto max-h-[55vh] w-full object-contain"
-                        />
-                      {n > 1 && (
-                        <div className="absolute inset-x-2 top-1/2 flex -translate-y-1/2 justify-between">
-                          <a
-                            href={`#slide-${(i - 1 + n) % n}`}
-                            className="btn btn-circle btn-sm border-none bg-base-100/70 hover:bg-base-100"
-                            aria-label="Previous painting"
-                          >
-                            <ChevronLeft className="size-4" />
-                          </a>
-                          <a
-                            href={`#slide-${(i + 1) % n}`}
-                            className="btn btn-circle btn-sm border-none bg-base-100/70 hover:bg-base-100"
-                            aria-label="Next painting"
-                          >
-                            <ChevronRight className="size-4" />
-                          </a>
-                        </div>
-                      )}
-                      </div>
-                      <figcaption className="w-full px-4 py-3 text-xs opacity-90">
-                        <span>{a.artist}</span>, <em>{a.title}</em>
-                        {a.year ? `, ${a.year}` : ""}.{" "}
-                        <a href={a.source} target="_blank" rel="noreferrer" className="link link-primary">
-                          Public domain · Wikimedia Commons
-                        </a>
-                      </figcaption>
-                    </div>
+                      <img src={a.file} alt="" className="size-full object-cover" />
+                    </button>
                   ))}
                 </div>
               )}
 
-              {/* thumbnail jumps (click to change) */}
-              {n > 1 && (
-                <div className="mt-3 flex gap-2 overflow-x-auto">
-                  {selArts.map((a, i) => (
-                    <a
-                      key={a.file}
-                      href={`#slide-${i}`}
-                      className="h-16 w-16 shrink-0 overflow-hidden rounded opacity-70 hover:opacity-100"
-                      aria-label={`Show painting ${i + 1}: ${a.title}`}
-                    >
-                      <img src={a.file} alt="" className="h-full w-full object-cover" />
-                    </a>
-                  ))}
-                </div>
+              {selArts.length > 0 && (
+                <p className="mt-2 text-xs opacity-70">
+                  {selArts.length} {selArts.length === 1 ? "work" : "works"} · tap an image to view full screen
+                </p>
               )}
 
               <div className="mt-5">
@@ -321,6 +311,18 @@ function App() {
           close
         </button>
       </dialog>
+
+      {/* ---------- Full-screen image viewer (yet-another-react-lightbox) ---------- */}
+      <Lightbox
+        open={!!sel && lbIndex >= 0}
+        index={lbIndex < 0 ? 0 : lbIndex}
+        close={() => setLbIndex(-1)}
+        slides={slides}
+        plugins={[Thumbnails, Captions, Counter, Zoom, Fullscreen]}
+        counter={{ container: { style: { top: "unset", bottom: 0 } } }}
+        captions={{ descriptionTextAlign: "center", showToggle: true }}
+        carousel={{ finite: slides.length <= 1 }}
+      />
     </div>
   )
 }
