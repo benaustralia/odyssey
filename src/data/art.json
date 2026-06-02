@@ -69,13 +69,6 @@
   "year": "c. 530 BC",
   "source": "https://commons.wikimedia.org/wiki/File:Exekias_Suicide_d_Ajax_01.jpg"
  },
- "alcinous-1": {
-  "file": "/art/alcinous-1.jpg",
-  "artist": "Francesco Hayez",
-  "title": "Ulysses at the Court of Alcinous",
-  "year": "1815",
-  "source": "https://commons.wikimedia.org/wiki/File:Francesco_Hayez_028.jpg"
- },
  "ambrosia-1": {
   "file": "/art/ambrosia-1.jpg",
   "artist": "Giovanni Bellini",
@@ -552,13 +545,6 @@
   "year": "1891",
   "source": "https://commons.wikimedia.org/wiki/File:Frederic_Leighton_-_The_Return_of_Persephone_(1891).jpg"
  },
- "phaeacians-1": {
-  "file": "/art/phaeacians-1.jpg",
-  "artist": "Francesco Hayez",
-  "title": "Ulysses at the Court of Alcinous",
-  "year": "1815",
-  "source": "https://commons.wikimedia.org/wiki/File:Francesco_Hayez_028.jpg"
- },
  "phemius-1": {
   "file": "/art/phemius-1.jpg",
   "artist": "Greek",
@@ -607,13 +593,6 @@
   "title": "Fresco from the Palace of Nestor",
   "year": "c. 1300 BC",
   "source": "https://commons.wikimedia.org/wiki/File:Lyre_Player_and_Bird_Fresco_from_Pylos_Throne_Room.jpg"
- },
- "scheria-1": {
-  "file": "/art/scheria-1.jpg",
-  "artist": "Francesco Hayez",
-  "title": "Ulysses at the Court of Alcinous",
-  "year": "1815",
-  "source": "https://commons.wikimedia.org/wiki/File:Francesco_Hayez_028.jpg"
  },
  "scylla-1": {
   "file": "/art/scylla-1.jpg",
@@ -1408,5 +1387,20 @@
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Statue_of_Odysseus_beneath_the_ram_(Torlonia_MT_438)_03.jpg",
   "license": "CC BY 4.0"
+ },
+ "scheria-2": {
+  "file": "/art/scheria-2.jpg",
+  "artist": "Claude Lorrain",
+  "title": "Coast Scene with the Embarkation of Ulysses",
+  "year": "1644",
+  "source": "https://commons.wikimedia.org/wiki/File:Lorrain_-_Coast_Scene_with_the_Embarkation_of_Saint_Paul,_1653%E2%80%931655.jpg",
+  "license": "CC BY-SA 4.0"
+ },
+ "alcinous-2": {
+  "file": "/art/alcinous-2.jpg",
+  "artist": "August Malmström",
+  "title": "Odysseus before Alcinous, King of the Phaeacians",
+  "year": "1853",
+  "source": "https://commons.wikimedia.org/wiki/File:Odysseus_before_Alcinous,_King_of_the_Phaeacians_(August_Malmstr%C3%B6m)_-_Nationalmuseum_-_117888.tif"
  }
 }
