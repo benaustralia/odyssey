@@ -32,7 +32,7 @@ const CATEGORIES = [
   { id: "gods", label: "Gods" },
   { id: "mortals", label: "Mortals" },
   { id: "monsters", label: "Monsters" },
-  { id: "world", label: "Places & Things" },
+  { id: "world", label: "World" },
 ]
 
 function categoryOf(tag: string): string {
@@ -132,7 +132,7 @@ function App() {
             {CATEGORIES.filter((c) => c.id !== "all").map((c) => (
               <input
                 key={c.id}
-                className="btn btn-sm px-2 text-xs sm:px-3 sm:text-sm"
+                className="btn btn-sm"
                 type="radio"
                 name="category"
                 aria-label={c.label}
