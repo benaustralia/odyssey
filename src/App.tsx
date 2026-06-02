@@ -126,12 +126,17 @@ function App() {
             />
           </label>
 
-          <form className="filter" onReset={() => setCat("all")} aria-label="Filter by category">
-            <input className="btn btn-sm btn-square" type="reset" value="×" aria-label="All categories" />
+          <form
+            className="filter w-full flex-nowrap overflow-x-auto whitespace-nowrap pb-1 [&::-webkit-scrollbar]:hidden lg:w-auto lg:overflow-visible"
+            style={{ scrollbarWidth: "none" }}
+            onReset={() => setCat("all")}
+            aria-label="Filter by category"
+          >
+            <input className="btn btn-sm btn-square shrink-0" type="reset" value="×" aria-label="All categories" />
             {CATEGORIES.filter((c) => c.id !== "all").map((c) => (
               <input
                 key={c.id}
-                className="btn btn-sm"
+                className="btn btn-sm shrink-0"
                 type="radio"
                 name="category"
                 aria-label={c.label}
