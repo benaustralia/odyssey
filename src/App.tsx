@@ -148,7 +148,7 @@ function App() {
             Nothing found on these shores.
           </p>
         ) : (
-          <div className="columns-1 gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {filtered.map((e) => {
               const arts = artsOf(e)
               const cover = arts[0]
@@ -158,16 +158,16 @@ function App() {
                   type="button"
                   onClick={() => setSelected(e)}
                   aria-label={`Open ${e.term}`}
-                  className="card card-border block w-full cursor-pointer overflow-hidden border-base-300 bg-base-200 text-left shadow-md transition-shadow duration-300 hover:shadow-xl"
+                  className="card card-border flex h-full w-full cursor-pointer flex-col overflow-hidden border-base-300 bg-base-200 text-left shadow-md transition-shadow duration-300 hover:shadow-xl"
                 >
                   {cover && (
-                    <figure className="relative overflow-hidden">
+                    <figure className="relative aspect-[4/3] overflow-hidden">
                       <img
                         src={cover.file}
                         alt={cover.title}
                         loading="lazy"
                         decoding="async"
-                        className="w-full object-cover transition-transform duration-[1200ms] ease-out hover:scale-[1.05]"
+                        className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out hover:scale-[1.05]"
                       />
                       {arts.length > 1 && (
                         <span className="badge badge-sm absolute bottom-2 right-2 border-none bg-base-100/85 text-base-content">
