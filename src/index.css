@@ -5,13 +5,14 @@
 
 /* Classical typography (DaisyUI governs all colour/theme tokens) */
 @theme {
-  --font-display: "Cinzel", Georgia, serif;
-  --font-heading: "Cormorant Garamond", Georgia, serif;
-  --font-zh: "Noto Serif SC", "Songti SC", serif;
+  --font-sans: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cinzel", Georgia, serif; /* masthead title only */
+  --font-heading: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-zh: "Noto Sans SC", "PingFang SC", sans-serif;
 }
 
 @layer base {
   body {
-    font-family: "EB Garamond", Georgia, serif;
+    font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
   }
 }
