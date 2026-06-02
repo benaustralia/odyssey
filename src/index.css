@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: coffee --default, dracula;
+  themes: dracula --default;
 }
 
 /* Classical typography (DaisyUI governs all colour/theme tokens) */

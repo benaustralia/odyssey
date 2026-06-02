@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react"
-import { Search, Palette } from "lucide-react"
+import { Search } from "lucide-react"
 import glossaryData from "@/data/glossary.json"
 import artData from "@/data/art.json"
 
@@ -11,7 +11,7 @@ type Entry = {
   zhName: string
   zhPinyin: string
   zhDef: string
-  art?: string
+  art?: string[]
 }
 type Art = { file: string; artist: string; title: string; year: string; source: string }
 
@@ -38,10 +38,16 @@ function categoryOf(tag: string): string {
   return "words"
 }
 
+function artsOf(e: Entry | null): Art[] {
+  if (!e?.art) return []
+  return e.art.map((k) => art[k]).filter(Boolean)
+}
+
 function App() {
   const [query, setQuery] = useState("")
   const [cat, setCat] = useState("all")
   const [selected, setSelected] = useState<Entry | null>(null)
+  const [activeArt, setActiveArt] = useState(0)
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
@@ -59,8 +65,14 @@ function App() {
     })
   }, [query, cat])
 
+  function open(e: Entry) {
+    setSelected(e)
+    setActiveArt(0)
+  }
+
   const sel = selected
-  const selArt = sel?.art ? art[sel.art] : undefined
+  const selArts = artsOf(sel)
+  const main = selArts[activeArt]
 
   return (
     <div className="min-h-screen bg-base-100 text-base-content">
@@ -68,7 +80,7 @@ function App() {
       <div
         className="hero min-h-[68vh]"
         style={{
-          backgroundImage: "url(/art/sirens.jpg)",
+          backgroundImage: "url(/art/sirens-1.jpg)",
           backgroundSize: "cover",
           backgroundPosition: "center 28%",
         }}
@@ -113,51 +125,17 @@ function App() {
             />
           </label>
 
-          <div className="flex items-center gap-2">
-            <div role="tablist" className="tabs tabs-box bg-base-200">
-              {CATEGORIES.map((c) => (
-                <button
-                  key={c.id}
-                  role="tab"
-                  onClick={() => setCat(c.id)}
-                  className={`tab ${cat === c.id ? "tab-active" : ""}`}
-                >
-                  {c.label}
-                </button>
-              ))}
-            </div>
-
-            {/* Official DaisyUI theme-controller */}
-            <div className="dropdown dropdown-end">
-              <div tabIndex={0} role="button" className="btn btn-ghost btn-sm" aria-label="Theme">
-                <Palette className="size-4" />
-              </div>
-              <ul
-                tabIndex={0}
-                className="menu dropdown-content z-40 mt-2 w-40 rounded-box bg-base-200 p-2 shadow-lg"
+          <div role="tablist" className="tabs tabs-box bg-base-200">
+            {CATEGORIES.map((c) => (
+              <button
+                key={c.id}
+                role="tab"
+                onClick={() => setCat(c.id)}
+                className={`tab ${cat === c.id ? "tab-active" : ""}`}
               >
-                <li className="menu-title text-xs">Theme</li>
-                <li>
-                  <input
-                    type="radio"
-                    name="theme-dropdown"
-                    className="theme-controller btn btn-ghost btn-sm justify-start"
-                    aria-label="Coffee"
-                    value="coffee"
-                    defaultChecked
-                  />
-                </li>
-                <li>
-                  <input
-                    type="radio"
-                    name="theme-dropdown"
-                    className="theme-controller btn btn-ghost btn-sm justify-start"
-                    aria-label="Dracula"
-                    value="dracula"
-                  />
-                </li>
-              </ul>
-            </div>
+                {c.label}
+              </button>
+            ))}
           </div>
         </div>
       </div>
@@ -175,21 +153,27 @@ function App() {
         ) : (
           <div className="columns-1 gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5">
             {filtered.map((e) => {
-              const meta = e.art ? art[e.art] : undefined
+              const arts = artsOf(e)
+              const cover = arts[0]
               return (
                 <div
                   key={e.term}
-                  onClick={() => setSelected(e)}
+                  onClick={() => open(e)}
                   className="card card-border block w-full cursor-pointer overflow-hidden border-base-300 bg-base-200 shadow-md transition-shadow duration-300 hover:shadow-xl"
                 >
-                  {meta && (
-                    <figure className="overflow-hidden">
+                  {cover && (
+                    <figure className="relative overflow-hidden">
                       <img
-                        src={meta.file}
-                        alt={meta.title}
+                        src={cover.file}
+                        alt={cover.title}
                         loading="lazy"
                         className="w-full object-cover transition-transform duration-[1200ms] ease-out hover:scale-[1.05]"
                       />
+                      {arts.length > 1 && (
+                        <span className="badge badge-sm absolute bottom-2 right-2 border-none bg-base-100/80 text-base-content">
+                          {arts.length} works
+                        </span>
+                      )}
                     </figure>
                   )}
                   <div className="card-body gap-2">
@@ -231,7 +215,7 @@ function App() {
         </aside>
       </footer>
 
-      {/* ---------- Detail modal (DaisyUI) ---------- */}
+      {/* ---------- Detail modal (lightbox) ---------- */}
       <dialog className={`modal ${sel ? "modal-open" : ""}`}>
         <div className="modal-box max-w-3xl p-0">
           {sel && (
@@ -243,18 +227,19 @@ function App() {
               >
                 ✕
               </button>
-              {selArt && (
+
+              {main && (
                 <figure className="border-b border-base-300 bg-black/30">
                   <img
-                    src={selArt.file}
-                    alt={selArt.title}
+                    src={main.file}
+                    alt={main.title}
                     className="max-h-[55vh] w-full object-contain"
                   />
                   <figcaption className="px-6 py-3 text-xs opacity-70">
-                    <span className="opacity-100">{selArt.artist}</span>, <em>{selArt.title}</em>
-                    {selArt.year ? `, ${selArt.year}` : ""}.{" "}
+                    <span className="opacity-100">{main.artist}</span>, <em>{main.title}</em>
+                    {main.year ? `, ${main.year}` : ""}.{" "}
                     <a
-                      href={selArt.source}
+                      href={main.source}
                       target="_blank"
                       rel="noreferrer"
                       className="link link-primary"
@@ -264,6 +249,24 @@ function App() {
                   </figcaption>
                 </figure>
               )}
+
+              {selArts.length > 1 && (
+                <div className="flex gap-2 overflow-x-auto border-b border-base-300 px-6 py-3">
+                  {selArts.map((a, i) => (
+                    <button
+                      key={a.file}
+                      onClick={() => setActiveArt(i)}
+                      className={`h-16 w-16 shrink-0 overflow-hidden rounded ring-offset-2 ring-offset-base-100 ${
+                        i === activeArt ? "ring-2 ring-primary" : "opacity-60 hover:opacity-100"
+                      }`}
+                      aria-label={a.title}
+                    >
+                      <img src={a.file} alt={a.title} className="h-full w-full object-cover" />
+                    </button>
+                  ))}
+                </div>
+              )}
+
               <div className="p-6">
                 <div className="flex items-baseline justify-between gap-4">
                   <h3 className="font-heading text-4xl font-semibold">{sel.term}</h3>
@@ -285,11 +288,7 @@ function App() {
             </>
           )}
         </div>
-        <button
-          className="modal-backdrop"
-          onClick={() => setSelected(null)}
-          aria-label="Close"
-        >
+        <button className="modal-backdrop" onClick={() => setSelected(null)} aria-label="Close">
           close
         </button>
       </dialog>
