@@ -217,12 +217,12 @@ function App() {
 
       {/* ---------- Detail modal — DaisyUI carousel lightbox ---------- */}
       <dialog className={`modal ${sel ? "modal-open" : ""}`} aria-label={sel?.term}>
-        <div className="modal-box max-h-[90vh] max-w-3xl overflow-y-auto p-0">
+        <div className="modal-box max-h-[90vh] max-w-3xl overflow-y-auto">
           {sel && (
             <>
               <button
                 onClick={() => setSelected(null)}
-                className="btn btn-circle btn-sm absolute right-3 top-3 z-10"
+                className="btn btn-circle btn-sm absolute right-2 top-2 z-10"
                 aria-label="Close"
               >
                 ✕
@@ -230,7 +230,7 @@ function App() {
 
               {/* official DaisyUI carousel: native swipe + anchor prev/next */}
               {n > 0 && (
-                <div className="carousel w-full border-b border-base-300 bg-black/40">
+                <div className="carousel w-full rounded-box border border-base-300 bg-black/40">
                   {selArts.map((a, i) => (
                     <div
                       key={a.file}
@@ -262,7 +262,7 @@ function App() {
                         </div>
                       )}
                       </div>
-                      <figcaption className="w-full px-6 py-3 text-xs opacity-90">
+                      <figcaption className="w-full px-4 py-3 text-xs opacity-90">
                         <span>{a.artist}</span>, <em>{a.title}</em>
                         {a.year ? `, ${a.year}` : ""}.{" "}
                         <a href={a.source} target="_blank" rel="noreferrer" className="link link-primary">
@@ -276,7 +276,7 @@ function App() {
 
               {/* thumbnail jumps (click to change) */}
               {n > 1 && (
-                <div className="flex gap-2 overflow-x-auto border-b border-base-300 px-6 py-3">
+                <div className="mt-3 flex gap-2 overflow-x-auto">
                   {selArts.map((a, i) => (
                     <a
                       key={a.file}
@@ -290,7 +290,7 @@ function App() {
                 </div>
               )}
 
-              <div className="p-6">
+              <div className="mt-5">
                 <div className="flex items-baseline justify-between gap-4">
                   <h3 className="font-heading text-4xl font-semibold">{sel.term}</h3>
                   <span className="badge badge-outline whitespace-nowrap text-[0.7rem] uppercase tracking-wider text-primary">
