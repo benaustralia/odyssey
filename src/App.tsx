@@ -114,13 +114,13 @@ function App() {
       {/* ---------- Toolbar ---------- */}
       <nav className="sticky top-0 z-30 border-b border-base-300 bg-base-100/90 backdrop-blur">
         <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-3 lg:flex-row lg:items-center lg:justify-between">
-          <label className="input input-bordered flex items-center gap-2 lg:max-w-xs">
+          <label className="input input-bordered flex w-full items-center gap-2 lg:max-w-xs">
             <Search className="size-4 opacity-70" aria-hidden="true" />
             <input
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search names, meanings, pinyin…"
+              placeholder="Search"
               aria-label="Search the glossary"
               className="grow"
             />
