@@ -121,19 +121,25 @@ function App() {
             />
           </label>
 
-          <div role="tablist" aria-label="Filter by category" className="tabs tabs-box bg-base-200">
-            {CATEGORIES.map((c) => (
-              <button
+          <form className="filter" onReset={() => setCat("all")} aria-label="Filter by category">
+            <input
+              className="btn btn-sm btn-square"
+              type="reset"
+              value="×"
+              aria-label="All categories"
+            />
+            {CATEGORIES.filter((c) => c.id !== "all").map((c) => (
+              <input
                 key={c.id}
-                role="tab"
-                aria-selected={cat === c.id}
-                onClick={() => setCat(c.id)}
-                className={`tab ${cat === c.id ? "tab-active" : ""}`}
-              >
-                {c.label}
-              </button>
+                className="btn btn-sm"
+                type="radio"
+                name="category"
+                aria-label={c.label}
+                checked={cat === c.id}
+                onChange={() => setCat(c.id)}
+              />
             ))}
-          </div>
+          </form>
         </div>
       </nav>
 
@@ -230,7 +236,7 @@ function App() {
 
               {/* official DaisyUI carousel: native swipe + anchor prev/next */}
               {n > 0 && (
-                <div className="carousel w-full rounded-box border border-base-300 bg-black/40">
+                <div className="carousel w-full gap-2 rounded-box border border-base-300 bg-black/40 p-3">
                   {selArts.map((a, i) => (
                     <div
                       key={a.file}
