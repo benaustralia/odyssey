@@ -89,7 +89,8 @@ function App() {
           height={825}
           className="absolute inset-0 h-full w-full object-cover object-[center_28%]"
         />
-        <div className="hero-overlay bg-base-100/75" />
+        <div className="hero-overlay bg-base-100/72 backdrop-blur-[3px]" />
+        <div className="hero-overlay bg-gradient-to-b from-base-100/30 via-base-100/55 to-base-100" />
         <div className="hero-content text-center">
           <div className="max-w-2xl">
             <p className="font-display text-sm tracking-[0.5em] text-primary sm:text-base">
@@ -216,7 +217,7 @@ function App() {
 
       {/* ---------- Detail modal — DaisyUI carousel lightbox ---------- */}
       <dialog className={`modal ${sel ? "modal-open" : ""}`} aria-label={sel?.term}>
-        <div className="modal-box max-w-3xl p-0">
+        <div className="modal-box max-h-[90vh] max-w-3xl overflow-y-auto p-0">
           {sel && (
             <>
               <button
@@ -234,15 +235,16 @@ function App() {
                     <div
                       key={a.file}
                       id={`slide-${i}`}
-                      className="carousel-item relative w-full flex-col"
+                      className="carousel-item w-full flex-col"
                     >
-                      <img
-                        src={a.file}
-                        alt={a.title}
-                        className="max-h-[55vh] w-full object-contain"
-                      />
+                      <div className="relative w-full">
+                        <img
+                          src={a.file}
+                          alt={a.title}
+                          className="mx-auto max-h-[55vh] w-full object-contain"
+                        />
                       {n > 1 && (
-                        <div className="absolute left-2 right-2 top-[27vh] flex -translate-y-1/2 justify-between">
+                        <div className="absolute inset-x-2 top-1/2 flex -translate-y-1/2 justify-between">
                           <a
                             href={`#slide-${(i - 1 + n) % n}`}
                             className="btn btn-circle btn-sm border-none bg-base-100/70 hover:bg-base-100"
@@ -259,6 +261,7 @@ function App() {
                           </a>
                         </div>
                       )}
+                      </div>
                       <figcaption className="w-full px-6 py-3 text-xs opacity-90">
                         <span>{a.artist}</span>, <em>{a.title}</em>
                         {a.year ? `, ${a.year}` : ""}.{" "}
