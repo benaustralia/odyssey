@@ -125,24 +125,26 @@ function App() {
             />
           </label>
 
-          <form
-            className="filter w-full flex-wrap justify-center gap-1.5 lg:w-auto lg:flex-nowrap lg:justify-start"
-            onReset={() => setCat("all")}
-            aria-label="Filter by category"
-          >
-            <input className="btn btn-sm btn-square" type="reset" value="×" aria-label="All categories" />
-            {CATEGORIES.filter((c) => c.id !== "all").map((c) => (
-              <input
-                key={c.id}
-                className="btn btn-sm"
-                type="radio"
-                name="category"
-                aria-label={c.label}
-                checked={cat === c.id}
-                onChange={() => setCat(c.id)}
-              />
-            ))}
-          </form>
+          <div className="flex w-full justify-center lg:contents">
+            <form
+              className="filter flex-wrap justify-center gap-1.5"
+              onReset={() => setCat("all")}
+              aria-label="Filter by category"
+            >
+              <input className="btn btn-sm btn-square" type="reset" value="×" aria-label="All categories" />
+              {CATEGORIES.filter((c) => c.id !== "all").map((c) => (
+                <input
+                  key={c.id}
+                  className="btn btn-sm"
+                  type="radio"
+                  name="category"
+                  aria-label={c.label}
+                  checked={cat === c.id}
+                  onChange={() => setCat(c.id)}
+                />
+              ))}
+            </form>
+          </div>
         </div>
       </nav>
 
