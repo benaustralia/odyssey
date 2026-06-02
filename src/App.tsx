@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react"
-import { Search } from "lucide-react"
+import { useEffect, useMemo, useRef, useState } from "react"
+import { ChevronLeft, ChevronRight, Search } from "lucide-react"
 import glossaryData from "@/data/glossary.json"
 import artData from "@/data/art.json"
 
@@ -73,6 +73,22 @@ function App() {
   const sel = selected
   const selArts = artsOf(sel)
   const main = selArts[activeArt]
+  const n = selArts.length
+  const step = (d: number) => n > 1 && setActiveArt((i) => (i + d + n) % n)
+  const touchX = useRef<number | null>(null)
+
+  // keyboard navigation while the lightbox is open
+  useEffect(() => {
+    if (!sel) return
+    const len = artsOf(sel).length
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelected(null)
+      else if (len > 1 && e.key === "ArrowRight") setActiveArt((i) => (i + 1) % len)
+      else if (len > 1 && e.key === "ArrowLeft") setActiveArt((i) => (i - 1 + len) % len)
+    }
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
+  }, [sel])
 
   return (
     <div className="min-h-screen bg-base-100 text-base-content">
@@ -230,11 +246,43 @@ function App() {
 
               {main && (
                 <figure className="border-b border-base-300 bg-black/30">
-                  <img
-                    src={main.file}
-                    alt={main.title}
-                    className="max-h-[55vh] w-full object-contain"
-                  />
+                  <div
+                    className="relative select-none"
+                    onTouchStart={(e) => (touchX.current = e.touches[0].clientX)}
+                    onTouchEnd={(e) => {
+                      if (touchX.current == null) return
+                      const dx = e.changedTouches[0].clientX - touchX.current
+                      if (Math.abs(dx) > 40) step(dx < 0 ? 1 : -1)
+                      touchX.current = null
+                    }}
+                  >
+                    <img
+                      src={main.file}
+                      alt={main.title}
+                      className="max-h-[55vh] w-full object-contain"
+                    />
+                    {n > 1 && (
+                      <>
+                        <button
+                          onClick={() => step(-1)}
+                          className="btn btn-circle btn-sm absolute left-2 top-1/2 -translate-y-1/2 border-none bg-base-100/70 hover:bg-base-100"
+                          aria-label="Previous painting"
+                        >
+                          <ChevronLeft className="size-4" />
+                        </button>
+                        <button
+                          onClick={() => step(1)}
+                          className="btn btn-circle btn-sm absolute right-2 top-1/2 -translate-y-1/2 border-none bg-base-100/70 hover:bg-base-100"
+                          aria-label="Next painting"
+                        >
+                          <ChevronRight className="size-4" />
+                        </button>
+                        <span className="badge badge-sm absolute bottom-2 left-1/2 -translate-x-1/2 border-none bg-base-100/80 text-base-content">
+                          {activeArt + 1} / {n}
+                        </span>
+                      </>
+                    )}
+                  </div>
                   <figcaption className="px-6 py-3 text-xs opacity-70">
                     <span className="opacity-100">{main.artist}</span>, <em>{main.title}</em>
                     {main.year ? `, ${main.year}` : ""}.{" "}
