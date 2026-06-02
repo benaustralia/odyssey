@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { ChevronLeft, ChevronRight, Search } from "lucide-react"
 import glossaryData from "@/data/glossary.json"
 import artData from "@/data/art.json"
@@ -47,7 +47,6 @@ function App() {
   const [query, setQuery] = useState("")
   const [cat, setCat] = useState("all")
   const [selected, setSelected] = useState<Entry | null>(null)
-  const [activeArt, setActiveArt] = useState(0)
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
@@ -65,42 +64,31 @@ function App() {
     })
   }, [query, cat])
 
-  function open(e: Entry) {
-    setSelected(e)
-    setActiveArt(0)
-  }
+  // close the modal on Escape (the rest of the lightbox is DaisyUI's carousel)
+  useEffect(() => {
+    if (!selected) return
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setSelected(null)
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
+  }, [selected])
 
   const sel = selected
   const selArts = artsOf(sel)
-  const main = selArts[activeArt]
   const n = selArts.length
-  const step = (d: number) => n > 1 && setActiveArt((i) => (i + d + n) % n)
-  const touchX = useRef<number | null>(null)
-
-  // keyboard navigation while the lightbox is open
-  useEffect(() => {
-    if (!sel) return
-    const len = artsOf(sel).length
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setSelected(null)
-      else if (len > 1 && e.key === "ArrowRight") setActiveArt((i) => (i + 1) % len)
-      else if (len > 1 && e.key === "ArrowLeft") setActiveArt((i) => (i - 1 + len) % len)
-    }
-    window.addEventListener("keydown", onKey)
-    return () => window.removeEventListener("keydown", onKey)
-  }, [sel])
 
   return (
     <div className="min-h-screen bg-base-100 text-base-content">
       {/* ---------- Hero ---------- */}
-      <div
-        className="hero min-h-[68vh]"
-        style={{
-          backgroundImage: "url(/art/sirens-1.jpg)",
-          backgroundSize: "cover",
-          backgroundPosition: "center 28%",
-        }}
-      >
+      <header className="hero relative min-h-[68vh] overflow-hidden">
+        <img
+          src="/hero.jpg"
+          alt=""
+          aria-hidden="true"
+          fetchPriority="high"
+          width={1280}
+          height={1056}
+          className="absolute inset-0 h-full w-full object-cover object-[center_28%]"
+        />
         <div className="hero-overlay bg-base-100/75" />
         <div className="hero-content text-center">
           <div className="max-w-2xl">
@@ -110,11 +98,10 @@ function App() {
             <h1 className="mt-4 font-display text-5xl font-semibold tracking-tight sm:text-7xl">
               The Odyssey
             </h1>
-            <p className="mt-5 font-heading text-xl italic opacity-80 sm:text-2xl">
-              An illustrated glossary of gods, mortals, monsters &amp; marvels &mdash;
-              paired with the masterworks they inspired.
+            <p className="mt-5 font-heading text-xl italic opacity-90 sm:text-2xl">
+              An illustrated glossary of the Odyssey&rsquo;s gods, mortals, monsters &amp; marvels.
             </p>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm opacity-70">
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm opacity-90">
               <span>Emily Wilson translation</span>
               <span className="text-primary">&bull;</span>
               <span>English</span>
@@ -125,27 +112,29 @@ function App() {
             </div>
           </div>
         </div>
-      </div>
+      </header>
 
       {/* ---------- Toolbar ---------- */}
-      <div className="sticky top-0 z-30 border-b border-base-300 bg-base-100/90 backdrop-blur">
+      <nav className="sticky top-0 z-30 border-b border-base-300 bg-base-100/90 backdrop-blur">
         <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-3 lg:flex-row lg:items-center lg:justify-between">
           <label className="input input-bordered flex items-center gap-2 lg:max-w-xs">
-            <Search className="size-4 opacity-60" />
+            <Search className="size-4 opacity-70" aria-hidden="true" />
             <input
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search names, meanings, pinyin…"
+              aria-label="Search the glossary"
               className="grow"
             />
           </label>
 
-          <div role="tablist" className="tabs tabs-box bg-base-200">
+          <div role="tablist" aria-label="Filter by category" className="tabs tabs-box bg-base-200">
             {CATEGORIES.map((c) => (
               <button
                 key={c.id}
                 role="tab"
+                aria-selected={cat === c.id}
                 onClick={() => setCat(c.id)}
                 className={`tab ${cat === c.id ? "tab-active" : ""}`}
               >
@@ -154,16 +143,16 @@ function App() {
             ))}
           </div>
         </div>
-      </div>
+      </nav>
 
       {/* ---------- Gallery ---------- */}
       <main className="mx-auto max-w-6xl px-4 py-10">
-        <p className="mb-6 text-sm opacity-60">
+        <p className="mb-6 text-sm opacity-80">
           {filtered.length} {filtered.length === 1 ? "entry" : "entries"}
         </p>
 
         {filtered.length === 0 ? (
-          <p className="py-24 text-center font-heading text-2xl italic opacity-60">
+          <p className="py-24 text-center font-heading text-2xl italic opacity-80">
             Nothing found on these shores.
           </p>
         ) : (
@@ -172,10 +161,12 @@ function App() {
               const arts = artsOf(e)
               const cover = arts[0]
               return (
-                <div
+                <button
                   key={e.term}
-                  onClick={() => open(e)}
-                  className="card card-border block w-full cursor-pointer overflow-hidden border-base-300 bg-base-200 shadow-md transition-shadow duration-300 hover:shadow-xl"
+                  type="button"
+                  onClick={() => setSelected(e)}
+                  aria-label={`Open ${e.term}`}
+                  className="card card-border block w-full cursor-pointer overflow-hidden border-base-300 bg-base-200 text-left shadow-md transition-shadow duration-300 hover:shadow-xl"
                 >
                   {cover && (
                     <figure className="relative overflow-hidden">
@@ -183,10 +174,11 @@ function App() {
                         src={cover.file}
                         alt={cover.title}
                         loading="lazy"
+                        decoding="async"
                         className="w-full object-cover transition-transform duration-[1200ms] ease-out hover:scale-[1.05]"
                       />
                       {arts.length > 1 && (
-                        <span className="badge badge-sm absolute bottom-2 right-2 border-none bg-base-100/80 text-base-content">
+                        <span className="badge badge-sm absolute bottom-2 right-2 border-none bg-base-100/85 text-base-content">
                           {arts.length} works
                         </span>
                       )}
@@ -202,14 +194,14 @@ function App() {
                       </span>
                     </div>
                     <p className="text-sm italic text-primary">{e.pron}</p>
-                    <p className="text-[0.95rem] leading-relaxed opacity-90">{e.def}</p>
-                    <p className="mt-1 font-zh text-sm leading-relaxed opacity-75">
-                      <span className="opacity-100">{e.zhName}</span>
+                    <p className="text-[0.95rem] leading-relaxed opacity-95">{e.def}</p>
+                    <p className="mt-1 font-zh text-sm leading-relaxed opacity-90">
+                      <span>{e.zhName}</span>
                       <span className="px-1 text-primary">·</span>
                       {e.zhDef}
                     </p>
                   </div>
-                </div>
+                </button>
               )
             })}
           </div>
@@ -220,19 +212,19 @@ function App() {
       <footer className="footer footer-center border-t border-base-300 bg-base-200 p-10 text-base-content">
         <aside className="max-w-2xl">
           <p className="font-display tracking-[0.3em] text-primary">FINIS</p>
-          <p className="mt-2 text-sm opacity-80">
+          <p className="mt-2 text-sm opacity-90">
             Definitions from a study glossary for <em>The Odyssey</em>, trans. Emily Wilson
             (W.&nbsp;W.&nbsp;Norton).
           </p>
-          <p className="text-sm opacity-60">
+          <p className="text-sm opacity-80">
             Artworks are in the public domain, via Wikimedia Commons. Built with React, Vite
             &amp; DaisyUI.
           </p>
         </aside>
       </footer>
 
-      {/* ---------- Detail modal (lightbox) ---------- */}
-      <dialog className={`modal ${sel ? "modal-open" : ""}`}>
+      {/* ---------- Detail modal — DaisyUI carousel lightbox ---------- */}
+      <dialog className={`modal ${sel ? "modal-open" : ""}`} aria-label={sel?.term}>
         <div className="modal-box max-w-3xl p-0">
           {sel && (
             <>
@@ -244,73 +236,62 @@ function App() {
                 ✕
               </button>
 
-              {main && (
-                <figure className="border-b border-base-300 bg-black/30">
-                  <div
-                    className="relative select-none"
-                    onTouchStart={(e) => (touchX.current = e.touches[0].clientX)}
-                    onTouchEnd={(e) => {
-                      if (touchX.current == null) return
-                      const dx = e.changedTouches[0].clientX - touchX.current
-                      if (Math.abs(dx) > 40) step(dx < 0 ? 1 : -1)
-                      touchX.current = null
-                    }}
-                  >
-                    <img
-                      src={main.file}
-                      alt={main.title}
-                      className="max-h-[55vh] w-full object-contain"
-                    />
-                    {n > 1 && (
-                      <>
-                        <button
-                          onClick={() => step(-1)}
-                          className="btn btn-circle btn-sm absolute left-2 top-1/2 -translate-y-1/2 border-none bg-base-100/70 hover:bg-base-100"
-                          aria-label="Previous painting"
-                        >
-                          <ChevronLeft className="size-4" />
-                        </button>
-                        <button
-                          onClick={() => step(1)}
-                          className="btn btn-circle btn-sm absolute right-2 top-1/2 -translate-y-1/2 border-none bg-base-100/70 hover:bg-base-100"
-                          aria-label="Next painting"
-                        >
-                          <ChevronRight className="size-4" />
-                        </button>
-                        <span className="badge badge-sm absolute bottom-2 left-1/2 -translate-x-1/2 border-none bg-base-100/80 text-base-content">
-                          {activeArt + 1} / {n}
-                        </span>
-                      </>
-                    )}
-                  </div>
-                  <figcaption className="px-6 py-3 text-xs opacity-70">
-                    <span className="opacity-100">{main.artist}</span>, <em>{main.title}</em>
-                    {main.year ? `, ${main.year}` : ""}.{" "}
-                    <a
-                      href={main.source}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="link link-primary"
+              {/* official DaisyUI carousel: native swipe + anchor prev/next */}
+              {n > 0 && (
+                <div className="carousel w-full border-b border-base-300 bg-black/40">
+                  {selArts.map((a, i) => (
+                    <div
+                      key={a.file}
+                      id={`slide-${i}`}
+                      className="carousel-item relative w-full flex-col"
                     >
-                      Public domain · Wikimedia Commons
-                    </a>
-                  </figcaption>
-                </figure>
+                      <img
+                        src={a.file}
+                        alt={a.title}
+                        className="max-h-[55vh] w-full object-contain"
+                      />
+                      {n > 1 && (
+                        <div className="absolute left-2 right-2 top-[27vh] flex -translate-y-1/2 justify-between">
+                          <a
+                            href={`#slide-${(i - 1 + n) % n}`}
+                            className="btn btn-circle btn-sm border-none bg-base-100/70 hover:bg-base-100"
+                            aria-label="Previous painting"
+                          >
+                            <ChevronLeft className="size-4" />
+                          </a>
+                          <a
+                            href={`#slide-${(i + 1) % n}`}
+                            className="btn btn-circle btn-sm border-none bg-base-100/70 hover:bg-base-100"
+                            aria-label="Next painting"
+                          >
+                            <ChevronRight className="size-4" />
+                          </a>
+                        </div>
+                      )}
+                      <figcaption className="w-full px-6 py-3 text-xs opacity-90">
+                        <span>{a.artist}</span>, <em>{a.title}</em>
+                        {a.year ? `, ${a.year}` : ""}.{" "}
+                        <a href={a.source} target="_blank" rel="noreferrer" className="link link-primary">
+                          Public domain · Wikimedia Commons
+                        </a>
+                      </figcaption>
+                    </div>
+                  ))}
+                </div>
               )}
 
-              {selArts.length > 1 && (
+              {/* thumbnail jumps (click to change) */}
+              {n > 1 && (
                 <div className="flex gap-2 overflow-x-auto border-b border-base-300 px-6 py-3">
                   {selArts.map((a, i) => (
-                    <button
+                    <a
                       key={a.file}
-                      onClick={() => setActiveArt(i)}
-                      className={`h-16 w-16 shrink-0 overflow-hidden rounded ring-offset-2 ring-offset-base-100 ${
-                        i === activeArt ? "ring-2 ring-primary" : "opacity-60 hover:opacity-100"
-                      }`}
-                      aria-label={a.title}
+                      href={`#slide-${i}`}
+                      className="h-16 w-16 shrink-0 overflow-hidden rounded opacity-70 hover:opacity-100"
+                      aria-label={`Show painting ${i + 1}: ${a.title}`}
                     >
-                      <img src={a.file} alt={a.title} className="h-full w-full object-cover" />
-                    </button>
+                      <img src={a.file} alt="" className="h-full w-full object-cover" />
+                    </a>
                   ))}
                 </div>
               )}
@@ -323,14 +304,14 @@ function App() {
                   </span>
                 </div>
                 <p className="mt-1 text-base italic text-primary">{sel.pron}</p>
-                <p className="mt-4 text-lg leading-relaxed opacity-90">{sel.def}</p>
+                <p className="mt-4 text-lg leading-relaxed opacity-95">{sel.def}</p>
                 <div className="divider my-4" />
                 <div className="font-zh">
                   <p className="text-2xl">
                     {sel.zhName}
-                    <span className="ml-2 font-sans text-sm opacity-60">{sel.zhPinyin}</span>
+                    <span className="ml-2 font-sans text-sm opacity-80">{sel.zhPinyin}</span>
                   </p>
-                  <p className="mt-2 text-base leading-relaxed opacity-75">{sel.zhDef}</p>
+                  <p className="mt-2 text-base leading-relaxed opacity-90">{sel.zhDef}</p>
                 </div>
               </div>
             </>
