@@ -739,7 +739,8 @@
    "nausicaa-1",
    "nausicaa-2",
    "nausicaa-3",
-   "nausicaa-4"
+   "nausicaa-4",
+   "nausicaa-3b"
   ]
  },
  {
@@ -809,7 +810,8 @@
   "art": [
    "odysseus-1",
    "odysseus-2",
-   "odysseus-3"
+   "odysseus-3",
+   "odysseus-4"
   ]
  },
  {
@@ -900,6 +902,7 @@
   "zhPinyin": "Fèi'ākāyà rén",
   "zhDef": "友善、热爱航海的民族，其船近乎神奇；他们听罢奥德修斯的故事后送他归乡（其国为斯刻里亚）。",
   "art": [
+   "phaeacians-2",
    "phaeacians-1"
   ]
  },

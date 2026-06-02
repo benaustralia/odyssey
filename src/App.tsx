@@ -22,7 +22,7 @@ type Entry = {
   zhDef: string
   art?: string[]
 }
-type Art = { file: string; artist: string; title: string; year: string; source: string }
+type Art = { file: string; artist: string; title: string; year: string; source: string; license?: string }
 
 const entries = glossaryData as Entry[]
 const art = artData as Record<string, Art>
@@ -74,7 +74,9 @@ function App() {
   const selArts = artsOf(sel)
   const slides = selArts.map((a) => {
     const credit = [a.artist, a.title].filter(Boolean).join(" · ")
-    const desc = credit ? `${credit}${a.year ? `, ${a.year}` : ""}` : a.year
+    let desc = credit ? `${credit}${a.year ? `, ${a.year}` : ""}` : a.year || ""
+    if (a.license && !/public domain|pdm|no restrictions/i.test(a.license))
+      desc = (desc ? `${desc} · ` : "") + a.license
     return { src: a.file, description: desc || undefined }
   })
 
@@ -215,8 +217,8 @@ function App() {
             (W.&nbsp;W.&nbsp;Norton).
           </p>
           <p className="text-sm opacity-80">
-            Artworks are in the public domain, via Wikimedia Commons. Built with React, Vite,
-            DaisyUI &amp; yet-another-react-lightbox.
+            Artworks are public domain or openly licensed (CC), via Wikimedia Commons. Built with
+            React, Vite, DaisyUI &amp; yet-another-react-lightbox.
           </p>
         </aside>
       </footer>

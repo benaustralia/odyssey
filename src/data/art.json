@@ -1384,5 +1384,29 @@
   "title": "Zeus",
   "year": "1610",
   "source": "https://commons.wikimedia.org/wiki/File:Jacob_Potma_-_Zeus_-_10464_-_Bavarian_State_Painting_Collections.jpg"
+ },
+ "phaeacians-2": {
+  "file": "/art/phaeacians-2.jpg",
+  "artist": "Peter Paul Rubens",
+  "title": "Ulysses Landing on the Island of the Phaeacians",
+  "year": "c. 1630",
+  "source": "https://commons.wikimedia.org/wiki/File:Rubens_-_Ulysses_Landing_on_the_Island_of_the_Phaeacians_61.27_A1.jpg",
+  "license": "Public domain"
+ },
+ "nausicaa-3b": {
+  "file": "/art/nausicaa-3b.jpg",
+  "artist": "Charles Gleyre",
+  "title": "Ulysses and Nausicaa",
+  "year": "1843",
+  "source": "https://commons.wikimedia.org/wiki/File:Gleyre-_Ulysse_et_Nausicaa.jpg",
+  "license": "Public domain"
+ },
+ "odysseus-4": {
+  "file": "/art/odysseus-4.jpg",
+  "artist": "Mark Landon",
+  "title": "Odysseus Beneath the Ram (Torlonia)",
+  "year": "",
+  "source": "https://commons.wikimedia.org/wiki/File:Statue_of_Odysseus_beneath_the_ram_(Torlonia_MT_438)_03.jpg",
+  "license": "CC BY 4.0"
  }
 }
