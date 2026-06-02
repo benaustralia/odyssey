@@ -236,12 +236,12 @@ function App() {
 
               {/* official DaisyUI carousel: native swipe + anchor prev/next */}
               {n > 0 && (
-                <div className="carousel w-full gap-2 rounded-box border border-base-300 bg-black/40 p-3">
+                <div className="carousel w-full rounded-box border border-base-300 bg-black/40">
                   {selArts.map((a, i) => (
                     <div
                       key={a.file}
                       id={`slide-${i}`}
-                      className="carousel-item w-full flex-col"
+                      className="carousel-item w-full flex-col p-3"
                     >
                       <div className="relative w-full">
                         <img
