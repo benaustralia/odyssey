@@ -34,26 +34,12 @@
   "year": "c. 1525",
   "source": "https://commons.wikimedia.org/wiki/File:Dosso_Dossi_003.jpg"
  },
- "aeaea-2": {
-  "file": "/art/aeaea-2.jpg",
-  "artist": "Joseph Wright of Derby",
-  "title": "Landscape with Circe",
-  "year": "c. 1780",
-  "source": "https://commons.wikimedia.org/wiki/File:The_place-names_of_the_Liverpool_district;_or,_The_history_and_meaning_of_the_local_and_river_names_of_South-west_Lancashire_and_of_Wirral_(IA_cu31924028139339).pdf"
- },
  "aegisthus-1": {
   "file": "/art/aegisthus-1.jpg",
   "artist": "Pierre-Narcisse Guérin",
   "title": "Clytemnestra Hesitating Before Killing the Sleeping Agamemnon",
   "year": "1817",
   "source": "https://commons.wikimedia.org/wiki/File:Pierre-Narcisse_Gu%C3%A9rin_-_Clytemnestra_and_Agamemnon_-_WGA10974.jpg"
- },
- "aeolus-2": {
-  "file": "/art/aeolus-2.jpg",
-  "artist": "John Flaxman",
-  "title": "Aeolus (Odyssey)",
-  "year": "1805",
-  "source": "https://commons.wikimedia.org/wiki/File:The_adventures_of_Ulysses;_(IA_adventuresofulys00lamb_0).pdf"
  },
  "agamemnon-1": {
   "file": "/art/agamemnon-1.jpg",
@@ -187,13 +173,6 @@
   "title": "Athena Giustiniani",
   "year": "2nd c. AD",
   "source": "https://commons.wikimedia.org/wiki/File:Athena_Giustiniani,_Vatican_Museums.jpg"
- },
- "bard-1": {
-  "file": "/art/bard-1.jpg",
-  "artist": "Kleophrades Painter",
-  "title": "A Rhapsode Reciting (vase)",
-  "year": "c. 490 BC",
-  "source": "https://commons.wikimedia.org/wiki/File:Life_in_the_Homeric_age_(IA_cu31924011331182).pdf"
  },
  "calypso-1": {
   "file": "/art/calypso-1.jpg",
@@ -342,13 +321,6 @@
   "year": "1898",
   "source": "https://commons.wikimedia.org/wiki/File:Helen_of_Troy.jpg"
  },
- "helen-2": {
-  "file": "/art/helen-2.jpg",
-  "artist": "Gustave Moreau",
-  "title": "Helen on the Walls of Troy",
-  "year": "c. 1885",
-  "source": "https://commons.wikimedia.org/wiki/File:The_Magazine_of_art_(IA_magazineofart23unse).pdf"
- },
  "helius-1": {
   "file": "/art/helius-1.jpg",
   "artist": "Guido Reni",
@@ -418,13 +390,6 @@
   "title": "Jupiter and Mercury in the House of Philemon and Baucis",
   "year": "c. 1608",
   "source": "https://commons.wikimedia.org/wiki/File:Adam_Elsheimer_-_Jupiter_and_Mercury_in_the_House_of_Philemon_and_Baucis.jpg"
- },
- "ithaca-1": {
-  "file": "/art/ithaca-1.jpg",
-  "artist": "Edward Lear",
-  "title": "Ithaca",
-  "year": "1863",
-  "source": "https://commons.wikimedia.org/wiki/File:The_philosophy_of_art,_the_meaning_and_relations_of_sculpture,_painting,_poetry_and_music_(IA_philosophyofartm00grigrich).pdf"
  },
  "laestrygonians-1": {
   "file": "/art/laestrygonians-1.jpg",
@@ -838,5 +803,26 @@
   "title": "Odysseus Reunited with Laertes",
   "year": "—",
   "source": "https://commons.wikimedia.org/wiki/File:Odysseus3.jpg"
+ },
+ "aeaea-2": {
+  "file": "/art/aeaea-2.jpg",
+  "artist": "Dosso Dossi",
+  "title": "Circe and her Lovers in a Landscape",
+  "year": "c. 1525",
+  "source": "https://commons.wikimedia.org/wiki/File:Dosso_Dossi_003.jpg"
+ },
+ "aeolus-2": {
+  "file": "/art/aeolus-2.jpg",
+  "artist": "Theodoor van Thulden",
+  "title": "Aeolus Gives Ulysses the Bag of Winds",
+  "year": "c. 1633",
+  "source": "https://commons.wikimedia.org/wiki/File:De_metgezellen_van_Odysseus_maken_de_zak_open_waarin_Aeolus_de_winden_besloten_had,_RP-T-00-444.jpg"
+ },
+ "helen-2": {
+  "file": "/art/helen-2.jpg",
+  "artist": "Frederick Sandys",
+  "title": "Helen of Troy",
+  "year": "1867",
+  "source": "https://commons.wikimedia.org/wiki/File:Helen_of_Troy_-_Anthony_Frederick_Augustus_Sandys.jpg"
  }
 }
