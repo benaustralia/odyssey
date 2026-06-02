@@ -85,8 +85,8 @@ function App() {
           alt=""
           aria-hidden="true"
           fetchPriority="high"
-          width={1280}
-          height={1056}
+          width={1000}
+          height={825}
           className="absolute inset-0 h-full w-full object-cover object-[center_28%]"
         />
         <div className="hero-overlay bg-base-100/75" />
