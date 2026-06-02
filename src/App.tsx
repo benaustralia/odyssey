@@ -2,7 +2,6 @@ import { useMemo, useState } from "react"
 import { Search } from "lucide-react"
 import Lightbox from "yet-another-react-lightbox"
 import Captions from "yet-another-react-lightbox/plugins/captions"
-import Counter from "yet-another-react-lightbox/plugins/counter"
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen"
 import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails"
 import Zoom from "yet-another-react-lightbox/plugins/zoom"
@@ -234,8 +233,7 @@ function App() {
           setSelected(null)
         }}
         slides={slides}
-        plugins={[Thumbnails, Captions, Counter, Zoom, Fullscreen]}
-        counter={{ container: { style: { top: "unset", bottom: 0 } } }}
+        plugins={[Thumbnails, Captions, Zoom, Fullscreen]}
         captions={{ descriptionTextAlign: "center", showToggle: true }}
         carousel={{ finite: slides.length <= 1 }}
       />
