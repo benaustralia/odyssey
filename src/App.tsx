@@ -32,19 +32,15 @@ const CATEGORIES = [
   { id: "gods", label: "Gods" },
   { id: "mortals", label: "Mortals" },
   { id: "monsters", label: "Monsters" },
-  { id: "places", label: "Places" },
-  { id: "peoples", label: "Peoples" },
-  { id: "words", label: "Words & Things" },
+  { id: "world", label: "Places & Things" },
 ]
 
 function categoryOf(tag: string): string {
   const t = tag.toLowerCase()
   if (t.startsWith("god")) return "gods"
-  if (t === "hero" || t === "person") return "mortals"
   if (t === "monster") return "monsters"
-  if (t === "place") return "places"
-  if (t === "people") return "peoples"
-  return "words"
+  if (["hero", "person", "people", "animal"].includes(t)) return "mortals"
+  return "world" // place, thing, idea, trick
 }
 
 function artsOf(e: Entry | null): Art[] {
