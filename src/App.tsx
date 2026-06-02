@@ -90,7 +90,7 @@ function App() {
   const slides = selArts.map((a) => ({
     src: a.file,
     title: a.title,
-    description: `${a.artist}${a.year ? `, ${a.year}` : ""} · Public domain (Wikimedia Commons)`,
+    description: `${a.artist}${a.year ? `, ${a.year}` : ""}`,
   }))
 
   return (
