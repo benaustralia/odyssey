@@ -101,15 +101,6 @@ function App() {
             <p className="mt-5 font-heading text-xl italic opacity-90 sm:text-2xl">
               An illustrated glossary of the Odyssey&rsquo;s gods, mortals, monsters &amp; marvels.
             </p>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm opacity-90">
-              <span>Emily Wilson translation</span>
-              <span className="text-primary">&bull;</span>
-              <span>English</span>
-              <span className="text-primary">&bull;</span>
-              <span className="font-zh">简体中文</span>
-              <span className="text-primary">&bull;</span>
-              <span>Pīnyīn</span>
-            </div>
           </div>
         </div>
       </header>
