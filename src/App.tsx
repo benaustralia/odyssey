@@ -145,10 +145,6 @@ function App() {
 
       {/* ---------- Gallery ---------- */}
       <main className="mx-auto max-w-6xl px-4 py-10">
-        <p className="mb-6 text-sm opacity-80">
-          {filtered.length} {filtered.length === 1 ? "entry" : "entries"}
-        </p>
-
         {filtered.length === 0 ? (
           <p className="py-24 text-center font-heading text-2xl italic opacity-80">
             Nothing found on these shores.
