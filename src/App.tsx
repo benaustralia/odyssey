@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useMemo, useState } from "react"
 import { Search } from "lucide-react"
 import Lightbox from "yet-another-react-lightbox"
 import Captions from "yet-another-react-lightbox/plugins/captions"
@@ -75,22 +75,11 @@ function App() {
     })
   }, [query, cat])
 
-  // Esc closes the info panel — but only when the lightbox isn't open (it has its own Esc)
-  useEffect(() => {
-    if (!selected) return
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && lbIndex < 0) setSelected(null)
-    }
-    window.addEventListener("keydown", onKey)
-    return () => window.removeEventListener("keydown", onKey)
-  }, [selected, lbIndex])
-
   const sel = selected
   const selArts = artsOf(sel)
   const slides = selArts.map((a) => ({
     src: a.file,
-    title: a.title,
-    description: `${a.artist}${a.year ? `, ${a.year}` : ""}`,
+    description: `${a.artist} · ${a.title}${a.year ? `, ${a.year}` : ""}`,
   }))
 
   return (
@@ -176,9 +165,9 @@ function App() {
                   type="button"
                   onClick={() => {
                     setSelected(e)
-                    setLbIndex(-1)
+                    setLbIndex(0)
                   }}
-                  aria-label={`Open ${e.term}`}
+                  aria-label={`View artworks for ${e.term}`}
                   className="card card-border flex h-full w-full cursor-pointer flex-col overflow-hidden border-base-300 bg-base-200 text-left shadow-md transition-shadow duration-300 hover:shadow-xl"
                 >
                   {cover && (
@@ -236,87 +225,14 @@ function App() {
         </aside>
       </footer>
 
-      {/* ---------- Info panel (DaisyUI) ---------- */}
-      <dialog className={`modal ${sel ? "modal-open" : ""}`} aria-label={sel?.term}>
-        <div className="modal-box max-h-[90vh] max-w-2xl overflow-y-auto">
-          {sel && (
-            <>
-              <button
-                onClick={() => setSelected(null)}
-                className="btn btn-circle btn-sm absolute right-3 top-3 z-10"
-                aria-label="Close"
-              >
-                ✕
-              </button>
-
-              {selArts[0] && (
-                <button
-                  type="button"
-                  onClick={() => setLbIndex(0)}
-                  aria-label="View artwork full screen"
-                  className="group block w-full overflow-hidden rounded-box border border-base-300"
-                >
-                  <img
-                    src={selArts[0].file}
-                    alt={selArts[0].title}
-                    className="aspect-[3/2] w-full bg-black/30 object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                  />
-                </button>
-              )}
-
-              {selArts.length > 1 && (
-                <div className="mt-3 flex gap-2 overflow-x-auto">
-                  {selArts.map((a, i) => (
-                    <button
-                      key={a.file}
-                      type="button"
-                      onClick={() => setLbIndex(i)}
-                      aria-label={`View painting ${i + 1}: ${a.title}`}
-                      className="size-16 shrink-0 overflow-hidden rounded ring-offset-2 ring-offset-base-100 hover:ring-2 hover:ring-primary"
-                    >
-                      <img src={a.file} alt="" className="size-full object-cover" />
-                    </button>
-                  ))}
-                </div>
-              )}
-
-              {selArts.length > 0 && (
-                <p className="mt-2 text-xs opacity-70">
-                  {selArts.length} {selArts.length === 1 ? "work" : "works"} · tap an image to view full screen
-                </p>
-              )}
-
-              <div className="mt-5">
-                <div className="flex items-baseline justify-between gap-4">
-                  <h3 className="font-heading text-4xl font-semibold">{sel.term}</h3>
-                  <span className="badge badge-outline whitespace-nowrap text-[0.7rem] uppercase tracking-wider text-primary">
-                    {sel.tag}
-                  </span>
-                </div>
-                <p className="mt-1 text-base italic text-primary">{sel.pron}</p>
-                <p className="mt-4 text-lg leading-relaxed opacity-95">{sel.def}</p>
-                <div className="divider my-4" />
-                <div className="font-zh">
-                  <p className="text-2xl">
-                    {sel.zhName}
-                    <span className="ml-2 font-sans text-sm opacity-80">{sel.zhPinyin}</span>
-                  </p>
-                  <p className="mt-2 text-base leading-relaxed opacity-90">{sel.zhDef}</p>
-                </div>
-              </div>
-            </>
-          )}
-        </div>
-        <button className="modal-backdrop" onClick={() => setSelected(null)} aria-label="Close">
-          close
-        </button>
-      </dialog>
-
       {/* ---------- Full-screen image viewer (yet-another-react-lightbox) ---------- */}
       <Lightbox
         open={!!sel && lbIndex >= 0}
         index={lbIndex < 0 ? 0 : lbIndex}
-        close={() => setLbIndex(-1)}
+        close={() => {
+          setLbIndex(-1)
+          setSelected(null)
+        }}
         slides={slides}
         plugins={[Thumbnails, Captions, Counter, Zoom, Fullscreen]}
         counter={{ container: { style: { top: "unset", bottom: 0 } } }}
