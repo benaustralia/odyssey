@@ -105,7 +105,7 @@ function App() {
               The Odyssey
             </h1>
             <p className="mt-5 font-heading text-xl italic opacity-90 sm:text-2xl">
-              An illustrated glossary of the Odyssey&rsquo;s gods, mortals, monsters &amp; marvels.
+              An illustrated glossary.
             </p>
           </div>
         </div>
