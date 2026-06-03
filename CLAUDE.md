@@ -2,7 +2,7 @@
 
 A bilingual (English · 简体中文 · Pīnyīn) illustrated glossary of 84 entries from Homer's
 *Odyssey* (Emily Wilson translation, W. W. Norton), each paired with public-domain or
-openly-licensed artwork.
+openly-licensed artwork (**550 images** in `art.json`).
 
 - **Live:** https://odysseygloss.vercel.app (Vercel project `odysseygloss`, native domain, auto-deploys on push to `main`)
 - **Repo:** github.com/benaustralia/odyssey
@@ -28,6 +28,8 @@ openly-licensed artwork.
 - Fetch scripts query the Commons API (`generator=search`, `prop=imageinfo`, `iiprop=url|mime|extmetadata`). **Filter aggressively:** skip `.pdf/.djvu/.svg`, book scans (`(IA `, "Adventures of Ulysses"), maps, logos, and species/astronomy named after Greek figures (butterflies like *Morpho menelaus* / *Eumaeus atala*, planet "Saturn with auroras"), film stills, perfumery signs, "goddess card" composites.
 - After fetching: build a contact-sheet montage with ImageMagick and eyeball it; check for cross-language duplicate works (same painting filed under English + French/German/Dutch names — dedupe, keep English).
 - A greedy "cover diversification" pass reorders each entry's `art` so covers are unique where alternatives exist.
+- **Full-article harvest (done):** pulled *every* PD/CC image off each entry's en.wikipedia article (`generator=images`), keyed `<slug>-w<NN>`. This sweeps in junk that `generator=images` can't pre-filter — maps, coins, site/building/landscape photos, Britannica diagrams, book-plate scans, museum replicas, ritual photos, a fossil skull, and **off-subject gallery/navbox thumbnails** (e.g. Bernini's *Apollo & Daphne* landed on Ajax). The original Commons filename lives in the `source` field (the on-disk `file` is renamed) — QA by dumping `source` basenames + a contact-sheet montage, then prune. 32 were pruned this round.
+- **Image weight:** all art is recompressed to `-resize '1600x1600>' -quality 82 -interlace Plane -sampling-factor 4:2:0 -strip` (`public/art` ≈ 118M). Re-run `magick mogrify ...` after adding new images.
 - Shell here is **zsh** (no `mapfile`/bash array slicing) — use Python for montages/scripts.
 
 ## Deploy
