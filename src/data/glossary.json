@@ -97,9 +97,6 @@
    "agamemnon-w101",
    "agamemnon-w102",
    "agamemnon-w103",
-   "agamemnon-w104",
-   "agamemnon-w105",
-   "agamemnon-w106",
    "agamemnon-w107"
   ]
  },
@@ -133,8 +130,7 @@
   "zhPinyin": "Ā'ěrkānuò'èsī",
   "zhDef": "善良的费阿喀亚国王，听完奥德修斯的故事后送他船只回乡。",
   "art": [
-   "alcinous-2",
-   "alcinous-w100"
+   "alcinous-2"
   ]
  },
  {
@@ -163,10 +159,7 @@
   "zhDef": "求婚者中最有礼、最不残暴的一个，但仍与众人一同被杀。",
   "art": [
    "amphinomus-2",
-   "amphinomus-3",
-   "amphinomus-w100",
-   "amphinomus-w101",
-   "amphinomus-w102"
+   "amphinomus-w101"
   ]
  },
  {
@@ -224,7 +217,6 @@
    "apollo-w105",
    "apollo-w106",
    "apollo-w107",
-   "apollo-w108",
    "apollo-w109"
   ]
  },
@@ -350,13 +342,10 @@
    "calypso-4",
    "calypso-w100",
    "calypso-w101",
-   "calypso-w102",
    "calypso-w103",
    "calypso-w104",
-   "calypso-w105",
    "calypso-w106",
    "calypso-w107",
-   "calypso-w108",
    "calypso-w109"
   ]
  },
@@ -371,8 +360,7 @@
   "art": [
    "charybdis-1",
    "charybdis-3",
-   "charybdis-4",
-   "charybdis-w100"
+   "charybdis-4"
   ]
  },
  {
@@ -401,7 +389,6 @@
   "art": [
    "circe-1",
    "circe-2",
-   "circe-3",
    "circe-w100",
    "circe-w101",
    "circe-w102",
@@ -409,7 +396,6 @@
    "circe-w104",
    "circe-w105",
    "circe-w106",
-   "circe-w107",
    "circe-w108",
    "circe-w109"
   ]
@@ -424,7 +410,6 @@
   "zhDef": "阿伽门农之妻，参与谋杀丈夫，与忠贞的珀涅罗珀形成鲜明对比。",
   "art": [
    "clytemnestra-1",
-   "clytemnestra-w100",
    "clytemnestra-w101",
    "clytemnestra-w102"
   ]
@@ -462,7 +447,6 @@
    "cyclops-3",
    "cyclops-w101",
    "cyclops-w102",
-   "cyclops-w103",
    "cyclops-w105"
   ]
  },
@@ -554,7 +538,6 @@
   "zhDef": "奥德修斯的老乳母，为乔装的他洗脚时凭旧疤认出主人。",
   "art": [
    "eurycleia-1",
-   "eurycleia-3",
    "eurycleia-w100",
    "eurycleia-w101"
   ]
@@ -608,7 +591,6 @@
    "hades-w105",
    "hades-w106",
    "hades-w107",
-   "hades-w108",
    "hades-w109"
   ]
  },
@@ -623,7 +605,6 @@
   "art": [
    "helen-1",
    "helen-2",
-   "helen-3",
    "helen-w100",
    "helen-w101",
    "helen-w102",
@@ -718,7 +699,6 @@
    "heracles-w103",
    "heracles-w104",
    "heracles-w105",
-   "heracles-w107",
    "heracles-w108",
    "heracles-w109"
   ]
@@ -838,7 +818,6 @@
    "laestrygonians-3",
    "laestrygonians-4",
    "laestrygonians-w100",
-   "laestrygonians-w101",
    "laestrygonians-w102"
   ]
  },
@@ -923,7 +902,6 @@
   "zhDef": "斯巴达国王，海伦之夫，阿伽门农之弟；忒勒马科斯曾往访探询消息。",
   "art": [
    "menelaus-1",
-   "menelaus-3",
    "menelaus-4",
    "menelaus-w100",
    "menelaus-w101",
@@ -981,7 +959,6 @@
    "nausicaa-3",
    "nausicaa-4",
    "nausicaa-3b",
-   "nausicaa-w100",
    "nausicaa-w101",
    "nausicaa-w102",
    "nausicaa-w103",
@@ -1014,8 +991,7 @@
    "nestor-2",
    "nestor-w100",
    "nestor-w101",
-   "nestor-w102",
-   "nestor-w103"
+   "nestor-w102"
   ]
  },
  {
@@ -1055,14 +1031,12 @@
    "nobody-1",
    "nobody-2",
    "nobody-3",
-   "nobody-4",
    "nobody-w100",
    "nobody-w101",
    "nobody-w102",
    "nobody-w103",
    "nobody-w104",
    "nobody-w106",
-   "nobody-w107",
    "nobody-w108",
    "nobody-w109"
   ]
@@ -1078,7 +1052,6 @@
   "art": [
    "odysseus-1",
    "odysseus-4",
-   "odysseus-w101",
    "odysseus-w102",
    "odysseus-w103",
    "odysseus-w104",
@@ -1195,8 +1168,7 @@
   "zhDef": "友善、热爱航海的民族，其船近乎神奇；他们听罢奥德修斯的故事后送他归乡（其国为斯刻里亚）。",
   "art": [
    "phaeacians-2",
-   "phaeacians-w100",
-   "phaeacians-w101"
+   "phaeacians-w100"
   ]
  },
  {
@@ -1208,8 +1180,7 @@
   "zhPinyin": "Fēimí'èsī",
   "zhDef": "被迫在奥德修斯厅堂为求婚者献唱的歌手，最终获奥德修斯赦免。",
   "art": [
-   "phemius-2",
-   "phemius-w100"
+   "phemius-2"
   ]
  },
  {
@@ -1225,7 +1196,6 @@
    "polyphemus-3",
    "polyphemus-4",
    "polyphemus-w100",
-   "polyphemus-w101",
    "polyphemus-w102",
    "polyphemus-w103",
    "polyphemus-w104",
@@ -1278,7 +1248,6 @@
   "art": [
    "proteus-1",
    "proteus-2",
-   "proteus-w100",
    "proteus-w101",
    "proteus-w103"
   ]
@@ -1317,7 +1286,6 @@
   "zhDef": "栖于峭壁、长有六头的怪物；船只经过时，她攫食了奥德修斯的六名同伴。",
   "art": [
    "scylla-1",
-   "scylla-2",
    "scylla-w100",
    "scylla-w102",
    "scylla-w103",
@@ -1351,14 +1319,12 @@
    "sirens-3",
    "sirens-4",
    "sirens-w100",
-   "sirens-w101",
    "sirens-w102",
    "sirens-w103",
    "sirens-w104",
    "sirens-w105",
    "sirens-w106",
    "sirens-w107",
-   "sirens-w108",
    "sirens-w109"
   ]
  },
@@ -1398,7 +1364,6 @@
   "zhDef": "奥德修斯与珀涅罗珀之子；诗中追随他逐渐成长、出海寻访父亲的消息。",
   "art": [
    "telemachus-1",
-   "telemachus-2",
    "telemachus-3",
    "telemachus-w100",
    "telemachus-w101"
@@ -1468,7 +1433,6 @@
    "zeus-w102",
    "zeus-w103",
    "zeus-w104",
-   "zeus-w106",
    "zeus-w107",
    "zeus-w108",
    "zeus-w109"

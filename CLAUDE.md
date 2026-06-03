@@ -2,7 +2,7 @@
 
 A bilingual (English · 简体中文 · Pīnyīn) illustrated glossary of 84 entries from Homer's
 *Odyssey* (Emily Wilson translation, W. W. Norton), each paired with public-domain or
-openly-licensed artwork (**550 images** in `art.json`).
+openly-licensed artwork (**514 images** in `art.json`; deduped by source so every image appears once).
 
 - **Live:** https://odysseygloss.vercel.app (Vercel project `odysseygloss`, native domain, auto-deploys on push to `main`)
 - **Repo:** github.com/benaustralia/odyssey
@@ -21,7 +21,8 @@ openly-licensed artwork (**550 images** in `art.json`).
 - `categoryOf(tag)` maps tags → 4 filter categories: **gods** (god\*), **monsters** (monster), **mortals** (person/hero/people/animal), **world** (place/thing/idea/trick). Filter labels: Gods · Mortals · Monsters · **World**.
 
 ## Captions / licensing
-- Caption format (YARL `description`): `Artist · Title, year`, with graceful omission; CC images append the license (e.g. `CC BY 4.0`). **English titles only** — foreign/messy/catalogue titles were stripped. The 353 harvested titles were standardised in one pass (translated to English, museum/inventory/accession noise removed, Title Case) and their `artist` fields scrubbed of Commons uploader/photographer handles (kept real painters + vase-painter conventions; blanked anonymous ancient works).
+- Caption format (YARL `description`): `Artist · Title, year`, with graceful omission; CC images append the license (e.g. `CC BY 4.0`). **English titles only** — foreign/messy/catalogue titles were stripped. **All** titles (harvested + originals) were standardised: translated to English, museum/inventory/accession noise removed, truncations/"artist-as-title"/book-scan prefixes fixed, Title Case; `artist` fields scrubbed of Commons uploader/photographer handles (kept real painters + vase-painter conventions; blanked anonymous ancient works). Re-standardise from the `source` filename (ground truth) — the stored `title` was sometimes lossy/truncated.
+- **Dedup invariant:** every image appears once. Enforced by grouping on the `source` Commons filename and keeping a single key per group, **preferring the one that is some entry's cover** so no card cover is orphaned. Re-run after any harvest. Note: deduped images may remain as orphan assets in the Cloudinary `odyssey` folder (delete separately).
 - Footer says "public domain or openly licensed (CC)". Sourced from Wikimedia Commons. Accept PD / CC0 / CC-BY / CC-BY-SA only.
 
 ## Working with artwork (lessons learned)
