@@ -17,7 +17,7 @@ openly-licensed artwork (**550 images** in `art.json`).
 
 ## Data model
 - `src/data/glossary.json` — array of entries: `{ term, pron, tag, def, zhName, zhPinyin, zhDef, art: string[] }`. `art` is an ordered list of keys into art.json; `art[0]` is the card cover.
-- `src/data/art.json` — `{ key: { file, artist, title, year, source, license? } }`. `file` lives in `public/art/<key>.jpg`. `license` is only set for non-PD (CC) images.
+- `src/data/art.json` — `{ key: { file, artist, title, year, source, license?, cld } }`. `cld` is the Cloudinary public_id (delivery). `file` (`/art/<key>.jpg`) is a legacy/fallback path only. `license` is only set for non-PD (CC) images.
 - `categoryOf(tag)` maps tags → 4 filter categories: **gods** (god\*), **monsters** (monster), **mortals** (person/hero/people/animal), **world** (place/thing/idea/trick). Filter labels: Gods · Mortals · Monsters · **World**.
 
 ## Captions / licensing
@@ -29,7 +29,16 @@ openly-licensed artwork (**550 images** in `art.json`).
 - After fetching: build a contact-sheet montage with ImageMagick and eyeball it; check for cross-language duplicate works (same painting filed under English + French/German/Dutch names — dedupe, keep English).
 - A greedy "cover diversification" pass reorders each entry's `art` so covers are unique where alternatives exist.
 - **Full-article harvest (done):** pulled *every* PD/CC image off each entry's en.wikipedia article (`generator=images`), keyed `<slug>-w<NN>`. This sweeps in junk that `generator=images` can't pre-filter — maps, coins, site/building/landscape photos, Britannica diagrams, book-plate scans, museum replicas, ritual photos, a fossil skull, and **off-subject gallery/navbox thumbnails** (e.g. Bernini's *Apollo & Daphne* landed on Ajax). The original Commons filename lives in the `source` field (the on-disk `file` is renamed) — QA by dumping `source` basenames + a contact-sheet montage, then prune. 32 were pruned this round.
-- **Image weight:** all art is recompressed to `-resize '1600x1600>' -quality 82 -interlace Plane -sampling-factor 4:2:0 -strip` (`public/art` ≈ 118M). Re-run `magick mogrify ...` after adding new images.
+- **Image weight:** local masters in `public/art` are recompressed to `-resize '1600x1600>' -quality 82 -interlace Plane -sampling-factor 4:2:0 -strip` (≈ 118M) before upload.
+
+## Image hosting (Cloudinary)
+- All 550 images are served from **Cloudinary** — cloud `dhvvz91bh`, asset folder `odyssey`. `public/art/` is **git-ignored** (kept locally only as the upload master / for re-sync); it is NOT deployed. `public/hero.jpg` stays in the repo (LCP preload).
+- App delivers via `cldUrl(a, w)` in `App.tsx`: `…/image/upload/f_auto,q_auto,c_limit,w_${w}/${a.cld}` (AVIF/WebP, auto quality). Covers use `w_800`, lightbox `w_1600`.
+- **Credentials:** `CLOUDINARY_URL` lives in `~/Documents/wallpapers-1850s/.env`; the `cld` CLI is in that project's `.venv` (`wallpapers-1850s/.venv/bin/cld`). This env uses **dynamic folders**, so uploads get *random* public_ids — the filename is stored as `display_name`.
+- **Re-sync after adding/changing images:**
+  1. `cd ~/Documents/wallpapers-1850s && export CLOUDINARY_URL=$(grep ^CLOUDINARY_URL= .env | cut -d= -f2-)`
+  2. `.venv/bin/cld sync --push ~/Documents/odyssey/public/art odyssey -w 16`
+  3. Map `display_name → public_id` via `cloudinary.search` (`expression("asset_folder=odyssey")`, paginate `next_cursor`) and write the `cld` field into `art.json` (see the one-off script used in git history).
 - Shell here is **zsh** (no `mapfile`/bash array slicing) — use Python for montages/scripts.
 
 ## Deploy
