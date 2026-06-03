@@ -1360,5 +1360,27 @@
   "title": "Penelope Unraveling Her Work at Night",
   "year": "1886",
   "source": "https://commons.wikimedia.org/wiki/File:%22Penelope_Unraveling_Her_Work_at_Night%22_MET_ADA6426.jpg"
+ },
+ "nestor-2": {
+  "file": "/art/nestor-2.jpg",
+  "artist": "Meleager Painter",
+  "title": "The Sacrifice of Nestor at Pylos",
+  "year": "c. 400 BC",
+  "source": "https://commons.wikimedia.org/wiki/File:Sacrifice_Nestor_Pylos_Meleager_Painter_MAN.jpg",
+  "license": "CC BY 2.5"
+ },
+ "phemius-2": {
+  "file": "/art/phemius-2.jpg",
+  "artist": "John Flaxman",
+  "title": "Phemius the Minstrel",
+  "year": "1805",
+  "source": "https://commons.wikimedia.org/wiki/File:Flaxman%27s_Zeichnungen_1910_079.jpg"
+ },
+ "demodocus-2": {
+  "file": "/art/demodocus-2.jpg",
+  "artist": "John Flaxman",
+  "title": "Demodocus Sings (Odyssey)",
+  "year": "1805",
+  "source": "https://commons.wikimedia.org/wiki/File:OdysseyDemodokos.png"
  }
 }
