@@ -21,7 +21,7 @@ openly-licensed artwork (**550 images** in `art.json`).
 - `categoryOf(tag)` maps tags → 4 filter categories: **gods** (god\*), **monsters** (monster), **mortals** (person/hero/people/animal), **world** (place/thing/idea/trick). Filter labels: Gods · Mortals · Monsters · **World**.
 
 ## Captions / licensing
-- Caption format (YARL `description`): `Artist · Title, year`, with graceful omission; CC images append the license (e.g. `CC BY 4.0`). **English titles only** — foreign/messy/catalogue titles were stripped.
+- Caption format (YARL `description`): `Artist · Title, year`, with graceful omission; CC images append the license (e.g. `CC BY 4.0`). **English titles only** — foreign/messy/catalogue titles were stripped. The 353 harvested titles were standardised in one pass (translated to English, museum/inventory/accession noise removed, Title Case) and their `artist` fields scrubbed of Commons uploader/photographer handles (kept real painters + vase-painter conventions; blanked anonymous ancient works).
 - Footer says "public domain or openly licensed (CC)". Sourced from Wikimedia Commons. Accept PD / CC0 / CC-BY / CC-BY-SA only.
 
 ## Working with artwork (lessons learned)
