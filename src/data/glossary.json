@@ -10,7 +10,8 @@
   "art": [
    "achaeans-1",
    "achaeans-2",
-   "achaeans-3"
+   "achaeans-3",
+   "achaeans-w100"
   ]
  },
  {
@@ -25,7 +26,17 @@
    "achilles-1",
    "achilles-2",
    "achilles-3",
-   "achilles-4"
+   "achilles-4",
+   "achilles-w100",
+   "achilles-w101",
+   "achilles-w102",
+   "achilles-w103",
+   "achilles-w104",
+   "achilles-w105",
+   "achilles-w106",
+   "achilles-w107",
+   "achilles-w108",
+   "achilles-w109"
   ]
  },
  {
@@ -37,7 +48,8 @@
   "zhPinyin": "Āi'āiyà dǎo",
   "zhDef": "女巫喀耳刻居住的海岛。",
   "art": [
-   "aeaea-1"
+   "aeaea-1",
+   "aeaea-w101"
   ]
  },
  {
@@ -51,7 +63,10 @@
   "art": [
    "aegisthus-1",
    "aegisthus-3",
-   "aegisthus-4"
+   "aegisthus-4",
+   "aegisthus-w100",
+   "aegisthus-w101",
+   "aegisthus-w102"
   ]
  },
  {
@@ -77,7 +92,15 @@
   "art": [
    "agamemnon-1",
    "agamemnon-2",
-   "agamemnon-3"
+   "agamemnon-3",
+   "agamemnon-w100",
+   "agamemnon-w101",
+   "agamemnon-w102",
+   "agamemnon-w103",
+   "agamemnon-w104",
+   "agamemnon-w105",
+   "agamemnon-w106",
+   "agamemnon-w107"
   ]
  },
  {
@@ -90,7 +113,15 @@
   "zhDef": "伟大的希腊勇士，已故；在冥界仍对奥德修斯心怀怨恨。",
   "art": [
    "ajax-1",
-   "ajax-2"
+   "ajax-2",
+   "ajax-w100",
+   "ajax-w101",
+   "ajax-w102",
+   "ajax-w103",
+   "ajax-w104",
+   "ajax-w105",
+   "ajax-w107",
+   "ajax-w108"
   ]
  },
  {
@@ -102,7 +133,8 @@
   "zhPinyin": "Ā'ěrkānuò'èsī",
   "zhDef": "善良的费阿喀亚国王，听完奥德修斯的故事后送他船只回乡。",
   "art": [
-   "alcinous-2"
+   "alcinous-2",
+   "alcinous-w100"
   ]
  },
  {
@@ -115,7 +147,10 @@
   "zhDef": "神所食用的食物，使其永葆青春。",
   "art": [
    "ambrosia-1",
-   "ambrosia-3"
+   "ambrosia-3",
+   "ambrosia-w100",
+   "ambrosia-w101",
+   "ambrosia-w102"
   ]
  },
  {
@@ -128,7 +163,10 @@
   "zhDef": "求婚者中最有礼、最不残暴的一个，但仍与众人一同被杀。",
   "art": [
    "amphinomus-2",
-   "amphinomus-3"
+   "amphinomus-3",
+   "amphinomus-w100",
+   "amphinomus-w101",
+   "amphinomus-w102"
   ]
  },
  {
@@ -154,7 +192,17 @@
   "zhDef": "爱与美的女神。",
   "art": [
    "aphrodite-1",
-   "aphrodite-2"
+   "aphrodite-2",
+   "aphrodite-w100",
+   "aphrodite-w101",
+   "aphrodite-w102",
+   "aphrodite-w103",
+   "aphrodite-w104",
+   "aphrodite-w105",
+   "aphrodite-w106",
+   "aphrodite-w107",
+   "aphrodite-w108",
+   "aphrodite-w109"
   ]
  },
  {
@@ -168,7 +216,16 @@
   "art": [
    "apollo-1",
    "apollo-2",
-   "apollo-3"
+   "apollo-3",
+   "apollo-w100",
+   "apollo-w101",
+   "apollo-w102",
+   "apollo-w103",
+   "apollo-w105",
+   "apollo-w106",
+   "apollo-w107",
+   "apollo-w108",
+   "apollo-w109"
   ]
  },
  {
@@ -195,7 +252,12 @@
    "ares-1",
    "ares-2",
    "ares-3",
-   "ares-4"
+   "ares-4",
+   "ares-w101",
+   "ares-w102",
+   "ares-w103",
+   "ares-w104",
+   "ares-w105"
   ]
  },
  {
@@ -222,7 +284,17 @@
    "artemis-1",
    "artemis-2",
    "artemis-3",
-   "artemis-4"
+   "artemis-4",
+   "artemis-w100",
+   "artemis-w101",
+   "artemis-w102",
+   "artemis-w103",
+   "artemis-w104",
+   "artemis-w105",
+   "artemis-w106",
+   "artemis-w107",
+   "artemis-w108",
+   "artemis-w109"
   ]
  },
  {
@@ -236,7 +308,17 @@
   "art": [
    "athena-1",
    "athena-2",
-   "athena-4"
+   "athena-4",
+   "athena-w100",
+   "athena-w101",
+   "athena-w102",
+   "athena-w103",
+   "athena-w104",
+   "athena-w105",
+   "athena-w106",
+   "athena-w107",
+   "athena-w108",
+   "athena-w109"
   ]
  },
  {
@@ -249,7 +331,8 @@
   "zhDef": "弹奏里拉琴、吟唱故事的诗人，如得摩多科斯与菲弥俄斯。",
   "art": [
    "phemius-1",
-   "bard-2"
+   "bard-2",
+   "bard-w100"
   ]
  },
  {
@@ -264,7 +347,17 @@
    "calypso-1",
    "calypso-2",
    "calypso-3",
-   "calypso-4"
+   "calypso-4",
+   "calypso-w100",
+   "calypso-w101",
+   "calypso-w102",
+   "calypso-w103",
+   "calypso-w104",
+   "calypso-w105",
+   "calypso-w106",
+   "calypso-w107",
+   "calypso-w108",
+   "calypso-w109"
   ]
  },
  {
@@ -278,7 +371,8 @@
   "art": [
    "charybdis-1",
    "charybdis-3",
-   "charybdis-4"
+   "charybdis-4",
+   "charybdis-w100"
   ]
  },
  {
@@ -292,7 +386,8 @@
   "art": [
    "cicones-1",
    "cicones-2",
-   "cicones-4"
+   "cicones-4",
+   "cicones-w101"
   ]
  },
  {
@@ -306,7 +401,17 @@
   "art": [
    "circe-1",
    "circe-2",
-   "circe-3"
+   "circe-3",
+   "circe-w100",
+   "circe-w101",
+   "circe-w102",
+   "circe-w103",
+   "circe-w104",
+   "circe-w105",
+   "circe-w106",
+   "circe-w107",
+   "circe-w108",
+   "circe-w109"
   ]
  },
  {
@@ -318,7 +423,10 @@
   "zhPinyin": "Kèlǚtàimòsītèlā",
   "zhDef": "阿伽门农之妻，参与谋杀丈夫，与忠贞的珀涅罗珀形成鲜明对比。",
   "art": [
-   "clytemnestra-1"
+   "clytemnestra-1",
+   "clytemnestra-w100",
+   "clytemnestra-w101",
+   "clytemnestra-w102"
   ]
  },
  {
@@ -330,7 +438,14 @@
   "zhPinyin": "Kèluònuòsī",
   "zhDef": "年长的神，宙斯之父；宙斯常被称为\"克洛诺斯之子\"。",
   "art": [
-   "cronus-1"
+   "cronus-1",
+   "cronus-w100",
+   "cronus-w101",
+   "cronus-w102",
+   "cronus-w103",
+   "cronus-w104",
+   "cronus-w105",
+   "cronus-w107"
   ]
  },
  {
@@ -344,7 +459,11 @@
   "art": [
    "cyclops-1",
    "cyclops-2",
-   "cyclops-3"
+   "cyclops-3",
+   "cyclops-w101",
+   "cyclops-w102",
+   "cyclops-w103",
+   "cyclops-w105"
   ]
  },
  {
@@ -359,7 +478,17 @@
    "dawn-1",
    "dawn-2",
    "dawn-3",
-   "dawn-4"
+   "dawn-4",
+   "dawn-w100",
+   "dawn-w101",
+   "dawn-w102",
+   "dawn-w103",
+   "dawn-w104",
+   "dawn-w105",
+   "dawn-w106",
+   "dawn-w107",
+   "dawn-w108",
+   "dawn-w109"
   ]
  },
  {
@@ -399,7 +528,8 @@
   "zhDef": "从喀耳刻屋顶坠亡的年轻船员，其鬼魂恳求奥德修斯予以安葬。",
   "art": [
    "elpenor-1",
-   "elpenor-2"
+   "elpenor-2",
+   "elpenor-w100"
   ]
  },
  {
@@ -424,7 +554,9 @@
   "zhDef": "奥德修斯的老乳母，为乔装的他洗脚时凭旧疤认出主人。",
   "art": [
    "eurycleia-1",
-   "eurycleia-3"
+   "eurycleia-3",
+   "eurycleia-w100",
+   "eurycleia-w101"
   ]
  },
  {
@@ -438,7 +570,9 @@
   "art": [
    "eurylochus-1",
    "eurylochus-2",
-   "eurylochus-3"
+   "eurylochus-3",
+   "eurylochus-w100",
+   "eurylochus-w101"
   ]
  },
  {
@@ -465,7 +599,17 @@
    "hades-1",
    "hades-2",
    "hades-3",
-   "hades-4"
+   "hades-4",
+   "hades-w100",
+   "hades-w101",
+   "hades-w102",
+   "hades-w103",
+   "hades-w104",
+   "hades-w105",
+   "hades-w106",
+   "hades-w107",
+   "hades-w108",
+   "hades-w109"
   ]
  },
  {
@@ -479,7 +623,17 @@
   "art": [
    "helen-1",
    "helen-2",
-   "helen-3"
+   "helen-3",
+   "helen-w100",
+   "helen-w101",
+   "helen-w102",
+   "helen-w103",
+   "helen-w104",
+   "helen-w105",
+   "helen-w106",
+   "helen-w107",
+   "helen-w108",
+   "helen-w109"
   ]
  },
  {
@@ -492,7 +646,15 @@
   "zhDef": "太阳神；奥德修斯饥饿的同伴宰食了他的圣牛，铸成致命大错。",
   "art": [
    "helius-1",
-   "helius-2"
+   "helius-2",
+   "helius-w100",
+   "helius-w101",
+   "helius-w103",
+   "helius-w105",
+   "helius-w106",
+   "helius-w107",
+   "helius-w108",
+   "helius-w109"
   ]
  },
  {
@@ -505,7 +667,13 @@
   "zhDef": "火与锻造之神，为众神打造器物的铁匠。",
   "art": [
    "hephaestus-1",
-   "hephaestus-2"
+   "hephaestus-2",
+   "hephaestus-w100",
+   "hephaestus-w102",
+   "hephaestus-w103",
+   "hephaestus-w104",
+   "hephaestus-w105",
+   "hephaestus-w106"
   ]
  },
  {
@@ -519,7 +687,16 @@
   "art": [
    "hera-1",
    "hera-2",
-   "hera-3"
+   "hera-3",
+   "hera-w100",
+   "hera-w101",
+   "hera-w102",
+   "hera-w103",
+   "hera-w104",
+   "hera-w106",
+   "hera-w107",
+   "hera-w108",
+   "hera-w109"
   ]
  },
  {
@@ -534,7 +711,16 @@
    "heracles-1",
    "heracles-2",
    "heracles-3",
-   "heracles-4"
+   "heracles-4",
+   "heracles-w100",
+   "heracles-w101",
+   "heracles-w102",
+   "heracles-w103",
+   "heracles-w104",
+   "heracles-w105",
+   "heracles-w107",
+   "heracles-w108",
+   "heracles-w109"
   ]
  },
  {
@@ -548,7 +734,17 @@
   "art": [
    "hermes-1",
    "hermes-2",
-   "hermes-3"
+   "hermes-3",
+   "hermes-w100",
+   "hermes-w101",
+   "hermes-w102",
+   "hermes-w103",
+   "hermes-w104",
+   "hermes-w105",
+   "hermes-w106",
+   "hermes-w107",
+   "hermes-w108",
+   "hermes-w109"
   ]
  },
  {
@@ -561,7 +757,13 @@
   "zhDef": "善待客人与陌生人的神圣习俗（款待饮食、沐浴、留宿、馈赠）；违背者将触怒神明，是全诗核心主题。",
   "art": [
    "hospitality-1",
-   "hospitality-2"
+   "hospitality-2",
+   "hospitality-w100",
+   "hospitality-w101",
+   "hospitality-w102",
+   "hospitality-w103",
+   "hospitality-w104",
+   "hospitality-w105"
   ]
  },
  {
@@ -574,7 +776,14 @@
   "zhDef": "海中女神，赠奥德修斯神巾，助他在狂风暴雨中漂浮求生。",
   "art": [
    "poseidon-2",
-   "ino-2"
+   "ino-2",
+   "ino-w100",
+   "ino-w101",
+   "ino-w102",
+   "ino-w103",
+   "ino-w104",
+   "ino-w105",
+   "ino-w106"
   ]
  },
  {
@@ -627,7 +836,10 @@
    "laestrygonians-1",
    "laestrygonians-2",
    "laestrygonians-3",
-   "laestrygonians-4"
+   "laestrygonians-4",
+   "laestrygonians-w100",
+   "laestrygonians-w101",
+   "laestrygonians-w102"
   ]
  },
  {
@@ -642,7 +854,16 @@
    "libation-1",
    "libation-2",
    "libation-3",
-   "libation-4"
+   "libation-4",
+   "libation-w100",
+   "libation-w101",
+   "libation-w102",
+   "libation-w103",
+   "libation-w104",
+   "libation-w105",
+   "libation-w106",
+   "libation-w107",
+   "libation-w109"
   ]
  },
  {
@@ -654,7 +875,8 @@
   "zhPinyin": "shíliánzú",
   "zhDef": "性情平和的部族，食用一种使人忘乡、不愿离去的莲花。",
   "art": [
-   "lotus-eaters-1"
+   "lotus-eaters-1",
+   "lotus-eaters-w100"
   ]
  },
  {
@@ -669,7 +891,14 @@
    "lyre-1",
    "lyre-2",
    "lyre-3",
-   "lyre-4"
+   "lyre-4",
+   "lyre-w101",
+   "lyre-w102",
+   "lyre-w103",
+   "lyre-w104",
+   "lyre-w107",
+   "lyre-w108",
+   "lyre-w109"
   ]
  },
  {
@@ -695,7 +924,11 @@
   "art": [
    "menelaus-1",
    "menelaus-3",
-   "menelaus-4"
+   "menelaus-4",
+   "menelaus-w100",
+   "menelaus-w101",
+   "menelaus-w102",
+   "menelaus-w103"
   ]
  },
  {
@@ -707,7 +940,8 @@
   "zhPinyin": "Méntuō'ěr",
   "zhDef": "奥德修斯的老友，雅典娜常化作他来指点忒勒马科斯（英文\"mentor\"一词即源于此名）。",
   "art": [
-   "mentor-1"
+   "mentor-1",
+   "mentor-w100"
   ]
  },
  {
@@ -720,7 +954,17 @@
   "zhDef": "赐予诗人灵感的女神；全诗开篇即祈请缪斯讲述这个故事。",
   "art": [
    "muse-2",
-   "muse-4"
+   "muse-4",
+   "muse-w100",
+   "muse-w101",
+   "muse-w102",
+   "muse-w103",
+   "muse-w104",
+   "muse-w105",
+   "muse-w106",
+   "muse-w107",
+   "muse-w108",
+   "muse-w109"
   ]
  },
  {
@@ -736,7 +980,12 @@
    "nausicaa-2",
    "nausicaa-3",
    "nausicaa-4",
-   "nausicaa-3b"
+   "nausicaa-3b",
+   "nausicaa-w100",
+   "nausicaa-w101",
+   "nausicaa-w102",
+   "nausicaa-w103",
+   "nausicaa-w104"
   ]
  },
  {
@@ -762,7 +1011,11 @@
   "zhPinyin": "Nièsītuō'ěr",
   "zhDef": "年迈睿智的皮洛斯国王，曾征战特洛伊；忒勒马科斯往访探询父讯。",
   "art": [
-   "nestor-2"
+   "nestor-2",
+   "nestor-w100",
+   "nestor-w101",
+   "nestor-w102",
+   "nestor-w103"
   ]
  },
  {
@@ -777,7 +1030,17 @@
    "nymph-1",
    "nymph-2",
    "nymph-3",
-   "nymph-4"
+   "nymph-4",
+   "nymph-w100",
+   "nymph-w101",
+   "nymph-w102",
+   "nymph-w103",
+   "nymph-w104",
+   "nymph-w105",
+   "nymph-w106",
+   "nymph-w107",
+   "nymph-w108",
+   "nymph-w109"
   ]
  },
  {
@@ -792,7 +1055,16 @@
    "nobody-1",
    "nobody-2",
    "nobody-3",
-   "nobody-4"
+   "nobody-4",
+   "nobody-w100",
+   "nobody-w101",
+   "nobody-w102",
+   "nobody-w103",
+   "nobody-w104",
+   "nobody-w106",
+   "nobody-w107",
+   "nobody-w108",
+   "nobody-w109"
   ]
  },
  {
@@ -805,7 +1077,13 @@
   "zhDef": "史诗主角，机智勇敢的伊塔卡国王，特洛伊战后历经十年艰险返乡。",
   "art": [
    "odysseus-1",
-   "odysseus-4"
+   "odysseus-4",
+   "odysseus-w101",
+   "odysseus-w102",
+   "odysseus-w103",
+   "odysseus-w104",
+   "odysseus-w105",
+   "odysseus-w106"
   ]
  },
  {
@@ -856,7 +1134,14 @@
   "zhDef": "阿伽门农之子，长大后为遇害的父亲复仇，被树为忒勒马科斯的榜样。",
   "art": [
    "orestes-1",
-   "orestes-4"
+   "orestes-4",
+   "orestes-w100",
+   "orestes-w101",
+   "orestes-w102",
+   "orestes-w103",
+   "orestes-w104",
+   "orestes-w105",
+   "orestes-w106"
   ]
  },
  {
@@ -869,7 +1154,11 @@
   "zhDef": "奥德修斯忠贞而聪慧的妻子，以耐心与智计周旋于众多求婚者之间多年。",
   "art": [
    "penelope-weave",
-   "penelope-4"
+   "penelope-4",
+   "penelope-w100",
+   "penelope-w102",
+   "penelope-w103",
+   "penelope-w104"
   ]
  },
  {
@@ -883,7 +1172,17 @@
   "art": [
    "persephone-1",
    "persephone-2",
-   "persephone-3"
+   "persephone-3",
+   "persephone-w100",
+   "persephone-w101",
+   "persephone-w102",
+   "persephone-w103",
+   "persephone-w104",
+   "persephone-w105",
+   "persephone-w106",
+   "persephone-w107",
+   "persephone-w108",
+   "persephone-w109"
   ]
  },
  {
@@ -895,7 +1194,9 @@
   "zhPinyin": "Fèi'ākāyà rén",
   "zhDef": "友善、热爱航海的民族，其船近乎神奇；他们听罢奥德修斯的故事后送他归乡（其国为斯刻里亚）。",
   "art": [
-   "phaeacians-2"
+   "phaeacians-2",
+   "phaeacians-w100",
+   "phaeacians-w101"
   ]
  },
  {
@@ -907,7 +1208,8 @@
   "zhPinyin": "Fēimí'èsī",
   "zhDef": "被迫在奥德修斯厅堂为求婚者献唱的歌手，最终获奥德修斯赦免。",
   "art": [
-   "phemius-2"
+   "phemius-2",
+   "phemius-w100"
   ]
  },
  {
@@ -921,7 +1223,15 @@
   "art": [
    "polyphemus-1",
    "polyphemus-3",
-   "polyphemus-4"
+   "polyphemus-4",
+   "polyphemus-w100",
+   "polyphemus-w101",
+   "polyphemus-w102",
+   "polyphemus-w103",
+   "polyphemus-w104",
+   "polyphemus-w105",
+   "polyphemus-w106",
+   "polyphemus-w107"
   ]
  },
  {
@@ -935,7 +1245,14 @@
   "art": [
    "poseidon-1",
    "poseidon-2",
-   "poseidon-4"
+   "poseidon-4",
+   "poseidon-w100",
+   "poseidon-w103",
+   "poseidon-w104",
+   "poseidon-w105",
+   "poseidon-w106",
+   "poseidon-w107",
+   "poseidon-w109"
   ]
  },
  {
@@ -960,7 +1277,10 @@
   "zhDef": "\"海中老人\"，善变形以躲避盘问，但被紧紧擒住后必须作答。",
   "art": [
    "proteus-1",
-   "proteus-2"
+   "proteus-2",
+   "proteus-w100",
+   "proteus-w101",
+   "proteus-w103"
   ]
  },
  {
@@ -997,7 +1317,11 @@
   "zhDef": "栖于峭壁、长有六头的怪物；船只经过时，她攫食了奥德修斯的六名同伴。",
   "art": [
    "scylla-1",
-   "scylla-2"
+   "scylla-2",
+   "scylla-w100",
+   "scylla-w102",
+   "scylla-w103",
+   "scylla-w104"
   ]
  },
  {
@@ -1025,7 +1349,17 @@
    "sirens-1",
    "sirens-2",
    "sirens-3",
-   "sirens-4"
+   "sirens-4",
+   "sirens-w100",
+   "sirens-w101",
+   "sirens-w102",
+   "sirens-w103",
+   "sirens-w104",
+   "sirens-w105",
+   "sirens-w106",
+   "sirens-w107",
+   "sirens-w108",
+   "sirens-w109"
   ]
  },
  {
@@ -1065,7 +1399,9 @@
   "art": [
    "telemachus-1",
    "telemachus-2",
-   "telemachus-3"
+   "telemachus-3",
+   "telemachus-w100",
+   "telemachus-w101"
   ]
  },
  {
@@ -1077,7 +1413,10 @@
   "zhPinyin": "Tèruìxī'āsī",
   "zhDef": "著名的盲眼先知；奥德修斯远赴冥界，向其鬼魂问询归途。",
   "art": [
-   "tiresias-1"
+   "tiresias-1",
+   "tiresias-w100",
+   "tiresias-w101",
+   "tiresias-w102"
   ]
  },
  {
@@ -1104,7 +1443,12 @@
   "zhDef": "内藏伏兵的巨型空心木马，奥德修斯借此攻陷特洛伊。",
   "art": [
    "trojan-horse-1",
-   "trojan-horse-2"
+   "trojan-horse-2",
+   "trojan-horse-w100",
+   "trojan-horse-w102",
+   "trojan-horse-w103",
+   "trojan-horse-w104",
+   "trojan-horse-w105"
   ]
  },
  {
@@ -1118,7 +1462,16 @@
   "art": [
    "zeus-1",
    "zeus-2",
-   "zeus-3"
+   "zeus-3",
+   "zeus-w100",
+   "zeus-w101",
+   "zeus-w102",
+   "zeus-w103",
+   "zeus-w104",
+   "zeus-w106",
+   "zeus-w107",
+   "zeus-w108",
+   "zeus-w109"
   ]
  }
 ]
