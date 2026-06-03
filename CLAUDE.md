@@ -2,7 +2,7 @@
 
 A bilingual (English · 简体中文 · Pīnyīn) illustrated glossary of 85 entries from Homer's
 *Odyssey* (Emily Wilson translation, W. W. Norton), each paired with public-domain or
-openly-licensed artwork (**514 images** in `art.json`; deduped by source so every image appears once).
+openly-licensed artwork (**520 images** in `art.json`; deduped by source so every image appears once).
 
 - **Live:** https://odysseygloss.vercel.app (Vercel project `odysseygloss`, native domain, auto-deploys on push to `main`)
 - **Repo:** github.com/benaustralia/odyssey
@@ -47,7 +47,7 @@ openly-licensed artwork (**514 images** in `art.json`; deduped by source so ever
 
 ## TODO / open items
 1. **Thin out over-used images — DONE.** Every card **cover is now unique**. Hayez 4×→1×; Pinturicchio 7×→1×; Kleophrades vase 3×→1× (Demodocus→Flaxman, Phemius→Flaxman, bard keeps the vase); Pylos fresco 2×→1× (Nestor→Meleager-Painter vase). Remaining ×2 cases are all cover-plus-secondary (the image is one card's cover and another's 2nd slide, so it appears once on the grid) and several are deliberate (Scylla & Charybdis share the same "Odysseus between Scylla and Charybdis"; Helen/Sparta; Poseidon/Ino). Method that worked: pull images from the relevant Wikipedia article via `action=query&generator=images&prop=imageinfo&iiprop=url|mime|extmetadata`, filter to PD/CC.
-2. **More modern art.** Infra supports CC; only 2 CC images so far. Relevant 20th–21st-c. Odyssey art is sparse on open repos — best added by naming specific artists/works.
+2. **Curated additions (done June 2026):** Burne-Jones *Wine of Circe* (Circe), Primaticcio *Ulysses and Penelope* (Penelope), two Esquiline *Odyssey Landscapes* Underworld panels (Tiresias = the shades; Hades = the punished), the Sperlonga *Scylla Group* (Scylla), and a PD frame from *L'Odissea* (1911 film) → Cyclops. Modern film stills/posters stay excluded (copyrighted). The PD-only screen source is *L'Odissea* (1911), on Commons as a webm — pull frames with ffmpeg.
 3. A few minor-character entries still share scenes for lack of unique art.
 4. Optional: masthead `ΟΔΥΣΣΕΙΑ` is redundant with "The Odyssey" (could become `ΟΜΗΡΟΥ` / be removed).
 

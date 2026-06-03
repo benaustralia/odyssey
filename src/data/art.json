@@ -4384,5 +4384,59 @@
   "source": "https://commons.wikimedia.org/wiki/File:Solomon_Ajax_and_Cassandra.jpg",
   "cld": "j3is4irevpgz4eci40uh",
   "note": "Ajax the Lesser — the man seizing Cassandra at the altar"
+ },
+ "circe-wine": {
+  "file": "/art/circe-wine.jpg",
+  "artist": "Edward Burne-Jones",
+  "title": "The Wine of Circe",
+  "year": "1900",
+  "source": "https://commons.wikimedia.org/wiki/File:Edward_Burne-Jones_-_The_Wine_of_Circe,_1900.jpg",
+  "cld": "ggod2kl99pg143achle9"
+ },
+ "penelope-primaticcio": {
+  "file": "/art/penelope-primaticcio.jpg",
+  "artist": "Francesco Primaticcio",
+  "title": "Ulysses and Penelope",
+  "year": "",
+  "source": "https://commons.wikimedia.org/wiki/File:Francesco_Primaticcio_-_Ulysses_and_Penelope_-_WGA18409.jpg",
+  "cld": "sj7iux1gjskekjbzuqgj",
+  "note": "Penelope — the woman at right, with the returned Ulysses"
+ },
+ "scylla-sperlonga": {
+  "file": "/art/scylla-sperlonga.jpg",
+  "artist": "",
+  "title": "The Scylla Group",
+  "year": "",
+  "source": "https://commons.wikimedia.org/wiki/File:The_Scylla_group,_Sperlonga_(15801965545).jpg",
+  "cld": "obhdkfh8tsjmf0qayrei",
+  "license": "CC BY-SA 2.0",
+  "note": "Scylla — the fragmentary marble group of the sea-monster attacking the ship"
+ },
+ "tiresias-nekyia": {
+  "file": "/art/tiresias-nekyia.jpg",
+  "artist": "",
+  "title": "Odysseus in the Underworld (Odyssey Landscapes)",
+  "year": "",
+  "source": "https://commons.wikimedia.org/wiki/File:Arte_romana,_affreschi_con_storie_dell%27odissea_da_via_graziosa,_50_ac_ca._(musei_vaticani)_02_ulisse_agli_inferi_4_incontro_con_le_ombre.jpg",
+  "cld": "xasjs4u0snsa40zsbw4h",
+  "license": "CC BY 3.0"
+ },
+ "hades-damned": {
+  "file": "/art/hades-damned.jpg",
+  "artist": "",
+  "title": "The Underworld: Sisyphus, Tityos and the Danaïds (Odyssey Landscapes)",
+  "year": "",
+  "source": "https://commons.wikimedia.org/wiki/File:Arte_romana,_affreschi_con_storie_dell%27odissea_da_via_graziosa,_50_ac_ca._(musei_vaticani)_03_incontro_con_orione,_sisifo,_tizio_e_le_danaiadi_1.jpg",
+  "cld": "a7xqxwrm1rpe8eiumftm",
+  "license": "CC BY 3.0"
+ },
+ "cyclops-film1911": {
+  "file": "/art/cyclops-film1911.jpg",
+  "artist": "Milano Films",
+  "title": "L'Odissea (film still)",
+  "year": "1911",
+  "source": "https://commons.wikimedia.org/wiki/File:L%27Odissea_(1911).webm",
+  "cld": "hayjixehgffypzc7rvsu",
+  "note": "Polyphemus — the Cyclops looming above Odysseus' men"
  }
 }
