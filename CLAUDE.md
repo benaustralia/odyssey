@@ -34,7 +34,7 @@ openly-licensed artwork.
 `npm run build` then `vercel --prod --yes` (or just `git push` — auto-deploys). Lighthouse target was 100/100/100/100 (achieved locally; production perf varies with network).
 
 ## TODO / open items
-1. **Thin out over-used images.** Biggest: **Pinturicchio's *Return of Odysseus* used 7×** (suitor cluster: Antinous, Eurymachus, Melanthius, Amphinomus + Ithaca/Penelope). Others ≥2×: Kleophrades singer vase ×3 (bard/Demodocus/Phemius), Dosso Dossi, Degeorge, Füssli, Penelope Painter vase. Break these up with distinct works.
+1. **Thin out over-used images.** DONE: Hayez 4×→1×; Pinturicchio 7×→1× (suitor cluster broken up via the Mnesterophonia vase, Dora Wheeler's *Penelope Unraveling* (CC0), Kauffmann, Degeorge, Schiavonetti). Still ≥2×: **Kleophrades singer vase ×3** (bard/Demodocus/Phemius), plus a few ×2 (Dosso Dossi, Degeorge, Füssli, Penelope Painter vase). Tip: pull artworks from the relevant Wikipedia article (`action=query&generator=images&prop=imageinfo&iiprop=url|mime|extmetadata`) — that's how the suitor cluster was fixed.
 2. **More modern art.** Infra supports CC; only 2 CC images so far. Relevant 20th–21st-c. Odyssey art is sparse on open repos — best added by naming specific artists/works.
 3. A few minor-character entries still share scenes for lack of unique art.
 4. Optional: masthead `ΟΔΥΣΣΕΙΑ` is redundant with "The Odyssey" (could become `ΟΜΗΡΟΥ` / be removed).

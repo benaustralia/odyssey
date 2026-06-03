@@ -76,13 +76,6 @@
   "year": "1514",
   "source": "https://commons.wikimedia.org/wiki/File:FeastofthegodsFXD.jpg"
  },
- "antinous-1": {
-  "file": "/art/antinous-1.jpg",
-  "artist": "Pinturicchio",
-  "title": "Penelope with the Suitors",
-  "year": "c. 1509",
-  "source": "https://commons.wikimedia.org/wiki/File:Pinturicchio,_Return_of_Odysseus.jpg"
- },
  "antinous-2": {
   "file": "/art/antinous-2.jpg",
   "artist": "Thomas Degeorge",
@@ -271,13 +264,6 @@
   "title": "Circe and the Companions of Ulysses (Odyssey)",
   "year": "1805",
   "source": "https://commons.wikimedia.org/wiki/File:OdysseyCirce.png"
- },
- "eurymachus-1": {
-  "file": "/art/eurymachus-1.jpg",
-  "artist": "Pinturicchio",
-  "title": "Penelope with the Suitors",
-  "year": "c. 1509",
-  "source": "https://commons.wikimedia.org/wiki/File:Pinturicchio,_Return_of_Odysseus.jpg"
  },
  "hades-1": {
   "file": "/art/hades-1.jpg",
@@ -517,20 +503,6 @@
   "year": "1862",
   "source": "https://commons.wikimedia.org/wiki/File:Orestes_Pursued_by_the_Furies_by_William-Adolphe_Bouguereau_(1862)_-_Google_Art_Project.jpg"
  },
- "penelope-2": {
-  "file": "/art/penelope-2.jpg",
-  "artist": "Pinturicchio",
-  "title": "Penelope with the Suitors",
-  "year": "c. 1509",
-  "source": "https://commons.wikimedia.org/wiki/File:Pinturicchio,_Return_of_Odysseus.jpg"
- },
- "penelope-3": {
-  "file": "/art/penelope-3.jpg",
-  "artist": "Tangopaso",
-  "title": "",
-  "year": "2018",
-  "source": "https://commons.wikimedia.org/wiki/File:Lucr%C3%A8ce_%26_Tarquin_-_D%C3%A9part_d%27Ulysse.jpg"
- },
  "persephone-1": {
   "file": "/art/persephone-1.jpg",
   "artist": "Dante Gabriel Rossetti",
@@ -706,13 +678,6 @@
   "year": "1811",
   "source": "https://commons.wikimedia.org/wiki/File:J%C3%BApiter_y_Tetis,_por_Dominique_Ingres.jpg"
  },
- "amphinomus-1": {
-  "file": "/art/amphinomus-1.jpg",
-  "artist": "Pinturicchio",
-  "title": "Penelope with the Suitors",
-  "year": "c. 1509",
-  "source": "https://commons.wikimedia.org/wiki/File:Pinturicchio,_Return_of_Odysseus.jpg"
- },
  "elpenor-1": {
   "file": "/art/elpenor-1.jpg",
   "artist": "Greek (Lykaon Painter)",
@@ -733,13 +698,6 @@
   "title": "The Fight between Odysseus and Irus",
   "year": "1903",
   "source": "https://commons.wikimedia.org/wiki/File:Gevecht_tussen_Odysseus_en_Irus,_RP-P-1890-A-15578.jpg"
- },
- "melanthius-1": {
-  "file": "/art/melanthius-1.jpg",
-  "artist": "Pinturicchio",
-  "title": "Penelope with the Suitors",
-  "year": "c. 1509",
-  "source": "https://commons.wikimedia.org/wiki/File:Pinturicchio,_Return_of_Odysseus.jpg"
  },
  "proteus-1": {
   "file": "/art/proteus-1.jpg",
@@ -838,13 +796,6 @@
   "title": "Thomas Degeorge Ulysse",
   "year": "2005",
   "source": "https://commons.wikimedia.org/wiki/File:Thomas_Degeorge_Ulysse.jpg"
- },
- "amphinomus-4": {
-  "file": "/art/amphinomus-4.jpg",
-  "artist": "Internet Archive Book Images",
-  "title": "",
-  "year": "1870",
-  "source": "https://commons.wikimedia.org/wiki/File:Herculanum_et_Pomp%C3%A9i,_recueil_g%C3%A9n%C3%A9ral_des_peintures,_bronzes,_mosa%C3%AFques,_etc.,_d%C3%A9couverts_jusqu%27%C3%A0_ce_jour,_et_reproduits_d%27apre%C3%A8s_Le_antichita_di_Ercolano,_Il_Museo_borbonico,_et_tous_les_ouvrages_(14596494870).jpg"
  },
  "antinous-3": {
   "file": "/art/antinous-3.jpg",
@@ -1245,13 +1196,6 @@
   "year": "2006",
   "source": "https://commons.wikimedia.org/wiki/File:Head_Odysseus_MAR_Sperlonga.jpg"
  },
- "odysseus-3": {
-  "file": "/art/odysseus-3.jpg",
-  "artist": "Internet Archive Book Images",
-  "title": "",
-  "year": "1870",
-  "source": "https://commons.wikimedia.org/wiki/File:Herculanum_et_Pomp%C3%A9i,_recueil_g%C3%A9n%C3%A9ral_des_peintures,_bronzes,_mosa%C3%AFques,_etc.,_d%C3%A9couverts_jusqu%27%C3%A0_ce_jour,_et_reproduits_d%27apre%C3%A8s_Le_antichita_di_Ercolano,_Il_Museo_borbonico,_et_tous_les_ouvrages_(14780844504).jpg"
- },
  "ogygia-2": {
   "file": "/art/ogygia-2.jpg",
   "artist": "Fellner, Ferdinand Fellner",
@@ -1402,5 +1346,19 @@
   "title": "Odysseus before Alcinous, King of the Phaeacians",
   "year": "1853",
   "source": "https://commons.wikimedia.org/wiki/File:Odysseus_before_Alcinous,_King_of_the_Phaeacians_(August_Malmstr%C3%B6m)_-_Nationalmuseum_-_117888.tif"
+ },
+ "suitors-mnest": {
+  "file": "/art/suitors-mnest.jpg",
+  "artist": "Ixion Painter",
+  "title": "The Slaying of the Suitors (Mnesterophonia)",
+  "year": "c. 330 BC",
+  "source": "https://commons.wikimedia.org/wiki/File:Mnesterophonia_Louvre_CA7124.jpg"
+ },
+ "penelope-weave": {
+  "file": "/art/penelope-weave.jpg",
+  "artist": "Dora Wheeler Keith",
+  "title": "Penelope Unraveling Her Work at Night",
+  "year": "1886",
+  "source": "https://commons.wikimedia.org/wiki/File:%22Penelope_Unraveling_Her_Work_at_Night%22_MET_ADA6426.jpg"
  }
 }

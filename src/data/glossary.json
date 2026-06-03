@@ -127,10 +127,8 @@
   "zhPinyin": "Ānfēinuòmósī",
   "zhDef": "求婚者中最有礼、最不残暴的一个，但仍与众人一同被杀。",
   "art": [
-   "amphinomus-1",
    "amphinomus-2",
-   "amphinomus-3",
-   "amphinomus-4"
+   "amphinomus-3"
   ]
  },
  {
@@ -143,9 +141,7 @@
   "zhDef": "求婚者中最粗暴狠毒者，第一个被射杀。",
   "art": [
    "antinous-2",
-   "antinous-1",
-   "antinous-3",
-   "antinous-4"
+   "antinous-3"
   ]
  },
  {
@@ -454,7 +450,7 @@
   "zhPinyin": "Ōulǜmǎkēsī",
   "zhDef": "能言善辩、口蜜腹剑的求婚者。",
   "art": [
-   "eurymachus-1"
+   "suitors-mnest"
   ]
  },
  {
@@ -685,7 +681,7 @@
   "zhPinyin": "Mòlántòusī",
   "zhDef": "不忠的牧羊奴，辱骂、踢打乔装的奥德修斯，投靠求婚者。",
   "art": [
-   "melanthius-1"
+   "antinous-4"
   ]
  },
  {
@@ -809,8 +805,6 @@
   "zhDef": "史诗主角，机智勇敢的伊塔卡国王，特洛伊战后历经十年艰险返乡。",
   "art": [
    "odysseus-1",
-   "odysseus-2",
-   "odysseus-3",
    "odysseus-4"
   ]
  },
@@ -874,8 +868,7 @@
   "zhPinyin": "Pònièluópò",
   "zhDef": "奥德修斯忠贞而聪慧的妻子，以耐心与智计周旋于众多求婚者之间多年。",
   "art": [
-   "penelope-3",
-   "penelope-2",
+   "penelope-weave",
    "penelope-4"
   ]
  },
