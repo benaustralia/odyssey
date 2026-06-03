@@ -173,7 +173,6 @@ function App() {
                     setSelected(e)
                     setLbIndex(0)
                   }}
-                  aria-label={`View artworks for ${e.term}`}
                   className="card card-border flex h-full w-full cursor-pointer flex-col overflow-hidden border-base-300 bg-base-200 text-left shadow-md transition-shadow duration-300 hover:shadow-xl"
                 >
                   {cover && (
