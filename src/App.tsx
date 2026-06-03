@@ -22,7 +22,7 @@ type Entry = {
   zhDef: string
   art?: string[]
 }
-type Art = { file: string; artist: string; title: string; year: string; source: string; license?: string; cld?: string }
+type Art = { file: string; artist: string; title: string; year: string; source: string; license?: string; cld?: string; note?: string }
 
 const entries = glossaryData as Entry[]
 const art = artData as Record<string, Art>
@@ -80,10 +80,10 @@ function App() {
   const selArts = artsOf(sel)
   const slides = selArts.map((a) => {
     const credit = [a.artist, a.title].filter(Boolean).join(" · ")
-    let desc = credit ? `${credit}${a.year ? `, ${a.year}` : ""}` : a.year || ""
+    let title = credit ? `${credit}${a.year ? `, ${a.year}` : ""}` : a.year || ""
     if (a.license && !/public domain|pdm|no restrictions/i.test(a.license))
-      desc = (desc ? `${desc} · ` : "") + a.license
-    return { src: cldUrl(a, 1600), description: desc || undefined }
+      title = (title ? `${title} · ` : "") + a.license
+    return { src: cldUrl(a, 1600), title: title || undefined, description: a.note || undefined }
   })
 
   return (
