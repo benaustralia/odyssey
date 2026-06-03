@@ -22,10 +22,16 @@ type Entry = {
   zhDef: string
   art?: string[]
 }
-type Art = { file: string; artist: string; title: string; year: string; source: string; license?: string }
+type Art = { file: string; artist: string; title: string; year: string; source: string; license?: string; cld?: string }
 
 const entries = glossaryData as Entry[]
 const art = artData as Record<string, Art>
+
+// Images are delivered from Cloudinary (cloud `dhvvz91bh`, folder `odyssey`).
+// f_auto,q_auto => AVIF/WebP at automatic quality; c_limit,w_N caps the width.
+const CLD = "https://res.cloudinary.com/dhvvz91bh/image/upload"
+const cldUrl = (a: Art, w: number) =>
+  a.cld ? `${CLD}/f_auto,q_auto,c_limit,w_${w}/${a.cld}` : a.file
 
 const CATEGORIES = [
   { id: "all", label: "All" },
@@ -77,7 +83,7 @@ function App() {
     let desc = credit ? `${credit}${a.year ? `, ${a.year}` : ""}` : a.year || ""
     if (a.license && !/public domain|pdm|no restrictions/i.test(a.license))
       desc = (desc ? `${desc} · ` : "") + a.license
-    return { src: a.file, description: desc || undefined }
+    return { src: cldUrl(a, 1600), description: desc || undefined }
   })
 
   return (
@@ -173,7 +179,7 @@ function App() {
                   {cover && (
                     <figure className="relative aspect-[4/3] overflow-hidden">
                       <img
-                        src={cover.file}
+                        src={cldUrl(cover, 800)}
                         alt={cover.title}
                         loading="lazy"
                         decoding="async"

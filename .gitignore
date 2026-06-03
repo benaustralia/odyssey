@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 .vercel
+
+# Artwork is hosted on Cloudinary (folder 'odyssey'); kept locally for re-sync
+public/art/
