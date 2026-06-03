@@ -1,6 +1,6 @@
 # The Odyssey — An Illustrated Glossary
 
-A bilingual (English · 简体中文 · Pīnyīn) illustrated glossary of 84 entries from Homer's
+A bilingual (English · 简体中文 · Pīnyīn) illustrated glossary of 85 entries from Homer's
 *Odyssey* (Emily Wilson translation, W. W. Norton), each paired with public-domain or
 openly-licensed artwork (**514 images** in `art.json`; deduped by source so every image appears once).
 

@@ -101,13 +101,13 @@
   ]
  },
  {
-  "term": "Ajax",
+  "term": "Ajax the Great",
   "pron": "/AY-jaks/",
   "tag": "person",
-  "def": "A great Greek warrior, now dead. He is still angry with Odysseus when they meet among the dead.",
-  "zhName": "埃阿斯",
-  "zhPinyin": "Āi'āsī",
-  "zhDef": "伟大的希腊勇士，已故；在冥界仍对奥德修斯心怀怨恨。",
+  "def": "The greater of two Greek warriors called Ajax; a mighty fighter, now dead. He is still angry with Odysseus when they meet among the dead.",
+  "zhName": "大埃阿斯",
+  "zhPinyin": "Dà Āi'āsī",
+  "zhDef": "两位名叫埃阿斯的希腊勇士中较伟大的一位；勇猛的战士，已故；在冥界仍对奥德修斯心怀怨恨。",
   "art": [
    "ajax-2",
    "ajax-w100",
@@ -118,6 +118,18 @@
    "ajax-w105",
    "ajax-w107",
    "ajax-w108"
+  ]
+ },
+ {
+  "term": "Ajax the Lesser",
+  "pron": "/AY-jaks/",
+  "tag": "person",
+  "def": "The lesser of two warriors called Ajax (son of Oïleus). Sailing home he boasted he had escaped the sea against the gods' will, so Poseidon drowned him.",
+  "zhName": "小埃阿斯",
+  "zhPinyin": "Xiǎo Āi'āsī",
+  "zhDef": "两位名叫埃阿斯的勇士中较小的一位（俄琉斯之子）。归航途中他夸口违背神意逃过大海，波塞冬便将他淹死。",
+  "art": [
+   "ajax-1"
   ]
  },
  {
