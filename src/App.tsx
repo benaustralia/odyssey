@@ -80,10 +80,22 @@ function App() {
   const selArts = artsOf(sel)
   const slides = selArts.map((a) => {
     const credit = [a.artist, a.title].filter(Boolean).join(" · ")
-    let title = credit ? `${credit}${a.year ? `, ${a.year}` : ""}` : a.year || ""
+    let line = credit ? `${credit}${a.year ? `, ${a.year}` : ""}` : a.year || ""
     if (a.license && !/public domain|pdm|no restrictions/i.test(a.license))
-      title = (title ? `${title} · ` : "") + a.license
-    return { src: cldUrl(a, 1600), title: title || undefined, description: a.note || undefined }
+      line = (line ? `${line} · ` : "") + a.license
+    // Both credit and locator note go in the bottom caption (which wraps);
+    // the top title bar is left empty because it truncates with an ellipsis.
+    const description =
+      line && a.note ? (
+        <>
+          {line}
+          <br />
+          {a.note}
+        </>
+      ) : (
+        line || a.note || undefined
+      )
+    return { src: cldUrl(a, 1600), description }
   })
 
   return (
@@ -240,7 +252,7 @@ function App() {
         }}
         slides={slides}
         plugins={[Thumbnails, Captions, Zoom, Fullscreen]}
-        captions={{ descriptionTextAlign: "center", showToggle: true }}
+        captions={{ descriptionTextAlign: "center", descriptionMaxLines: 5, showToggle: true }}
         carousel={{ finite: slides.length <= 1 }}
       />
     </div>
