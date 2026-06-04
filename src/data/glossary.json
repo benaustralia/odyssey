@@ -64,7 +64,6 @@
    "aegisthus-1",
    "aegisthus-3",
    "aegisthus-w100",
-   "aegisthus-w101",
    "aegisthus-w102"
   ]
  },
@@ -92,7 +91,6 @@
    "agamemnon-1",
    "agamemnon-2",
    "agamemnon-3",
-   "agamemnon-w100",
    "agamemnon-w101",
    "agamemnon-w102",
    "agamemnon-w103",
@@ -395,10 +393,9 @@
   "zhPinyin": "Kā'ěrkè",
   "zhDef": "女巫，先把奥德修斯的同伴变成猪，后成为帮助他的爱人，相处一年。",
   "art": [
-   "circe-1",
+   "circe-w101",
    "circe-2",
    "circe-w100",
-   "circe-w101",
    "circe-w102",
    "circe-w103",
    "circe-w104",
@@ -800,7 +797,6 @@
   "zhPinyin": "Lā'è'ěrtèsī",
   "zhDef": "奥德修斯年迈的父亲，独自悲居乡间农庄。",
   "art": [
-   "laertes-1",
    "laertes-2",
    "laertes-4"
   ]
@@ -834,7 +830,6 @@
    "libation-1",
    "libation-2",
    "libation-3",
-   "libation-4",
    "libation-w100",
    "libation-w101",
    "libation-w102",
@@ -1007,7 +1002,6 @@
    "nymph-w101",
    "nymph-w102",
    "nymph-w103",
-   "nymph-w104",
    "nymph-w105",
    "nymph-w106",
    "nymph-w107",
@@ -1027,7 +1021,6 @@
    "nobody-1",
    "nobody-2",
    "nobody-3",
-   "nobody-w100",
    "nobody-w101",
    "nobody-w102",
    "nobody-w103",
@@ -1376,7 +1369,6 @@
   "zhDef": "著名的盲眼先知；奥德修斯远赴冥界，向其鬼魂问询归途。",
   "art": [
    "tiresias-1",
-   "tiresias-w100",
    "tiresias-w101",
    "tiresias-w102",
    "tiresias-nekyia"

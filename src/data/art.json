@@ -212,14 +212,6 @@
   "cld": "qkfu1jmed1cunm68qhza",
   "note": "Cicones — marching warriors evoking the people Odysseus raided"
  },
- "circe-1": {
-  "file": "/art/circe-1.jpg",
-  "artist": "John William Waterhouse",
-  "title": "Circe Offering the Cup to Ulysses",
-  "year": "1891",
-  "source": "https://commons.wikimedia.org/wiki/File:Circe_Offering_the_Cup_to_Odysseus.jpg",
-  "cld": "ffwpr6dhvr0xcvm0tlxv"
- },
  "circe-2": {
   "file": "/art/circe-2.jpg",
   "artist": "John William Waterhouse",
@@ -831,15 +823,6 @@
   "cld": "lc7mhbmsnmqifi3fhjsj",
   "note": "Argos — the dog at the men's feet, lower center"
  },
- "laertes-1": {
-  "file": "/art/laertes-1.jpg",
-  "artist": "",
-  "title": "Odysseus Reunited with Laertes",
-  "year": "—",
-  "source": "https://commons.wikimedia.org/wiki/File:Odysseus3.jpg",
-  "cld": "calazfdgqbgwwwcazefr",
-  "note": "Laertes — the older man being embraced at left"
- },
  "aeolus-2": {
   "file": "/art/aeolus-2.jpg",
   "artist": "Theodoor van Thulden",
@@ -1248,15 +1231,6 @@
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Terracotta_alabastron_(perfume_vase)_MET_DP117228.jpg",
   "cld": "oabs1aw6obhop4w3sczi",
-  "note": "Libation — oil and unguent vessel used in funerary and ritual offerings"
- },
- "libation-4": {
-  "file": "/art/libation-4.jpg",
-  "artist": "",
-  "title": "Terracotta Alabastron (Perfume Vase)",
-  "year": "",
-  "source": "https://commons.wikimedia.org/wiki/File:Terracotta_alabastron_(perfume_vase)_MET_DP145804.jpg",
-  "cld": "hj4h7vodw1m4vnirxsod",
   "note": "Libation — oil and unguent vessel used in funerary and ritual offerings"
  },
  "lyre-2": {
@@ -1698,15 +1672,6 @@
   "cld": "yakgekcn7dratamjwjnl",
   "note": "Aegisthus — seated central figure being stabbed"
  },
- "aegisthus-w101": {
-  "file": "/art/aegisthus-w101.jpg",
-  "artist": "Pierre-Narcisse Guerin",
-  "title": "Clytemnestra Hesitates Before Killing the Sleeping Agamemnon",
-  "year": "",
-  "source": "https://commons.wikimedia.org/wiki/File:Murder_of_agamemnon.jpg",
-  "cld": "td3e5jtn7iyulanntp6m",
-  "note": "Aegisthus — the man at left urging her forward"
- },
  "aegisthus-w102": {
   "file": "/art/aegisthus-w102.jpg",
   "artist": "",
@@ -1716,15 +1681,6 @@
   "license": "CC BY-SA 4.0",
   "cld": "m2s7gjzq5xqxvvgrwicl",
   "note": "Aegisthus — slain in the Orestes vengeance cycle depicted here"
- },
- "agamemnon-w100": {
-  "file": "/art/agamemnon-w100.jpg",
-  "artist": "",
-  "title": "Achilles and Briseis",
-  "year": "",
-  "source": "https://commons.wikimedia.org/wiki/File:Achilles_Briseis_MAN_Napoli_Inv9105_n01.jpg",
-  "cld": "ou8okfxzstmf3pnxig5z",
-  "note": "Agamemnon — his heralds seize Briseis, the quarrel driving the Iliad"
  },
  "agamemnon-w101": {
   "file": "/art/agamemnon-w101.jpg",
@@ -3557,14 +3513,6 @@
   "source": "https://commons.wikimedia.org/wiki/File:Hylas_Saint-Romain-en_Gal_07_2011.jpg",
   "cld": "s8hbt6czmmlixvy3vlhy"
  },
- "nymph-w104": {
-  "file": "/art/nymph-w104.jpg",
-  "artist": "John William Waterhouse",
-  "title": "Hylas and the Nymphs",
-  "year": "",
-  "source": "https://commons.wikimedia.org/wiki/File:John_William_Waterhouse_-_Hylas_and_the_Nymphs.jpg",
-  "cld": "vbwnnpa4nlqzyspih8fa"
- },
  "nymph-w105": {
   "file": "/art/nymph-w105.jpg",
   "artist": "Jules Lefebvre",
@@ -3605,15 +3553,6 @@
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Nymphe,_by_Luis_Ricardo_Falero.jpg",
   "cld": "rg48dk1ju1o4wmbmyc1r"
- },
- "nobody-w100": {
-  "file": "/art/nobody-w100.jpg",
-  "artist": "Arnold Böcklin",
-  "title": "Odysseus and Polyphemus",
-  "year": "",
-  "source": "https://commons.wikimedia.org/wiki/File:Arnold_B%C3%B6cklin_-_Odysseus_and_Polyphemus.jpg",
-  "cld": "lyrrdxxtq5r5tpgcpakw",
-  "note": "Nobody — Polyphemus, the Cyclops Odysseus tricked with this name"
  },
  "nobody-w101": {
   "file": "/art/nobody-w101.jpg",
@@ -4190,15 +4129,6 @@
   "source": "https://commons.wikimedia.org/wiki/File:Telemachus_departing_from_Nestor_-_Henry_Howard_-_Project_Gutenberg_eText_13725.jpg",
   "cld": "uzibfln8inoocsfybecw",
   "note": "Telemachus — the young man in the chariot at left"
- },
- "tiresias-w100": {
-  "file": "/art/tiresias-w100.jpg",
-  "artist": "Henry Fuseli",
-  "title": "Tiresias Foretells the Future to Odysseus",
-  "year": "",
-  "source": "https://commons.wikimedia.org/wiki/File:Johann_Heinrich_F%C3%BCssli_063.jpg",
-  "cld": "is8cmpmgmvkneq6j699n",
-  "note": "Tiresias — the tall robed figure with staff at left"
  },
  "tiresias-w101": {
   "file": "/art/tiresias-w101.jpg",
