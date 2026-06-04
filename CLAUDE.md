@@ -1,8 +1,9 @@
 # The Odyssey — An Illustrated Glossary
 
-A bilingual (English · 简体中文 · Pīnyīn) illustrated glossary of 85 entries from Homer's
-*Odyssey* (Emily Wilson translation, W. W. Norton), each paired with public-domain or
-openly-licensed artwork (**500 images** in `art.json`; deduped by source so every image appears once).
+A bilingual (English · 简体中文 · Pīnyīn) illustrated glossary of **160 entries** from Homer's
+*Odyssey* (Emily Wilson translation, W. W. Norton) — incl. **84 places** (every place in Wilson's
+glossary). Paired with public-domain / openly-licensed artwork: **492 unique artworks** (deduped by
+source AND by perceptual hash so no image repeats) plus **6 shared antique maps**.
 
 - **Live:** https://odysseygloss.vercel.app (Vercel project `odysseygloss`, native domain, auto-deploys on push to `main`)
 - **Repo:** github.com/benaustralia/odyssey
@@ -23,7 +24,9 @@ openly-licensed artwork (**500 images** in `art.json`; deduped by source so ever
 ## Captions / licensing
 - Caption (see `slides` in `App.tsx`): **both** the credit (`Artist · Title, year` + license for CC) and the optional `note` go in the YARL slide **`description`** (credit line, then `<br/>`, then note), and the slide **`title` is left empty on purpose** — YARL renders `title` in the top toolbar with `white-space:nowrap;text-overflow:ellipsis`, so it truncated on mobile. `description` wraps (set `descriptionMaxLines:5`). Graceful omission throughout.
 - The `note` is a short subject locator/clarifier — locate the subject in a multi-figure work ("Ajax — the warrior at right (inscribed AIANTOS)") or explain an indirect-but-valid connection ("The Titans — Cronus's kin — cast down by the Olympians"). Written by viewing each image (vision pass); conservative (blank when single-figure/obvious/uncertain). **282 of 500** images have a `note`; **105** are CC-licensed. **English titles only** — foreign/messy/catalogue titles were stripped. **All** titles (harvested + originals) were standardised: translated to English, museum/inventory/accession noise removed, truncations/"artist-as-title"/book-scan prefixes fixed, Title Case; `artist` fields scrubbed of Commons uploader/photographer handles (kept real painters + vase-painter conventions; blanked anonymous ancient works). Re-standardise from the `source` filename (ground truth) — the stored `title` was sometimes lossy/truncated.
-- **Dedup invariant:** every image appears once. Enforced by grouping on the `source` Commons filename and keeping a single key per group, **preferring the one that is some entry's cover** so no card cover is orphaned. Re-run after any harvest. Note: deduped images may remain as orphan assets in the Cloudinary `odyssey` folder (delete separately).
+- **Places & maps:** all 84 places (from Wilson's glossary) are `tag: "place"` → **World** filter. Each is illustrated by one of **6 antique PD maps** (Ortelius *Wanderings of Ulysses* & *Aegyptus Antiqua*, Lapie *Voyages*, *Graecia Homerica*, Delisle *Northern Greece*, *The World according to Homer*), `public/art/map-*.jpg`. A map is **shared across the many places it contains**: each place has its own art record keyed `<slug>-map` that reuses the map's `cld` but carries its own locating `note` ("Chios — an Aegean island off the coast of Asia Minor"). So maps are the ONE deliberate exception to image-uniqueness — exclude `*-map` keys from both the source-dedup and perceptual-dup checks.
+- **Perceptual-dup check (tool):** beyond source-filename dedup, the same artwork sometimes exists as two different files (low-res caption-baked vs clean high-res). Detect with a PIL dHash+aHash sweep over `public/art/*.jpg` (restrict to live art.json keys, skip `map-*`); pairs with dHash≤12 & aHash≤18 are candidates — VIEW a side-by-side montage to confirm (dark images throw false positives), keep the higher-res/caption-free copy. Re-run after big harvests.
+- **Dedup invariant:** every NON-MAP image appears once. Enforced by grouping on the `source` Commons filename and keeping a single key per group, **preferring the one that is some entry's cover** so no card cover is orphaned. Re-run after any harvest. Note: deduped images may remain as orphan assets in the Cloudinary `odyssey` folder (delete separately).
 - Footer says "public domain or openly licensed (CC)". Sourced from Wikimedia Commons. Accept PD / CC0 / CC-BY / CC-BY-SA only.
 
 ## Working with artwork (lessons learned)
