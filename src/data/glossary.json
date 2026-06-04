@@ -63,7 +63,6 @@
   "art": [
    "aegisthus-1",
    "aegisthus-3",
-   "aegisthus-4",
    "aegisthus-w100",
    "aegisthus-w101",
    "aegisthus-w102"
@@ -169,7 +168,6 @@
   "zhPinyin": "Ānfēinuòmósī",
   "zhDef": "求婚者中最有礼、最不残暴的一个，但仍与众人一同被杀。",
   "art": [
-   "amphinomus-2",
    "amphinomus-w101"
   ]
  },
@@ -224,7 +222,6 @@
    "apollo-w100",
    "apollo-w101",
    "apollo-w102",
-   "apollo-w103",
    "apollo-w105",
    "apollo-w106",
    "apollo-w107",
@@ -405,7 +402,6 @@
    "circe-w102",
    "circe-w103",
    "circe-w104",
-   "circe-w105",
    "circe-w106",
    "circe-w108",
    "circe-w109",
@@ -524,9 +520,7 @@
   "zhPinyin": "È'ěrpèinuò'ěr",
   "zhDef": "从喀耳刻屋顶坠亡的年轻船员，其鬼魂恳求奥德修斯予以安葬。",
   "art": [
-   "elpenor-1",
-   "elpenor-2",
-   "elpenor-w100"
+   "elpenor-1"
   ]
  },
  {
@@ -600,11 +594,9 @@
    "hades-w101",
    "hades-w102",
    "hades-w103",
-   "hades-w104",
    "hades-w105",
    "hades-w106",
    "hades-w107",
-   "hades-w109",
    "hades-damned"
   ]
  },
@@ -622,7 +614,6 @@
    "helen-w100",
    "helen-w101",
    "helen-w102",
-   "helen-w103",
    "helen-w104",
    "helen-w105",
    "helen-w106",
@@ -734,7 +725,6 @@
    "hermes-w102",
    "hermes-w103",
    "hermes-w104",
-   "hermes-w105",
    "hermes-w106",
    "hermes-w107",
    "hermes-w108",
@@ -752,12 +742,9 @@
   "art": [
    "hospitality-1",
    "hospitality-2",
-   "hospitality-w100",
    "hospitality-w101",
    "hospitality-w102",
-   "hospitality-w103",
-   "hospitality-w104",
-   "hospitality-w105"
+   "hospitality-w104"
   ]
  },
  {
@@ -916,9 +903,7 @@
   "zhDef": "斯巴达国王，海伦之夫，阿伽门农之弟；忒勒马科斯曾往访探询消息。",
   "art": [
    "menelaus-1",
-   "menelaus-4",
    "menelaus-w100",
-   "menelaus-w101",
    "menelaus-w102",
    "menelaus-w103"
   ]
@@ -1003,9 +988,7 @@
   "zhDef": "年迈睿智的皮洛斯国王，曾征战特洛伊；忒勒马科斯往访探询父讯。",
   "art": [
    "nestor-2",
-   "nestor-w100",
-   "nestor-w101",
-   "nestor-w102"
+   "nestor-w101"
   ]
  },
  {
@@ -1021,7 +1004,6 @@
    "nymph-2",
    "nymph-3",
    "nymph-4",
-   "nymph-w100",
    "nymph-w101",
    "nymph-w102",
    "nymph-w103",
@@ -1083,8 +1065,7 @@
   "zhDef": "卡吕普索孤寂的海岛，奥德修斯被困于此七年。",
   "art": [
    "ogygia-1",
-   "ogygia-2",
-   "ogygia-3"
+   "ogygia-2"
   ]
  },
  {
@@ -1426,7 +1407,6 @@
   "art": [
    "trojan-horse-1",
    "trojan-horse-2",
-   "trojan-horse-w100",
    "trojan-horse-w102",
    "trojan-horse-w103",
    "trojan-horse-w104",

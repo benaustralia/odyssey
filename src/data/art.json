@@ -13,7 +13,8 @@
   "title": "The Chigi Vase",
   "year": "c. 640 BC",
   "source": "https://commons.wikimedia.org/wiki/File:Chigi_Painter_-_CVPAP_32_A_3_-_battle_of_phalanxes_-_chariots_and_riders_-_judgement_of_Paris_-_hunting_scenes_-_Roma_MNEVG_22679_-_12.jpg",
-  "cld": "lyh2buq96lhqiprwb96p"
+  "cld": "lyh2buq96lhqiprwb96p",
+  "note": "Achaean hoplites marching to battle"
  },
  "achilles-1": {
   "file": "/art/achilles-1.jpg",
@@ -39,7 +40,8 @@
   "title": "Circe and Her Lovers in a Landscape",
   "year": "c. 1525",
   "source": "https://commons.wikimedia.org/wiki/File:Dosso_Dossi_003.jpg",
-  "cld": "kngzxncpngoqzavv2qif"
+  "cld": "kngzxncpngoqzavv2qif",
+  "note": "Aeaea is Circe's island; the enchantress and her bewitched victims"
  },
  "aegisthus-1": {
   "file": "/art/aegisthus-1.jpg",
@@ -64,7 +66,8 @@
   "title": "The Sacrifice of Iphigenia",
   "year": "1757",
   "source": "https://commons.wikimedia.org/wiki/File:Giovanni_Battista_Tiepolo_-_The_Sacrifice_of_Iphigenia_-_WGA22333.jpg",
-  "cld": "afak4nctcitllogpjbaq"
+  "cld": "afak4nctcitllogpjbaq",
+  "note": "Agamemnon — the king ordering his daughter's sacrifice"
  },
  "ajax-2": {
   "file": "/art/ajax-2.jpg",
@@ -80,7 +83,8 @@
   "title": "The Feast of the Gods",
   "year": "1514",
   "source": "https://commons.wikimedia.org/wiki/File:FeastofthegodsFXD.jpg",
-  "cld": "ypqs0r2pfnhbqs3x0j1r"
+  "cld": "ypqs0r2pfnhbqs3x0j1r",
+  "note": "Gods feasting; ambrosia is their food"
  },
  "antinous-2": {
   "file": "/art/antinous-2.jpg",
@@ -88,7 +92,8 @@
   "title": "The Massacre of the Suitors",
   "year": "1812",
   "source": "https://commons.wikimedia.org/wiki/File:Thomas_Degeorge_Ulysse.jpg",
-  "cld": "big5iizsnkhsrxmxkzbv"
+  "cld": "big5iizsnkhsrxmxkzbv",
+  "note": "Antinous — the lead suitor, the fallen nude figure at lower left"
  },
  "aphrodite-1": {
   "file": "/art/aphrodite-1.jpg",
@@ -129,7 +134,8 @@
   "title": "Ulysses at the Court of Alcinous",
   "year": "1815",
   "source": "https://commons.wikimedia.org/wiki/File:Francesco_Hayez_028.jpg",
-  "cld": "vwrzkgzjvka5v9bjblji"
+  "cld": "vwrzkgzjvka5v9bjblji",
+  "note": "Arete — the queen, the seated woman among the courtiers at left"
  },
  "ares-1": {
   "file": "/art/ares-1.jpg",
@@ -203,7 +209,8 @@
   "title": "The Warrior Vase",
   "year": "c. 1200 BC",
   "source": "https://commons.wikimedia.org/wiki/File:Mycenaean_potery_krater,_men,_1300-1200_BC,Enkomi,_BM_Cat_Vases_C333,_142823.jpg",
-  "cld": "qkfu1jmed1cunm68qhza"
+  "cld": "qkfu1jmed1cunm68qhza",
+  "note": "Marching warriors; the Cicones were a warrior people Odysseus raided"
  },
  "circe-1": {
   "file": "/art/circe-1.jpg",
@@ -219,7 +226,8 @@
   "title": "Circe Invidiosa",
   "year": "1892",
   "source": "https://commons.wikimedia.org/wiki/File:J._W._Waterhouse_-_Circe_Invidiosa_-_Google_Art_Project.jpg",
-  "cld": "lktflvenbvd6g0f5lwaz"
+  "cld": "lktflvenbvd6g0f5lwaz",
+  "note": "Circe poisoning the pool to transform her rival Scylla"
  },
  "clytemnestra-1": {
   "file": "/art/clytemnestra-1.jpg",
@@ -235,7 +243,8 @@
   "title": "Saturn Devouring His Son",
   "year": "1819–23",
   "source": "https://commons.wikimedia.org/wiki/File:Francisco_de_Goya,_Saturno_devorando_a_su_hijo_(1819-1823).jpg",
-  "cld": "k5fgthhl3my7ms4p5cpc"
+  "cld": "k5fgthhl3my7ms4p5cpc",
+  "note": "Saturn is the Roman name for Cronus"
  },
  "cyclops-1": {
   "file": "/art/cyclops-1.jpg",
@@ -312,7 +321,8 @@
   "title": "Heracles and Cerberus",
   "year": "c. 525 BC",
   "source": "https://commons.wikimedia.org/wiki/File:12th_labour_of_Heracles_-_Project_Gutenberg_eText_19119.png",
-  "cld": "axg7h0tiakhelmvwkeza"
+  "cld": "axg7h0tiakhelmvwkeza",
+  "note": "Cerberus guards Hades' realm; Hades stands at right"
  },
  "helen-1": {
   "file": "/art/helen-1.jpg",
@@ -325,11 +335,11 @@
  "helius-1": {
   "file": "/art/helius-1.jpg",
   "artist": "after Guido Reni",
-  "title": "Aurora and the Chariot of the Sun Driven by Apollo",
+  "title": "Aurora and the Chariot of the Sun",
   "year": "1614",
   "source": "https://commons.wikimedia.org/wiki/File:Guido_Reni_(1575-1642)_(after)_-_Aurora_and_the_Chariot_of_the_Sun_Driven_by_Apollo_-_LDS6023_-_Burton_Constable_Hall.jpg",
   "cld": "v6qoj6pis3eoq9fnyyq1",
-  "note": "Helius — the youth driving the chariot at upper left"
+  "note": "Helius — the sun god driving the chariot at upper left"
  },
  "helius-2": {
   "file": "/art/helius-2.jpg",
@@ -461,7 +471,7 @@
   "year": "1805",
   "source": "https://commons.wikimedia.org/wiki/File:OdysseyTelemachos_(cropped).png",
   "cld": "y23kwrcp7hdjgsggaqsh",
-  "note": "Mentor — the bearded elder at left"
+  "note": "Mentor — the bearded elder at left, leading Telemachus"
  },
  "muse-2": {
   "file": "/art/muse-2.jpg",
@@ -526,7 +536,8 @@
   "title": "The Blinding of Polyphemus",
   "year": "c. 650 BC",
   "source": "https://commons.wikimedia.org/wiki/File:Funerary_proto-Attic_amphora_by_Polyphemos_painter_depicting_Odysseus_and_his_men_blinding_the_cyclops_Polyphemus_from_xxx_flickr_8706777442_b4db371a26_o.jpg",
-  "cld": "nvnmf4eigolhqtj89wer"
+  "cld": "nvnmf4eigolhqtj89wer",
+  "note": "Scene painted on the neck of the amphora"
  },
  "odysseus-1": {
   "file": "/art/odysseus-1.jpg",
@@ -542,7 +553,8 @@
   "title": "The Return of Ulysses",
   "year": "c. 1509",
   "source": "https://commons.wikimedia.org/wiki/File:Pinturicchio,_Return_of_Odysseus.jpg",
-  "cld": "qvm8iowdc7k3dnit1nea"
+  "cld": "qvm8iowdc7k3dnit1nea",
+  "note": "Penelope at her loom in the palace on Ithaca as Odysseus returns"
  },
  "ogygia-1": {
   "file": "/art/ogygia-1.jpg",
@@ -550,7 +562,8 @@
   "title": "Isle of the Dead",
   "year": "1880",
   "source": "https://commons.wikimedia.org/wiki/File:Arnold_Boecklin_-_Island_of_the_Dead,_Third_Version.JPG",
-  "cld": "q8lh7nrilr1xvozq7cox"
+  "cld": "q8lh7nrilr1xvozq7cox",
+  "note": "A symbol of Calypso's lonely, isolated island Ogygia"
  },
  "olympus-1": {
   "file": "/art/olympus-1.jpg",
@@ -592,7 +605,7 @@
   "year": "1891",
   "source": "https://commons.wikimedia.org/wiki/File:Frederic_Leighton_-_The_Return_of_Persephone_(1891).jpg",
   "cld": "iia2zgfljyqbbscdhbsu",
-  "note": "Persephone — floating figure at upper left"
+  "note": "Persephone — pale figure at right, led up by winged Hermes"
  },
  "phemius-1": {
   "file": "/art/phemius-1.jpg",
@@ -659,15 +672,17 @@
   "title": "Glaucus and Scylla",
   "year": "1841",
   "source": "https://commons.wikimedia.org/wiki/File:(Barcelona)_Glaucus_and_Scylla_-_1810-15_-_William_Turner_-_Tate_Britain.jpg",
-  "cld": "day9qobha6ohddjz3jti"
+  "cld": "day9qobha6ohddjz3jti",
+  "note": "Scylla — the fleeing maiden at right, before her transformation"
  },
  "shroud-1": {
   "file": "/art/shroud-1.jpg",
   "artist": "Penelope Painter",
-  "title": "Penelope at Her Loom",
+  "title": "Skyphos by the Penelope Painter",
   "year": "c. 440 BC",
   "source": "https://commons.wikimedia.org/wiki/File:Penelope_Painter_-_ARV_1300_2_-_Telemachos_leaving_Penelope_-_Odysseus_recognized_by_his_nurse_-_Chiusi_MAN_1831_-_07.jpg",
-  "cld": "gbn3rxqtwt39jiceproz"
+  "cld": "gbn3rxqtwt39jiceproz",
+  "note": "Decorated side shown; the reverse depicts Penelope at her loom"
  },
  "sirens-1": {
   "file": "/art/sirens-1.jpg",
@@ -804,7 +819,8 @@
   "title": "Menelaus and His Companions Battling Proteus",
   "year": "—",
   "source": "https://commons.wikimedia.org/wiki/File:Game_Piece_with_Menelaus_and_Companions_Battling_Proteus_MET_DP228476.jpg",
-  "cld": "rw91zns8dpvadphbnqwf"
+  "cld": "rw91zns8dpvadphbnqwf",
+  "note": "Proteus, the shape-shifting sea-god, wrestled here in beast form"
  },
  "argos-1": {
   "file": "/art/argos-1.jpg",
@@ -843,7 +859,7 @@
  "achaeans-3": {
   "file": "/art/achaeans-3.jpg",
   "artist": "",
-  "title": "Terracotta Alabastron",
+  "title": "Alabastron with Files of Armed Warriors",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Terracotta_alabastron_(perfume_vase)_MET_DP119906.jpg",
   "cld": "ilpdgon73auflkdkfzpd"
@@ -871,23 +887,17 @@
   "title": "Orestes Slaying Aegisthus and Clytemnestra",
   "year": "1653",
   "source": "https://commons.wikimedia.org/wiki/File:Bernardino_Mei.jpg",
-  "cld": "vm8r37mrt2lwhxm2vnav"
- },
- "aegisthus-4": {
-  "file": "/art/aegisthus-4.jpg",
-  "artist": "Samuel Cotes",
-  "title": "Portrait of Mary Ann Yates",
-  "year": "1769",
-  "source": "https://commons.wikimedia.org/wiki/File:Mary_Ann_Yates_Cotes.jpg",
-  "cld": "s1uaixgom478ronfsrfi"
+  "cld": "vm8r37mrt2lwhxm2vnav",
+  "note": "Aegisthus — one of the two victims being killed by Orestes"
  },
  "agamemnon-3": {
   "file": "/art/agamemnon-3.jpg",
   "artist": "Louis-Marie Baader",
-  "title": "Remorse",
+  "title": "Orestes Pursued by the Furies",
   "year": "1875",
   "source": "https://commons.wikimedia.org/wiki/File:Le_Remords.jpg",
-  "cld": "qdacvz2o60t4px21qfnv"
+  "cld": "qdacvz2o60t4px21qfnv",
+  "note": "Orestes avenges his father Agamemnon over Clytemnestra's body"
  },
  "ambrosia-3": {
   "file": "/art/ambrosia-3.jpg",
@@ -897,21 +907,14 @@
   "source": "https://commons.wikimedia.org/wiki/File:Jan_Brueghel_d._%C3%84._mit_Hendrik_van_Balen_-_Olympisches_G%C3%B6ttermahl_-_848_-_Bavarian_State_Painting_Collections.jpg",
   "cld": "ysixdtwkw68aocad5t4d"
  },
- "amphinomus-2": {
-  "file": "/art/amphinomus-2.jpg",
-  "artist": "Angelica Kauffmann",
-  "title": "Penelope at Her Loom",
-  "year": "1764",
-  "source": "https://commons.wikimedia.org/wiki/File:Angelica_Kaufmann_-_Penelope_at_her_Loom.jpg",
-  "cld": "yivpysx0yimpdtaqemfa"
- },
  "antinous-3": {
   "file": "/art/antinous-3.jpg",
   "artist": "",
   "title": "Odysseus Slays the Suitors of Penelope",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Odysseus_slays_the_suitors_of_his_wife_Penelope_(Skyphos_pot).jpg",
-  "cld": "azr8yaxpukyykqo5wz8d"
+  "cld": "azr8yaxpukyykqo5wz8d",
+  "note": "Antinous, the foremost suitor, was the first Odysseus shot"
  },
  "antinous-4": {
   "file": "/art/antinous-4.jpg",
@@ -919,7 +922,8 @@
   "title": "Odysseus Slaying the Suitors",
   "year": "1806",
   "source": "https://commons.wikimedia.org/wiki/File:Luigi_Schiavonetti_-_Odysseus_Slaying_the_Suitors,_1806.jpg",
-  "cld": "q1pkmah2pxpk19sc9gsn"
+  "cld": "q1pkmah2pxpk19sc9gsn",
+  "note": "Melanthius, the treacherous goatherd, perished in this slaughter"
  },
  "apollo-3": {
   "file": "/art/apollo-3.jpg",
@@ -952,7 +956,8 @@
   "title": "Landscape with Diana Hunting",
   "year": "1685",
   "source": "https://commons.wikimedia.org/wiki/File:Landschap_met_Diana_op_jacht_Rijksmuseum_SK-A-1838.jpeg",
-  "cld": "bdbm8gflvhdl0p70mkv5"
+  "cld": "bdbm8gflvhdl0p70mkv5",
+  "note": "Diana (Artemis) — the hunters with hounds at lower right"
  },
  "artemis-3": {
   "file": "/art/artemis-3.jpg",
@@ -978,12 +983,12 @@
   "year": "1650",
   "source": "https://commons.wikimedia.org/wiki/File:Portrait_of_an_elegant_family_with_the_goddess_Minerva_Dutch_17c.jpg",
   "cld": "xiw76dtgigcjeytj1lz1",
-  "note": "Athena — helmeted, armored figure pointing upward, center-right with spear"
+  "note": "Athena (Minerva) — helmeted, armored figure with spear at center-right"
  },
  "bard-2": {
   "file": "/art/bard-2.jpg",
   "artist": "Attributed to Polion",
-  "title": "Papposilenos",
+  "title": "Singer Playing the Lyre",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Papposilenoi_Met_25.78.66_n02.jpg",
   "cld": "bbgvuxzdpmouwmpeehdi"
@@ -1029,7 +1034,8 @@
   "title": "Hydria with the Fight of Achilles and Memnon",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Greek_-_Hydria_with_the_Fight_of_Achilles_and_Memnon_Walters_482230_cropped_reduced_glare_white_bg.png",
-  "cld": "g3366b6gfkdwi9dlwcqu"
+  "cld": "g3366b6gfkdwi9dlwcqu",
+  "note": "Warriors in combat, illustrating the warlike Cicones"
  },
  "cicones-4": {
   "file": "/art/cicones-4.jpg",
@@ -1037,7 +1043,8 @@
   "title": "Name Vase of the Painter of Athens 606",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:NAMA_-_Name_vase_of_the_Painter_of_Athens_606.jpg",
-  "cld": "cunkrplo6dklasnvzvkq"
+  "cld": "cunkrplo6dklasnvzvkq",
+  "note": "Battle of armed warriors, illustrating the warlike Cicones"
  },
  "cyclops-3": {
   "file": "/art/cyclops-3.jpg",
@@ -1046,7 +1053,7 @@
   "year": "1595",
   "source": "https://commons.wikimedia.org/wiki/File:Annibale_Carracci_-_The_Cyclops_Polyphemus_-_WGA04461.jpg",
   "cld": "rhpgixgbgjcmg9z4glzf",
-  "note": "Cyclops — the giant at left hurling the rock"
+  "note": "Cyclops — the giant striding at left"
  },
  "dawn-3": {
   "file": "/art/dawn-3.jpg",
@@ -1079,7 +1086,8 @@
   "title": "A History of Art in Ancient Egypt",
   "year": "1883",
   "source": "https://commons.wikimedia.org/wiki/File:A_history_of_art_in_ancient_Egypt_(1883)_(14585959560).jpg",
-  "cld": "wsbab8kuippegm0hbpp7"
+  "cld": "wsbab8kuippegm0hbpp7",
+  "note": "Reconstruction drawing of an ancient Egyptian temple pylon"
  },
  "egypt-4": {
   "file": "/art/egypt-4.jpg",
@@ -1089,21 +1097,14 @@
   "source": "https://commons.wikimedia.org/wiki/File:Wall_painting_-_arm_and_chest_of_king_-_Naga_(temple_of_Amun)_-_M%C3%BCnchen_SMAEK.jpg",
   "cld": "jc9spicck99ovnv8mypf"
  },
- "elpenor-2": {
-  "file": "/art/elpenor-2.jpg",
-  "artist": "",
-  "title": "Reconstruction of the Nekyia by Polygnotus",
-  "year": "1892",
-  "source": "https://commons.wikimedia.org/wiki/File:Reconstruction_of_Nekyia_by_Polygnotus.JPG",
-  "cld": "zq0tocralv3aqdjtqkkx"
- },
  "eurylochus-2": {
   "file": "/art/eurylochus-2.jpg",
   "artist": "Painter of the Boston Polyphemos",
   "title": "Odysseus' Men Transformed into Animals by Circe Receive the Antidote",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:44a_Odysseus_men_turned_into_animals_by_Circe_receive_antidote_photo_by_Lucas_ancientartpodcast_flickr_cca2.0_8706785112_f6a311cafa_o_white_bg.jpg",
-  "cld": "d7b3mpfiapwfv6tmiofe"
+  "cld": "d7b3mpfiapwfv6tmiofe",
+  "note": "Eurylochus led the scouting party that Circe transformed"
  },
  "eurylochus-3": {
   "file": "/art/eurylochus-3.jpg",
@@ -1111,7 +1112,8 @@
   "title": "One of Odysseus' Men Transformed into a Pig",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Greek_-_One_of_Odysseus%27_Men_Transformed_Into_a_Pig_-_Walters_541483_-_Profile.jpg",
-  "cld": "bqouovzevcyjzjpznuys"
+  "cld": "bqouovzevcyjzjpznuys",
+  "note": "Bronze figure of a man with a boar's head, as Circe transformed Eurylochus' party"
  },
  "hades-3": {
   "file": "/art/hades-3.jpg",
@@ -1147,7 +1149,7 @@
   "year": "1850",
   "source": "https://commons.wikimedia.org/wiki/File:Luis_L%C3%B3pez_Y_Piquer_-_The_Goddess_Juno_in_the_House_of_Dreams_-_WGA13453.jpg",
   "cld": "upmajyfja6awv1y1ltuz",
-  "note": "Hera — goddess reclining in the cloud-chariot, upper center"
+  "note": "Hera — the reclining goddess in the clouds at upper center"
  },
  "hera-3": {
   "file": "/art/hera-3.jpg",
@@ -1155,7 +1157,8 @@
   "title": "The Goddess Juno",
   "year": "1822",
   "source": "https://commons.wikimedia.org/wiki/File:Deusa_Juno_(Escadaria,_Pal%C3%A1cio_Quintela).png",
-  "cld": "m7nmpa38zmdgkk135o5d"
+  "cld": "m7nmpa38zmdgkk135o5d",
+  "note": "Juno stands in her peacock-drawn chariot"
  },
  "heracles-3": {
   "file": "/art/heracles-3.jpg",
@@ -1172,7 +1175,8 @@
   "title": "Hercules and the Twelve Labours",
   "year": "1895",
   "source": "https://commons.wikimedia.org/wiki/File:Hercules_and_the_Twelve_Labors_MET_DP265426.jpg",
-  "cld": "fexgzvohdmjvnda9ccun"
+  "cld": "fexgzvohdmjvnda9ccun",
+  "note": "Heracles stands at center; the Labours border the enamel plaque"
  },
  "hermes-3": {
   "file": "/art/hermes-3.jpg",
@@ -1180,7 +1184,8 @@
   "title": "Mercury as a Cut Purse",
   "year": "2013",
   "source": "https://commons.wikimedia.org/wiki/File:Joshua_Reynolds_Mercury_as_Cut_Purse_miser.jpg",
-  "cld": "d9lksbskdd7ykvqot5nh"
+  "cld": "d9lksbskdd7ykvqot5nh",
+  "note": "Hermes shown as a winged-capped boy thief, god of thieves and travelers"
  },
  "ino-2": {
   "file": "/art/ino-2.jpg",
@@ -1189,7 +1194,7 @@
   "year": "1806",
   "source": "https://commons.wikimedia.org/wiki/File:William_Bromley_-_Odysseus_on_the_Raft_Receives_the_Sacred_Veil_from_the_Goddess_Leucothea,_1806.jpg",
   "cld": "bl7bxxf2kilssolzf2ig",
-  "note": "Ino — the garlanded woman before Odysseus, offering the veil"
+  "note": "Ino (Leucothea) — the garlanded woman in the waves"
  },
  "laertes-2": {
   "file": "/art/laertes-2.jpg",
@@ -1206,7 +1211,8 @@
   "title": "Odysseus Welcomed by Dolius and His Sons",
   "year": "1632",
   "source": "https://commons.wikimedia.org/wiki/File:Odysseus_verwelkomt_door_Dolios_en_zijn_zonen_De_werken_van_Odysseus_(serietitel),_RP-P-OB-66.785.jpg",
-  "cld": "vekkvyljsoruh9bvenst"
+  "cld": "vekkvyljsoruh9bvenst",
+  "note": "Set at Laertes' farm, where Odysseus reunites with his father"
  },
  "laestrygonians-3": {
   "file": "/art/laestrygonians-3.jpg",
@@ -1214,7 +1220,8 @@
   "title": "The Laestrygonians",
   "year": "1851",
   "source": "https://commons.wikimedia.org/wiki/File:Laestrygonians_I.JPG",
-  "cld": "slukujtlrh9fj8bneqir"
+  "cld": "slukujtlrh9fj8bneqir",
+  "note": "Wall painting of Odysseus' men among the giant Laestrygonians"
  },
  "laestrygonians-4": {
   "file": "/art/laestrygonians-4.jpg",
@@ -1222,7 +1229,8 @@
   "title": "The Laestrygonians",
   "year": "1851",
   "source": "https://commons.wikimedia.org/wiki/File:Laestrygonians_II.JPG",
-  "cld": "neiub3g3wjw9d00mwh1k"
+  "cld": "neiub3g3wjw9d00mwh1k",
+  "note": "Wall painting of the Laestrygonians attacking Odysseus' men"
  },
  "libation-2": {
   "file": "/art/libation-2.jpg",
@@ -1230,7 +1238,8 @@
   "title": "Terracotta Vase in the Form of a Bull's Head",
   "year": "1450",
   "source": "https://commons.wikimedia.org/wiki/File:Terracotta_vase_in_the_form_of_a_bull%27s_head_MET_DP258537_white-balanced_white-bg.png",
-  "cld": "bqwjothuvgvxa4r0m2mx"
+  "cld": "bqwjothuvgvxa4r0m2mx",
+  "note": "A rhyton, used for pouring ritual libations"
  },
  "libation-3": {
   "file": "/art/libation-3.jpg",
@@ -1238,7 +1247,8 @@
   "title": "Terracotta Alabastron (Perfume Vase)",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Terracotta_alabastron_(perfume_vase)_MET_DP117228.jpg",
-  "cld": "oabs1aw6obhop4w3sczi"
+  "cld": "oabs1aw6obhop4w3sczi",
+  "note": "Oil and unguent vessel of the kind used in funerary and ritual offerings"
  },
  "libation-4": {
   "file": "/art/libation-4.jpg",
@@ -1246,7 +1256,8 @@
   "title": "Terracotta Alabastron (Perfume Vase)",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Terracotta_alabastron_(perfume_vase)_MET_DP145804.jpg",
-  "cld": "hj4h7vodw1m4vnirxsod"
+  "cld": "hj4h7vodw1m4vnirxsod",
+  "note": "Oil and unguent vessel of the kind used in funerary and ritual offerings"
  },
  "lyre-2": {
   "file": "/art/lyre-2.jpg",
@@ -1270,15 +1281,8 @@
   "title": "Fragment of a Terracotta Calyx-Krater (Mixing Bowl)",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Fragment_of_a_terracotta_calyx-krater_(mixing_bowl)_MET_DP111830.jpg",
-  "cld": "u8ygqpii0rri57krsiuw"
- },
- "menelaus-4": {
-  "file": "/art/menelaus-4.jpg",
-  "artist": "",
-  "title": "Game Piece with Menelaus and Companions Battling Proteus",
-  "year": "1125",
-  "source": "https://commons.wikimedia.org/wiki/File:Game_Piece_with_Menelaus_and_Companions_Battling_Proteus_MET_DP236193.jpg",
-  "cld": "pklsergk5ole1anlmiqy"
+  "cld": "u8ygqpii0rri57krsiuw",
+  "note": "Depicts a kithara player"
  },
  "muse-4": {
   "file": "/art/muse-4.jpg",
@@ -1286,7 +1290,8 @@
   "title": "Apollo and the Muses (Parnassus)",
   "year": "1630",
   "source": "https://commons.wikimedia.org/wiki/File:Nicolas_Poussin_-_Apollo_and_the_Muses_(Parnassus)_-_WGA18307.jpg",
-  "cld": "wpnbuphxsoq7h8uu6uxs"
+  "cld": "wpnbuphxsoq7h8uu6uxs",
+  "note": "The Muses gather around Apollo on Mount Parnassus"
  },
  "nausicaa-3": {
   "file": "/art/nausicaa-3.jpg",
@@ -1312,7 +1317,8 @@
   "title": "Elizabeth, Viscountess Bulkeley, as Hebe",
   "year": "1775",
   "source": "https://commons.wikimedia.org/wiki/File:Romney,_Elizabeth,_Viscountess_Bulkeley,_as_Hebe.jpg",
-  "cld": "lcekdpacmy9piyi5tozg"
+  "cld": "lcekdpacmy9piyi5tozg",
+  "note": "Hebe, cupbearer of the gods who poured their nectar; with Zeus's eagle and ewer"
  },
  "nectar-4": {
   "file": "/art/nectar-4.jpg",
@@ -1320,7 +1326,8 @@
   "title": "The Introduction of Ganymede to Olympus",
   "year": "1768",
   "source": "https://commons.wikimedia.org/wiki/File:Die_Einf%C3%BChrung_des_Ganymed_in_den_Olymp_(van_Loo)_-_Ausschnitt.jpg",
-  "cld": "f9lvwyt5ocfnyhtdbqi9"
+  "cld": "f9lvwyt5ocfnyhtdbqi9",
+  "note": "Ganymede became cupbearer of the gods, pouring their nectar"
  },
  "nymph-3": {
   "file": "/art/nymph-3.jpg",
@@ -1341,10 +1348,11 @@
  "nobody-3": {
   "file": "/art/nobody-3.jpg",
   "artist": "",
-  "title": "Odysseus",
+  "title": "Head of Odysseus",
   "year": "2006",
   "source": "https://commons.wikimedia.org/wiki/File:Odysseus-003.jpg",
-  "cld": "nmzmefhogyh1luueosom"
+  "cld": "nmzmefhogyh1luueosom",
+  "note": "Odysseus, the name behind the disguise \"Nobody\""
  },
  "ogygia-2": {
   "file": "/art/ogygia-2.jpg",
@@ -1352,15 +1360,8 @@
   "title": "Ulysses and Calypso",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Ulysses_and_Calypso_(SM_6540z).png",
-  "cld": "ehsdwsvcazxmgmbedujp"
- },
- "ogygia-3": {
-  "file": "/art/ogygia-3.jpg",
-  "artist": "Luca Penni",
-  "title": "The Return of Ulysses",
-  "year": "1545",
-  "source": "https://commons.wikimedia.org/wiki/File:The_Return_of_Ulysses_(%3F)_(SM_419z).png",
-  "cld": "lr5d6z3ptynplmcehcls"
+  "cld": "ehsdwsvcazxmgmbedujp",
+  "note": "Ogygia is Calypso's island, where she held Odysseus"
  },
  "orestes-4": {
   "file": "/art/orestes-4.jpg",
@@ -1374,10 +1375,11 @@
  "penelope-4": {
   "file": "/art/penelope-4.jpg",
   "artist": "Jan de Bray",
-  "title": "A Couple",
+  "title": "Penelope and Ulysses Reunited",
   "year": "1668",
   "source": "https://commons.wikimedia.org/wiki/File:Couple_(de_Bray).jpg",
-  "cld": "lf1ydpn0ois3ldbtzu2b"
+  "cld": "lf1ydpn0ois3ldbtzu2b",
+  "note": "Penelope at left with the viol; Ulysses reaches toward her"
  },
  "persephone-3": {
   "file": "/art/persephone-3.jpg",
@@ -1385,7 +1387,8 @@
   "title": "The Rape of Proserpine",
   "year": "1630",
   "source": "https://commons.wikimedia.org/wiki/File:Rembrandt_-_The_Rape_of_Proserpine_-_Google_Art_Project.jpg",
-  "cld": "iz2nsqsfac5u6eujvgh3"
+  "cld": "iz2nsqsfac5u6eujvgh3",
+  "note": "Proserpine (Persephone) seized by Hades in the chariot"
  },
  "polyphemus-4": {
   "file": "/art/polyphemus-4.jpg",
@@ -1402,7 +1405,8 @@
   "title": "The Triumph of Amphitrite",
   "year": "1780",
   "source": "https://commons.wikimedia.org/wiki/File:Hughes_Taraval_-_The_Triumph_of_Amphitrite,_1780.jpg",
-  "cld": "eyh5c4uark4moxpzui9b"
+  "cld": "eyh5c4uark4moxpzui9b",
+  "note": "Amphitrite, sea-queen and wife of Poseidon, rides among tritons"
  },
  "proteus-2": {
   "file": "/art/proteus-2.jpg",
@@ -1410,7 +1414,8 @@
   "title": "Menelaus and Proteus",
   "year": "1574",
   "source": "https://commons.wikimedia.org/wiki/File:Menelaus_Proteus_engraving_achillis_1574.jpg",
-  "cld": "g8tlveris5tsjdligvej"
+  "cld": "g8tlveris5tsjdligvej",
+  "note": "Proteus, the shape-shifting sea-god, at right"
  },
  "shroud-2": {
   "file": "/art/shroud-2.jpg",
@@ -1418,7 +1423,8 @@
   "title": "Penelope",
   "year": "1864",
   "source": "https://commons.wikimedia.org/wiki/File:John_Roddam_Spencer_Stanhope_Penelope.jpg",
-  "cld": "xoqxrnpihuqhm1y6hueb"
+  "cld": "xoqxrnpihuqhm1y6hueb",
+  "note": "Penelope by her loom, weaving the shroud"
  },
  "sirens-4": {
   "file": "/art/sirens-4.jpg",
@@ -1453,7 +1459,7 @@
   "year": "1795",
   "source": "https://commons.wikimedia.org/wiki/File:Jean-Jacques_Lagren%C3%A9e_-_Helen_Recognising_Telemachus,_Son_of_Odysseus_-_WGA12378.jpg",
   "cld": "iougkh3ljtpvqfohq6hs",
-  "note": "Telemachus — the grieving youth at far left"
+  "note": "Telemachus — the grieving youth slumped at far left"
  },
  "troy-3": {
   "file": "/art/troy-3.jpg",
@@ -1477,7 +1483,8 @@
   "title": "Zeus",
   "year": "1610",
   "source": "https://commons.wikimedia.org/wiki/File:Jacob_Potma_-_Zeus_-_10464_-_Bavarian_State_Painting_Collections.jpg",
-  "cld": "eeghh5frpoivaf5r4qss"
+  "cld": "eeghh5frpoivaf5r4qss",
+  "note": "Zeus with thunderbolt and eagle"
  },
  "phaeacians-2": {
   "file": "/art/phaeacians-2.jpg",
@@ -1505,7 +1512,8 @@
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Statue_of_Odysseus_beneath_the_ram_(Torlonia_MT_438)_03.jpg",
   "license": "CC BY 4.0",
-  "cld": "fnozdiuuq1j1dwzl683n"
+  "cld": "fnozdiuuq1j1dwzl683n",
+  "note": "Odysseus clings under the ram to escape Polyphemus's cave"
  },
  "scheria-2": {
   "file": "/art/scheria-2.jpg",
@@ -1514,7 +1522,8 @@
   "year": "1644",
   "source": "https://commons.wikimedia.org/wiki/File:Lorrain_-_Coast_Scene_with_the_Embarkation_of_Saint_Paul,_1653%E2%80%931655.jpg",
   "license": "CC BY-SA 4.0",
-  "cld": "v5nes9rq1ways28luhba"
+  "cld": "v5nes9rq1ways28luhba",
+  "note": "Scheria, the Phaeacian shore from which Ulysses sails home"
  },
  "alcinous-2": {
   "file": "/art/alcinous-2.jpg",
@@ -1531,7 +1540,8 @@
   "title": "The Slaying of the Suitors",
   "year": "c. 330 BC",
   "source": "https://commons.wikimedia.org/wiki/File:Mnesterophonia_Louvre_CA7124.jpg",
-  "cld": "qhhkfrvoevfkzgrkneg3"
+  "cld": "qhhkfrvoevfkzgrkneg3",
+  "note": "Eurymachus among the suitors cut down by Odysseus"
  },
  "penelope-weave": {
   "file": "/art/penelope-weave.jpg",
@@ -1558,7 +1568,7 @@
   "year": "1805",
   "source": "https://commons.wikimedia.org/wiki/File:Flaxman%27s_Zeichnungen_1910_079.jpg",
   "cld": "bvsgkgoo8neychq88a66",
-  "note": "Phemius — standing, playing the lyre"
+  "note": "Phemius — the bard seated with the lyre"
  },
  "demodocus-2": {
   "file": "/art/demodocus-2.jpg",
@@ -1575,7 +1585,8 @@
   "title": "Achilles and Patroclus",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Akhilleus_Patroklos_Antikensammlung_Berlin_F2278.jpg",
-  "cld": "zse4emousf9ilypyot3c"
+  "cld": "zse4emousf9ilypyot3c",
+  "note": "Achilles binding Patroclus's wound; both are Achaean heroes"
  },
  "achilles-w100": {
   "file": "/art/achilles-w100.jpg",
@@ -1597,11 +1608,12 @@
  "achilles-w102": {
   "file": "/art/achilles-w102.jpg",
   "artist": "",
-  "title": "Achilles and Troilus",
+  "title": "Achilles Carrying a Fallen Body",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Achilles_Troilus_MAN_Napoli_Inv5999.jpg",
   "license": "CC BY 2.5",
-  "cld": "spbg1wztrw6oeudt1nkx"
+  "cld": "spbg1wztrw6oeudt1nkx",
+  "note": "Achilles bearing a slain figure (the Pasquino group)"
  },
  "achilles-w103": {
   "file": "/art/achilles-w103.jpg",
@@ -1609,15 +1621,17 @@
   "title": "Achilles at Skyros",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Achilles_at_Skyros,_Mosaic,_Villa_La_Olmeda,_4th_century_AD.jpg",
-  "cld": "roowqvsyntrsfpouc6gq"
+  "cld": "roowqvsyntrsfpouc6gq",
+  "note": "Achilles — the youth at right"
  },
  "achilles-w104": {
   "file": "/art/achilles-w104.jpg",
   "artist": "",
-  "title": "Achilles and Lycomedes",
+  "title": "Achilles",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Achilles_by_Lycomedes_Louvre_Ma2120.jpg",
-  "cld": "azr8iaoff68gauf2gzlx"
+  "cld": "azr8iaoff68gauf2gzlx",
+  "note": "Achilles with shield, on a carved relief"
  },
  "achilles-w105": {
   "file": "/art/achilles-w105.jpg",
@@ -1635,7 +1649,8 @@
   "title": "Achilles Fighting Memnon",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Achilles_fighting_against_Memnon_Leiden_Rijksmuseum_voor_Oudheden.jpg",
-  "cld": "uuey8nxuambdvdbn3aee"
+  "cld": "uuey8nxuambdvdbn3aee",
+  "note": "Achilles — the charging warrior at center"
  },
  "achilles-w107": {
   "file": "/art/achilles-w107.jpg",
@@ -1649,16 +1664,17 @@
  "achilles-w108": {
   "file": "/art/achilles-w108.jpg",
   "artist": "",
-  "title": "Achilles",
+  "title": "Achilles on a Coin of Thessaly",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Achilles-01.jpg",
   "license": "CC BY-SA 3.0",
-  "cld": "ek355xs2ofswwtgvua7x"
+  "cld": "ek355xs2ofswwtgvua7x",
+  "note": "Head of Achilles (obverse); seated warrior with shield (reverse)"
  },
  "achilles-w109": {
   "file": "/art/achilles-w109.jpg",
   "artist": "",
-  "title": "Achilles Playing the Lyre",
+  "title": "Chiron Teaching Achilles the Lyre",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Achilleus_Lyra.jpg",
   "cld": "raj5gkbvn4i2xmqdt66h",
@@ -1670,7 +1686,8 @@
   "title": "Monte Circeo at Sunset",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:John_Robert_Cozens,_Monte_Circeo_at_Sunset,_1780s,_NGA_70382.jpg",
-  "cld": "lsatfqqao4a3coawqirl"
+  "cld": "lsatfqqao4a3coawqirl",
+  "note": "Monte Circeo, the promontory long identified with Circe's island Aeaea"
  },
  "aegisthus-w100": {
   "file": "/art/aegisthus-w100.jpg",
@@ -1697,7 +1714,8 @@
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Sarcofago_con_il_mito_di_Oreste,_II_sec._d.C._-FG2.jpg",
   "license": "CC BY-SA 4.0",
-  "cld": "m2s7gjzq5xqxvvgrwicl"
+  "cld": "m2s7gjzq5xqxvvgrwicl",
+  "note": "Aegisthus dies in the Orestes vengeance cycle depicted here"
  },
  "agamemnon-w100": {
   "file": "/art/agamemnon-w100.jpg",
@@ -1705,15 +1723,17 @@
   "title": "Achilles and Briseis",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Achilles_Briseis_MAN_Napoli_Inv9105_n01.jpg",
-  "cld": "ou8okfxzstmf3pnxig5z"
+  "cld": "ou8okfxzstmf3pnxig5z",
+  "note": "Agamemnon's heralds seize Briseis, the quarrel that drives the Iliad"
  },
  "agamemnon-w101": {
   "file": "/art/agamemnon-w101.jpg",
   "artist": "",
-  "title": "Aegisthus",
+  "title": "Aegisthus and Clytemnestra",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Aegisthus.jpg",
-  "cld": "hg8yqzhncqephr3ewprr"
+  "cld": "hg8yqzhncqephr3ewprr",
+  "note": "Aegisthus, lover of Clytemnestra, who together murdered Agamemnon"
  },
  "agamemnon-w102": {
   "file": "/art/agamemnon-w102.jpg",
@@ -1739,7 +1759,8 @@
   "title": "Lekanis with Agamemnon",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Lekanis_Agamemnon_MNA_Taranto.jpg",
-  "cld": "nxrk9ce7gbmiobv663dr"
+  "cld": "nxrk9ce7gbmiobv663dr",
+  "note": "Agamemnon — the enthroned figure, inscribed AGAMEMNON"
  },
  "ajax-w100": {
   "file": "/art/ajax-w100.jpg",
@@ -1797,7 +1818,7 @@
  "ajax-w107": {
   "file": "/art/ajax-w107.jpg",
   "artist": "Brygos Painter",
-  "title": "Attic Red-Figure Kylix",
+  "title": "Ajax Carrying the Body of Achilles",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Attic_red-figure_kylix_by_Brygos_Painter,_top_-_Getty_Museum_(86.AE.286).jpg",
   "cld": "qd18guvaftbtib5ix4pv",
@@ -1806,15 +1827,16 @@
  "ajax-w108": {
   "file": "/art/ajax-w108.jpg",
   "artist": "Carlo Ruspi",
-  "title": "The François Tomb",
+  "title": "Sacrifice of Trojan Prisoners (François Tomb)",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Fran%C3%A7ois_Tomb_Carlo_Ruspi_01.jpg",
-  "cld": "xktwrvm8erjkk65vyxev"
+  "cld": "xktwrvm8erjkk65vyxev",
+  "note": "Ajax appears among the Greek warriors in this Trojan War scene"
  },
  "ambrosia-w100": {
   "file": "/art/ambrosia-w100.jpg",
   "artist": "Johann Balthasar Probst",
-  "title": "The Feast of the Gods",
+  "title": "Thetis Anointing the Infant Achilles with Ambrosia",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Johann_Balthasar_Probst_002.jpg",
   "cld": "drimzhkp6m0p1882t77r"
@@ -1825,7 +1847,8 @@
   "title": "The Madness of Lycurgus",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Mosaik_%22Wahnsinn_des_Lykurg%22_%E2%80%94_Exponat_in_der_Arch%C3%A4ologischen_Staatssammlung_M%C3%BCnchen.JPG",
-  "cld": "hwrt0yh3jy5otdtwt3jk"
+  "cld": "hwrt0yh3jy5otdtwt3jk",
+  "note": "The nymph Ambrosia, attacked by Lycurgus, is the reclining woman at right"
  },
  "ambrosia-w102": {
   "file": "/art/ambrosia-w102.jpg",
@@ -1842,7 +1865,8 @@
   "title": "Penelope and the Suitors",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:JohnWilliamWaterhouse-PenelopeandtheSuitors(1912).jpg",
-  "cld": "y2uukm2n1m9naoj0kz4f"
+  "cld": "y2uukm2n1m9naoj0kz4f",
+  "note": "Amphinomus is among the suitors crowding the window at right"
  },
  "aphrodite-w100": {
   "file": "/art/aphrodite-w100.jpg",
@@ -1957,15 +1981,6 @@
   "license": "CC BY-SA 3.0",
   "cld": "fqjn6eny971eoc0fqt6i"
  },
- "apollo-w103": {
-  "file": "/art/apollo-w103.jpg",
-  "artist": "",
-  "title": "Golden Double Axe",
-  "year": "",
-  "source": "https://commons.wikimedia.org/wiki/File:AMI_-_Goldene_Doppelaxt.jpg",
-  "license": "CC BY-SA 3.0",
-  "cld": "ht2dlwfv9hmunlcyb3mu"
- },
  "apollo-w105": {
   "file": "/art/apollo-w105.jpg",
   "artist": "",
@@ -1981,7 +1996,8 @@
   "title": "Apollo and Artemis",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Apollo_Artemis_Brygos_Louvre_G151.jpg",
-  "cld": "fffkz8pq5wsfumpao0ax"
+  "cld": "fffkz8pq5wsfumpao0ax",
+  "note": "Apollo — the figure holding the lyre"
  },
  "apollo-w107": {
   "file": "/art/apollo-w107.jpg",
@@ -1995,7 +2011,7 @@
  "apollo-w109": {
   "file": "/art/apollo-w109.jpg",
   "artist": "",
-  "title": "Torso of the Cult Statue of Apollo",
+  "title": "Chryselephantine Head of Apollo",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Apollo,_torso_of_cult_statue,_ivory,_gold,_550_BC,_AM_Delphi,_060068.jpg",
   "license": "CC BY-SA 4.0",
@@ -2033,7 +2049,8 @@
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Parthenon_frieze_east_IV_fragment.JPG",
   "license": "CC BY-SA 4.0",
-  "cld": "gctuikurp1bkrijjjdrm"
+  "cld": "gctuikurp1bkrijjjdrm",
+  "note": "Ares — among the seated gods"
  },
  "ares-w105": {
   "file": "/art/ares-w105.jpg",
@@ -2057,7 +2074,7 @@
  "artemis-w101": {
   "file": "/art/artemis-w101.jpg",
   "artist": "",
-  "title": "Artemis of Ephesus",
+  "title": "Ruins of the Temple of Artemis at Ephesus",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Ac_artemisephesus.jpg",
   "license": "CC BY-SA 3.0",
@@ -2104,7 +2121,8 @@
   "title": "Artemis",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Artemis_BM_E432.jpg",
-  "cld": "lpwiohovaceswlsygppr"
+  "cld": "lpwiohovaceswlsygppr",
+  "note": "Artemis — the standing woman with the deer"
  },
  "artemis-w107": {
   "file": "/art/artemis-w107.jpg",
@@ -2222,7 +2240,7 @@
  "bard-w100": {
   "file": "/art/bard-w100.jpg",
   "artist": "",
-  "title": "Star with Star (Frontispiece)",
+  "title": "The Bard with His Lyre (Frontispiece)",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:%D0%98_%D0%B7%D0%B2%D0%B5%D0%B7%D0%B4%D0%B0_%D1%81_%D0%B7%D0%B2%D0%B5%D0%B7%D0%B4%D0%BE%D1%8E_%D0%A4%D1%80%D0%BE%D0%BD%D1%82%D0%B8%D1%81%D0%BF%D0%B8%D1%81.jpg",
   "license": "CC BY-SA 4.0",
@@ -2334,16 +2352,7 @@
   "title": "Circe",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Circe-Frederick_Stuart_Church-1910.9.4_1a_Smithsonian_American_Art_Museum.jpg",
-  "cld": "kb5tbulfzc27p66jrfz7",
-  "note": "Circe — the kneeling woman pointing, with the lions"
- },
- "circe-w105": {
-  "file": "/art/circe-w105.jpg",
-  "artist": "William Blake",
-  "title": "Comus with His Revellers",
-  "year": "",
-  "source": "https://commons.wikimedia.org/wiki/File:Comus_with_his_revellers.jpg",
-  "cld": "bczd7qmdmzsqky7yhcjk"
+  "cld": "kb5tbulfzc27p66jrfz7"
  },
  "circe-w106": {
   "file": "/art/circe-w106.jpg",
@@ -2394,7 +2403,8 @@
   "title": "The Fall of the Titans",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Cornelis_Cornelisz._van_Haarlem_-_The_Fall_of_the_Titans_-_Google_Art_Project.jpg",
-  "cld": "sytrvptdj0dhwq6n4fko"
+  "cld": "sytrvptdj0dhwq6n4fko",
+  "note": "The Titans — Cronus's kin — cast down by the young Olympian gods"
  },
  "cronus-w101": {
   "file": "/art/cronus-w101.jpg",
@@ -2499,7 +2509,8 @@
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Akroterion,_fragments,_Eos_carries_Cephalus,_425-417_BC,_Delos,_A04281,_A04282,_143425.jpg",
   "license": "CC BY-SA 4.0",
-  "cld": "hfv3rvl0wizymjpt4cov"
+  "cld": "hfv3rvl0wizymjpt4cov",
+  "note": "Fragmentary marble group of the goddess bearing off the youth"
  },
  "dawn-w103": {
   "file": "/art/dawn-w103.jpg",
@@ -2561,15 +2572,6 @@
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Eos_chariot_430-420_BC_Staatliche_Antikensammlungen.jpg",
   "cld": "ejggz6zeev2orlpcn50t"
- },
- "elpenor-w100": {
-  "file": "/art/elpenor-w100.jpg",
-  "artist": "Theodoor van Thulden",
-  "title": "The Burning of Elpenor",
-  "year": "",
-  "source": "https://commons.wikimedia.org/wiki/File:Ulysses_Burning.jpg",
-  "cld": "lfkdwcorbjmzu29sglvi",
-  "note": "Elpenor — the corpse laid on the burning pyre"
  },
  "eurycleia-w100": {
   "file": "/art/eurycleia-w100.jpg",
@@ -2645,15 +2647,6 @@
   "license": "CC BY-SA 2.0",
   "cld": "mqgx8s8dip9tcjtigorm"
  },
- "hades-w104": {
-  "file": "/art/hades-w104.jpg",
-  "artist": "",
-  "title": "Hades and Persephone",
-  "year": "",
-  "source": "https://commons.wikimedia.org/wiki/File:Hades_Persephone_Tomb_of_Orcus_II.jpg",
-  "license": "CC BY-SA 3.0",
-  "cld": "p2ihqvdluusxnlccj9au"
- },
  "hades-w105": {
   "file": "/art/hades-w105.jpg",
   "artist": "",
@@ -2669,7 +2662,8 @@
   "title": "Hades and Persephone",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Hades_and_Persephone,_Vergina.jpg",
-  "cld": "bwwbrwlkihbd8vamm1dv"
+  "cld": "bwwbrwlkihbd8vamm1dv",
+  "note": "Hades — driving the four-horse chariot"
  },
  "hades-w107": {
   "file": "/art/hades-w107.jpg",
@@ -2679,19 +2673,10 @@
   "source": "https://commons.wikimedia.org/wiki/File:Hades.png",
   "cld": "xbbvsukhvan1qxtwvyv3"
  },
- "hades-w109": {
-  "file": "/art/hades-w109.jpg",
-  "artist": "Aison",
-  "title": "Theseus",
-  "year": "",
-  "source": "https://commons.wikimedia.org/wiki/File:Kylix_Theseus_Aison_MNA_Inv11365_n1.jpg",
-  "license": "CC BY 2.5",
-  "cld": "te9wugestquywcar834h"
- },
  "helen-w100": {
   "file": "/art/helen-w100.jpg",
   "artist": "",
-  "title": "Ajax Dragging Cassandra from the Palladium",
+  "title": "The Fall of Troy: Menelaus Recovering Helen",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Ajax_drags_Cassandra_from_Palladium.jpg",
   "cld": "amrexv7gigavnlnz1e8l",
@@ -2700,28 +2685,22 @@
  "helen-w101": {
   "file": "/art/helen-w101.jpg",
   "artist": "",
-  "title": "Wall Painting from the House of the Gilded Cupids, Pompeii",
+  "title": "Helen and Paris",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Casa_degli_Amorini_Dorati_(Pompei)_WLM_020.JPG",
   "license": "CC BY-SA 3.0",
-  "cld": "oiytloizuu08gxgzlati"
+  "cld": "oiytloizuu08gxgzlati",
+  "note": "Helen — the seated woman at left"
  },
  "helen-w102": {
   "file": "/art/helen-w102.jpg",
   "artist": "",
-  "title": "Wall Painting from the House of the Ephebe, Pompeii",
+  "title": "Helen and Paris",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Casa_dell%27Efebo_0058_(cropped).jpg",
   "license": "CC BY-SA 4.0",
-  "cld": "bi1uc5zk0zuzjkcwyclx"
- },
- "helen-w103": {
-  "file": "/art/helen-w103.jpg",
-  "artist": "",
-  "title": "Helen of Troy",
-  "year": "",
-  "source": "https://commons.wikimedia.org/wiki/File:Christopher_Marlowe.jpg",
-  "cld": "czmdy9e9gv3rwnhupgvx"
+  "cld": "bi1uc5zk0zuzjkcwyclx",
+  "note": "Helen — the woman beside the warrior at the horse"
  },
  "helen-w104": {
   "file": "/art/helen-w104.jpg",
@@ -2738,7 +2717,8 @@
   "title": "The Judgement of Paris",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Enrique_Simonet_-_El_Juicio_de_Paris.jpg",
-  "cld": "kcr1rj7fvwucpodmujnp"
+  "cld": "kcr1rj7fvwucpodmujnp",
+  "note": "Helen is not shown; the contest that awarded her to Paris"
  },
  "helen-w106": {
   "file": "/art/helen-w106.jpg",
@@ -2765,7 +2745,8 @@
   "title": "The Abduction of Helen",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Girolamo_Genga_L%27enl%C3%A8vement_d%27H%C3%A9l%C3%A8ne.JPG",
-  "cld": "egjha6atyz3tn6u0e5qv"
+  "cld": "egjha6atyz3tn6u0e5qv",
+  "note": "Helen — crowned woman seized by soldiers, center"
  },
  "helen-w109": {
   "file": "/art/helen-w109.jpg",
@@ -2792,12 +2773,13 @@
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:0_Alexander-Helios_Capitolini_(1).JPG",
   "license": "CC BY-SA 3.0",
-  "cld": "xmodj3nry21o1ie0ycdy"
+  "cld": "xmodj3nry21o1ie0ycdy",
+  "note": "Alexander the Great portrayed with the sun god's radiate features"
  },
  "helius-w103": {
   "file": "/art/helius-w103.jpg",
   "artist": "",
-  "title": "Statue of a Deity from the Silahtaraga Group",
+  "title": "Statue of the Sun God",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:4._Silahtara%C4%9Fa_Statuary_Group_at_the_Museum_of_Archaeology,_Istanbul,_Turkey,_2nd_century_CE._This_is_one_of_the_deities.jpg",
   "license": "CC BY-SA 4.0",
@@ -2819,7 +2801,8 @@
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Altar_P%C3%A9rgamo_Helios_01.JPG",
   "license": "CC BY-SA 4.0",
-  "cld": "kv33n4f9ibbafxs7ei9s"
+  "cld": "kv33n4f9ibbafxs7ei9s",
+  "note": "Helius — rising with his chariot horses, Pergamon Altar frieze"
  },
  "helius-w107": {
   "file": "/art/helius-w107.jpg",
@@ -2833,7 +2816,7 @@
  "helius-w108": {
   "file": "/art/helius-w108.jpg",
   "artist": "",
-  "title": "Apollo",
+  "title": "Helios",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Apollo1.JPG",
   "license": "CC BY 2.5",
@@ -2845,7 +2828,8 @@
   "title": "Mosaic of the Sun God at Beit Alfa",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Beit_alfa01.jpg",
-  "cld": "df9rhzoucnm9pwq7xbed"
+  "cld": "df9rhzoucnm9pwq7xbed",
+  "note": "Helius — driving the chariot at the center of the zodiac wheel"
  },
  "hephaestus-w100": {
   "file": "/art/hephaestus-w100.jpg",
@@ -2872,7 +2856,7 @@
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Hephaistos_Thetis_at_Kylix_by_the_Foundry_Painter_Antikensammlung_Berlin_F2294.jpg",
   "cld": "htezzpuaamj0v3j6u2rr",
-  "note": "Hephaestus — standing figure handling the shield and spear"
+  "note": "Hephaestus — bearded man seated at left, with helmeted Thetis"
  },
  "hephaestus-w104": {
   "file": "/art/hephaestus-w104.jpg",
@@ -2949,7 +2933,8 @@
   "title": "Heracles Strangling the Snakes",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Herakles_strangling_snakes_Louvre_G192.jpg",
-  "cld": "zi3kji5euylkk4tbq9pp"
+  "cld": "zi3kji5euylkk4tbq9pp",
+  "note": "Hera sent the snakes against the infant Heracles"
  },
  "hera-w107": {
   "file": "/art/hera-w107.jpg",
@@ -2976,7 +2961,8 @@
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Judgement_of_Paris_Met_98.8.11.jpg",
   "license": "CC BY 2.5",
-  "cld": "chnjrasdqunsjfjn7omp"
+  "cld": "chnjrasdqunsjfjn7omp",
+  "note": "Hera — one of the three goddesses in the procession"
  },
  "heracles-w100": {
   "file": "/art/heracles-w100.jpg",
@@ -3009,11 +2995,12 @@
  "heracles-w103": {
   "file": "/art/heracles-w103.jpg",
   "artist": "",
-  "title": "College of the Augustali",
+  "title": "Hercules on Olympus",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:College_of_the_Augustali_(7254063590).jpg",
   "license": "CC BY-SA 2.0",
-  "cld": "fk0kghzlmpua6xabuhhi"
+  "cld": "fk0kghzlmpua6xabuhhi",
+  "note": "Heracles — bearded nude man at right, striding forward"
  },
  "heracles-w104": {
   "file": "/art/heracles-w104.jpg",
@@ -3022,7 +3009,8 @@
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Eurytios_Krater_Louvre_E635_n1.jpg",
   "license": "CC BY 2.5",
-  "cld": "tzvb33gwloqmb5h2gqk6"
+  "cld": "tzvb33gwloqmb5h2gqk6",
+  "note": "Heracles — reclining banqueter among the diners"
  },
  "heracles-w105": {
   "file": "/art/heracles-w105.jpg",
@@ -3039,7 +3027,8 @@
   "title": "Herakles and Telephos",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Herakles_and_Telephos_Louvre_MR219.jpg",
-  "cld": "hrnakgwpawudw16wyc1w"
+  "cld": "hrnakgwpawudw16wyc1w",
+  "note": "Heracles — bearded man cradling the infant Telephus"
  },
  "heracles-w109": {
   "file": "/art/heracles-w109.jpg",
@@ -3062,10 +3051,11 @@
  "hermes-w101": {
   "file": "/art/hermes-w101.jpg",
   "artist": "Tarquinia Painter",
-  "title": "The Embassy to Achilles",
+  "title": "Hermes with the Herald's Staff",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Achilles_embassy_Louvre_G264_n3.jpg",
-  "cld": "zhop4aibu73aj4ywyjxh"
+  "cld": "zhop4aibu73aj4ywyjxh",
+  "note": "Hermes — wearing the traveller's hat and holding the kerykeion"
  },
  "hermes-w102": {
   "file": "/art/hermes-w102.jpg",
@@ -3082,7 +3072,8 @@
   "title": "The Tomb of Judgement at Lefkadia",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Ancient_Mieza,_Macedonian_tombs_of_Lefkadia,_The_Tomb_of_Jugdement_545fddcedb8f434cdb346f41dbd838ec.jpg",
-  "cld": "cqdaoyzacowzg2e541iy"
+  "cld": "cqdaoyzacowzg2e541iy",
+  "note": "Hermes Psychopompos, holding the caduceus"
  },
  "hermes-w104": {
   "file": "/art/hermes-w104.jpg",
@@ -3092,14 +3083,6 @@
   "source": "https://commons.wikimedia.org/wiki/File:Byzantine_-_Circular_Pyxis_-_Walters_7164_-_View_C.jpg",
   "cld": "nqorpl7niz8zdzyub7x6",
   "note": "Hermes — at left, holding the caduceus toward the woman"
- },
- "hermes-w105": {
-  "file": "/art/hermes-w105.jpg",
-  "artist": "",
-  "title": "Cameo with a Ptolemaic Prince",
-  "year": "",
-  "source": "https://commons.wikimedia.org/wiki/File:Cameo_Ptolemaic_prince_Bab111_CdM_Paris.jpg",
-  "cld": "v7vcdjvvi1yh2vcw4y8b"
  },
  "hermes-w106": {
   "file": "/art/hermes-w106.jpg",
@@ -3138,21 +3121,14 @@
   "license": "CC BY-SA 4.0",
   "cld": "zcpbmu0f6sdlvyrdu7fe"
  },
- "hospitality-w100": {
-  "file": "/art/hospitality-w100.jpg",
-  "artist": "Raphael",
-  "title": "The School of Athens",
-  "year": "",
-  "source": "https://commons.wikimedia.org/wiki/File:%22The_School_of_Athens%22_by_Raffaello_Sanzio_da_Urbino.jpg",
-  "cld": "cvbpz7alwjzi8p9hzoib"
- },
  "hospitality-w101": {
   "file": "/art/hospitality-w101.jpg",
   "artist": "Giacinto Campana",
   "title": "The Abduction of Helen",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Campana_Abduction_of_Helen.jpg",
-  "cld": "izic2rcoocfho4dyk3i5"
+  "cld": "izic2rcoocfho4dyk3i5",
+  "note": "Paris violates xenia by carrying off his host's wife"
  },
  "hospitality-w102": {
   "file": "/art/hospitality-w102.jpg",
@@ -3162,30 +3138,14 @@
   "source": "https://commons.wikimedia.org/wiki/File:Feast_of_the_Gods_Giovanni_Bellini_1514.jpg",
   "cld": "cmhscwzgxusopfguocv9"
  },
- "hospitality-w103": {
-  "file": "/art/hospitality-w103.jpg",
-  "artist": "Jean-François de Troy",
-  "title": "Jason and the Golden Fleece",
-  "year": "",
-  "source": "https://commons.wikimedia.org/wiki/File:Jason_and_the_Legendary_Golden_Fleece_by_Jean-Francois_Detroy.jpg",
-  "cld": "n6ujs0wivk6s9q4s4sxz"
- },
  "hospitality-w104": {
   "file": "/art/hospitality-w104.jpg",
   "artist": "Workshop of Peter Paul Rubens",
   "title": "Jupiter and Mercury at the House of Philemon and Baucis",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Workshop_of_Peter_Paul_Rubens_-_Jupiter_and_Mercury_at_Philemon_and_Baucis.jpg",
-  "cld": "k6fxq9dcrn4p7e4zhikx"
- },
- "hospitality-w105": {
-  "file": "/art/hospitality-w105.jpg",
-  "artist": "",
-  "title": "Xerxes I of Persia",
-  "year": "",
-  "source": "https://commons.wikimedia.org/wiki/File:Xerxes_I_of_Persia_(2).jpg",
-  "license": "CC BY-SA 3.0",
-  "cld": "dbztbdqlw7fcuhqvff4n"
+  "cld": "k6fxq9dcrn4p7e4zhikx",
+  "note": "Gods test and reward their hosts — the model myth of xenia"
  },
  "ino-w100": {
   "file": "/art/ino-w100.jpg",
@@ -3261,7 +3221,8 @@
   "title": "Landscape with Scenes from the Odyssey",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:R%C3%B6mischer_Meister_um_125_v._Chr._001.jpg",
-  "cld": "vj87e45kbnvquiw6lr6a"
+  "cld": "vj87e45kbnvquiw6lr6a",
+  "note": "Odysseus's men in the land of the Laestrygonians"
  },
  "libation-w100": {
   "file": "/art/libation-w100.jpg",
@@ -3295,7 +3256,8 @@
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Cichefstradi.jpg",
   "license": "CC BY-SA 3.0",
-  "cld": "hksypk3actaxmancranr"
+  "cld": "hksypk3actaxmancranr",
+  "note": "Pouring an offering onto the ground in a modern ceremony"
  },
  "libation-w104": {
   "file": "/art/libation-w104.jpg",
@@ -3317,7 +3279,7 @@
  "libation-w106": {
   "file": "/art/libation-w106.jpg",
   "artist": "",
-  "title": "Libation",
+  "title": "Libation Ewer",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:MET_19_135_29.jpg",
   "cld": "mdhzynizxcpfbolugt8w"
@@ -3328,12 +3290,13 @@
   "title": "Painting from the Tomb Chamber of Userhat",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Maler_der_Grabkammer_des_Userh%C3%AAt_(III)_004.jpg",
-  "cld": "hkgsisw5hbo51w5ersv6"
+  "cld": "hkgsisw5hbo51w5ersv6",
+  "note": "Pouring a libation offering"
  },
  "libation-w109": {
   "file": "/art/libation-w109.jpg",
   "artist": "",
-  "title": "Omphalos",
+  "title": "Pouring a Libation at an Altar",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Omphalos_pushkin.jpg",
   "license": "CC BY-SA 3.0",
@@ -3390,7 +3353,7 @@
  "lyre-w108": {
   "file": "/art/lyre-w108.jpg",
   "artist": "Carl Haag",
-  "title": "A Nubian Harper",
+  "title": "A Nubian Lyre Player",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Carl_Haag_A_Nubian_harper.jpg",
   "cld": "b80mwpwbfxgpxmusozz3"
@@ -3398,11 +3361,12 @@
  "lyre-w109": {
   "file": "/art/lyre-w109.jpg",
   "artist": "",
-  "title": "The Tomb of the Diver",
+  "title": "Lyre Player",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Diver_Paestum_30.JPG",
   "license": "CC BY-SA 4.0",
-  "cld": "apqpc619dwa4jvsctlnx"
+  "cld": "apqpc619dwa4jvsctlnx",
+  "note": "Detail from the Tomb of the Diver fresco"
  },
  "menelaus-w100": {
   "file": "/art/menelaus-w100.jpg",
@@ -3411,15 +3375,6 @@
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Brogi,_Giacomo_(1822-1881)_-_n._4140_-_Roma_-_Vaticano_-_Menelao_-_Busto_in_marmo.jpg",
   "cld": "q6siwphlrgmztlhbtopq"
- },
- "menelaus-w101": {
-  "file": "/art/menelaus-w101.jpg",
-  "artist": "",
-  "title": "The Vix Krater",
-  "year": "",
-  "source": "https://commons.wikimedia.org/wiki/File:Crat%C3%A8re_de_Vix_0011_cropped.jpg",
-  "license": "CC BY-SA 2.5",
-  "cld": "wbknqasvr0lifvamt8is"
  },
  "menelaus-w102": {
   "file": "/art/menelaus-w102.jpg",
@@ -3454,7 +3409,8 @@
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Afbeelding_van_Clio.jpg",
   "license": "CC BY-SA 4.0",
-  "cld": "vva6xrk1chqtnhdvhq0e"
+  "cld": "vva6xrk1chqtnhdvhq0e",
+  "note": "Clio, Muse of history"
  },
  "muse-w101": {
   "file": "/art/muse-w101.jpg",
@@ -3478,7 +3434,8 @@
   "title": "Calliope",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Calliope.jpg",
-  "cld": "ebq7aowrorvfjhb1lkgb"
+  "cld": "ebq7aowrorvfjhb1lkgb",
+  "note": "Calliope, Muse of epic poetry"
  },
  "muse-w104": {
   "file": "/art/muse-w104.jpg",
@@ -3486,7 +3443,8 @@
   "title": "The Car of History",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Car_of_history.jpg",
-  "cld": "cbmskpvzkth1gyi9bw2h"
+  "cld": "cbmskpvzkth1gyi9bw2h",
+  "note": "The Muse Clio recording history in her chariot"
  },
  "muse-w105": {
   "file": "/art/muse-w105.jpg",
@@ -3544,7 +3502,8 @@
   "title": "Odysseus and Nausicaa",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Nausikaa_und_Odysseus_(Tischbein).jpg",
-  "cld": "v4mza2nfivoa1xv2xtf9"
+  "cld": "v4mza2nfivoa1xv2xtf9",
+  "note": "Nausicaa — the woman in gold at right"
  },
  "nausicaa-w103": {
   "file": "/art/nausicaa-w103.jpg",
@@ -3563,38 +3522,14 @@
   "source": "https://commons.wikimedia.org/wiki/File:Robert_Jackson_Emerson_-_Nausicaa_-_ABDAG004609.jpg",
   "cld": "lvrkqgjok4io3vqwqe1a"
  },
- "nestor-w100": {
-  "file": "/art/nestor-w100.jpg",
-  "artist": "",
-  "title": "Briseis and Phoenix",
-  "year": "",
-  "source": "https://commons.wikimedia.org/wiki/File:Briseis_Phoinix_Louvre_G152.jpg",
-  "cld": "cb8hsx7s0mb2t3loxevc"
- },
  "nestor-w101": {
   "file": "/art/nestor-w101.jpg",
   "artist": "Charles-Philippe Larivière",
-  "title": "Achilles",
+  "title": "Achilles Awarding a Prize to Nestor",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Charles-Philippe_Larivi%C3%A8re_-_Achilles_-_Google_Art_Project.jpg",
-  "cld": "rfihnqb8p8bazqkpmpvq"
- },
- "nestor-w102": {
-  "file": "/art/nestor-w102.jpg",
-  "artist": "",
-  "title": "Greek Antiquities",
-  "year": "",
-  "source": "https://commons.wikimedia.org/wiki/File:Getty_Villa_-_Collection_(3151231788).jpg",
-  "license": "CC BY-SA 2.0",
-  "cld": "h4mgusbohk68orlckxmg"
- },
- "nymph-w100": {
-  "file": "/art/nymph-w100.jpg",
-  "artist": "Adolf Hirémy-Hirschl",
-  "title": "The Souls of Acheron",
-  "year": "",
-  "source": "https://commons.wikimedia.org/wiki/File:Adolf_Hiremy-Hirschl,_Die_Seelen_des_Acheron.jpg",
-  "cld": "xjsdmt22adzzx3jl6z8r"
+  "cld": "rfihnqb8p8bazqkpmpvq",
+  "note": "Nestor — the white-bearded elder receiving the vessel at right"
  },
  "nymph-w101": {
   "file": "/art/nymph-w101.jpg",
@@ -3602,7 +3537,8 @@
   "title": "An Oread",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Bildplatte_Oreade.jpg",
-  "cld": "zgpsaoj1fq2jor1cftuj"
+  "cld": "zgpsaoj1fq2jor1cftuj",
+  "note": "An oread, a mountain nymph"
  },
  "nymph-w102": {
   "file": "/art/nymph-w102.jpg",
@@ -3610,7 +3546,8 @@
   "title": "Echo and Narcissus",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Echo_and_Narcissus_by_John_William_Waterhouse.jpg",
-  "cld": "ufgwvsymnd0nbdxvpj9b"
+  "cld": "ufgwvsymnd0nbdxvpj9b",
+  "note": "Echo, the nymph, at left"
  },
  "nymph-w103": {
   "file": "/art/nymph-w103.jpg",
@@ -3658,7 +3595,8 @@
   "title": "Nymph and Satyr Drinking",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Nymphe_et_satyr_-_Nicolas_Poussin_-_Mus%C3%A9e_Pouchkine_Moscou.jpg",
-  "cld": "hn3onxsc5pyrl01i0bt4"
+  "cld": "hn3onxsc5pyrl01i0bt4",
+  "note": "Nymph — the woman at left"
  },
  "nymph-w109": {
   "file": "/art/nymph-w109.jpg",
@@ -3674,7 +3612,8 @@
   "title": "Odysseus and Polyphemus",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Arnold_B%C3%B6cklin_-_Odysseus_and_Polyphemus.jpg",
-  "cld": "lyrrdxxtq5r5tpgcpakw"
+  "cld": "lyrrdxxtq5r5tpgcpakw",
+  "note": "Polyphemus, the Cyclops Odysseus tricked with the name 'Nobody'"
  },
  "nobody-w101": {
   "file": "/art/nobody-w101.jpg",
@@ -3683,7 +3622,8 @@
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Athanodoros,_agesandros_e_polydoros,_gruppo_del_polifemo_di_sperlonga,_ricostruzione_01.jpg",
   "license": "CC BY 3.0",
-  "cld": "daursb3oqgewzx5psova"
+  "cld": "daursb3oqgewzx5psova",
+  "note": "Odysseus blinds the Cyclops, having told him 'Nobody' did it"
  },
  "nobody-w102": {
   "file": "/art/nobody-w102.jpg",
@@ -3699,7 +3639,8 @@
   "title": "The Medici Fountain",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Fontaine_M%C3%A9dicis_Luxembourg.jpg",
-  "cld": "kobvczepu6fttzcmntvk"
+  "cld": "kobvczepu6fttzcmntvk",
+  "note": "Polyphemus, the same Cyclops Odysseus called 'Nobody', looms over Acis and Galatea"
  },
  "nobody-w104": {
   "file": "/art/nobody-w104.jpg",
@@ -3707,7 +3648,8 @@
   "title": "Polyphemus and Galatea",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Fresco_Polyphemus_Galatea_MAN_Naples_27687.jpg",
-  "cld": "tftcqzrtwkkemv5h1bow"
+  "cld": "tftcqzrtwkkemv5h1bow",
+  "note": "Polyphemus, the Cyclops Odysseus deceived as 'Nobody'"
  },
  "nobody-w106": {
   "file": "/art/nobody-w106.jpg",
@@ -3715,7 +3657,8 @@
   "title": "Galatea",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Gustave_Moreau_-_Galat%C3%A9e_(Museo_Thyssen-Bornemisza).jpg",
-  "cld": "v41yepeeqthkcr2jfnjg"
+  "cld": "v41yepeeqthkcr2jfnjg",
+  "note": "Polyphemus, the Cyclops Odysseus called 'Nobody', watches Galatea at left"
  },
  "nobody-w108": {
   "file": "/art/nobody-w108.jpg",
@@ -3723,7 +3666,8 @@
   "title": "Galatea",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Moreau_Galat%C3%A9e.jpg",
-  "cld": "oriykwa31ko1d33ktg8d"
+  "cld": "oriykwa31ko1d33ktg8d",
+  "note": "Polyphemus, the Cyclops Odysseus called 'Nobody', looms behind Galatea"
  },
  "nobody-w109": {
   "file": "/art/nobody-w109.jpg",
@@ -3732,7 +3676,8 @@
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Mosaic_of_Polyphemus_and_Galatea,_Alc%C3%A1zar_de_los_Reyes_Cristianos.JPG",
   "license": "CC BY-SA 4.0",
-  "cld": "xjeazfccf5midior01pi"
+  "cld": "xjeazfccf5midior01pi",
+  "note": "Polyphemus, the Cyclops Odysseus deceived as 'Nobody'"
  },
  "odysseus-w102": {
   "file": "/art/odysseus-w102.jpg",
@@ -3763,19 +3708,21 @@
  "odysseus-w105": {
   "file": "/art/odysseus-w105.jpg",
   "artist": "",
-  "title": "Rhesus",
+  "title": "The Slaying of Rhesus",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Rhesos_MNA_Naples.jpg",
-  "cld": "fiowv0ln2hdc5c0j495i"
+  "cld": "fiowv0ln2hdc5c0j495i",
+  "note": "Odysseus and Diomedes raid the Thracian camp by night"
  },
  "odysseus-w106": {
   "file": "/art/odysseus-w106.jpg",
   "artist": "",
-  "title": "The Rape of the Palladion",
+  "title": "The Theft of the Palladion",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Wall_painting_-_rape_of_the_palladion_-_Pompeii_(I_2_26)_-_Napoli_MAN_109751_-_02.jpg",
   "license": "CC BY-SA 4.0",
-  "cld": "nkdqbpretw9p6fgtmxk4"
+  "cld": "nkdqbpretw9p6fgtmxk4",
+  "note": "Odysseus carries off the statue from Troy"
  },
  "orestes-w100": {
   "file": "/art/orestes-w100.jpg",
@@ -3783,7 +3730,8 @@
   "title": "Pylades and Orestes Brought as Victims before Iphigenia",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Benjamin_West_-_Pylades_and_Orestes_Brought_as_Victims_before_Iphigenia_-_Google_Art_Project.jpg",
-  "cld": "brigmt5r8tg4iegefspo"
+  "cld": "brigmt5r8tg4iegefspo",
+  "note": "Orestes — one of the two bound youths at center"
  },
  "orestes-w101": {
   "file": "/art/orestes-w101.jpg",
@@ -3842,11 +3790,12 @@
  "penelope-w100": {
   "file": "/art/penelope-w100.jpg",
   "artist": "",
-  "title": "Statue of an Achaemenid Woman",
+  "title": "Penelope",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Achamanid-Woman-Statue-Persia-Persepolis.jpg",
   "license": "CC BY-SA 4.0",
-  "cld": "liey5z9jyvll05csb7xf"
+  "cld": "liey5z9jyvll05csb7xf",
+  "note": "A 'Penelope type' statue, found in an Achaemenid Persian context"
  },
  "penelope-w102": {
   "file": "/art/penelope-w102.jpg",
@@ -3860,7 +3809,7 @@
  "penelope-w103": {
   "file": "/art/penelope-w103.jpg",
   "artist": "",
-  "title": "Fresco from the Macellum of Pompeii",
+  "title": "The Reunion of Odysseus and Penelope",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Fresco_Macellum_Pompeya_06_(cropped_to_scene).jpg",
   "license": "CC BY-SA 4.0",
@@ -3891,7 +3840,8 @@
   "year": "",
   "source": "https://en.wikipedia.org/wiki/File:Demeter_in_horse_chariot_w_daughter_kore_83d40m_wikiC_Tempio_Y_di_Selinunte_sec_VIa.JPG",
   "license": "CC-BY-SA-3.0",
-  "cld": "virsptoqqontjmhtytd0"
+  "cld": "virsptoqqontjmhtytd0",
+  "note": "Persephone is Kore, beside her mother in the chariot"
  },
  "persephone-w102": {
   "file": "/art/persephone-w102.jpg",
@@ -3924,10 +3874,11 @@
  "persephone-w105": {
   "file": "/art/persephone-w105.jpg",
   "artist": "",
-  "title": "Persephone",
+  "title": "Minoan Ring with a Goddess",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Epiphany_cycle_%E2%80%94_dancing.jpg",
-  "cld": "bptrqzlrvnx1xhznowrz"
+  "cld": "bptrqzlrvnx1xhznowrz",
+  "note": "Vegetation goddess under a tree, often linked to Persephone"
  },
  "persephone-w106": {
   "file": "/art/persephone-w106.jpg",
@@ -4043,7 +3994,8 @@
   "title": "Andrea Doria as Neptune",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Andrea_Doria_as_Neptun_by_Angelo_Bronzino.jpg",
-  "cld": "co88p72kcsd4waf8t5fk"
+  "cld": "co88p72kcsd4waf8t5fk",
+  "note": "Doria portrayed as the sea god, holding Poseidon's trident"
  },
  "poseidon-w103": {
   "file": "/art/poseidon-w103.jpg",
@@ -4087,7 +4039,8 @@
   "title": "Dionysus, Ariadne and the Gods",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Dionysos_Ariadne_gods_Louvre_G41.jpg",
-  "cld": "ildlyyeu9d9mfrermm5f"
+  "cld": "ildlyyeu9d9mfrermm5f",
+  "note": "Poseidon stands among the assembled gods"
  },
  "poseidon-w109": {
   "file": "/art/poseidon-w109.jpg",
@@ -4131,7 +4084,8 @@
   "title": "Glaucus and Scylla",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Joseph_Mallord_William_Turner,_%E2%80%98Glaucus_and_Scylla%E2%80%99,_1841.jpg",
-  "cld": "asqyhjuiq7xz9rpgqj0h"
+  "cld": "asqyhjuiq7xz9rpgqj0h",
+  "note": "Scylla — the figure bathing among the nymphs at right"
  },
  "scylla-w103": {
   "file": "/art/scylla-w103.jpg",
@@ -4139,7 +4093,8 @@
   "title": "Scylla",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Scylla_Louvre_CA1341.jpg",
-  "cld": "tskcevhp0i95zkcz1ntx"
+  "cld": "tskcevhp0i95zkcz1ntx",
+  "note": "Scylla — the monstrous figure with dog-heads at her waist"
  },
  "scylla-w104": {
   "file": "/art/scylla-w104.jpg",
@@ -4261,15 +4216,6 @@
   "source": "https://commons.wikimedia.org/wiki/File:Tiresias_striking_the_snakes_(279166).jpg",
   "cld": "s56ige4zakjrsr3misu0"
  },
- "trojan-horse-w100": {
-  "file": "/art/trojan-horse-w100.jpg",
-  "artist": "",
-  "title": "The Trojan Horse",
-  "year": "",
-  "source": "https://commons.wikimedia.org/wiki/File:Antikensammlung_Berlin_405.JPG",
-  "license": "CC BY-SA 3.0",
-  "cld": "yv0hxjkogsnasj16yoog"
- },
  "trojan-horse-w102": {
   "file": "/art/trojan-horse-w102.jpg",
   "artist": "",
@@ -4301,7 +4247,8 @@
   "title": "The Trojan Horse on a Corinthian Aryballos",
   "year": "",
   "source": "https://commons.wikimedia.org/wiki/File:Trojan_horse_on_Corinthian_aryballos.jpg",
-  "cld": "wtusfdx4pefonz3rhdcw"
+  "cld": "wtusfdx4pefonz3rhdcw",
+  "note": "Trojan Horse — the wheeled wooden horse at right"
  },
  "zeus-w100": {
   "file": "/art/zeus-w100.jpg",
