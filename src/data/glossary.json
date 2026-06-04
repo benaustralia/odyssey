@@ -49,7 +49,8 @@
   "zhDef": "女巫喀耳刻居住的海岛。",
   "art": [
    "aeaea-1",
-   "aeaea-w101"
+   "aeaea-w101",
+   "aeaea-map"
   ]
  },
  {
@@ -505,7 +506,8 @@
    "egypt-1",
    "egypt-2",
    "egypt-3",
-   "egypt-4"
+   "egypt-4",
+   "egypt-map"
   ]
  },
  {
@@ -785,7 +787,8 @@
   "zhPinyin": "Yītǎkǎ",
   "zhDef": "奥德修斯的故乡，他穷尽全篇努力归返的多石岛国。",
   "art": [
-   "odysseus-2"
+   "odysseus-2",
+   "ithaca-map"
   ]
  },
  {
@@ -1058,7 +1061,8 @@
   "zhDef": "卡吕普索孤寂的海岛，奥德修斯被困于此七年。",
   "art": [
    "ogygia-1",
-   "ogygia-2"
+   "ogygia-2",
+   "ogygia-map"
   ]
  },
  {
@@ -1070,7 +1074,8 @@
   "zhPinyin": "Àolínbōsī shān",
   "zhDef": "众神居住的高山。",
   "art": [
-   "olympus-1"
+   "olympus-1",
+   "olympus-map"
   ]
  },
  {
@@ -1250,7 +1255,8 @@
   "zhPinyin": "Píluòsī",
   "zhDef": "涅斯托耳的海滨王国，忒勒马科斯出海探讯的第一站。",
   "art": [
-   "pylos-1"
+   "pylos-1",
+   "pylos-map"
   ]
  },
  {
@@ -1262,7 +1268,8 @@
   "zhPinyin": "Sīkèlǐyà",
   "zhDef": "费阿喀亚人的海岛之国，奥德修斯抵达伊塔卡前的最后一站。",
   "art": [
-   "scheria-2"
+   "scheria-2",
+   "scheria-map"
   ]
  },
  {
@@ -1327,7 +1334,8 @@
   "zhPinyin": "Sībādá",
   "zhDef": "墨涅拉俄斯与海伦的王国，忒勒马科斯曾往访。",
   "art": [
-   "sparta-1"
+   "sparta-1",
+   "sparta-map"
   ]
  },
  {
@@ -1385,7 +1393,8 @@
   "art": [
    "troy-2",
    "troy-3",
-   "troy-4"
+   "troy-4",
+   "troy-map"
   ]
  },
  {
@@ -1425,6 +1434,906 @@
    "zeus-w107",
    "zeus-w108",
    "zeus-w109"
+  ]
+ },
+ {
+  "term": "Acheron",
+  "pron": "/A-ker-on/",
+  "tag": "place",
+  "def": "A river in the land of the dead; also a real river in the Thesprotia region of Greece.",
+  "zhName": "阿刻戎河",
+  "zhPinyin": "Ākèróng Hé",
+  "zhDef": "冥界中的一条河流；也是希腊塞斯普罗提亚地区一条真实的河流。",
+  "art": [
+   "acheron-map"
+  ]
+ },
+ {
+  "term": "Aegae",
+  "pron": "/EE-jee/",
+  "tag": "place",
+  "def": "A city in the northern Peloponnese, a region of southern Greece, sacred to the sea god Poseidon.",
+  "zhName": "埃盖",
+  "zhPinyin": "Āigài",
+  "zhDef": "伯罗奔尼撒北部的一座城市，是供奉海神波塞冬的圣地。",
+  "art": [
+   "aegae-map"
+  ]
+ },
+ {
+  "term": "Amnisus",
+  "pron": "/am-NEE-sus/",
+  "tag": "place",
+  "def": "A port town serving the city of Knossos, on the northern coast of the island of Crete.",
+  "zhName": "阿姆尼索斯",
+  "zhPinyin": "Āmǔnísuǒsī",
+  "zhDef": "为克诺索斯城服务的港口，位于克里特岛北岸。",
+  "art": [
+   "amnisus-map"
+  ]
+ },
+ {
+  "term": "Arethusa",
+  "pron": "/a-re-THOO-sa/",
+  "tag": "place",
+  "def": "A freshwater spring on Ithaca, the home island of the hero Odysseus.",
+  "zhName": "阿瑞图萨泉",
+  "zhPinyin": "Āruìtúsà Quán",
+  "zhDef": "位于伊塔卡岛上的一处淡水泉，伊塔卡是英雄奥德修斯的家乡。",
+  "art": [
+   "arethusa-map"
+  ]
+ },
+ {
+  "term": "Artaky",
+  "pron": "/AR-ta-kee/",
+  "tag": "place",
+  "def": "A spring on the island of the Laestrygonians, a race of fierce giants in Odysseus's travels.",
+  "zhName": "阿尔塔基泉",
+  "zhPinyin": "Ā'ěrtǎjī Quán",
+  "zhDef": "莱斯特律戈涅斯人岛上的一处泉水，那是奥德修斯旅途中凶猛巨人族居住的地方。",
+  "art": [
+   "artaky-map"
+  ]
+ },
+ {
+  "term": "Asteris",
+  "pron": "/AS-ter-is/",
+  "tag": "place",
+  "def": "A small island lying near Ithaca, the home island of the hero Odysseus.",
+  "zhName": "阿斯特里斯",
+  "zhPinyin": "Āsītèlǐsī",
+  "zhDef": "靠近伊塔卡岛的一座小岛，伊塔卡是英雄奥德修斯的家乡。",
+  "art": [
+   "asteris-map"
+  ]
+ },
+ {
+  "term": "Athens",
+  "pron": "/ATH-ens/",
+  "tag": "place",
+  "def": "A city in Attica, a region of mainland Greece, later one of the most famous Greek cities.",
+  "zhName": "雅典",
+  "zhPinyin": "Yǎdiǎn",
+  "zhDef": "希腊大陆阿提卡地区的一座城市，后来成为最著名的希腊城市之一。",
+  "art": [
+   "athens-map"
+  ]
+ },
+ {
+  "term": "Chalcis",
+  "pron": "/KAL-sis/",
+  "tag": "place",
+  "def": "A town in western Greece, different from the better-known Chalcis on the island of Euboea.",
+  "zhName": "卡尔基斯",
+  "zhPinyin": "Kǎ'ěrjīsī",
+  "zhDef": "希腊西部的一座城镇，不同于欧波亚岛上更著名的卡尔基斯。",
+  "art": [
+   "chalcis-map"
+  ]
+ },
+ {
+  "term": "Chios",
+  "pron": "/KEE-os/",
+  "tag": "place",
+  "def": "An island in the Aegean Sea, lying off the western coast of Asia Minor.",
+  "zhName": "希俄斯",
+  "zhPinyin": "Xī'ésī",
+  "zhDef": "爱琴海中的一座岛屿，位于小亚细亚西海岸外。",
+  "art": [
+   "chios-map"
+  ]
+ },
+ {
+  "term": "Cimmerians",
+  "pron": "/sim-AIR-ee-anz/",
+  "tag": "place",
+  "def": "A people who live near the land of the dead, in a place of permanent darkness and fog.",
+  "zhName": "辛梅里安人",
+  "zhPinyin": "Xīnméilǐ'ān Rén",
+  "zhDef": "居住在冥界附近的一个民族，那里终年笼罩着黑暗与浓雾。",
+  "art": [
+   "cimmerians-map"
+  ]
+ },
+ {
+  "term": "Cocytus",
+  "pron": "/KO-see-tus/",
+  "tag": "place",
+  "def": "A river in the land of the dead; its name means \"lamentation\" or \"wailing.\"",
+  "zhName": "科库托斯河",
+  "zhPinyin": "Kēkùtuōsī Hé",
+  "zhDef": "冥界中的一条河流；其名意为\"悲叹\"或\"哀号\"。",
+  "art": [
+   "cocytus-map"
+  ]
+ },
+ {
+  "term": "Cyprus",
+  "pron": "/SAI-prus/",
+  "tag": "place",
+  "def": "A large island in the eastern Mediterranean Sea, off the coast of the Near East.",
+  "zhName": "塞浦路斯",
+  "zhPinyin": "Sàipǔlùsī",
+  "zhDef": "地中海东部的一座大岛，位于近东海岸外。",
+  "art": [
+   "cyprus-map"
+  ]
+ },
+ {
+  "term": "Cythera",
+  "pron": "/SI-the-ra/",
+  "tag": "place",
+  "def": "An island lying south of Cape Malea, at the southeastern tip of the Peloponnese.",
+  "zhName": "基西拉",
+  "zhPinyin": "Jīxīlā",
+  "zhDef": "位于马莱亚角以南的一座岛屿，靠近伯罗奔尼撒东南端。",
+  "art": [
+   "cythera-map"
+  ]
+ },
+ {
+  "term": "Delos",
+  "pron": "/DEE-los/",
+  "tag": "place",
+  "def": "One of the Cycladic islands in the Aegean Sea; sacred to Apollo and birthplace of Apollo and Artemis.",
+  "zhName": "提洛岛",
+  "zhPinyin": "Tíluò Dǎo",
+  "zhDef": "爱琴海基克拉泽斯群岛之一；是供奉阿波罗的圣地，也是阿波罗和阿尔忒弥斯的出生地。",
+  "art": [
+   "delos-map"
+  ]
+ },
+ {
+  "term": "Elis",
+  "pron": "/EL-is/",
+  "tag": "place",
+  "def": "A region in the northwestern part of the Peloponnese, in southern Greece.",
+  "zhName": "厄利斯",
+  "zhPinyin": "Èlìsī",
+  "zhDef": "位于伯罗奔尼撒西北部的一个地区，在希腊南部。",
+  "art": [
+   "elis-map"
+  ]
+ },
+ {
+  "term": "Ephyra",
+  "pron": "/e-FAI-ra/",
+  "tag": "place",
+  "def": "A city in Thesprotia, on the western mainland of Greece.",
+  "zhName": "厄菲拉",
+  "zhPinyin": "È fēi lā",
+  "zhDef": "希腊西部大陆塞斯普罗提亚地区的一座城市。",
+  "art": [
+   "ephyra-map"
+  ]
+ },
+ {
+  "term": "Erebus",
+  "pron": "/E-reb-us/",
+  "tag": "place",
+  "def": "A dark region of the underworld, the gloomy place where the dead go.",
+  "zhName": "厄瑞玻斯",
+  "zhPinyin": "È ruì bō sī",
+  "zhDef": "冥界中一处幽暗之地，亡者前往的阴暗所在。",
+  "art": [
+   "erebus-map"
+  ]
+ },
+ {
+  "term": "Erymanthus",
+  "pron": "/e-ree-MAN-thus/",
+  "tag": "place",
+  "def": "A mountain range on the border between Achaea and Elis, in the northwestern Peloponnese.",
+  "zhName": "厄律曼托斯山",
+  "zhPinyin": "È lǜ màn tuō sī shān",
+  "zhDef": "位于伯罗奔尼撒西北部、阿凯亚与厄利斯交界处的山脉。",
+  "art": [
+   "erymanthus-map"
+  ]
+ },
+ {
+  "term": "Ethiopia",
+  "pron": "/ee-thee-O-pee-ya/",
+  "tag": "place",
+  "def": "A mythical land at the edge of the world, lying between sunset and dawn; not the modern country.",
+  "zhName": "埃塞俄比亚",
+  "zhPinyin": "Āi sài é bǐ yà",
+  "zhDef": "世界尽头的神话之地，位于日落与日出之间；并非现代国家。",
+  "art": [
+   "ethiopia-map"
+  ]
+ },
+ {
+  "term": "Euboea",
+  "pron": "/you-BEE-a/",
+  "tag": "place",
+  "def": "A large island lying just east of the Greek mainland.",
+  "zhName": "埃维亚岛",
+  "zhPinyin": "Āi wéi yà dǎo",
+  "zhDef": "位于希腊大陆以东的一座大岛。",
+  "art": [
+   "euboea-map"
+  ]
+ },
+ {
+  "term": "Geraestus",
+  "pron": "/ger-AIS-tus/",
+  "tag": "place",
+  "def": "A headland on the coast of Euboea, where Nestor stops for a night sailing home from Troy.",
+  "zhName": "革赖斯托斯",
+  "zhPinyin": "Gé lài sī tuō sī",
+  "zhDef": "埃维亚岛海岸的一处海角，涅斯托耳从特洛伊归途中在此停泊过夜。",
+  "art": [
+   "geraestus-map"
+  ]
+ },
+ {
+  "term": "Gortyn",
+  "pron": "/GOR-tin/",
+  "tag": "place",
+  "def": "A city in the south central part of the island of Crete.",
+  "zhName": "戈尔廷",
+  "zhPinyin": "Gē ěr tíng",
+  "zhDef": "克里特岛中南部的一座城市。",
+  "art": [
+   "gortyn-map"
+  ]
+ },
+ {
+  "term": "Gyrae",
+  "pron": "/GEE-rai/",
+  "tag": "place",
+  "def": "A perhaps mythical rocky outcrop in the Aegean Sea, where Poseidon wrecked the Lesser Ajax.",
+  "zhName": "古赖岩",
+  "zhPinyin": "Gǔ lài yán",
+  "zhDef": "爱琴海中或许虚构的礁岩，波塞冬曾在此使小埃阿斯触礁沉船。",
+  "art": [
+   "gyrae-map"
+  ]
+ },
+ {
+  "term": "Hyperesia",
+  "pron": "/hai-per-EE-see-a/",
+  "tag": "place",
+  "def": "A town in Achaea, in the northern Peloponnese; home of Polypheides.",
+  "zhName": "许佩瑞西亚",
+  "zhPinyin": "Xǔ pèi ruì xī yà",
+  "zhDef": "伯罗奔尼撒北部阿凯亚地区的一座城镇，波吕斐得斯的家乡。",
+  "art": [
+   "hyperesia-map"
+  ]
+ },
+ {
+  "term": "Hyperia",
+  "pron": "/hai-PEHR-ee-a/",
+  "tag": "place",
+  "def": "The Phaeacians' former homeland, lying near the land of the Cyclopes.",
+  "zhName": "许佩里亚",
+  "zhPinyin": "Xǔ pèi lǐ yà",
+  "zhDef": "费阿刻斯人从前的家园，靠近独眼巨人居住的地方。",
+  "art": [
+   "hyperia-map"
+  ]
+ },
+ {
+  "term": "Iolcus",
+  "pron": "/YOL-kus/",
+  "tag": "place",
+  "def": "A city in Thessaly; home of Pelias, who sent Jason to seek the Golden Fleece.",
+  "zhName": "伊俄尔科斯",
+  "zhPinyin": "Yī é ěr kē sī",
+  "zhDef": "色萨利的一座城市，珀利阿斯的家乡，他派伊阿宋去寻找金羊毛。",
+  "art": [
+   "iolcus-map"
+  ]
+ },
+ {
+  "term": "Ismarus",
+  "pron": "/IS-mar-us/",
+  "tag": "place",
+  "def": "A city in Thrace; home of the Cicones people.",
+  "zhName": "伊斯马罗斯",
+  "zhPinyin": "Yī sī mǎ luó sī",
+  "zhDef": "色雷斯的一座城市，基科涅斯人的家乡。",
+  "art": [
+   "ismarus-map"
+  ]
+ },
+ {
+  "term": "River Jardan",
+  "pron": "/JAR-dan/",
+  "tag": "place",
+  "def": "A river on the island of Crete.",
+  "zhName": "雅尔达诺斯河",
+  "zhPinyin": "Yǎ ěr dá nuò sī hé",
+  "zhDef": "克里特岛上的一条河流。",
+  "art": [
+   "river-jardan-map"
+  ]
+ },
+ {
+  "term": "Lemnos",
+  "pron": "/LEM-nos/",
+  "tag": "place",
+  "def": "An island in the northeastern Aegean Sea, inhabited by the Sintians.",
+  "zhName": "利姆诺斯岛",
+  "zhPinyin": "Lì mǔ nuò sī dǎo",
+  "zhDef": "爱琴海东北部的一座岛屿，辛提亚人居住于此。",
+  "art": [
+   "lemnos-map"
+  ]
+ },
+ {
+  "term": "Lesbos",
+  "pron": "/LES-bos/",
+  "tag": "place",
+  "def": "A large island in the northeastern Aegean Sea, off the coast of Asia Minor.",
+  "zhName": "莱斯沃斯岛",
+  "zhPinyin": "Lái sī wò sī dǎo",
+  "zhDef": "爱琴海东北部的一座大岛，靠近小亚细亚海岸。",
+  "art": [
+   "lesbos-map"
+  ]
+ },
+ {
+  "term": "Libya",
+  "pron": "/LIB-ee-ya/",
+  "tag": "place",
+  "def": "A land on the northern coast of Africa, vaguely imagined and not the same as the modern country.",
+  "zhName": "利比亚",
+  "zhPinyin": "Lìbǐyà",
+  "zhDef": "非洲北部海岸的一片土地，在荷马笔下界限模糊，与今天的国家并不相同。",
+  "art": [
+   "libya-map"
+  ]
+ },
+ {
+  "term": "Malea",
+  "pron": "/MA-lee-a/",
+  "tag": "place",
+  "def": "A cape at the southeastern tip of the Peloponnese, famous for its dangerous, treacherous sailing conditions.",
+  "zhName": "马莱亚角",
+  "zhPinyin": "Mǎláiyà Jiǎo",
+  "zhDef": "伯罗奔尼撒半岛东南端的海角，以航行凶险、危机四伏而闻名。",
+  "art": [
+   "malea-map"
+  ]
+ },
+ {
+  "term": "Marathon",
+  "pron": "/MA-ra-thon/",
+  "tag": "place",
+  "def": "A town northeast of Athens, lying near the northeastern coast of the region of Attica.",
+  "zhName": "马拉松",
+  "zhPinyin": "Mǎlāsōng",
+  "zhDef": "雅典东北方的一座城镇，靠近阿提卡地区的东北海岸。",
+  "art": [
+   "marathon-map"
+  ]
+ },
+ {
+  "term": "Messenia",
+  "pron": "/mes-EE-nee-ya/",
+  "tag": "place",
+  "def": "A region in the southwestern part of the Peloponnese, the large peninsula of southern Greece.",
+  "zhName": "美塞尼亚",
+  "zhPinyin": "Měisàiníyà",
+  "zhDef": "伯罗奔尼撒半岛西南部的一个地区，位于希腊南部的大半岛上。",
+  "art": [
+   "messenia-map"
+  ]
+ },
+ {
+  "term": "Mimas",
+  "pron": "/MAI-mas/",
+  "tag": "place",
+  "def": "A promontory on the coast of Asia Minor, lying directly opposite the island of Chios.",
+  "zhName": "米马斯",
+  "zhPinyin": "Mǐmǎsī",
+  "zhDef": "小亚细亚海岸上的一处海角，正对着希俄斯岛。",
+  "art": [
+   "mimas-map"
+  ]
+ },
+ {
+  "term": "Mycenae",
+  "pron": "/mai-SEE-nee/",
+  "tag": "place",
+  "def": "A grand palace city in the northeastern Peloponnese, home of King Agamemnon.",
+  "zhName": "迈锡尼",
+  "zhPinyin": "Màixīní",
+  "zhDef": "伯罗奔尼撒半岛东北部的一座宏伟宫殿之城，是阿伽门农国王的居所。",
+  "art": [
+   "mycenae-map"
+  ]
+ },
+ {
+  "term": "Mount Neion",
+  "pron": "/NAY-on/",
+  "tag": "place",
+  "def": "A mountain on the island of Ithaca; another name for Mount Neriton.",
+  "zhName": "涅伊翁山",
+  "zhPinyin": "Nièyīwēng Shān",
+  "zhDef": "伊塔卡岛上的一座山；是涅里同山的别名。",
+  "art": [
+   "mount-neion-map"
+  ]
+ },
+ {
+  "term": "Mount Neriton",
+  "pron": "/NE-rit-on/",
+  "tag": "place",
+  "def": "A mountain on the island of Ithaca, Odysseus's home in the Ionian Sea.",
+  "zhName": "涅里同山",
+  "zhPinyin": "Nièlǐtóng Shān",
+  "zhDef": "伊塔卡岛上的一座山，伊塔卡是奥德修斯在伊奥尼亚海中的家乡。",
+  "art": [
+   "mount-neriton-map"
+  ]
+ },
+ {
+  "term": "Orchomenus",
+  "pron": "/or-KO-me-nus/",
+  "tag": "place",
+  "def": "A city in Boeotia, central Greece, home to the people called the Minyans.",
+  "zhName": "奥尔霍迈诺斯",
+  "zhPinyin": "Àoěrhuòmàinuòsī",
+  "zhDef": "希腊中部彼奥提亚地区的一座城市，是被称为米尼亚人的居所。",
+  "art": [
+   "orchomenus-map"
+  ]
+ },
+ {
+  "term": "Ortygia",
+  "pron": "/or-TI-ja/",
+  "tag": "place",
+  "def": "A small Sicilian island near the mainland; here it seems a fantastical place with no real location.",
+  "zhName": "奥尔提伽",
+  "zhPinyin": "Àoěrtíjiā",
+  "zhDef": "西西里附近的一座小岛；但此处似乎是个虚构之地，没有真实位置。",
+  "art": [
+   "ortygia-map"
+  ]
+ },
+ {
+  "term": "Ossa",
+  "pron": "/O-sa/",
+  "tag": "place",
+  "def": "A mountain in the region of Thessaly in northern Greece, lying just south of Mount Olympus.",
+  "zhName": "奥萨山",
+  "zhPinyin": "Àosà Shān",
+  "zhDef": "希腊北部色萨利地区的一座山，位于奥林匹斯山以南不远处。",
+  "art": [
+   "ossa-map"
+  ]
+ },
+ {
+  "term": "Panopeus",
+  "pron": "/pan-OH-pee-yus/",
+  "tag": "place",
+  "def": "A Greek town located near the border of the region of Boeotia in central Greece.",
+  "zhName": "帕诺佩乌斯",
+  "zhPinyin": "Pànuòpèiwūsī",
+  "zhDef": "一座希腊城镇，位于希腊中部彼奥提亚地区的边界附近。",
+  "art": [
+   "panopeus-map"
+  ]
+ },
+ {
+  "term": "Mount Parnassus",
+  "pron": "/par-NAS-us/",
+  "tag": "place",
+  "def": "A mountain in central Greece, where a wild boar wounded Odysseus when he was a boy.",
+  "zhName": "帕尔纳索斯山",
+  "zhPinyin": "Pàěrnàsuǒsī Shān",
+  "zhDef": "希腊中部的一座山，奥德修斯小时候在此被一头野猪所伤。",
+  "art": [
+   "mount-parnassus-map"
+  ]
+ },
+ {
+  "term": "Pelion",
+  "pron": "/PEE-lee-on/",
+  "tag": "place",
+  "def": "A mountain in the region of Thessaly in northern Greece.",
+  "zhName": "佩利翁山",
+  "zhPinyin": "Pèilìwēng Shān",
+  "zhDef": "希腊北部色萨利地区的一座山。",
+  "art": [
+   "pelion-map"
+  ]
+ },
+ {
+  "term": "Phaea",
+  "pron": "/FAI-ya/",
+  "tag": "place",
+  "def": "A port on the coast of Elis, a region in the northwestern Peloponnese.",
+  "zhName": "斐埃",
+  "zhPinyin": "Fěiāi",
+  "zhDef": "埃利斯海岸上的一座港口，埃利斯是伯罗奔尼撒半岛西北部的一个地区。",
+  "art": [
+   "phaea-map"
+  ]
+ },
+ {
+  "term": "Phaestus",
+  "pron": "/FAI-stus/",
+  "tag": "place",
+  "def": "A city in south-central Crete, the large island lying south of mainland Greece.",
+  "zhName": "费斯托斯",
+  "zhPinyin": "Fèisītuōsī",
+  "zhDef": "克里特岛中南部的一座城市，克里特岛位于希腊大陆以南。",
+  "art": [
+   "phaestus-map"
+  ]
+ },
+ {
+  "term": "Pharos",
+  "pron": "/FEHR-os/",
+  "tag": "place",
+  "def": "A small island lying just off the coast of Egypt, near the mouth of the Nile.",
+  "zhName": "法罗斯岛",
+  "zhPinyin": "Fǎluósī Dǎo",
+  "zhDef": "位于埃及海岸外不远处的一座小岛，靠近尼罗河口。",
+  "art": [
+   "pharos-map"
+  ]
+ },
+ {
+  "term": "Pherae",
+  "pron": "/FEHR-ai/",
+  "tag": "place",
+  "def": "A city in the Peloponnese, lying on the route between Pylos and Sparta in southern Greece.",
+  "zhName": "费莱",
+  "zhPinyin": "Fèilái",
+  "zhDef": "伯罗奔尼撒半岛上的一座城市，位于皮洛斯和斯巴达之间。",
+  "art": [
+   "pherae-map"
+  ]
+ },
+ {
+  "term": "Phoenicia",
+  "pron": "/fu-NEE-sha/",
+  "tag": "place",
+  "def": "A coastal region of seafaring traders in the eastern Mediterranean, covering modern Lebanon and nearby lands.",
+  "zhName": "腓尼基",
+  "zhPinyin": "Féiníjī",
+  "zhDef": "地中海东岸的一个航海商人聚居区，包括今天的黎巴嫩及邻近地区。",
+  "art": [
+   "phoenicia-map"
+  ]
+ },
+ {
+  "term": "Phthia",
+  "pron": "/FTHEE-ya/",
+  "tag": "place",
+  "def": "The kingdom of Peleus and his son Achilles, located in central Greece.",
+  "zhName": "弗提亚",
+  "zhPinyin": "Fútíyà",
+  "zhDef": "珀琉斯和他儿子阿喀琉斯的王国，位于希腊中部。",
+  "art": [
+   "phthia-map"
+  ]
+ },
+ {
+  "term": "Phylace",
+  "pron": "/FEE-la-see/",
+  "tag": "place",
+  "def": "A city in Thessaly, a region in northern Greece.",
+  "zhName": "费拉刻",
+  "zhPinyin": "Fèilākè",
+  "zhDef": "塞萨利的一座城市，塞萨利是希腊北部的一个地区。",
+  "art": [
+   "phylace-map"
+  ]
+ },
+ {
+  "term": "Pieria",
+  "pron": "/pai-REE-ya/",
+  "tag": "place",
+  "def": "A region in northern Greece, lying near Mount Olympus.",
+  "zhName": "皮埃里亚",
+  "zhPinyin": "Pí'āilǐyà",
+  "zhDef": "希腊北部的一个地区，靠近奥林匹斯山。",
+  "art": [
+   "pieria-map"
+  ]
+ },
+ {
+  "term": "Psara",
+  "pron": "/PSA-ra/",
+  "tag": "place",
+  "def": "A small island in the Aegean Sea, off the western coast of Asia Minor.",
+  "zhName": "普萨拉岛",
+  "zhPinyin": "Pǔsàlā Dǎo",
+  "zhDef": "爱琴海中的一座小岛，位于小亚细亚西海岸外。",
+  "art": [
+   "psara-map"
+  ]
+ },
+ {
+  "term": "Pyriphlegethon",
+  "pron": "/pi-ri-FLE-ge-thon/",
+  "tag": "place",
+  "def": "A river of fire in the underworld, one of the streams flowing into the river Styx.",
+  "zhName": "皮里弗勒革同河",
+  "zhPinyin": "Pílǐfúlègétóng Hé",
+  "zhDef": "冥界中的一条火焰之河，是流入斯堤克斯河的支流之一。",
+  "art": [
+   "pyriphlegethon-map"
+  ]
+ },
+ {
+  "term": "Same",
+  "pron": "/SAY-mee/",
+  "tag": "place",
+  "def": "An island in the eastern part of the Ionian Sea near Ithaca, also called Samos in Homer.",
+  "zhName": "萨墨岛",
+  "zhPinyin": "Sàmò Dǎo",
+  "zhDef": "靠近伊萨卡的爱奥尼亚海东部的一座岛屿，荷马也称之为萨摩斯。",
+  "art": [
+   "same-map"
+  ]
+ },
+ {
+  "term": "Scyros",
+  "pron": "/SKAI-ros/",
+  "tag": "place",
+  "def": "An island in the Aegean Sea, home of Achilles' son Neoptolemus.",
+  "zhName": "斯库罗斯岛",
+  "zhPinyin": "Sīkùluósī Dǎo",
+  "zhDef": "爱琴海中的一座岛屿，是阿喀琉斯之子涅俄普托勒摩斯的家乡。",
+  "art": [
+   "scyros-map"
+  ]
+ },
+ {
+  "term": "Sidon",
+  "pron": "/SAI-don/",
+  "tag": "place",
+  "def": "A major Phoenician city on the eastern Mediterranean coast, now in modern Lebanon.",
+  "zhName": "西顿",
+  "zhPinyin": "Xīdùn",
+  "zhDef": "地中海东岸的一座腓尼基大城，今属黎巴嫩。",
+  "art": [
+   "sidon-map"
+  ]
+ },
+ {
+  "term": "Mount Solyma",
+  "pron": "/SOL-im-a/",
+  "tag": "place",
+  "def": "A mountain in Lycia, on the southern coast of Asia Minor in the far eastern Mediterranean.",
+  "zhName": "索吕玛山",
+  "zhPinyin": "Suǒlǚmǎ Shān",
+  "zhDef": "吕基亚的一座山，位于地中海东部小亚细亚南岸。",
+  "art": [
+   "mount-solyma-map"
+  ]
+ },
+ {
+  "term": "Sounion",
+  "pron": "/SOO-nee-yon/",
+  "tag": "place",
+  "def": "A cape at the southern tip of Attica, site of an important temple to Poseidon.",
+  "zhName": "苏尼翁",
+  "zhPinyin": "Sūníwēng",
+  "zhDef": "阿提卡最南端的海角，建有一座重要的波塞冬神庙。",
+  "art": [
+   "sounion-map"
+  ]
+ },
+ {
+  "term": "Styx",
+  "pron": "/stix/",
+  "tag": "place",
+  "def": "The river forming the boundary of the underworld, the realm of the dead.",
+  "zhName": "斯堤克斯河",
+  "zhPinyin": "Sīdīkèsī Hé",
+  "zhDef": "构成冥界（死者的国度）边界的河流。",
+  "art": [
+   "styx-map"
+  ]
+ },
+ {
+  "term": "Taphos",
+  "pron": "/TAY-fos/",
+  "tag": "place",
+  "def": "An island in the Ionian Sea; its people, the Taphians, were often described as pirates and sea-raiders.",
+  "zhName": "塔福斯",
+  "zhPinyin": "Tǎfúsī",
+  "zhDef": "爱奥尼亚海中的一座岛屿；岛上居民塔福斯人常被描述为海盗和劫掠者。",
+  "art": [
+   "taphos-map"
+  ]
+ },
+ {
+  "term": "Taygetus",
+  "pron": "/TAI-ge-tus/",
+  "tag": "place",
+  "def": "A high mountain range in the southern Peloponnese, in southern mainland Greece.",
+  "zhName": "泰格托斯山",
+  "zhPinyin": "Tàigétuōsī Shān",
+  "zhDef": "希腊南部伯罗奔尼撒半岛的一道高大山脉。",
+  "art": [
+   "taygetus-map"
+  ]
+ },
+ {
+  "term": "Telepylus",
+  "pron": "/te-le-PAI-lus/",
+  "tag": "place",
+  "def": "A town in the land of the Laestrygonians, giant cannibals; its name suggests \"Far Gate.\"",
+  "zhName": "忒勒皮洛斯",
+  "zhPinyin": "Tèlèpíluòsī",
+  "zhDef": "食人巨人莱斯特律戈涅斯人之地的一座城镇；其名意为“远门”。",
+  "art": [
+   "telepylus-map"
+  ]
+ },
+ {
+  "term": "Temese",
+  "pron": "/TE-me-see/",
+  "tag": "place",
+  "def": "A city in Bruttium, the Greek colony in the \"toe\" of Italy, modern Calabria.",
+  "zhName": "忒墨塞",
+  "zhPinyin": "Tèmòsè",
+  "zhDef": "布鲁提乌姆的一座城市，即意大利“脚趾”地区（今卡拉布里亚）的希腊殖民地。",
+  "art": [
+   "temese-map"
+  ]
+ },
+ {
+  "term": "Tenedos",
+  "pron": "/TE-ne-dos/",
+  "tag": "place",
+  "def": "An island in the northeastern Aegean Sea, lying near the coast of Troy.",
+  "zhName": "忒涅多斯",
+  "zhPinyin": "Tènièduōsī",
+  "zhDef": "爱琴海东北部的一座岛屿，靠近特洛伊海岸。",
+  "art": [
+   "tenedos-map"
+  ]
+ },
+ {
+  "term": "Thesprotia",
+  "pron": "/thes-PROH-sha/",
+  "tag": "place",
+  "def": "A region of Epirus in northwestern Greece.",
+  "zhName": "忒斯普洛提亚",
+  "zhPinyin": "Tèsīpǔluòtíyà",
+  "zhDef": "希腊西北部伊庇鲁斯地区的一个区域。",
+  "art": [
+   "thesprotia-map"
+  ]
+ },
+ {
+  "term": "Thrace",
+  "pron": "/thrays/",
+  "tag": "place",
+  "def": "A region of northeastern Greece, lying north of the Aegean Sea.",
+  "zhName": "色雷斯",
+  "zhPinyin": "Sèléisī",
+  "zhDef": "希腊东北部的一个区域，位于爱琴海以北。",
+  "art": [
+   "thrace-map"
+  ]
+ },
+ {
+  "term": "Zacynthus",
+  "pron": "/za-KIN-thus/",
+  "tag": "place",
+  "def": "An island in the Ionian Sea, off the western coast of Greece.",
+  "zhName": "扎金索斯",
+  "zhPinyin": "Zhājīnsuǒsī",
+  "zhDef": "爱奥尼亚海中的一座岛屿，位于希腊西海岸外。",
+  "art": [
+   "zacynthus-map"
+  ]
+ },
+ {
+  "term": "The Underworld",
+  "pron": "/UN-der-world/",
+  "tag": "place",
+  "def": "The land of the dead, ruled by Hades, where Odysseus journeys to consult the prophet Tiresias.",
+  "zhName": "冥界",
+  "zhPinyin": "Míngjiè",
+  "zhDef": "由哈得斯统治的死者之国，奥德修斯前往此地求问先知忒瑞西阿斯。",
+  "art": [
+   "the-underworld-map"
+  ]
+ },
+ {
+  "term": "Aeolia",
+  "pron": "/ee-OH-lee-a/",
+  "tag": "place",
+  "def": "The floating island of Aeolus, keeper of the winds, who gives Odysseus a bag of storms.",
+  "zhName": "埃俄利亚",
+  "zhPinyin": "Āièlìyà",
+  "zhDef": "风神埃俄罗斯的漂浮之岛，他赠给奥德修斯一个装着风暴的口袋。",
+  "art": [
+   "aeolia-map"
+  ]
+ },
+ {
+  "term": "Land of the Lotus-Eaters",
+  "pron": "/LOH-tus EE-terz/",
+  "tag": "place",
+  "def": "The land whose lotus fruit makes Odysseus' men forget their home and wish only to stay.",
+  "zhName": "食莲者之地",
+  "zhPinyin": "Shíliánzhě zhī Dì",
+  "zhDef": "其莲果使奥德修斯的同伴忘却家乡、只愿留下的国度。",
+  "art": [
+   "land-of-the-lotus-eaters-map"
+  ]
+ },
+ {
+  "term": "Land of the Cyclopes",
+  "pron": "/SY-kloh-peez/",
+  "tag": "place",
+  "def": "The wild land of the one-eyed giants, where Odysseus blinds the Cyclops Polyphemus.",
+  "zhName": "独眼巨人之地",
+  "zhPinyin": "Dúyǎn Jùrén zhī Dì",
+  "zhDef": "独眼巨人的荒野之地，奥德修斯在此弄瞎了独眼巨人波吕斐摩斯。",
+  "art": [
+   "land-of-the-cyclopes-map"
+  ]
+ },
+ {
+  "term": "Thrinacia",
+  "pron": "/thri-NAY-sha/",
+  "tag": "place",
+  "def": "The island where the Sun god's sacred cattle graze; Odysseus' men kill them and are doomed.",
+  "zhName": "特里那基亚",
+  "zhPinyin": "Tèlǐnàjīyà",
+  "zhDef": "太阳神圣牛吃草的岛屿；奥德修斯的同伴杀牛食用，因而注定灭亡。",
+  "art": [
+   "thrinacia-map"
+  ]
+ },
+ {
+  "term": "Ocean",
+  "pron": "/OH-shan/",
+  "tag": "place",
+  "def": "The vast river the Greeks believed encircled the flat disc of the world.",
+  "zhName": "俄刻阿诺斯",
+  "zhPinyin": "Èkè'ānuòsī",
+  "zhDef": "古希腊人相信环绕着扁平大地圆盘的浩瀚之河。",
+  "art": [
+   "ocean-map"
+  ]
+ },
+ {
+  "term": "Argos (the city)",
+  "pron": "/AR-gos/",
+  "tag": "place",
+  "def": "A city and region in the northeast Peloponnese; Homer also uses the name for Greece as a whole.",
+  "zhName": "阿尔戈斯",
+  "zhPinyin": "Ā'ěrgēsī",
+  "zhDef": "伯罗奔尼撒东北部的城市与地区；荷马也用此名泛指整个希腊。",
+  "art": [
+   "argos-city-map"
   ]
  }
 ]
