@@ -321,7 +321,7 @@ export default function JourneyMap({
 
   return (
     <div className="modal modal-open" role="dialog" aria-label="The Journey of Odysseus">
-      <div className="modal-box flex h-auto max-h-[94vh] w-auto max-w-[96vw] flex-col gap-3 p-4">
+      <div className="modal-box flex h-dvh max-h-dvh w-full max-w-none flex-col gap-2 rounded-none p-2 sm:h-auto sm:max-h-[94vh] sm:w-auto sm:max-w-[96vw] sm:gap-3 sm:rounded-box sm:p-4">
         <div className="flex items-center justify-between gap-3">
           <h2 className="font-display text-2xl font-semibold tracking-wide sm:text-3xl">
             The Journey of Odysseus
@@ -336,7 +336,7 @@ export default function JourneyMap({
           </button>
         </div>
 
-        <div className="relative h-[80vh] aspect-[4000/2337] max-w-[94vw] self-center overflow-hidden rounded-box border border-base-300">
+        <div className="relative w-full grow overflow-hidden rounded-box border border-base-300 sm:h-[80vh] sm:w-auto sm:grow-0 sm:aspect-[4000/2337] sm:max-w-[94vw] sm:self-center">
           <MapContainer
             crs={L.CRS.Simple}
             bounds={bounds}
@@ -491,7 +491,7 @@ export default function JourneyMap({
               </button>
             )}
             {tour < 0 && (
-              <ul className="w-full overflow-auto rounded-box border border-base-300 bg-base-100/90 p-2 text-xs leading-tight shadow-lg backdrop-blur">
+              <ul className="hidden w-full overflow-auto rounded-box border border-base-300 bg-base-100/90 p-2 text-xs leading-tight shadow-lg backdrop-blur sm:block">
                 {STOPS.map((s) => (
                   <li key={s.term}>
                     <button
