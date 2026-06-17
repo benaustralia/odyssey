@@ -16,3 +16,13 @@
     font-family: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
   }
 }
+
+/* The YARL lightbox sets `user-select: none` on its container, which makes the
+   caption text (credit + note) impossible to copy. Re-enable selection on the
+   caption title/description so visitors can cut & paste it. */
+.yarl__slide_title,
+.yarl__slide_description {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  user-select: text;
+}
