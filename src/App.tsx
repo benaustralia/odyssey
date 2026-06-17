@@ -1,5 +1,8 @@
-import { useMemo, useState } from "react"
-import { Search } from "lucide-react"
+import { lazy, Suspense, useEffect, useMemo, useState } from "react"
+import { Search, Map as MapIcon } from "lucide-react"
+
+// Leaflet is heavy and the map is opt-in, so load it only when first opened.
+const JourneyMap = lazy(() => import("./JourneyMap"))
 import Lightbox from "yet-another-react-lightbox"
 import Captions from "yet-another-react-lightbox/plugins/captions"
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen"
@@ -59,6 +62,35 @@ function App() {
   const [cat, setCat] = useState("all")
   const [selected, setSelected] = useState<Entry | null>(null)
   const [lbIndex, setLbIndex] = useState(-1) // >=0 => lightbox open at that slide
+  // The journey map is URL-addressable via a hash route (#journey, and
+  // #humaneyeball for calibration), so it's shareable and back-button friendly.
+  const MAP_HASH = /journey|eyeball/i
+  const [mapOpen, setMapOpen] = useState(
+    () => typeof window !== "undefined" && MAP_HASH.test(window.location.hash),
+  )
+  useEffect(() => {
+    const sync = () => setMapOpen(MAP_HASH.test(window.location.hash))
+    window.addEventListener("hashchange", sync)
+    return () => window.removeEventListener("hashchange", sync)
+  }, [])
+  const openMap = () => {
+    window.location.hash = "journey"
+  }
+  const closeMap = () => {
+    setMapOpen(false)
+    if (MAP_HASH.test(window.location.hash))
+      window.history.replaceState(null, "", window.location.pathname + window.location.search)
+  }
+
+  // A journey-map pin → open that term's entry in the lightbox. The map stays
+  // open underneath, so closing the lightbox returns to the map.
+  const byTerm = useMemo(() => new Map(entries.map((e) => [e.term, e])), [])
+  const openTerm = (term: string) => {
+    const e = byTerm.get(term)
+    if (!e) return
+    setSelected(e)
+    setLbIndex(0)
+  }
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
@@ -80,9 +112,9 @@ function App() {
   const selArts = artsOf(sel)
   const slides = selArts.map((a) => {
     const credit = [a.artist, a.title].filter(Boolean).join(" · ")
-    let line = credit ? `${credit}${a.year ? `, ${a.year}` : ""}` : a.year || ""
-    if (a.license && !/public domain|pdm|no restrictions/i.test(a.license))
-      line = (line ? `${line} · ` : "") + a.license
+    const line = credit ? `${credit}${a.year ? `, ${a.year}` : ""}` : a.year || ""
+    // Licence is intentionally NOT shown per-image; the footer states the
+    // collection is public-domain/CC, which covers attribution generically.
     // Both credit and locator note go in the bottom caption (which wraps);
     // the top title bar is left empty because it truncates with an ellipsis.
     const description =
@@ -163,8 +195,28 @@ function App() {
               ))}
             </form>
           </div>
+
+          <button
+            type="button"
+            onClick={openMap}
+            className="btn btn-sm btn-primary btn-outline gap-2 lg:btn-md"
+          >
+            <MapIcon className="size-4" aria-hidden="true" />
+            The Journey
+          </button>
         </div>
       </nav>
+
+      {mapOpen && (
+        <Suspense fallback={null}>
+          <JourneyMap
+            open
+            onClose={closeMap}
+            onSelect={openTerm}
+            lookup={(t) => byTerm.get(t)}
+          />
+        </Suspense>
+      )}
 
       {/* ---------- Gallery ---------- */}
       <main className="mx-auto max-w-6xl px-4 py-10">

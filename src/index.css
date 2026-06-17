@@ -26,3 +26,28 @@
   -moz-user-select: text;
   user-select: text;
 }
+
+/* Journey-map voyage line: marching dashes tracing Troy → Ithaca. */
+@keyframes journey-dash {
+  to {
+    stroke-dashoffset: -1000;
+  }
+}
+.journey-route {
+  stroke-dasharray: 6 9;
+  animation: journey-dash 40s linear infinite;
+}
+
+/* Theme the Leaflet marker popups to match DaisyUI (dracula) instead of the
+   default white box, so the bilingual entry text is legible. */
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: var(--color-base-100);
+  color: var(--color-base-content);
+}
+.leaflet-popup-content {
+  margin: 0.7rem 0.85rem;
+}
+.leaflet-popup-close-button {
+  color: var(--color-base-content) !important;
+}
