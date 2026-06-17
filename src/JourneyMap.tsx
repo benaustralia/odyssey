@@ -172,15 +172,18 @@ function ZoomWatch({ onZoom }: { onZoom: (z: number) => void }) {
   return null
 }
 
-// Lock the minimum zoom to the initial fit, so the map can't zoom out past the
-// full-image view (it can still zoom in). Recomputes on container resize.
+// Min zoom = the zoom at which the image *covers* the container (inside=true),
+// so it always fills the frame: on desktop (container matches the image aspect)
+// that's the full map; on a portrait phone it fills the screen and you pan the
+// wide map horizontally (which follows the east→west voyage). Can't zoom out
+// past that. Recomputes on resize/orientation change.
 function LockMinZoom() {
   const map = useMap()
   useEffect(() => {
     const lock = () => {
-      const z = map.getBoundsZoom(bounds)
+      const z = map.getBoundsZoom(bounds, true)
       map.setMinZoom(z)
-      if (map.getZoom() < z) map.setZoom(z)
+      if (map.getZoom() < z) map.setView(bounds.getCenter(), z)
     }
     lock()
     map.on("resize", lock)
@@ -479,17 +482,14 @@ export default function JourneyMap({
             </div>
           )}
 
-          {/* Bottom-right: voyage control + the Fry-style numbered legend */}
+          {/* Bottom-right: voyage control + the Fry-style numbered legend.
+              Hidden during the tour (the tour card carries its own controls,
+              and on mobile this would sit under the centered card). */}
+          {tour < 0 && (
           <div className="absolute bottom-3 right-3 z-[1000] flex max-h-[calc(100%-1.5rem)] w-56 flex-col items-end gap-2">
-            {tour < 0 ? (
-              <button type="button" className="btn btn-sm btn-primary w-full" onClick={start}>
-                ▶ Begin the voyage
-              </button>
-            ) : (
-              <button type="button" className="btn btn-sm w-full" onClick={end}>
-                ✕ End tour
-              </button>
-            )}
+            <button type="button" className="btn btn-sm btn-primary w-full" onClick={start}>
+              ▶ Begin the voyage
+            </button>
             {tour < 0 && (
               <ul className="hidden w-full overflow-auto rounded-box border border-base-300 bg-base-100/90 p-2 text-xs leading-tight shadow-lg backdrop-blur sm:block">
                 {STOPS.map((s) => (
@@ -507,13 +507,24 @@ export default function JourneyMap({
               </ul>
             )}
           </div>
+          )}
 
           {/* Guided-tour control card */}
           {cur && (
             <div className="absolute bottom-3 left-1/2 z-[1000] w-[min(92%,30rem)] -translate-x-1/2 rounded-box border border-base-300 bg-base-100/95 p-4 shadow-xl backdrop-blur">
-              <p className="text-xs uppercase tracking-wider text-primary">
-                Stop {cur.n} of {STOPS.length}
-              </p>
+              <div className="flex items-center justify-between gap-2">
+                <p className="text-xs uppercase tracking-wider text-primary">
+                  Stop {cur.n} of {STOPS.length}
+                </p>
+                <button
+                  type="button"
+                  className="btn btn-ghost btn-xs btn-circle"
+                  onClick={end}
+                  aria-label="End tour"
+                >
+                  ✕
+                </button>
+              </div>
               <div className="mt-1 flex items-baseline justify-between gap-2">
                 <h3 className="font-heading text-xl font-semibold">{cur.label}</h3>
                 <span className="font-zh opacity-70">{cur.zh}</span>
@@ -550,7 +561,10 @@ export default function JourneyMap({
                 <button
                   type="button"
                   className="btn btn-sm btn-primary"
-                  onClick={() => onSelect(cur.term)}
+                  onClick={() => {
+                    setPlaying(false)
+                    onSelect(cur.term)
+                  }}
                 >
                   Open entry →
                 </button>
