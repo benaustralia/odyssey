@@ -2,6 +2,9 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import L from "leaflet"
 import { MapContainer, ImageOverlay, Marker, Tooltip, Popup, Polyline, useMap, useMapEvents } from "react-leaflet"
 import "leaflet/dist/leaflet.css"
+// @ts-expect-error - leaflet-minimap ships no type declarations
+import MiniMapControl from "leaflet-minimap"
+import "leaflet-minimap/dist/Control.MiniMap.min.css"
 
 // Base map: Abraham Ortelius, "Vlyssis Errores" (1597) — the wide inset cropped
 // from a 13238px public-domain scan of his Red Sea plate. Native master is
@@ -162,6 +165,35 @@ const pin = (n: number, active: boolean, label?: string) =>
     iconSize: active ? [36, 36] : [28, 28],
     iconAnchor: active ? [18, 18] : [14, 14],
   })
+
+// Overview "navigator": a thumbnail of the whole map (always showing the full
+// image) with a draggable focus rectangle marking the current view — the
+// standard overview+detail pattern, via the leaflet-minimap plugin.
+function Navigator() {
+  const map = useMap()
+  useEffect(() => {
+    const layer = L.imageOverlay(MAP_URL, bounds)
+    const W2 = 132
+    // CRS.Simple: at zoom z, 1 image-unit = 2^z px, so the zoom that fits the
+    // 4000px-wide image into the W2-wide thumbnail is log2(W2 / W).
+    const fit = Math.log2(W2 / W)
+    const mini = new MiniMapControl(layer, {
+      position: "bottomleft",
+      width: W2,
+      height: 84,
+      zoomLevelFixed: fit,
+      centerFixed: bounds.getCenter(),
+      toggleDisplay: true,
+      aimingRectOptions: { color: "#6c2bd9", weight: 2, fillColor: "#6c2bd9", fillOpacity: 0.15 },
+      mapOptions: { crs: L.CRS.Simple, zoomSnap: 0, minZoom: -10, maxZoom: 10 },
+    })
+    mini.addTo(map)
+    return () => {
+      mini.remove()
+    }
+  }, [map])
+  return null
+}
 
 // Track the map's zoom so we can reveal labels only when zoomed in.
 function ZoomWatch({ onZoom }: { onZoom: (z: number) => void }) {
@@ -356,6 +388,7 @@ export default function JourneyMap({
             <ImageOverlay url={MAP_URL} bounds={bounds} />
             <ZoomWatch onZoom={setZoom} />
             <LockMinZoom />
+            {!editing && <Navigator />}
             {/* Casing: a pale outline under the route so it reads on any part of
                 the busy antique map; the coloured dashes ride on top. */}
             <Polyline
