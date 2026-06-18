@@ -38,6 +38,16 @@
   animation: journey-dash 40s linear infinite;
 }
 
+/* Tour card countdown: a bar that wears down until the next stop is shown. */
+@keyframes tour-progress {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+
 /* Theme the Leaflet marker popups to match DaisyUI (dracula) instead of the
    default white box, so the bilingual entry text is legible. */
 .leaflet-popup-content-wrapper,

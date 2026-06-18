@@ -17,6 +17,7 @@ const MAP_CLD = "cdll9uth8di3xcsh8djn"
 const MAP_VER = "v1781683903"
 const MAP_URL = `https://res.cloudinary.com/dhvvz91bh/image/upload/f_auto,q_auto,c_limit,w_3000/${MAP_VER}/${MAP_CLD}`
 const TOUR_ZOOM = 1 // how far to zoom in on each stop during the guided tour
+const STOP_MS = 5000 // time on each stop before the tour auto-advances
 const LABEL_ZOOM = -0.6 // reveal place-name labels once zoomed in past this
 
 // Leaflet CRS.Simple has lat increasing upward, so flip the image-space y
@@ -91,7 +92,8 @@ const LEG_VIAS: Pt[][] = [
 // Centripetal Catmull-Rom spline → smooth sailing curve through the control
 // points. Centripetal (alpha=0.5) avoids the overshoot/loops that uniform
 // Catmull-Rom produces when point spacing is very uneven. Returns dense points.
-const smooth = (pts: Pt[], seg = 18): Pt[] => {
+const ROUTE_SEG = 18 // points the spline emits per control-segment (input k -> output k*SEG)
+const smooth = (pts: Pt[], seg = ROUTE_SEG): Pt[] => {
   const n = pts.length
   if (n < 3) return pts
   const a = 0.5
@@ -236,17 +238,81 @@ function LockMinZoom() {
   return null
 }
 
-// Flies the map to the active tour stop (or back to the whole map when idle).
-function TourController({ idx }: { idx: number }) {
+// Glide the camera along a list of latlngs at a fixed zoom (so the view follows
+// the purple route instead of zooming out and back in). Speed is scaled to the
+// on-screen length and clamped so it's neither a crawl nor a lurch.
+function panAlong(
+  map: L.Map,
+  latlngs: L.LatLngTuple[],
+  zoom: number,
+  raf: { current?: number },
+) {
+  if (latlngs.length < 2) {
+    map.setView(latlngs[latlngs.length - 1] ?? map.getCenter(), zoom, { animate: false })
+    return
+  }
+  const pts = latlngs.map((ll) => map.project(L.latLng(ll), zoom))
+  const cum = [0]
+  for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + pts[i].distanceTo(pts[i - 1]))
+  const total = cum[cum.length - 1]
+  const duration = Math.min(3200, Math.max(1100, (total / 750) * 1000))
+  const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2)
+  let start = 0
+  const step = (now: number) => {
+    if (!start) start = now
+    const t = Math.min(1, (now - start) / duration)
+    const d = ease(t) * total
+    let i = 1
+    while (i < cum.length && cum[i] < d) i++
+    const s0 = cum[i - 1]
+    const s1 = cum[i]
+    const f = s1 > s0 ? (d - s0) / (s1 - s0) : 0
+    const p = pts[i - 1].add(pts[i].subtract(pts[i - 1]).multiplyBy(f))
+    map.setView(map.unproject(p, zoom), zoom, { animate: false })
+    if (t < 1) raf.current = requestAnimationFrame(step)
+  }
+  raf.current = requestAnimationFrame(step)
+}
+
+// Drives the tour camera: glide along the route between adjacent stops, ease
+// straight in for jumps (legend clicks / first stop), zoom out when idle.
+function TourController({
+  idx,
+  route,
+  stopIdx,
+}: {
+  idx: number
+  route: L.LatLngTuple[]
+  stopIdx: number[]
+}) {
   const map = useMap()
+  const prev = useRef(-1)
+  const raf = useRef<number | undefined>(undefined)
   useEffect(() => {
+    const cancel = () => {
+      if (raf.current) cancelAnimationFrame(raf.current)
+    }
     if (idx < 0) {
+      cancel()
       map.flyToBounds(bounds, { duration: 0.8 })
+      prev.current = -1
       return
     }
-    const s = STOPS[idx]
-    map.flyTo(yx(s.x, s.y), TOUR_ZOOM, { duration: 1.1 })
-  }, [idx, map])
+    const from = prev.current
+    prev.current = idx
+    const target = route[stopIdx[idx]]
+    if (from < 0 || Math.abs(idx - from) !== 1) {
+      cancel()
+      map.flyTo(L.latLng(target), TOUR_ZOOM, { duration: 0.9 })
+      return cancel
+    }
+    const a = stopIdx[from]
+    const b = stopIdx[idx]
+    const path = a <= b ? route.slice(a, b + 1) : route.slice(b, a + 1).reverse()
+    cancel()
+    panAlong(map, path, TOUR_ZOOM, raf)
+    return cancel
+  }, [idx, map, route, stopIdx])
   return null
 }
 
@@ -285,6 +351,18 @@ export default function JourneyMap({
       if (i < pos.length - 1) vias[i].forEach((v) => flat.push(v))
     })
     return smooth(flat).map((p) => yx(p.x, p.y))
+  }, [pos, vias])
+
+  // Index of each stop within routeLatLng (input point k lands at k*ROUTE_SEG),
+  // so the tour can slice the curve for the leg it's traversing.
+  const stopRouteIdx = useMemo(() => {
+    const idxs: number[] = []
+    let flat = 0
+    pos.forEach((_, i) => {
+      idxs.push(flat * ROUTE_SEG)
+      flat += 1 + (i < pos.length - 1 ? vias[i].length : 0)
+    })
+    return idxs
   }, [pos, vias])
 
   // Click the route line → drop a bend point into the nearest leg, in order.
@@ -344,7 +422,7 @@ export default function JourneyMap({
         }
         return i + 1
       })
-    }, 3800)
+    }, STOP_MS)
     return () => window.clearTimeout(timer.current)
   }, [playing, tour])
 
@@ -399,11 +477,12 @@ export default function JourneyMap({
             <ZoomWatch onZoom={setZoom} />
             <LockMinZoom />
             {!editing && <Navigator />}
-            {/* Casing: a pale outline under the route so it reads on any part of
-                the busy antique map; the coloured dashes ride on top. */}
+            {/* Casing: a pale halo under the route so it reads on any part of the
+                busy antique map. Same journey-route dash+animation as the purple
+                on top, so the marching-ants gaps stay transparent (not filled). */}
             <Polyline
               positions={routeLatLng}
-              pathOptions={{ color: "#fff", weight: 6, opacity: 0.9, lineCap: "round" }}
+              pathOptions={{ className: "journey-route", color: "#fff", weight: 6, opacity: 0.85 }}
             />
             <Polyline
               positions={routeLatLng}
@@ -496,7 +575,7 @@ export default function JourneyMap({
                 </Marker>
               )
             })}
-            <TourController idx={tour} />
+            <TourController idx={tour} route={routeLatLng} stopIdx={stopRouteIdx} />
           </MapContainer>
 
           {/* Calibration panel — drag pins, then copy these coordinates back. */}
@@ -554,7 +633,15 @@ export default function JourneyMap({
 
           {/* Guided-tour control card */}
           {cur && (
-            <div className="absolute bottom-3 left-1/2 z-[1000] w-[min(92%,30rem)] -translate-x-1/2 rounded-box border border-base-300 bg-base-100/95 p-4 shadow-xl backdrop-blur">
+            <div className="absolute bottom-3 left-1/2 z-[1000] w-[min(92%,30rem)] -translate-x-1/2 overflow-hidden rounded-box border border-base-300 bg-base-100/95 p-4 shadow-xl backdrop-blur">
+              {/* Minimal countdown: a bar that wears down until the next stop. */}
+              {playing && (
+                <span
+                  key={cur.n}
+                  className="absolute inset-x-0 top-0 block h-[3px] origin-left bg-primary"
+                  style={{ animation: `tour-progress ${STOP_MS}ms linear forwards` }}
+                />
+              )}
               <div className="flex items-center justify-between gap-2">
                 <p className="text-xs uppercase tracking-wider text-primary">
                   Stop {cur.n} of {STOPS.length}
