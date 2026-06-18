@@ -25,6 +25,16 @@ const LABEL_ZOOM = -0.6 // reveal place-name labels once zoomed in past this
 const yx = (x: number, y: number): L.LatLngTuple => [H - y, x]
 const bounds = L.latLngBounds([0, 0], [H, W])
 
+// react-leaflet v5 never applies `pathOptions.className` to the SVG path
+// (Leaflet only reads a top-level `className` in _initPath, and setStyle skips
+// it). It happened to work in dev only because StrictMode's double-mount re-ran
+// _initPath after the option was set. Apply the marching-ants class on `add`
+// instead, so it survives the single-mount production build.
+const markRoute = {
+  add: (e: L.LeafletEvent) =>
+    (e.target as L.Path).getElement()?.classList.add("journey-route"),
+}
+
 // The 14 canonical stops of Odysseus's voyage (after Stephen Fry's map),
 // each pinned where Ortelius drew it, linked to its glossary `term`.
 type Stop = { n: number; term: string; label: string; short: string; zh: string; x: number; y: number }
@@ -406,6 +416,7 @@ export default function JourneyMap({
     [pos, vias],
   )
   const [tour, setTour] = useState(-1) // -1 = not touring; else current stop index
+  const [focus, setFocus] = useState(-1) // legend pan target when not touring; -1 = whole map
   const [playing, setPlaying] = useState(false)
   const [zoom, setZoom] = useState<number | null>(null)
   const timer = useRef<number | undefined>(undefined)
@@ -429,6 +440,7 @@ export default function JourneyMap({
   if (!open) return null
 
   const start = () => {
+    setFocus(-1)
     setTour(0)
     setPlaying(true)
   }
@@ -482,11 +494,13 @@ export default function JourneyMap({
                 on top, so the marching-ants gaps stay transparent (not filled). */}
             <Polyline
               positions={routeLatLng}
-              pathOptions={{ className: "journey-route", color: "#fff", weight: 6, opacity: 0.85 }}
+              eventHandlers={markRoute}
+              pathOptions={{ color: "#fff", weight: 6, opacity: 0.85 }}
             />
             <Polyline
               positions={routeLatLng}
-              pathOptions={{ className: "journey-route", color: "#6c2bd9", weight: 3 }}
+              eventHandlers={markRoute}
+              pathOptions={{ color: "#6c2bd9", weight: 3 }}
             />
             {/* Editing: fat invisible line that's easy to click to drop a bend. */}
             {editing && (
@@ -575,7 +589,11 @@ export default function JourneyMap({
                 </Marker>
               )
             })}
-            <TourController idx={tour} route={routeLatLng} stopIdx={stopRouteIdx} />
+            <TourController
+              idx={tour >= 0 ? tour : focus}
+              route={routeLatLng}
+              stopIdx={stopRouteIdx}
+            />
           </MapContainer>
 
           {/* Calibration panel — drag pins, then copy these coordinates back. */}
@@ -614,12 +632,14 @@ export default function JourneyMap({
             </button>
             {tour < 0 && (
               <ul className="hidden w-full overflow-auto rounded-box border border-base-300 bg-base-100/90 p-2 text-xs leading-tight shadow-lg backdrop-blur sm:block">
-                {STOPS.map((s) => (
+                {STOPS.map((s, i) => (
                   <li key={s.term}>
                     <button
                       type="button"
-                      onClick={() => onSelect(s.term)}
-                      className="flex w-full items-baseline gap-1.5 rounded px-1 py-[3px] text-left hover:bg-base-200"
+                      onClick={() => setFocus((f) => (f === i ? -1 : i))}
+                      className={`flex w-full items-baseline gap-1.5 rounded px-1 py-[3px] text-left hover:bg-base-200 ${
+                        focus === i ? "bg-base-200" : ""
+                      }`}
                     >
                       <span className="font-bold text-primary">{s.n}.</span>
                       <span>{s.label}</span>
