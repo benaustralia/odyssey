@@ -212,15 +212,25 @@ function ZoomWatch({ onZoom }: { onZoom: (z: number) => void }) {
 function LockMinZoom() {
   const map = useMap()
   useEffect(() => {
+    let focused = false
     const lock = () => {
       const z = map.getBoundsZoom(bounds, true)
       map.setMinZoom(z)
-      if (map.getZoom() < z) map.setView(bounds.getCenter(), z)
+      const sz = map.getSize()
+      if (!focused && sz.x > 0 && sz.y > 0) {
+        // Open on Troy (stop 1) — the start of the voyage — not the map centre.
+        map.setView(yx(STOPS[0].x, STOPS[0].y), z, { animate: false })
+        focused = true
+      } else if (map.getZoom() < z) {
+        map.setZoom(z)
+      }
     }
     lock()
     map.on("resize", lock)
+    const settle = setTimeout(lock, 300)
     return () => {
       map.off("resize", lock)
+      clearTimeout(settle)
     }
   }, [map])
   return null
@@ -519,8 +529,8 @@ export default function JourneyMap({
               Hidden during the tour (the tour card carries its own controls,
               and on mobile this would sit under the centered card). */}
           {tour < 0 && (
-          <div className="absolute bottom-3 right-3 z-[1000] flex max-h-[calc(100%-1.5rem)] w-56 flex-col items-end gap-2">
-            <button type="button" className="btn btn-sm btn-primary w-full" onClick={start}>
+          <div className="absolute bottom-3 right-3 z-[1000] flex max-h-[calc(100%-1.5rem)] w-auto flex-col items-end gap-2 sm:w-56">
+            <button type="button" className="btn btn-sm btn-primary sm:w-full" onClick={start}>
               ▶ Begin the voyage
             </button>
             {tour < 0 && (
