@@ -17,8 +17,19 @@ const MAP_CLD = "cdll9uth8di3xcsh8djn"
 const MAP_VER = "v1781683903"
 const MAP_URL = `https://res.cloudinary.com/dhvvz91bh/image/upload/f_auto,q_auto,c_limit,w_3000/${MAP_VER}/${MAP_CLD}`
 const TOUR_ZOOM = 1 // how far to zoom in on each stop during the guided tour
-const STOP_MS = 9000 // time on each stop before the tour auto-advances
 const LABEL_ZOOM = -0.6 // reveal place-name labels once zoomed in past this
+
+// Tour cadence. Each stop occupies (glide-in + a fixed dwell). The glide is
+// paced by on-screen pixels so a leg's speed is consistent, clamped so it's
+// neither a crawl nor a lurch — note the Cicones→Lotus-Eaters leg is ~6800px
+// vs ~700px for most, so without the cap it would either crawl or whip.
+const TOUR_PPS = 150 // glide speed: screen px per second
+const GLIDE_MIN = 3500
+const GLIDE_MAX = 11000
+const DWELL_MS = 3500 // pause on each stop after the camera arrives
+const JUMP_MS = 900 // flyTo duration for the first stop / non-adjacent jumps
+const glideMs = (px: number) =>
+  Math.min(GLIDE_MAX, Math.max(GLIDE_MIN, (px / TOUR_PPS) * 1000))
 
 // Leaflet CRS.Simple has lat increasing upward, so flip the image-space y
 // (measured from the top-left, the way we read it off the grid overlay).
@@ -161,6 +172,21 @@ const viaIcon = L.divIcon({
   iconAnchor: [6, 6],
 })
 
+// Odysseus's ship — a tiny antique galley that rides the route during the tour.
+// Cream square sail on an inked hull so it reads on the parchment map.
+const shipIcon = L.divIcon({
+  className: "",
+  html: `<svg width="32" height="28" viewBox="0 0 32 28" fill="none"
+      style="filter:drop-shadow(0 1px 1px rgba(0,0,0,.45))">
+    <path d="M3 16 C6 23 26 23 29 16 L25 16 C20 19 12 19 7 16 Z" fill="#3a2a17"/>
+    <path d="M29 16 q3 -1 1.5 -5" stroke="#3a2a17" stroke-width="1.6" stroke-linecap="round"/>
+    <line x1="16" y1="16" x2="16" y2="3" stroke="#3a2a17" stroke-width="1.3"/>
+    <path d="M16 4 L8 6 L8 13 L16 14 Z" fill="#f4ecd8" stroke="#3a2a17" stroke-width="0.8" stroke-linejoin="round"/>
+  </svg>`,
+  iconSize: [32, 28],
+  iconAnchor: [16, 19], // waterline sits on the route
+})
+
 const pin = (n: number, active: boolean, label?: string) =>
   L.divIcon({
     className: "",
@@ -256,16 +282,19 @@ function panAlong(
   latlngs: L.LatLngTuple[],
   zoom: number,
   raf: { current?: number },
+  onMove?: (ll: L.LatLng) => void,
 ) {
   if (latlngs.length < 2) {
-    map.setView(latlngs[latlngs.length - 1] ?? map.getCenter(), zoom, { animate: false })
+    const end = latlngs[latlngs.length - 1] ?? map.getCenter()
+    map.setView(end, zoom, { animate: false })
+    onMove?.(L.latLng(end))
     return
   }
   const pts = latlngs.map((ll) => map.project(L.latLng(ll), zoom))
   const cum = [0]
   for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + pts[i].distanceTo(pts[i - 1]))
   const total = cum[cum.length - 1]
-  const duration = Math.min(7000, Math.max(3500, (total / 150) * 1000))
+  const duration = glideMs(total)
   const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2)
   let start = 0
   const step = (now: number) => {
@@ -278,7 +307,9 @@ function panAlong(
     const s1 = cum[i]
     const f = s1 > s0 ? (d - s0) / (s1 - s0) : 0
     const p = pts[i - 1].add(pts[i].subtract(pts[i - 1]).multiplyBy(f))
-    map.setView(map.unproject(p, zoom), zoom, { animate: false })
+    const ll = map.unproject(p, zoom)
+    map.setView(ll, zoom, { animate: false })
+    onMove?.(ll)
     if (t < 1) raf.current = requestAnimationFrame(step)
   }
   raf.current = requestAnimationFrame(step)
@@ -298,12 +329,34 @@ function TourController({
   const map = useMap()
   const prev = useRef(-1)
   const raf = useRef<number | undefined>(undefined)
+  const ship = useRef<L.Marker | undefined>(undefined)
+
+  // The ship rides the route during the tour; created once, hidden when idle.
+  useEffect(() => {
+    const m = L.marker(map.getCenter(), {
+      icon: shipIcon,
+      interactive: false,
+      keyboard: false,
+      zIndexOffset: 1000,
+      opacity: 0,
+    }).addTo(map)
+    ship.current = m
+    return () => {
+      m.remove()
+      ship.current = undefined
+    }
+  }, [map])
+
   useEffect(() => {
     const cancel = () => {
       if (raf.current) cancelAnimationFrame(raf.current)
     }
+    const moveShip = (ll: L.LatLng) => {
+      ship.current?.setLatLng(ll).setOpacity(1)
+    }
     if (idx < 0) {
       cancel()
+      ship.current?.setOpacity(0)
       map.flyToBounds(bounds, { duration: 0.8 })
       prev.current = -1
       return
@@ -314,13 +367,14 @@ function TourController({
     if (from < 0 || Math.abs(idx - from) !== 1) {
       cancel()
       map.flyTo(L.latLng(target), TOUR_ZOOM, { duration: 0.9 })
+      moveShip(L.latLng(target))
       return cancel
     }
     const a = stopIdx[from]
     const b = stopIdx[idx]
     const path = a <= b ? route.slice(a, b + 1) : route.slice(b, a + 1).reverse()
     cancel()
-    panAlong(map, path, TOUR_ZOOM, raf)
+    panAlong(map, path, TOUR_ZOOM, raf, moveShip)
     return cancel
   }, [idx, map, route, stopIdx])
   return null
@@ -422,6 +476,24 @@ export default function JourneyMap({
   const timer = useRef<number | undefined>(undefined)
   const showLabels = zoom !== null && zoom >= LABEL_ZOOM
 
+  // On-screen length of the glide from one stop to an adjacent one → its
+  // duration. Same px-at-TOUR_ZOOM measure panAlong uses, so the timer and the
+  // camera agree (a long leg gets a long glide without starving short stops).
+  const legGlideMs = (from: number, to: number) => {
+    const lo = Math.min(stopRouteIdx[from], stopRouteIdx[to])
+    const hi = Math.max(stopRouteIdx[from], stopRouteIdx[to])
+    let px = 0
+    for (let k = lo; k < hi; k++)
+      px += Math.hypot(
+        routeLatLng[k + 1][0] - routeLatLng[k][0],
+        routeLatLng[k + 1][1] - routeLatLng[k][1],
+      )
+    return glideMs(px * Math.pow(2, TOUR_ZOOM))
+  }
+  // How long the current stop holds the tour: glide-in + a fixed dwell.
+  const enterMs = tour <= 0 ? JUMP_MS : legGlideMs(tour - 1, tour)
+  const cycleMs = enterMs + DWELL_MS
+
   // Auto-advance while playing; stop at the last stop.
   useEffect(() => {
     if (!playing || tour < 0) return
@@ -433,9 +505,9 @@ export default function JourneyMap({
         }
         return i + 1
       })
-    }, STOP_MS)
+    }, cycleMs)
     return () => window.clearTimeout(timer.current)
-  }, [playing, tour])
+  }, [playing, tour, cycleMs])
 
   if (!open) return null
 
@@ -659,7 +731,7 @@ export default function JourneyMap({
                 <span
                   key={cur.n}
                   className="absolute inset-x-0 top-0 block h-[3px] origin-left bg-primary"
-                  style={{ animation: `tour-progress ${STOP_MS}ms linear forwards` }}
+                  style={{ animation: `tour-progress ${cycleMs}ms linear forwards` }}
                 />
               )}
               <div className="flex items-center justify-between gap-2">
