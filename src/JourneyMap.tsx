@@ -17,7 +17,7 @@ const MAP_CLD = "cdll9uth8di3xcsh8djn"
 const MAP_VER = "v1781683903"
 const MAP_URL = `https://res.cloudinary.com/dhvvz91bh/image/upload/f_auto,q_auto,c_limit,w_3000/${MAP_VER}/${MAP_CLD}`
 const TOUR_ZOOM = 1 // how far to zoom in on each stop during the guided tour
-const STOP_MS = 5000 // time on each stop before the tour auto-advances
+const STOP_MS = 9000 // time on each stop before the tour auto-advances
 const LABEL_ZOOM = -0.6 // reveal place-name labels once zoomed in past this
 
 // Leaflet CRS.Simple has lat increasing upward, so flip the image-space y
@@ -265,7 +265,7 @@ function panAlong(
   const cum = [0]
   for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + pts[i].distanceTo(pts[i - 1]))
   const total = cum[cum.length - 1]
-  const duration = Math.min(3200, Math.max(1100, (total / 750) * 1000))
+  const duration = Math.min(7000, Math.max(3500, (total / 150) * 1000))
   const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2)
   let start = 0
   const step = (now: number) => {
