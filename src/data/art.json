@@ -4352,15 +4352,6 @@
   "cld": "gg4booanvblh0di2fmf2",
   "note": "Arethusa — a spring on Ithaca in the Ionian Sea"
  },
- "artaky-map": {
-  "file": "/art/map-wanderings.jpg",
-  "artist": "Abraham Ortelius",
-  "title": "The Wanderings of Ulysses",
-  "year": "1597",
-  "source": "https://commons.wikimedia.org/wiki/File:The_inset_map_of_Ulysses'_wanderings_(Errores)_assigns_locations_for_various_episodes_of_the_Homeric_account,_all_presented_in_an_ornate_%22frame%22.jpg",
-  "cld": "cdll9uth8di3xcsh8djn",
-  "note": "Artaky — a spring on the distant island of the Laestrygonian giants"
- },
  "asteris-map": {
   "file": "/art/map-greece.jpg",
   "artist": "Anonymous",
@@ -4414,15 +4405,6 @@
   "source": "https://commons.wikimedia.org/wiki/File:Homer_world_map.jpg",
   "cld": "vu0wvfcezvjtfla1fohs",
   "note": "Cocytus — a river of the underworld, beyond the encircling Ocean"
- },
- "cyprus-map": {
-  "file": "/art/map-wanderings.jpg",
-  "artist": "Abraham Ortelius",
-  "title": "The Wanderings of Ulysses",
-  "year": "1597",
-  "source": "https://commons.wikimedia.org/wiki/File:The_inset_map_of_Ulysses'_wanderings_(Errores)_assigns_locations_for_various_episodes_of_the_Homeric_account,_all_presented_in_an_ornate_%22frame%22.jpg",
-  "cld": "cdll9uth8di3xcsh8djn",
-  "note": "Cyprus — a large island in the far eastern Mediterranean"
  },
  "cythera-map": {
   "file": "/art/map-greece.jpg",
@@ -4531,15 +4513,6 @@
   "source": "https://commons.wikimedia.org/wiki/File:THE_ILLIAD_OF_HOMER_(translated_by_POPE)_p1.312_GRAECIA_HOMERICA.jpg",
   "cld": "gg4booanvblh0di2fmf2",
   "note": "Hyperesia — a town in Achaea, northern Peloponnese"
- },
- "hyperia-map": {
-  "file": "/art/map-wanderings.jpg",
-  "artist": "Abraham Ortelius",
-  "title": "The Wanderings of Ulysses",
-  "year": "1597",
-  "source": "https://commons.wikimedia.org/wiki/File:The_inset_map_of_Ulysses'_wanderings_(Errores)_assigns_locations_for_various_episodes_of_the_Homeric_account,_all_presented_in_an_ornate_%22frame%22.jpg",
-  "cld": "cdll9uth8di3xcsh8djn",
-  "note": "Hyperia — fabled former Phaeacian homeland, near the Cyclopes"
  },
  "iolcus-map": {
   "file": "/art/map-northern.jpg",
@@ -4667,15 +4640,6 @@
   "cld": "gg4booanvblh0di2fmf2",
   "note": "Orchomenus — city in Boeotia, central Greece"
  },
- "ortygia-map": {
-  "file": "/art/map-wanderings.jpg",
-  "artist": "Abraham Ortelius",
-  "title": "The Wanderings of Ulysses",
-  "year": "1597",
-  "source": "https://commons.wikimedia.org/wiki/File:The_inset_map_of_Ulysses'_wanderings_(Errores)_assigns_locations_for_various_episodes_of_the_Homeric_account,_all_presented_in_an_ornate_%22frame%22.jpg",
-  "cld": "cdll9uth8di3xcsh8djn",
-  "note": "Ortygia — mythical isle among Odysseus's wanderings"
- },
  "ossa-map": {
   "file": "/art/map-northern.jpg",
   "artist": "Guillaume Delisle",
@@ -4748,15 +4712,6 @@
   "cld": "gg4booanvblh0di2fmf2",
   "note": "Pherae — in the Peloponnese, between Pylos and Sparta"
  },
- "phoenicia-map": {
-  "file": "/art/map-wanderings.jpg",
-  "artist": "Abraham Ortelius",
-  "title": "The Wanderings of Ulysses",
-  "year": "1597",
-  "source": "https://commons.wikimedia.org/wiki/File:The_inset_map_of_Ulysses'_wanderings_(Errores)_assigns_locations_for_various_episodes_of_the_Homeric_account,_all_presented_in_an_ornate_%22frame%22.jpg",
-  "cld": "cdll9uth8di3xcsh8djn",
-  "note": "Phoenicia — eastern Mediterranean coast, around modern Lebanon"
- },
  "phthia-map": {
   "file": "/art/map-northern.jpg",
   "artist": "Guillaume Delisle",
@@ -4820,24 +4775,6 @@
   "cld": "gg4booanvblh0di2fmf2",
   "note": "Scyros — Aegean island east of Euboea"
  },
- "sidon-map": {
-  "file": "/art/map-wanderings.jpg",
-  "artist": "Abraham Ortelius",
-  "title": "The Wanderings of Ulysses",
-  "year": "1597",
-  "source": "https://commons.wikimedia.org/wiki/File:The_inset_map_of_Ulysses'_wanderings_(Errores)_assigns_locations_for_various_episodes_of_the_Homeric_account,_all_presented_in_an_ornate_%22frame%22.jpg",
-  "cld": "cdll9uth8di3xcsh8djn",
-  "note": "Sidon — Phoenician port on the eastern Mediterranean coast"
- },
- "mount-solyma-map": {
-  "file": "/art/map-wanderings.jpg",
-  "artist": "Abraham Ortelius",
-  "title": "The Wanderings of Ulysses",
-  "year": "1597",
-  "source": "https://commons.wikimedia.org/wiki/File:The_inset_map_of_Ulysses'_wanderings_(Errores)_assigns_locations_for_various_episodes_of_the_Homeric_account,_all_presented_in_an_ornate_%22frame%22.jpg",
-  "cld": "cdll9uth8di3xcsh8djn",
-  "note": "Mount Solyma — in Lycia, southern Asia Minor coast"
- },
  "sounion-map": {
   "file": "/art/map-greece.jpg",
   "artist": "Anonymous",
@@ -4873,24 +4810,6 @@
   "source": "https://commons.wikimedia.org/wiki/File:THE_ILLIAD_OF_HOMER_(translated_by_POPE)_p1.312_GRAECIA_HOMERICA.jpg",
   "cld": "gg4booanvblh0di2fmf2",
   "note": "Taygetus — a mountain range in the southern Peloponnese"
- },
- "telepylus-map": {
-  "file": "/art/map-wanderings.jpg",
-  "artist": "Abraham Ortelius",
-  "title": "The Wanderings of Ulysses",
-  "year": "1597",
-  "source": "https://commons.wikimedia.org/wiki/File:The_inset_map_of_Ulysses'_wanderings_(Errores)_assigns_locations_for_various_episodes_of_the_Homeric_account,_all_presented_in_an_ornate_%22frame%22.jpg",
-  "cld": "cdll9uth8di3xcsh8djn",
-  "note": "Telepylus — among the mythical wandering lands of Ulysses' voyage"
- },
- "temese-map": {
-  "file": "/art/map-wanderings.jpg",
-  "artist": "Abraham Ortelius",
-  "title": "The Wanderings of Ulysses",
-  "year": "1597",
-  "source": "https://commons.wikimedia.org/wiki/File:The_inset_map_of_Ulysses'_wanderings_(Errores)_assigns_locations_for_various_episodes_of_the_Homeric_account,_all_presented_in_an_ornate_%22frame%22.jpg",
-  "cld": "cdll9uth8di3xcsh8djn",
-  "note": "Temese — on the far western Mediterranean coast, in southern Italy"
  },
  "tenedos-map": {
   "file": "/art/map-greece.jpg",
@@ -4937,42 +4856,6 @@
   "cld": "vu0wvfcezvjtfla1fohs",
   "note": "The Underworld — at the world's edge, beyond Ocean's encircling stream"
  },
- "aeolia-map": {
-  "file": "/art/map-wanderings.jpg",
-  "artist": "Abraham Ortelius",
-  "title": "The Wanderings of Ulysses",
-  "year": "1597",
-  "source": "https://commons.wikimedia.org/wiki/File:The_inset_map_of_Ulysses'_wanderings_(Errores)_assigns_locations_for_various_episodes_of_the_Homeric_account,_all_presented_in_an_ornate_%22frame%22.jpg",
-  "cld": "cdll9uth8di3xcsh8djn",
-  "note": "Aeolia — a floating island among Ulysses' mythical wanderings"
- },
- "land-of-the-lotus-eaters-map": {
-  "file": "/art/map-wanderings.jpg",
-  "artist": "Abraham Ortelius",
-  "title": "The Wanderings of Ulysses",
-  "year": "1597",
-  "source": "https://commons.wikimedia.org/wiki/File:The_inset_map_of_Ulysses'_wanderings_(Errores)_assigns_locations_for_various_episodes_of_the_Homeric_account,_all_presented_in_an_ornate_%22frame%22.jpg",
-  "cld": "cdll9uth8di3xcsh8djn",
-  "note": "Land of the Lotus-Eaters — among the mythical wandering lands of Ulysses"
- },
- "land-of-the-cyclopes-map": {
-  "file": "/art/map-wanderings.jpg",
-  "artist": "Abraham Ortelius",
-  "title": "The Wanderings of Ulysses",
-  "year": "1597",
-  "source": "https://commons.wikimedia.org/wiki/File:The_inset_map_of_Ulysses'_wanderings_(Errores)_assigns_locations_for_various_episodes_of_the_Homeric_account,_all_presented_in_an_ornate_%22frame%22.jpg",
-  "cld": "cdll9uth8di3xcsh8djn",
-  "note": "Land of the Cyclopes — among the mythical wandering lands of Ulysses"
- },
- "thrinacia-map": {
-  "file": "/art/map-wanderings.jpg",
-  "artist": "Abraham Ortelius",
-  "title": "The Wanderings of Ulysses",
-  "year": "1597",
-  "source": "https://commons.wikimedia.org/wiki/File:The_inset_map_of_Ulysses'_wanderings_(Errores)_assigns_locations_for_various_episodes_of_the_Homeric_account,_all_presented_in_an_ornate_%22frame%22.jpg",
-  "cld": "cdll9uth8di3xcsh8djn",
-  "note": "Thrinacia — among the mythical wandering lands of Ulysses' voyage"
- },
  "ocean-map": {
   "file": "/art/map-world.jpg",
   "artist": "Anonymous",
@@ -4981,15 +4864,6 @@
   "source": "https://commons.wikimedia.org/wiki/File:Homer_world_map.jpg",
   "cld": "vu0wvfcezvjtfla1fohs",
   "note": "Ocean — the great river ringing the rim of the flat world-disc"
- },
- "aeaea-map": {
-  "file": "/art/map-wanderings.jpg",
-  "artist": "Abraham Ortelius",
-  "title": "The Wanderings of Ulysses",
-  "year": "1597",
-  "source": "https://commons.wikimedia.org/wiki/File:The_inset_map_of_Ulysses'_wanderings_(Errores)_assigns_locations_for_various_episodes_of_the_Homeric_account,_all_presented_in_an_ornate_%22frame%22.jpg",
-  "cld": "cdll9uth8di3xcsh8djn",
-  "note": "Aeaea — Circe's mythical island in Ulysses' Mediterranean wanderings"
  },
  "egypt-map": {
   "file": "/art/map-egypt.jpg",
@@ -5009,15 +4883,6 @@
   "cld": "kphylnnlwvgeycyswez4",
   "note": "Ithaca — Odysseus' home island, the goal of his long voyage west of Greece"
  },
- "ogygia-map": {
-  "file": "/art/map-wanderings.jpg",
-  "artist": "Abraham Ortelius",
-  "title": "The Wanderings of Ulysses",
-  "year": "1597",
-  "source": "https://commons.wikimedia.org/wiki/File:The_inset_map_of_Ulysses'_wanderings_(Errores)_assigns_locations_for_various_episodes_of_the_Homeric_account,_all_presented_in_an_ornate_%22frame%22.jpg",
-  "cld": "cdll9uth8di3xcsh8djn",
-  "note": "Ogygia — Calypso's remote island, far out in Ulysses' wanderings"
- },
  "olympus-map": {
   "file": "/art/map-northern.jpg",
   "artist": "Guillaume Delisle",
@@ -5035,15 +4900,6 @@
   "source": "https://commons.wikimedia.org/wiki/File:THE_ILLIAD_OF_HOMER_(translated_by_POPE)_p1.312_GRAECIA_HOMERICA.jpg",
   "cld": "gg4booanvblh0di2fmf2",
   "note": "Pylos — Nestor's kingdom, on the southwest coast of the Peloponnese"
- },
- "scheria-map": {
-  "file": "/art/map-wanderings.jpg",
-  "artist": "Abraham Ortelius",
-  "title": "The Wanderings of Ulysses",
-  "year": "1597",
-  "source": "https://commons.wikimedia.org/wiki/File:The_inset_map_of_Ulysses'_wanderings_(Errores)_assigns_locations_for_various_episodes_of_the_Homeric_account,_all_presented_in_an_ornate_%22frame%22.jpg",
-  "cld": "cdll9uth8di3xcsh8djn",
-  "note": "Scheria — the Phaeacians' island, where Odysseus tells of his wanderings"
  },
  "sparta-map": {
   "file": "/art/map-greece.jpg",
@@ -5071,5 +4927,126 @@
   "source": "https://commons.wikimedia.org/wiki/File:THE_ILLIAD_OF_HOMER_(translated_by_POPE)_p1.312_GRAECIA_HOMERICA.jpg",
   "cld": "gg4booanvblh0di2fmf2",
   "note": "Argos — a city and region in the northeast Peloponnese; also used for Greece itself"
+ },
+ "land-of-the-cyclopes-1": {
+  "file": "/art/land-of-the-cyclopes-1.jpg",
+  "artist": "Christoffer Wilhelm Eckersberg",
+  "title": "Ulysses Fleeing the Cave of Polyphemus",
+  "year": "1812",
+  "source": "https://commons.wikimedia.org/wiki/File:Eckersberg,_Christoffer_Wilhelm,_Ulysses_Fleeing_the_Cave_of_Polyphemus,_1812.jpg",
+  "cld": "wvsg1l9srs5rh00bgoq1",
+  "note": "Land of the Cyclopes — Odysseus hidden in Polyphemus's cave among the giant's sheep, the island beyond the cave mouth"
+ },
+ "land-of-the-lotus-eaters-1": {
+  "file": "/art/land-of-the-lotus-eaters-1.jpg",
+  "artist": "Thomas Moran",
+  "title": "The Lotus Eaters",
+  "year": "1895",
+  "source": "https://commons.wikimedia.org/wiki/File:The_Lotus_Eaters,_by_Thomas_Moran,_1895,_oil_on_canvas_-_Portland_Museum_of_Art_-_Portland,_Maine_-_DSC04269.jpg",
+  "cld": "dayq5gjom7yaqqm1pgoy",
+  "note": "Land of the Lotus-Eaters — Moran's glowing sunset coast with Odysseus's lone ship lying offshore"
+ },
+ "aeolia-1": {
+  "file": "/art/aeolia-1.jpg",
+  "artist": "Isaac Moillon",
+  "title": "Aeolus Giving the Winds to Ulysses",
+  "year": "c. 1650",
+  "source": "https://commons.wikimedia.org/wiki/File:Isaac_Moillon_-_Éole_donnant_les_vents_à_Ulysse.jpg",
+  "cld": "ji5sgvtcgum08ln6bhvy",
+  "note": "Aeolia — Aeolus, crowned keeper of the winds, hands Odysseus the bag of winds"
+ },
+ "thrinacia-1": {
+  "file": "/art/thrinacia-1.jpg",
+  "artist": "Pellegrino Tibaldi",
+  "title": "The Cattle of Helios",
+  "year": "1554–1556",
+  "source": "https://commons.wikimedia.org/wiki/File:Pellegrino_Tibaldi_001.jpg",
+  "cld": "fzg31hztbzlkzccs7w2l",
+  "note": "Thrinacia — Odysseus's men butcher the sacred cattle of the sun-god Helios"
+ },
+ "telepylus-1": {
+  "file": "/art/telepylus-1.jpg",
+  "artist": "Anonymous",
+  "title": "Odysseus among the Laestrygonians",
+  "year": "c. 1890",
+  "source": "https://commons.wikimedia.org/wiki/File:Odysseus_bei_den_Laestrygonen.jpg",
+  "cld": "qieovbrzozgwldvwto2a",
+  "note": "Telepylus — the Laestrygonian giants hurl boulders down on Odysseus's fleet trapped in the narrow harbour"
+ },
+ "cyprus-1": {
+  "file": "/art/cyprus-1.jpg",
+  "artist": "Diego Delso",
+  "title": "Aphrodite's Rock (Petra tou Romiou)",
+  "year": "2021",
+  "source": "https://commons.wikimedia.org/wiki/File:Roca_de_Afrodita,_Chipre,_2021-12-10,_DD_64.jpg",
+  "cld": "frccslmkrmymv1f5emss",
+  "license": "CC BY-SA 4.0",
+  "note": "Cyprus — Aphrodite's Rock (Petra tou Romiou), the goddess's mythical birthplace on the south coast"
+ },
+ "mount-solyma-1": {
+  "file": "/art/mount-solyma-1.jpg",
+  "artist": "Güney Özdamar",
+  "title": "Mount Tahtalı (ancient Solyma)",
+  "year": "2020",
+  "source": "https://commons.wikimedia.org/wiki/File:Large_View_of_Mount_Tahtalı_From_Olympos_Beach.jpg",
+  "cld": "uzzkwyrgggfqbjocjzbr",
+  "license": "CC BY-SA 4.0",
+  "note": "Mount Solyma — Tahtalı Dağı (ancient Mt Olympos / Solyma), in Lycia, southern Turkey"
+ },
+ "phoenicia-1": {
+  "file": "/art/phoenicia-1.jpg",
+  "artist": "David Roberts",
+  "title": "Port of Tyre",
+  "year": "1839",
+  "source": "https://commons.wikimedia.org/wiki/File:David_Roberts_-_Port_of_Tyre_-_1927.75_-_Cleveland_Museum_of_Art.tif",
+  "cld": "wl3fqj4ivqdnwn5r1qzd",
+  "note": "Phoenicia — sailing boats in the harbour of Tyre, on the seafaring Levantine coast"
+ },
+ "sidon-1": {
+  "file": "/art/sidon-1.jpg",
+  "artist": "David Roberts",
+  "title": "Citadel of Sidon",
+  "year": "1839",
+  "source": "https://commons.wikimedia.org/wiki/File:David_Roberts_-_Citadel_of_Sidon_-_1927.105_-_Cleveland_Museum_of_Art.tif",
+  "cld": "gntaehi77skytec292tw",
+  "note": "Sidon — the Sea Castle and harbour of the ancient Phoenician city"
+ },
+ "ortygia-1": {
+  "file": "/art/ortygia-1.jpg",
+  "artist": "Henry Tresham",
+  "title": "A View of Ortygia, Syracuse",
+  "year": "c. 1785",
+  "source": "https://commons.wikimedia.org/wiki/File:Henry_Tresham_-_Remains_of_the_Temple_of_Olypian_Jove_with_a_View_of_Ortygia,_Syracuse_-_Google_Art_Project.jpg",
+  "cld": "q1rpkr3alam88ndjmghf",
+  "note": "Ortygia — the island-heart of Syracuse seen across the water beyond the ruined temple columns"
+ },
+ "artaky-1": {
+  "file": "/art/artaky-1.jpg",
+  "artist": "Olga Taş",
+  "title": "Sunset over Erdek Harbour",
+  "year": "2019",
+  "source": "https://commons.wikimedia.org/wiki/File:Erdek_Turkey.jpg",
+  "cld": "dycykrte7hwhc7ircwhl",
+  "license": "CC BY-SA 4.0",
+  "note": "Artaky — sunset over the harbour at Erdek (ancient Artake), on the Sea of Marmara"
+ },
+ "temese-1": {
+  "file": "/art/temese-1.jpg",
+  "artist": "Rjdeadly",
+  "title": "Royal Tomb at Tamassos",
+  "year": "2017",
+  "source": "https://commons.wikimedia.org/wiki/File:Tamassos_Royal_tomb_1.jpg",
+  "cld": "taagygfm0kj2ep0jivkc",
+  "license": "CC BY-SA 4.0",
+  "note": "Temese — the royal-tomb ruins at ancient Tamassos, the Cypriot copper town Athena names as her bronze destination"
+ },
+ "hyperia-1": {
+  "file": "/art/hyperia-1.jpg",
+  "artist": "Anonymous",
+  "title": "Odysseus Bids the Phaeacians Farewell",
+  "year": "c. 1650",
+  "source": "https://commons.wikimedia.org/wiki/File:Odysseus_bids_the_Phaeacians_farewell_-_Unknown_-_Google_Cultural_Institute.jpg",
+  "cld": "uzcatvrtf5nltydjiqbk",
+  "note": "Hyperia — the seafaring Phaeacians, who once dwelt in Hyperia near the Cyclopes, bid Odysseus farewell"
  }
 }

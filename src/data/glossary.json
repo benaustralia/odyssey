@@ -49,8 +49,7 @@
   "zhDef": "女巫喀耳刻居住的海岛。",
   "art": [
    "aeaea-1",
-   "aeaea-w101",
-   "aeaea-map"
+   "aeaea-w101"
   ]
  },
  {
@@ -1061,8 +1060,7 @@
   "zhDef": "卡吕普索孤寂的海岛，奥德修斯被困于此七年。",
   "art": [
    "ogygia-1",
-   "ogygia-2",
-   "ogygia-map"
+   "ogygia-2"
   ]
  },
  {
@@ -1268,8 +1266,7 @@
   "zhPinyin": "Sīkèlǐyà",
   "zhDef": "费阿喀亚人的海岛之国，奥德修斯抵达伊塔卡前的最后一站。",
   "art": [
-   "scheria-2",
-   "scheria-map"
+   "scheria-2"
   ]
  },
  {
@@ -1493,7 +1490,7 @@
   "zhPinyin": "Ā'ěrtǎjī Quán",
   "zhDef": "莱斯特律戈涅斯人岛上的一处泉水，那是奥德修斯旅途中凶猛巨人族居住的地方。",
   "art": [
-   "artaky-map"
+   "artaky-1"
   ]
  },
  {
@@ -1577,7 +1574,7 @@
   "zhPinyin": "Sàipǔlùsī",
   "zhDef": "地中海东部的一座大岛，位于近东海岸外。",
   "art": [
-   "cyprus-map"
+   "cyprus-1"
   ]
  },
  {
@@ -1733,7 +1730,7 @@
   "zhPinyin": "Xǔ pèi lǐ yà",
   "zhDef": "费阿刻斯人从前的家园，靠近独眼巨人居住的地方。",
   "art": [
-   "hyperia-map"
+   "hyperia-1"
   ]
  },
  {
@@ -1913,7 +1910,7 @@
   "zhPinyin": "Àoěrtíjiā",
   "zhDef": "西西里附近的一座小岛；但此处似乎是个虚构之地，没有真实位置。",
   "art": [
-   "ortygia-map"
+   "ortygia-1"
   ]
  },
  {
@@ -2021,7 +2018,7 @@
   "zhPinyin": "Féiníjī",
   "zhDef": "地中海东岸的一个航海商人聚居区，包括今天的黎巴嫩及邻近地区。",
   "art": [
-   "phoenicia-map"
+   "phoenicia-1"
   ]
  },
  {
@@ -2117,7 +2114,7 @@
   "zhPinyin": "Xīdùn",
   "zhDef": "地中海东岸的一座腓尼基大城，今属黎巴嫩。",
   "art": [
-   "sidon-map"
+   "sidon-1"
   ]
  },
  {
@@ -2129,7 +2126,7 @@
   "zhPinyin": "Suǒlǚmǎ Shān",
   "zhDef": "吕基亚的一座山，位于地中海东部小亚细亚南岸。",
   "art": [
-   "mount-solyma-map"
+   "mount-solyma-1"
   ]
  },
  {
@@ -2189,7 +2186,7 @@
   "zhPinyin": "Tèlèpíluòsī",
   "zhDef": "食人巨人莱斯特律戈涅斯人之地的一座城镇；其名意为“远门”。",
   "art": [
-   "telepylus-map"
+   "telepylus-1"
   ]
  },
  {
@@ -2201,7 +2198,7 @@
   "zhPinyin": "Tèmòsè",
   "zhDef": "布鲁提乌姆的一座城市，即意大利“脚趾”地区（今卡拉布里亚）的希腊殖民地。",
   "art": [
-   "temese-map"
+   "temese-1"
   ]
  },
  {
@@ -2273,7 +2270,7 @@
   "zhPinyin": "Āièlìyà",
   "zhDef": "风神埃俄罗斯的漂浮之岛，他赠给奥德修斯一个装着风暴的口袋。",
   "art": [
-   "aeolia-map"
+   "aeolia-1"
   ]
  },
  {
@@ -2285,7 +2282,7 @@
   "zhPinyin": "Shíliánzhě zhī Dì",
   "zhDef": "其莲果使奥德修斯的同伴忘却家乡、只愿留下的国度。",
   "art": [
-   "land-of-the-lotus-eaters-map"
+   "land-of-the-lotus-eaters-1"
   ]
  },
  {
@@ -2297,7 +2294,7 @@
   "zhPinyin": "Dúyǎn Jùrén zhī Dì",
   "zhDef": "独眼巨人的荒野之地，奥德修斯在此弄瞎了独眼巨人波吕斐摩斯。",
   "art": [
-   "land-of-the-cyclopes-map"
+   "land-of-the-cyclopes-1"
   ]
  },
  {
@@ -2309,7 +2306,7 @@
   "zhPinyin": "Tèlǐnàjīyà",
   "zhDef": "太阳神圣牛吃草的岛屿；奥德修斯的同伴杀牛食用，因而注定灭亡。",
   "art": [
-   "thrinacia-map"
+   "thrinacia-1"
   ]
  },
  {
