@@ -173,18 +173,21 @@ const viaIcon = L.divIcon({
 })
 
 // Odysseus's ship — a tiny antique galley that rides the route during the tour.
-// Cream square sail on an inked hull so it reads on the parchment map.
+// Cream square sail on an inked hull, set on a white disc the size of an active
+// pin: when the ship docks on a stop the disc cleanly covers the numbered label
+// (the surfaced card names the destination), so the overlap reads as deliberate.
 const shipIcon = L.divIcon({
   className: "",
-  html: `<svg width="32" height="28" viewBox="0 0 32 28" fill="none"
-      style="filter:drop-shadow(0 1px 1px rgba(0,0,0,.45))">
-    <path d="M3 16 C6 23 26 23 29 16 L25 16 C20 19 12 19 7 16 Z" fill="#3a2a17"/>
-    <path d="M29 16 q3 -1 1.5 -5" stroke="#3a2a17" stroke-width="1.6" stroke-linecap="round"/>
-    <line x1="16" y1="16" x2="16" y2="3" stroke="#3a2a17" stroke-width="1.3"/>
-    <path d="M16 4 L8 6 L8 13 L16 14 Z" fill="#f4ecd8" stroke="#3a2a17" stroke-width="0.8" stroke-linejoin="round"/>
-  </svg>`,
-  iconSize: [32, 28],
-  iconAnchor: [16, 19], // waterline sits on the route
+  html: `<div class="grid size-9 place-items-center rounded-full bg-white shadow-md ring-2 ring-base-300">
+    <svg width="26" height="23" viewBox="0 0 32 28" fill="none">
+      <path d="M3 16 C6 23 26 23 29 16 L25 16 C20 19 12 19 7 16 Z" fill="#3a2a17"/>
+      <path d="M29 16 q3 -1 1.5 -5" stroke="#3a2a17" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="16" y1="16" x2="16" y2="3" stroke="#3a2a17" stroke-width="1.3"/>
+      <path d="M16 4 L8 6 L8 13 L16 14 Z" fill="#f4ecd8" stroke="#3a2a17" stroke-width="0.8" stroke-linejoin="round"/>
+    </svg>
+  </div>`,
+  iconSize: [36, 36],
+  iconAnchor: [18, 18], // disc center rides the route and lands over the pin number
 })
 
 const pin = (n: number, active: boolean, label?: string) =>
@@ -337,7 +340,7 @@ function TourController({
       icon: shipIcon,
       interactive: false,
       keyboard: false,
-      zIndexOffset: 1000,
+      zIndexOffset: 2000, // rides above the pins so the disc covers the docked number
       opacity: 0,
     }).addTo(map)
     ship.current = m
