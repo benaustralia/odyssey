@@ -398,6 +398,10 @@ function TourController({
       ship.current?.setLatLng(ll).setOpacity(1)
     }
     if (idx < 0) {
+      // route/stopIdx get new array identities on every calibration drag
+      // (pos/vias state changes), re-firing this effect while idx stays -1 —
+      // guard so that doesn't re-trigger the zoom-to-fit on every drag.
+      if (prev.current === -1) return
       cancel()
       ship.current?.setOpacity(0)
       map.flyToBounds(bounds, { duration: 0.8 })
@@ -643,7 +647,7 @@ export default function JourneyMap({
             zoomSnap={0}
             zoomDelta={0.6}
             scrollWheelZoom
-            wheelPxPerZoomLevel={90}
+            wheelPxPerZoomLevel={40}
             attributionControl={false}
             className="h-full w-full bg-base-300"
           >
