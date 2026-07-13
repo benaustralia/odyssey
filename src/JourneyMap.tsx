@@ -68,9 +68,9 @@ const STOPS: Stop[] = [
   { n: 4, term: "Cyclops (pl. Cyclopes)", label: "Land of the Cyclopes", short: "Cyclopes", zh: "库克罗普斯", x: 1059, y: 1659 },
   { n: 5, term: "Aeolus", label: "Aeolia · Island of Aeolus", short: "Aeolus", zh: "埃俄罗斯", x: 984, y: 1495 },
   { n: 6, term: "Laestrygonians", label: "Telepylos · the Laestrygonians", short: "Laestrygonians", zh: "莱斯特律戈涅斯人", x: 887, y: 969 },
-  { n: 7, term: "Circe", label: "Aeaea · Circe's island", short: "Circe", zh: "喀耳刻", x: 850, y: 1003 },
+  { n: 7, term: "Circe", label: "Aeaea · Circe's island", short: "Circe", zh: "喀耳刻", x: 838, y: 1000 },
   { n: 8, term: "Hades", label: "The Underworld", short: "Underworld", zh: "哈得斯", x: 1075, y: 1089 },
-  { n: 9, term: "Circe", label: "Aeaea, Again · Elpenor's Burial", short: "Elpenor's Burial", zh: "埃埃亚 · 安葬厄尔佩诺耳", x: 888, y: 1005 },
+  { n: 9, term: "Circe", label: "Aeaea · Elpenor's Burial", short: "Elpenor's Burial", zh: "埃埃亚 · 安葬厄尔佩诺耳", x: 855, y: 1005 },
   { n: 10, term: "Sirens", label: "The Sirens", short: "Sirens", zh: "塞壬", x: 842, y: 1109 },
   { n: 11, term: "Scylla", label: "Scylla & Charybdis", short: "Scylla & Charybdis", zh: "斯库拉与卡律布狄斯", x: 1139, y: 1541 },
   { n: 12, term: "Thrinacia", label: "Thrinacia · Island of Helios", short: "Thrinacia", zh: "特里那基亚", x: 1028, y: 1739 },
@@ -104,7 +104,7 @@ const LEG_VIAS: Pt[][] = [
   // 6→7  Laestrygonians → Circe (adjacent)
   [],
   // 7→8  Circe → Hades: out to the Cimmerian shore (Underworld excursion)
-  [{ x: 849, y: 1003 }, { x: 926, y: 1053 }, { x: 967, y: 1060 }, { x: 993, y: 1049 }, { x: 1004, y: 1065 }, { x: 1020, y: 1094 }],
+  [{ x: 848, y: 1009 }, { x: 889, y: 1030 }, { x: 926, y: 1053 }, { x: 967, y: 1060 }, { x: 993, y: 1049 }, { x: 1004, y: 1065 }, { x: 1020, y: 1094 }],
   // 8→9  Hades → Aeaea, again: sail home to Circe's island to bury Elpenor
   [{ x: 1024, y: 1084 }, { x: 1005, y: 1050 }, { x: 984, y: 1044 }, { x: 943, y: 1046 }],
   // 9→10 Aeaea, again → Sirens: Circe's final sailing-orders, then out past the Sirens
