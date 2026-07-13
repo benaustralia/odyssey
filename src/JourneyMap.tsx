@@ -5,6 +5,9 @@ import "leaflet/dist/leaflet.css"
 // @ts-expect-error - leaflet-minimap ships no type declarations
 import MiniMapControl from "leaflet-minimap"
 import "leaflet-minimap/dist/Control.MiniMap.min.css"
+import galleyUrl from "./assets/black-hulled-galley.svg"
+import raftUrl from "./assets/raft.svg"
+import swimmerUrl from "./assets/swimmer.svg"
 
 // Base map: Abraham Ortelius, "Vlyssis Errores" (1597) — the wide inset cropped
 // from a 13238px public-domain scan of his Red Sea plate. Native master is
@@ -45,9 +48,18 @@ const markRoute = {
   add: (e: L.LeafletEvent) =>
     (e.target as L.Path).getElement()?.classList.add("journey-route"),
 }
+// Same trick, but for the Ogygia -> Scheria leg's own drifting-raft dash style.
+const markRaftRoute = {
+  add: (e: L.LeafletEvent) =>
+    (e.target as L.Path).getElement()?.classList.add("journey-route-raft"),
+}
 
-// The 14 canonical stops of Odysseus's voyage (after Stephen Fry's map),
-// each pinned where Ortelius drew it, linked to its glossary `term`.
+// The 14 canonical stops of Odysseus's voyage (after Stephen Fry's map), each
+// pinned where Ortelius drew it, linked to its glossary `term` — plus one
+// extra, non-canonical stop: Book 12 has Odysseus land back on Aeaea a second
+// time (not just sail past it) to bury Elpenor and get Circe's final sailing
+// directions, so it's pinned as a real, clickable stop reusing the "Circe"
+// term (same island, same glossary entry) rather than a numbered Fry stop.
 type Stop = { n: number; term: string; label: string; short: string; zh: string; x: number; y: number }
 const STOPS: Stop[] = [
   { n: 1, term: "Troy", label: "Troy", short: "Troy", zh: "特洛伊", x: 3278, y: 956 },
@@ -58,12 +70,13 @@ const STOPS: Stop[] = [
   { n: 6, term: "Laestrygonians", label: "Telepylos · the Laestrygonians", short: "Laestrygonians", zh: "莱斯特律戈涅斯人", x: 887, y: 969 },
   { n: 7, term: "Circe", label: "Aeaea · Circe's island", short: "Circe", zh: "喀耳刻", x: 850, y: 1003 },
   { n: 8, term: "Hades", label: "The Underworld", short: "Underworld", zh: "哈得斯", x: 1075, y: 1089 },
-  { n: 9, term: "Sirens", label: "The Sirens", short: "Sirens", zh: "塞壬", x: 842, y: 1109 },
-  { n: 10, term: "Scylla", label: "Scylla & Charybdis", short: "Scylla & Charybdis", zh: "斯库拉与卡律布狄斯", x: 1139, y: 1541 },
-  { n: 11, term: "Thrinacia", label: "Thrinacia · Island of Helios", short: "Thrinacia", zh: "特里那基亚", x: 1028, y: 1739 },
-  { n: 12, term: "Ogygia", label: "Ogygia · Calypso's island", short: "Ogygia", zh: "俄古癸亚", x: 1493, y: 1406 },
-  { n: 13, term: "Scheria", label: "Scheria · the Phaeacians", short: "Scheria", zh: "斯刻里亚", x: 1908, y: 1411 },
-  { n: 14, term: "Ithaca", label: "Ithaca · home", short: "Ithaca", zh: "伊塔卡", x: 2105, y: 1677 },
+  { n: 9, term: "Circe", label: "Aeaea, Again · Elpenor's Burial", short: "Elpenor's Burial", zh: "埃埃亚 · 安葬厄尔佩诺耳", x: 888, y: 1005 },
+  { n: 10, term: "Sirens", label: "The Sirens", short: "Sirens", zh: "塞壬", x: 842, y: 1109 },
+  { n: 11, term: "Scylla", label: "Scylla & Charybdis", short: "Scylla & Charybdis", zh: "斯库拉与卡律布狄斯", x: 1139, y: 1541 },
+  { n: 12, term: "Thrinacia", label: "Thrinacia · Island of Helios", short: "Thrinacia", zh: "特里那基亚", x: 1028, y: 1739 },
+  { n: 13, term: "Ogygia", label: "Ogygia · Calypso's island", short: "Ogygia", zh: "俄古癸亚", x: 1493, y: 1406 },
+  { n: 14, term: "Scheria", label: "Scheria · the Phaeacians", short: "Scheria", zh: "斯刻里亚", x: 1908, y: 1411 },
+  { n: 15, term: "Ithaca", label: "Ithaca · home", short: "Ithaca", zh: "伊塔卡", x: 2105, y: 1677 },
 ]
 
 type Pt = { x: number; y: number }
@@ -92,21 +105,26 @@ const LEG_VIAS: Pt[][] = [
   [],
   // 7→8  Circe → Hades: out to the Cimmerian shore (Underworld excursion)
   [{ x: 849, y: 1003 }, { x: 926, y: 1053 }, { x: 967, y: 1060 }, { x: 993, y: 1049 }, { x: 1004, y: 1065 }, { x: 1020, y: 1094 }],
-  // 8→9  Hades → Sirens: sail home to Aeaea (the SECOND visit to Circe, to bury
-  // Elpenor & get her sailing-orders), then out past the Sirens
-  [{ x: 1024, y: 1084 }, { x: 1005, y: 1050 }, { x: 984, y: 1044 }, { x: 943, y: 1046 }, { x: 888, y: 1005 }, { x: 848, y: 1019 }],
-  // 9→10 Sirens → Scylla & Charybdis
+  // 8→9  Hades → Aeaea, again: sail home to Circe's island to bury Elpenor
+  [{ x: 1024, y: 1084 }, { x: 1005, y: 1050 }, { x: 984, y: 1044 }, { x: 943, y: 1046 }],
+  // 9→10 Aeaea, again → Sirens: Circe's final sailing-orders, then out past the Sirens
+  [{ x: 848, y: 1019 }],
+  // 10→11 Sirens → Scylla & Charybdis
   [{ x: 980, y: 1330 }],
-  // 10→11 Scylla → Thrinacia: short hop down to the Sicilian coast by the strait
+  // 11→12 Scylla → Thrinacia: short hop down to the Sicilian coast by the strait
   [{ x: 1106, y: 1704 }],
-  // 11→12 Thrinacia → Ogygia: wrecked, swept BACK past Charybdis, then adrift
+  // 12→13 Thrinacia → Ogygia: wrecked, swept BACK past Charybdis, then adrift
   [
     { x: 1098, y: 1695 }, { x: 1156, y: 1626 }, { x: 1173, y: 1633 }, { x: 1216, y: 1627 },
     { x: 1268, y: 1614 }, { x: 1340, y: 1470 }, { x: 1446, y: 1435 },
   ],
-  // 12→13 Ogygia → Scheria
-  [{ x: 1662, y: 1309 }, { x: 1815, y: 1248 }],
-  // 13→14 Scheria → Ithaca: the Phaeacian run home
+  // 13→14 Ogygia → Scheria: steady steering by the stars for the first
+  // stretch (Calypso's sailing directions), then Poseidon's storm knocks the
+  // raft off course in sight of land — the last two vias jog backward before
+  // the wreck washes up at Scheria, breaking the smooth "sailed" bow the
+  // other legs have.
+  [{ x: 1662, y: 1309 }, { x: 1815, y: 1248 }, { x: 1885, y: 1300 }, { x: 1825, y: 1360 }],
+  // 14→15 Scheria → Ithaca: the Phaeacian run home
   [{ x: 2010, y: 1560 }],
 ]
 
@@ -172,23 +190,25 @@ const viaIcon = L.divIcon({
   iconAnchor: [6, 6],
 })
 
-// Odysseus's ship — a tiny antique galley that rides the route during the tour.
-// Cream square sail on an inked hull, set on a white disc the size of an active
-// pin: when the ship docks on a stop the disc cleanly covers the numbered label
-// (the surfaced card names the destination), so the overlap reads as deliberate.
-const shipIcon = L.divIcon({
-  className: "",
-  html: `<div class="grid size-9 place-items-center rounded-full bg-white shadow-md ring-2 ring-base-300">
-    <svg width="26" height="23" viewBox="0 0 32 28" fill="none">
-      <path d="M3 16 C6 23 26 23 29 16 L25 16 C20 19 12 19 7 16 Z" fill="#3a2a17"/>
-      <path d="M29 16 q3 -1 1.5 -5" stroke="#3a2a17" stroke-width="1.6" stroke-linecap="round"/>
-      <line x1="16" y1="16" x2="16" y2="3" stroke="#3a2a17" stroke-width="1.3"/>
-      <path d="M16 4 L8 6 L8 13 L16 14 Z" fill="#f4ecd8" stroke="#3a2a17" stroke-width="0.8" stroke-linejoin="round"/>
-    </svg>
-  </div>`,
-  iconSize: [36, 36],
-  iconAnchor: [18, 18], // disc center rides the route and lands over the pin number
-})
+// Odysseus's vessel — rides the route during the tour, set on a white disc the
+// size of an active pin: when it docks on a stop the disc cleanly covers the
+// numbered label (the surfaced card names the destination), so the overlap
+// reads as deliberate. A black-hulled galley for most of the voyage; swapped
+// for a raft on the single leg (Ogygia → Scheria) where Odysseus sails a
+// lashed-log raft rather than a ship, then for a swimmer once the storm wrecks
+// it partway across (see OGYGIA_IDX/SCHERIA_IDX/WRECK_VIA_INDEX below).
+const vesselIcon = (svgUrl: string, alt: string) =>
+  L.divIcon({
+    className: "",
+    html: `<div class="grid size-9 place-items-center rounded-full bg-white shadow-md ring-2 ring-base-300">
+      <img src="${svgUrl}" alt="${alt}" class="h-6 w-6 object-contain" />
+    </div>`,
+    iconSize: [36, 36],
+    iconAnchor: [18, 18], // disc center rides the route and lands over the pin number
+  })
+const shipIcon = vesselIcon(galleyUrl, "Odysseus's ship")
+const raftIcon = vesselIcon(raftUrl, "Odysseus's raft")
+const swimmerIcon = vesselIcon(swimmerUrl, "Odysseus swimming")
 
 const pin = (n: number, active: boolean, label?: string) =>
   L.divIcon({
@@ -286,11 +306,13 @@ function panAlong(
   zoom: number,
   raf: { current?: number },
   onMove?: (ll: L.LatLng) => void,
+  onDone?: () => void,
 ) {
   if (latlngs.length < 2) {
     const end = latlngs[latlngs.length - 1] ?? map.getCenter()
     map.setView(end, zoom, { animate: false })
     onMove?.(L.latLng(end))
+    onDone?.()
     return
   }
   const pts = latlngs.map((ll) => map.project(L.latLng(ll), zoom))
@@ -314,9 +336,23 @@ function panAlong(
     map.setView(ll, zoom, { animate: false })
     onMove?.(ll)
     if (t < 1) raf.current = requestAnimationFrame(step)
+    else onDone?.()
   }
   raf.current = requestAnimationFrame(step)
 }
+
+// The one leg of the voyage Odysseus makes on a raft, not the ship — swept
+// from the wreck at Thrinacia is by raft-less swimming to Ogygia, but the
+// onward leg Calypso sends him off on (Ogygia → Scheria) is the raft she
+// helps him build. STOPS indices, not n (n is 1-based).
+const OGYGIA_IDX = STOPS.findIndex((s) => s.term === "Ogygia")
+const SCHERIA_IDX = STOPS.findIndex((s) => s.term === "Scheria")
+// Which via point in LEG_VIAS[OGYGIA_IDX] is where Poseidon's storm finally
+// breaks up the raft (the last of the "swept back" bend points added to jog
+// the line off its smooth course) — the tour pauses here, then Odysseus
+// swims the rest of the way in.
+const WRECK_VIA_INDEX = 3
+const WRECK_PAUSE_MS = 900 // beat between "the raft is lost" and "he's swimming"
 
 // Drives the tour camera: glide along the route between adjacent stops, ease
 // straight in for jumps (legend clicks / first stop), zoom out when idle.
@@ -324,14 +360,17 @@ function TourController({
   idx,
   route,
   stopIdx,
+  wreckIdx,
 }: {
   idx: number
   route: L.LatLngTuple[]
   stopIdx: number[]
+  wreckIdx: number
 }) {
   const map = useMap()
   const prev = useRef(-1)
   const raf = useRef<number | undefined>(undefined)
+  const wreckTimer = useRef<number | undefined>(undefined)
   const ship = useRef<L.Marker | undefined>(undefined)
 
   // The ship rides the route during the tour; created once, hidden when idle.
@@ -353,6 +392,7 @@ function TourController({
   useEffect(() => {
     const cancel = () => {
       if (raf.current) cancelAnimationFrame(raf.current)
+      if (wreckTimer.current) window.clearTimeout(wreckTimer.current)
     }
     const moveShip = (ll: L.LatLng) => {
       ship.current?.setLatLng(ll).setOpacity(1)
@@ -367,19 +407,43 @@ function TourController({
     const from = prev.current
     prev.current = idx
     const target = route[stopIdx[idx]]
+    const isWreckLeg =
+      (from === OGYGIA_IDX && idx === SCHERIA_IDX) || (from === SCHERIA_IDX && idx === OGYGIA_IDX)
+    cancel()
     if (from < 0 || Math.abs(idx - from) !== 1) {
-      cancel()
+      ship.current?.setIcon(shipIcon)
       map.flyTo(L.latLng(target), TOUR_ZOOM, { duration: 0.9 })
       moveShip(L.latLng(target))
       return cancel
     }
+    if (isWreckLeg) {
+      // Raft to the wreck point, a beat where it's lost to Poseidon's storm,
+      // then Odysseus swims the rest of the way (reversed on rewind).
+      const forward = from === OGYGIA_IDX
+      const startIdx = stopIdx[from]
+      const endIdx = stopIdx[idx]
+      const toWreck = forward
+        ? route.slice(startIdx, wreckIdx + 1)
+        : route.slice(wreckIdx, startIdx + 1).reverse()
+      const fromWreck = forward
+        ? route.slice(wreckIdx, endIdx + 1)
+        : route.slice(endIdx, wreckIdx + 1).reverse()
+      ship.current?.setIcon(forward ? raftIcon : swimmerIcon)
+      panAlong(map, toWreck, TOUR_ZOOM, raf, moveShip, () => {
+        wreckTimer.current = window.setTimeout(() => {
+          ship.current?.setIcon(forward ? swimmerIcon : raftIcon)
+          panAlong(map, fromWreck, TOUR_ZOOM, raf, moveShip)
+        }, WRECK_PAUSE_MS)
+      })
+      return cancel
+    }
+    ship.current?.setIcon(shipIcon)
     const a = stopIdx[from]
     const b = stopIdx[idx]
     const path = a <= b ? route.slice(a, b + 1) : route.slice(b, a + 1).reverse()
-    cancel()
     panAlong(map, path, TOUR_ZOOM, raf, moveShip)
     return cancel
-  }, [idx, map, route, stopIdx])
+  }, [idx, map, route, stopIdx, wreckIdx])
   return null
 }
 
@@ -432,6 +496,17 @@ export default function JourneyMap({
     return idxs
   }, [pos, vias])
 
+  // Slice out the Ogygia -> Scheria stretch so it can be drawn with its own
+  // drifting-raft dash style; the rest of the route keeps the normal one.
+  const raftStart = stopRouteIdx[OGYGIA_IDX]
+  const raftEnd = stopRouteIdx[SCHERIA_IDX]
+  const routeBeforeRaft = routeLatLng.slice(0, raftStart + 1)
+  const routeRaftLeg = routeLatLng.slice(raftStart, raftEnd + 1)
+  const routeAfterRaft = routeLatLng.slice(raftEnd)
+  // Route index of the wreck via point (see WRECK_VIA_INDEX) — where the
+  // tour swaps the raft for a swimmer.
+  const wreckRouteIdx = raftStart + (WRECK_VIA_INDEX + 1) * ROUTE_SEG
+
   // Click the route line → drop a bend point into the nearest leg, in order.
   const addVia = (lat: number, lng: number) => {
     const p: Pt = { x: Math.round(lng), y: Math.round(H - lat) }
@@ -482,16 +557,28 @@ export default function JourneyMap({
   // On-screen length of the glide from one stop to an adjacent one → its
   // duration. Same px-at-TOUR_ZOOM measure panAlong uses, so the timer and the
   // camera agree (a long leg gets a long glide without starving short stops).
-  const legGlideMs = (from: number, to: number) => {
-    const lo = Math.min(stopRouteIdx[from], stopRouteIdx[to])
-    const hi = Math.max(stopRouteIdx[from], stopRouteIdx[to])
+  const pxBetween = (lo: number, hi: number) => {
     let px = 0
     for (let k = lo; k < hi; k++)
       px += Math.hypot(
         routeLatLng[k + 1][0] - routeLatLng[k][0],
         routeLatLng[k + 1][1] - routeLatLng[k][1],
       )
-    return glideMs(px * Math.pow(2, TOUR_ZOOM))
+    return px
+  }
+  const legGlideMs = (from: number, to: number) => {
+    const lo = Math.min(stopRouteIdx[from], stopRouteIdx[to])
+    const hi = Math.max(stopRouteIdx[from], stopRouteIdx[to])
+    const isWreckLeg =
+      (from === OGYGIA_IDX && to === SCHERIA_IDX) || (from === SCHERIA_IDX && to === OGYGIA_IDX)
+    const scale = Math.pow(2, TOUR_ZOOM)
+    if (isWreckLeg)
+      return (
+        glideMs(pxBetween(lo, wreckRouteIdx) * scale) +
+        WRECK_PAUSE_MS +
+        glideMs(pxBetween(wreckRouteIdx, hi) * scale)
+      )
+    return glideMs(pxBetween(lo, hi) * scale)
   }
   // How long the current stop holds the tour: glide-in + a fixed dwell.
   const enterMs = tour <= 0 ? JUMP_MS : legGlideMs(tour - 1, tour)
@@ -565,15 +652,37 @@ export default function JourneyMap({
             <LockMinZoom />
             {!editing && <Navigator />}
             {/* Casing: a pale halo under the route so it reads on any part of the
-                busy antique map. Same journey-route dash+animation as the purple
-                on top, so the marching-ants gaps stay transparent (not filled). */}
+                busy antique map. Same dash+animation as the purple line on top
+                (per segment), so the marching-ants gaps stay transparent (not
+                filled). Split around the Ogygia -> Scheria leg, which gets its
+                own slower, uneven-dash "adrift on a raft" styling. */}
             <Polyline
-              positions={routeLatLng}
+              positions={routeBeforeRaft}
               eventHandlers={markRoute}
               pathOptions={{ color: "#fff", weight: 6, opacity: 0.85 }}
             />
             <Polyline
-              positions={routeLatLng}
+              positions={routeBeforeRaft}
+              eventHandlers={markRoute}
+              pathOptions={{ color: "#6c2bd9", weight: 3 }}
+            />
+            <Polyline
+              positions={routeRaftLeg}
+              eventHandlers={markRaftRoute}
+              pathOptions={{ color: "#fff", weight: 6, opacity: 0.85 }}
+            />
+            <Polyline
+              positions={routeRaftLeg}
+              eventHandlers={markRaftRoute}
+              pathOptions={{ color: "#6c2bd9", weight: 3 }}
+            />
+            <Polyline
+              positions={routeAfterRaft}
+              eventHandlers={markRoute}
+              pathOptions={{ color: "#fff", weight: 6, opacity: 0.85 }}
+            />
+            <Polyline
+              positions={routeAfterRaft}
               eventHandlers={markRoute}
               pathOptions={{ color: "#6c2bd9", weight: 3 }}
             />
@@ -618,7 +727,7 @@ export default function JourneyMap({
               const info = lookup(s.term)
               return (
                 <Marker
-                  key={s.term}
+                  key={s.n}
                   position={yx(pos[i].x, pos[i].y)}
                   icon={pin(s.n, i === tour, i === tour || showLabels ? s.short : undefined)}
                   zIndexOffset={i === tour ? 1000 : 0}
@@ -668,6 +777,7 @@ export default function JourneyMap({
               idx={tour >= 0 ? tour : focus}
               route={routeLatLng}
               stopIdx={stopRouteIdx}
+              wreckIdx={wreckRouteIdx}
             />
           </MapContainer>
 
@@ -708,7 +818,7 @@ export default function JourneyMap({
             {tour < 0 && (
               <ul className="hidden w-full overflow-auto rounded-box border border-base-300 bg-base-100/90 p-2 text-xs leading-tight shadow-lg backdrop-blur sm:block">
                 {STOPS.map((s, i) => (
-                  <li key={s.term}>
+                  <li key={s.n}>
                     <button
                       type="button"
                       onClick={() => setFocus((f) => (f === i ? -1 : i))}

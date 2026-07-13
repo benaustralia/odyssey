@@ -38,6 +38,14 @@
   animation: journey-dash 40s linear infinite;
 }
 
+/* Ogygia -> Scheria: Odysseus rafts rather than sails this leg, so the line
+   reads as adrift instead of steered — uneven dash lengths (not the brisk,
+   even marching-ants pattern) creeping along far slower. */
+.journey-route-raft {
+  stroke-dasharray: 3 16 9 22;
+  animation: journey-dash 140s linear infinite;
+}
+
 /* Tour card countdown: a bar that wears down until the next stop is shown. */
 @keyframes tour-progress {
   from {
