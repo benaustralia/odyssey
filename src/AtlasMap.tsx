@@ -26,8 +26,15 @@ const W = 13238
 const H = 10802
 const MAX_ZOOM = 6
 const CLD = "https://res.cloudinary.com/dhvvz91bh/image/upload"
-const TILE_URL = `${CLD}/f_auto,q_auto/atlas/{z}/{y}/{x}`
-const THUMB_URL = `${CLD}/f_auto,q_auto/atlas/0/0/0`
+// No f_auto/q_auto here (unlike cldUrl's artwork delivery): each tile is
+// already a small, pre-optimized JPEG baked by the vips dzsave pipeline
+// (Q=82). f_auto/q_auto would make Cloudinary cache a separate variant per
+// negotiated format (JPEG for curl, WebP for Chrome, etc.) across all 3010
+// tiles -- every extra variant is its own cold-cache risk, and a warm-up
+// pass only ever covers the formats it was tested with. One plain JPEG
+// variant per tile avoids that fragmentation entirely.
+const TILE_URL = `${CLD}/atlas/{z}/{y}/{x}`
+const THUMB_URL = `${CLD}/atlas/0/0/0`
 
 type Place = { term: string; x: number; y: number }
 
