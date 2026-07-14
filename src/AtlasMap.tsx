@@ -36,6 +36,65 @@ const CLD = "https://res.cloudinary.com/dhvvz91bh/image/upload"
 const TILE_URL = `${CLD}/atlas/{z}/{y}/{x}`
 const THUMB_URL = `${CLD}/atlas/0/0/0`
 
+// Enumerates every tile URL in the pyramid, split into "overview" (z 0-4,
+// ~202 tiles, a couple MB -- small enough to always warm immediately) and
+// "detail" (z 5-6, ~2808 tiles, the bulk of the ~43MB pyramid).
+function allTileUrls() {
+  const overview: string[] = []
+  const detail: string[] = []
+  for (let z = 0; z <= MAX_ZOOM; z++) {
+    const factor = 2 ** (MAX_ZOOM - z)
+    const cols = Math.ceil(Math.ceil(W / factor) / 256)
+    const rows = Math.ceil(Math.ceil(H / factor) / 256)
+    const bucket = z <= 4 ? overview : detail
+    for (let row = 0; row < rows; row++) {
+      for (let col = 0; col < cols; col++) bucket.push(`${CLD}/atlas/${z}/${row}/${col}`)
+    }
+  }
+  return { overview, detail }
+}
+
+// Fetches `urls` through a small worker pool so we don't fire 3000 requests
+// at once (that would starve the actual visible-tile requests Leaflet is
+// making). Best-effort: a failed/aborted prefetch just means that tile falls
+// back to loading normally when panned to, same as before this existed.
+async function prefetchTiles(urls: string[], concurrency: number, signal: AbortSignal) {
+  let i = 0
+  async function worker() {
+    while (i < urls.length) {
+      if (signal.aborted) return
+      const url = urls[i++]
+      try {
+        await fetch(url, { signal, cache: "force-cache" })
+      } catch {
+        // aborted or offline -- fine, this is opportunistic
+      }
+    }
+  }
+  await Promise.all(Array.from({ length: concurrency }, worker))
+}
+
+// Warms the whole tile pyramid into the browser's HTTP cache (and, as a side
+// effect, the CDN edge nearest this visitor) as soon as the map opens, so
+// panning anywhere -- not just the initial viewport -- hits a warm cache
+// instead of the ~1s cold Cloudinary fetch. Skipped on Data Saver / 2G,
+// where an unsolicited ~43MB download would be actively hostile.
+function useTilePrefetch(enabled: boolean) {
+  useEffect(() => {
+    if (!enabled) return
+    const conn = (navigator as { connection?: { saveData?: boolean; effectiveType?: string } })
+      .connection
+    if (conn?.saveData || conn?.effectiveType === "2g" || conn?.effectiveType === "slow-2g") return
+    const controller = new AbortController()
+    const { overview, detail } = allTileUrls()
+    ;(async () => {
+      await prefetchTiles(overview, 8, controller.signal)
+      await prefetchTiles(detail, 6, controller.signal)
+    })()
+    return () => controller.abort()
+  }, [enabled])
+}
+
 type Place = { term: string; x: number; y: number }
 
 // Audited (via close inspection of the full-res plate, cross-referenced
@@ -244,6 +303,8 @@ export default function AtlasMap({
     () => JSON.stringify(pins.map((p) => ({ term: p.term, x: Math.round(p.x), y: Math.round(p.y) })), null, 1),
     [pins],
   )
+
+  useTilePrefetch(open && !editing)
 
   if (!open) return null
 
