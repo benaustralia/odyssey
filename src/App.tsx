@@ -15,6 +15,7 @@ import "yet-another-react-lightbox/plugins/counter.css"
 import "yet-another-react-lightbox/plugins/thumbnails.css"
 import glossaryData from "@/data/glossary.json"
 import artData from "@/data/art.json"
+import { JOURNEYS, DEFAULT_JOURNEY_SLUG } from "@/data/journeys"
 
 type Entry = {
   term: string
@@ -63,21 +64,30 @@ function App() {
   const [cat, setCat] = useState("all")
   const [selected, setSelected] = useState<Entry | null>(null)
   const [lbIndex, setLbIndex] = useState(-1) // >=0 => lightbox open at that slide
-  // The journey map is URL-addressable via a hash route (#journey, and
-  // #humaneyeball for calibration), so it's shareable and back-button friendly.
-  // The atlas map gets its own hash (#atlas, #atlas-eyeball) — kept distinct
-  // from "eyeball" alone so the two calibration modes don't collide.
-  const MAP_HASH = /journey|humaneyeball/i
-  const ATLAS_HASH = /atlas/i
-  const [mapOpen, setMapOpen] = useState(
-    () => typeof window !== "undefined" && MAP_HASH.test(window.location.hash),
+  // The journey map is URL-addressable via a hash route: #journey /
+  // #humaneyeball open the default (Odysseus) journey, kept working for old
+  // bookmarks/links; #journey/<slug> and #journey/<slug>-eyeball address any
+  // other registered personage's journey the same way. The atlas map gets its
+  // own hash (#atlas, #atlas-eyeball) — kept distinct from "eyeball" alone so
+  // the two calibration modes don't collide.
+  const ATLAS_HASH = /^#?atlas(-eyeball)?$/i
+  const parseJourneyHash = (hash: string): { slug: string; eyeball: boolean } | null => {
+    const h = hash.toLowerCase().replace(/^#/, "")
+    if (h === "journey" || h === "humaneyeball")
+      return { slug: DEFAULT_JOURNEY_SLUG, eyeball: h === "humaneyeball" }
+    const m = h.match(/^journey\/([a-z0-9-]+?)(-eyeball)?$/)
+    if (m && JOURNEYS[m[1]]) return { slug: m[1], eyeball: !!m[2] }
+    return null
+  }
+  const [journeyRoute, setJourneyRoute] = useState(
+    () => (typeof window !== "undefined" ? parseJourneyHash(window.location.hash) : null),
   )
   const [atlasOpen, setAtlasOpen] = useState(
     () => typeof window !== "undefined" && ATLAS_HASH.test(window.location.hash),
   )
   useEffect(() => {
     const sync = () => {
-      setMapOpen(MAP_HASH.test(window.location.hash))
+      setJourneyRoute(parseJourneyHash(window.location.hash))
       setAtlasOpen(ATLAS_HASH.test(window.location.hash))
     }
     window.addEventListener("hashchange", sync)
@@ -87,8 +97,8 @@ function App() {
     window.location.hash = "journey"
   }
   const closeMap = () => {
-    setMapOpen(false)
-    if (MAP_HASH.test(window.location.hash))
+    setJourneyRoute(null)
+    if (parseJourneyHash(window.location.hash))
       window.history.replaceState(null, "", window.location.pathname + window.location.search)
   }
   const openAtlas = () => {
@@ -233,10 +243,13 @@ function App() {
         </div>
       </nav>
 
-      {mapOpen && (
+      {journeyRoute && (
         <Suspense fallback={null}>
           <JourneyMap
+            key={journeyRoute.slug}
+            config={JOURNEYS[journeyRoute.slug]}
             open
+            editing={journeyRoute.eyeball}
             onClose={closeMap}
             onSelect={openTerm}
             lookup={(t) => byTerm.get(t)}

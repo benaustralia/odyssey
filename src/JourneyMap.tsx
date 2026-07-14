@@ -1,132 +1,29 @@
-import { useEffect, useMemo, useRef, useState } from "react"
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react"
 import L from "leaflet"
 import { MapContainer, ImageOverlay, Marker, Tooltip, Popup, Polyline, useMap, useMapEvents } from "react-leaflet"
 import "leaflet/dist/leaflet.css"
 // @ts-expect-error - leaflet-minimap ships no type declarations
 import MiniMapControl from "leaflet-minimap"
 import "leaflet-minimap/dist/Control.MiniMap.min.css"
-import galleyUrl from "./assets/black-hulled-galley.svg"
-import raftUrl from "./assets/raft.svg"
-import swimmerUrl from "./assets/swimmer.svg"
-
-// Base map: Abraham Ortelius, "Vlyssis Errores" (1597) — the wide inset cropped
-// from a 13238px public-domain scan of his Red Sea plate. Native master is
-// 3600x2279 on Cloudinary. Pin coords below are in this image's pixel space.
-const W = 4000
-const H = 2337
-const MAP_CLD = "cdll9uth8di3xcsh8djn"
-// Pin the asset version so browsers fetch the latest crop instead of a cached
-// copy (bump this when the map image is re-uploaded).
-const MAP_VER = "v1781683903"
-const MAP_URL = `https://res.cloudinary.com/dhvvz91bh/image/upload/f_auto,q_auto,c_limit,w_3000/${MAP_VER}/${MAP_CLD}`
-const TOUR_ZOOM = 1 // how far to zoom in on each stop during the guided tour
-const LABEL_ZOOM = -0.6 // reveal place-name labels once zoomed in past this
-
-// Tour cadence. Each stop occupies (glide-in + a fixed dwell). The glide is
-// paced by on-screen pixels so a leg's speed is consistent, clamped so it's
-// neither a crawl nor a lurch — note the Cicones→Lotus-Eaters leg is ~6800px
-// vs ~700px for most, so without the cap it would either crawl or whip.
-const TOUR_PPS = 150 // glide speed: screen px per second
-const GLIDE_MIN = 3500
-const GLIDE_MAX = 11000
-const DWELL_MS = 3500 // pause on each stop after the camera arrives
-const JUMP_MS = 900 // flyTo duration for the first stop / non-adjacent jumps
-const glideMs = (px: number) =>
-  Math.min(GLIDE_MAX, Math.max(GLIDE_MIN, (px / TOUR_PPS) * 1000))
-
-// Leaflet CRS.Simple has lat increasing upward, so flip the image-space y
-// (measured from the top-left, the way we read it off the grid overlay).
-const yx = (x: number, y: number): L.LatLngTuple => [H - y, x]
-const bounds = L.latLngBounds([0, 0], [H, W])
+import CalibrationPanel from "./CalibrationPanel"
+import type { JourneyConfig, Pt, TourTuning } from "./data/journeys/types"
 
 // react-leaflet v5 never applies `pathOptions.className` to the SVG path
 // (Leaflet only reads a top-level `className` in _initPath, and setStyle skips
 // it). It happened to work in dev only because StrictMode's double-mount re-ran
 // _initPath after the option was set. Apply the marching-ants class on `add`
 // instead, so it survives the single-mount production build.
-const markRoute = {
-  add: (e: L.LeafletEvent) =>
-    (e.target as L.Path).getElement()?.classList.add("journey-route"),
+// Stable per-className handler identity (matches the old module-level-const
+// pattern) so react-leaflet doesn't re-register the handler on every render.
+const routeMarkers = new Map<string, { add: (e: L.LeafletEvent) => void }>()
+const markRouteWithClass = (className: string) => {
+  let m = routeMarkers.get(className)
+  if (!m) {
+    m = { add: (e: L.LeafletEvent) => (e.target as L.Path).getElement()?.classList.add(className) }
+    routeMarkers.set(className, m)
+  }
+  return m
 }
-// Same trick, but for the Ogygia -> Scheria leg's own drifting-raft dash style.
-const markRaftRoute = {
-  add: (e: L.LeafletEvent) =>
-    (e.target as L.Path).getElement()?.classList.add("journey-route-raft"),
-}
-
-// The 14 canonical stops of Odysseus's voyage (after Stephen Fry's map), each
-// pinned where Ortelius drew it, linked to its glossary `term` — plus one
-// extra, non-canonical stop: Book 12 has Odysseus land back on Aeaea a second
-// time (not just sail past it) to bury Elpenor and get Circe's final sailing
-// directions, so it's pinned as a real, clickable stop reusing the "Circe"
-// term (same island, same glossary entry) rather than a numbered Fry stop.
-type Stop = { n: number; term: string; label: string; short: string; zh: string; x: number; y: number }
-const STOPS: Stop[] = [
-  { n: 1, term: "Troy", label: "Troy", short: "Troy", zh: "特洛伊", x: 3278, y: 956 },
-  { n: 2, term: "Cicones", label: "Ismarus · the Cicones", short: "Cicones", zh: "客科涅斯人", x: 3058, y: 847 },
-  { n: 3, term: "Lotus-Eaters", label: "Land of the Lotus-Eaters", short: "Lotus-Eaters", zh: "食莲族", x: 917, y: 1860 },
-  { n: 4, term: "Cyclops (pl. Cyclopes)", label: "Land of the Cyclopes", short: "Cyclopes", zh: "库克罗普斯", x: 1059, y: 1659 },
-  { n: 5, term: "Aeolus", label: "Aeolia · Island of Aeolus", short: "Aeolus", zh: "埃俄罗斯", x: 984, y: 1495 },
-  { n: 6, term: "Laestrygonians", label: "Telepylos · the Laestrygonians", short: "Laestrygonians", zh: "莱斯特律戈涅斯人", x: 887, y: 969 },
-  { n: 7, term: "Circe", label: "Aeaea · Circe's island", short: "Circe", zh: "喀耳刻", x: 838, y: 1000 },
-  { n: 8, term: "Hades", label: "The Underworld", short: "Underworld", zh: "哈得斯", x: 1075, y: 1089 },
-  { n: 9, term: "Circe", label: "Aeaea · Elpenor's Burial", short: "Elpenor's Burial", zh: "埃埃亚 · 安葬厄尔佩诺耳", x: 855, y: 1005 },
-  { n: 10, term: "Sirens", label: "The Sirens", short: "Sirens", zh: "塞壬", x: 842, y: 1109 },
-  { n: 11, term: "Scylla", label: "Scylla & Charybdis", short: "Scylla & Charybdis", zh: "斯库拉与卡律布狄斯", x: 1139, y: 1541 },
-  { n: 12, term: "Thrinacia", label: "Thrinacia · Island of Helios", short: "Thrinacia", zh: "特里那基亚", x: 1028, y: 1739 },
-  { n: 13, term: "Ogygia", label: "Ogygia · Calypso's island", short: "Ogygia", zh: "俄古癸亚", x: 1493, y: 1406 },
-  { n: 14, term: "Scheria", label: "Scheria · the Phaeacians", short: "Scheria", zh: "斯刻里亚", x: 1908, y: 1411 },
-  { n: 15, term: "Ithaca", label: "Ithaca · home", short: "Ithaca", zh: "伊塔卡", x: 2105, y: 1677 },
-]
-
-type Pt = { x: number; y: number }
-
-// Per-leg sea-routing waypoints: LEG_VIAS[i] bends the line from STOP i to i+1
-// around land. Empty = straight. (Populated from the calibration tool.)
-const LEG_VIAS: Pt[][] = [
-  // 1→2  Troy → Cicones
-  [{ x: 3195, y: 1030 }, { x: 3138, y: 1015 }, { x: 3107, y: 985 }, { x: 3098, y: 926 }],
-  // 2→3  Cicones → Lotus-Eaters: thread the Aegean channels down past Cape
-  // Malea & Cythera, then the nine-day storm-drift across open sea to Libya
-  [
-    { x: 2965, y: 907 }, { x: 2859, y: 882 }, { x: 2840, y: 1050 }, { x: 2700, y: 1113 },
-    { x: 2633, y: 1217 }, { x: 2570, y: 1406 }, { x: 2738, y: 1509 }, { x: 2705, y: 1613 },
-    { x: 2660, y: 1667 }, { x: 2614, y: 1803 }, { x: 2662, y: 1845 }, { x: 2674, y: 1925 },
-    { x: 2591, y: 1928 }, { x: 2495, y: 1999 }, { x: 2395, y: 2050 }, { x: 2196, y: 2056 },
-    { x: 1500, y: 2080 }, { x: 1080, y: 1960 }, { x: 991, y: 1959 },
-  ],
-  // 3→4  Lotus-Eaters → Cyclopes: round the headland through open water
-  [{ x: 1048, y: 1881 }, { x: 1078, y: 1775 }],
-  // 4→5  Cyclopes → Aeolus
-  [{ x: 1143, y: 1613 }, { x: 1133, y: 1539 }, { x: 1109, y: 1509 }],
-  // 5→6  Aeolus → Laestrygonians: up the western sea
-  [{ x: 805, y: 1204 }, { x: 872, y: 1036 }],
-  // 6→7  Laestrygonians → Circe (adjacent)
-  [],
-  // 7→8  Circe → Hades: out to the Cimmerian shore (Underworld excursion)
-  [{ x: 848, y: 1009 }, { x: 889, y: 1030 }, { x: 926, y: 1053 }, { x: 967, y: 1060 }, { x: 993, y: 1049 }, { x: 1004, y: 1065 }, { x: 1020, y: 1094 }],
-  // 8→9  Hades → Aeaea, again: sail home to Circe's island to bury Elpenor
-  [{ x: 1024, y: 1084 }, { x: 1005, y: 1050 }, { x: 984, y: 1044 }, { x: 943, y: 1046 }],
-  // 9→10 Aeaea, again → Sirens: Circe's final sailing-orders, then out past the Sirens
-  [{ x: 848, y: 1019 }],
-  // 10→11 Sirens → Scylla & Charybdis
-  [{ x: 980, y: 1330 }],
-  // 11→12 Scylla → Thrinacia: short hop down to the Sicilian coast by the strait
-  [{ x: 1106, y: 1704 }],
-  // 12→13 Thrinacia → Ogygia: wrecked, swept BACK past Charybdis, then adrift
-  [
-    { x: 1098, y: 1695 }, { x: 1156, y: 1626 }, { x: 1173, y: 1633 }, { x: 1216, y: 1627 },
-    { x: 1268, y: 1614 }, { x: 1340, y: 1470 }, { x: 1446, y: 1435 },
-  ],
-  // 13→14 Ogygia → Scheria: steady steering by the stars for the first
-  // stretch (Calypso's sailing directions), then Poseidon's storm knocks the
-  // raft off course in sight of land — the last two vias jog backward before
-  // the wreck washes up at Scheria, breaking the smooth "sailed" bow the
-  // other legs have.
-  [{ x: 1662, y: 1309 }, { x: 1815, y: 1248 }, { x: 1885, y: 1300 }, { x: 1825, y: 1360 }],
-  // 14→15 Scheria → Ithaca: the Phaeacian run home
-  [{ x: 2010, y: 1560 }],
-]
 
 // Centripetal Catmull-Rom spline → smooth sailing curve through the control
 // points. Centripetal (alpha=0.5) avoids the overshoot/loops that uniform
@@ -190,13 +87,11 @@ const viaIcon = L.divIcon({
   iconAnchor: [6, 6],
 })
 
-// Odysseus's vessel — rides the route during the tour, set on a white disc the
-// size of an active pin: when it docks on a stop the disc cleanly covers the
-// numbered label (the surfaced card names the destination), so the overlap
-// reads as deliberate. A black-hulled galley for most of the voyage; swapped
-// for a raft on the single leg (Ogygia → Scheria) where Odysseus sails a
-// lashed-log raft rather than a ship, then for a swimmer once the storm wrecks
-// it partway across (see OGYGIA_IDX/SCHERIA_IDX/WRECK_VIA_INDEX below).
+// A journey's vessel — rides the route during the tour, set on a white disc
+// the size of an active pin: when it docks on a stop the disc cleanly covers
+// the numbered label (the surfaced card names the destination), so the
+// overlap reads as deliberate. Any `specialLegs` stage can swap in a
+// different vessel (e.g. Odysseus's raft → swimmer once his raft is wrecked).
 const vesselIcon = (svgUrl: string, alt: string) =>
   L.divIcon({
     className: "",
@@ -206,9 +101,6 @@ const vesselIcon = (svgUrl: string, alt: string) =>
     iconSize: [36, 36],
     iconAnchor: [18, 18], // disc center rides the route and lands over the pin number
   })
-const shipIcon = vesselIcon(galleyUrl, "Odysseus's ship")
-const raftIcon = vesselIcon(raftUrl, "Odysseus's raft")
-const swimmerIcon = vesselIcon(swimmerUrl, "Odysseus swimming")
 
 const pin = (n: number, active: boolean, label?: string) =>
   L.divIcon({
@@ -230,14 +122,22 @@ const pin = (n: number, active: boolean, label?: string) =>
 // Overview "navigator": a thumbnail of the whole map (always showing the full
 // image) with a draggable focus rectangle marking the current view — the
 // standard overview+detail pattern, via the leaflet-minimap plugin.
-function Navigator() {
+function Navigator({
+  mapUrl,
+  bounds,
+  mapWidth,
+}: {
+  mapUrl: string
+  bounds: L.LatLngBounds
+  mapWidth: number
+}) {
   const map = useMap()
   useEffect(() => {
-    const layer = L.imageOverlay(MAP_URL, bounds)
+    const layer = L.imageOverlay(mapUrl, bounds)
     const W2 = 132
     // CRS.Simple: at zoom z, 1 image-unit = 2^z px, so the zoom that fits the
-    // 4000px-wide image into the W2-wide thumbnail is log2(W2 / W).
-    const fit = Math.log2(W2 / W)
+    // image's width into the W2-wide thumbnail is log2(W2 / mapWidth).
+    const fit = Math.log2(W2 / mapWidth)
     const mini = new MiniMapControl(layer, {
       position: "bottomleft",
       width: W2,
@@ -252,7 +152,7 @@ function Navigator() {
     return () => {
       mini.remove()
     }
-  }, [map])
+  }, [map, mapUrl, bounds, mapWidth])
   return null
 }
 
@@ -268,9 +168,8 @@ function ZoomWatch({ onZoom }: { onZoom: (z: number) => void }) {
 // Min zoom = the zoom at which the image *covers* the container (inside=true),
 // so it always fills the frame: on desktop (container matches the image aspect)
 // that's the full map; on a portrait phone it fills the screen and you pan the
-// wide map horizontally (which follows the east→west voyage). Can't zoom out
-// past that. Recomputes on resize/orientation change.
-function LockMinZoom() {
+// wide map horizontally. Can't zoom out past that. Recomputes on resize/rotate.
+function LockMinZoom({ bounds, initialView }: { bounds: L.LatLngBounds; initialView: L.LatLngTuple }) {
   const map = useMap()
   useEffect(() => {
     let focused = false
@@ -279,8 +178,8 @@ function LockMinZoom() {
       map.setMinZoom(z)
       const sz = map.getSize()
       if (!focused && sz.x > 0 && sz.y > 0) {
-        // Open on Troy (stop 1) — the start of the voyage — not the map centre.
-        map.setView(yx(STOPS[0].x, STOPS[0].y), z, { animate: false })
+        // Open on the journey's first stop — the start of the voyage — not the map centre.
+        map.setView(initialView, z, { animate: false })
         focused = true
       } else if (map.getZoom() < z) {
         map.setZoom(z)
@@ -293,18 +192,19 @@ function LockMinZoom() {
       map.off("resize", lock)
       clearTimeout(settle)
     }
-  }, [map])
+  }, [map, bounds, initialView])
   return null
 }
 
 // Glide the camera along a list of latlngs at a fixed zoom (so the view follows
 // the purple route instead of zooming out and back in). Speed is scaled to the
-// on-screen length and clamped so it's neither a crawl nor a lurch.
+// on-screen length and clamped (via glideMsFn) so it's neither a crawl nor a lurch.
 function panAlong(
   map: L.Map,
   latlngs: L.LatLngTuple[],
   zoom: number,
   raf: { current?: number },
+  glideMsFn: (px: number) => number,
   onMove?: (ll: L.LatLng) => void,
   onDone?: () => void,
 ) {
@@ -319,7 +219,7 @@ function panAlong(
   const cum = [0]
   for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + pts[i].distanceTo(pts[i - 1]))
   const total = cum[cum.length - 1]
-  const duration = glideMs(total)
+  const duration = glideMsFn(total)
   const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2)
   let start = 0
   const step = (now: number) => {
@@ -341,18 +241,23 @@ function panAlong(
   raf.current = requestAnimationFrame(step)
 }
 
-// The one leg of the voyage Odysseus makes on a raft, not the ship — swept
-// from the wreck at Thrinacia is by raft-less swimming to Ogygia, but the
-// onward leg Calypso sends him off on (Ogygia → Scheria) is the raft she
-// helps him build. STOPS indices, not n (n is 1-based).
-const OGYGIA_IDX = STOPS.findIndex((s) => s.term === "Ogygia")
-const SCHERIA_IDX = STOPS.findIndex((s) => s.term === "Scheria")
-// Which via point in LEG_VIAS[OGYGIA_IDX] is where Poseidon's storm finally
-// breaks up the raft (the last of the "swept back" bend points added to jog
-// the line off its smooth course) — the tour pauses here, then Odysseus
-// swims the rest of the way in.
-const WRECK_VIA_INDEX = 3
-const WRECK_PAUSE_MS = 900 // beat between "the raft is lost" and "he's swimming"
+// A special leg (e.g. Odysseus's raft wrecking partway to Scheria), resolved
+// against this journey's stop indices and route-point positions. Computed
+// once per render and consumed by TourController, legGlideMs, and the route-
+// segment renderer below — nothing else re-derives "is this the special leg."
+type ResolvedSpecialLeg = {
+  fromIdx: number
+  toIdx: number
+  routeClassName?: string
+  stages: { icon: L.DivIcon; wreckRouteIdx: number; pauseAfterMs?: number }[]
+}
+
+type Segment = { points: L.LatLngTuple[]; icon: L.DivIcon; pauseAfterMs?: number }
+
+// Shared lookup so TourController, legGlideMs, and the route-segment renderer
+// all agree on which stop-pair (in either travel direction) is a special leg.
+const findSpecialLeg = (legs: ResolvedSpecialLeg[], a: number, b: number) =>
+  legs.find((l) => (l.fromIdx === a && l.toIdx === b) || (l.fromIdx === b && l.toIdx === a))
 
 // Drives the tour camera: glide along the route between adjacent stops, ease
 // straight in for jumps (legend clicks / first stop), zoom out when idle.
@@ -360,12 +265,22 @@ function TourController({
   idx,
   route,
   stopIdx,
-  wreckIdx,
+  resolvedSpecialLegs,
+  shipIcon,
+  tourZoom,
+  jumpMs,
+  bounds,
+  glideMsFn,
 }: {
   idx: number
   route: L.LatLngTuple[]
   stopIdx: number[]
-  wreckIdx: number
+  resolvedSpecialLegs: ResolvedSpecialLeg[]
+  shipIcon: L.DivIcon
+  tourZoom: number
+  jumpMs: number
+  bounds: L.LatLngBounds
+  glideMsFn: (px: number) => number
 }) {
   const map = useMap()
   const prev = useRef(-1)
@@ -387,7 +302,7 @@ function TourController({
       m.remove()
       ship.current = undefined
     }
-  }, [map])
+  }, [map, shipIcon])
 
   useEffect(() => {
     const cancel = () => {
@@ -411,43 +326,58 @@ function TourController({
     const from = prev.current
     prev.current = idx
     const target = route[stopIdx[idx]]
-    const isWreckLeg =
-      (from === OGYGIA_IDX && idx === SCHERIA_IDX) || (from === SCHERIA_IDX && idx === OGYGIA_IDX)
+    const leg = from >= 0 ? findSpecialLeg(resolvedSpecialLegs, from, idx) : undefined
     cancel()
     if (from < 0 || Math.abs(idx - from) !== 1) {
       ship.current?.setIcon(shipIcon)
-      map.flyTo(L.latLng(target), TOUR_ZOOM, { duration: 0.9 })
+      map.flyTo(L.latLng(target), tourZoom, { duration: jumpMs / 1000 })
       moveShip(L.latLng(target))
       return cancel
     }
-    if (isWreckLeg) {
-      // Raft to the wreck point, a beat where it's lost to Poseidon's storm,
-      // then Odysseus swims the rest of the way (reversed on rewind).
-      const forward = from === OGYGIA_IDX
-      const startIdx = stopIdx[from]
-      const endIdx = stopIdx[idx]
-      const toWreck = forward
-        ? route.slice(startIdx, wreckIdx + 1)
-        : route.slice(wreckIdx, startIdx + 1).reverse()
-      const fromWreck = forward
-        ? route.slice(wreckIdx, endIdx + 1)
-        : route.slice(endIdx, wreckIdx + 1).reverse()
-      ship.current?.setIcon(forward ? raftIcon : swimmerIcon)
-      panAlong(map, toWreck, TOUR_ZOOM, raf, moveShip, () => {
-        wreckTimer.current = window.setTimeout(() => {
-          ship.current?.setIcon(forward ? swimmerIcon : raftIcon)
-          panAlong(map, fromWreck, TOUR_ZOOM, raf, moveShip)
-        }, WRECK_PAUSE_MS)
-      })
+    if (leg) {
+      // Multi-stage vessel swap mid-leg (e.g. raft -> pause -> swimmer),
+      // reversed automatically on rewind.
+      const forward = from === leg.fromIdx
+      const legStart = Math.min(stopIdx[leg.fromIdx], stopIdx[leg.toIdx])
+      const boundaries = [legStart, ...leg.stages.map((s) => s.wreckRouteIdx)]
+      const fwdSegs: Segment[] = leg.stages.map((s, i) => ({
+        points: route.slice(boundaries[i], boundaries[i + 1] + 1),
+        icon: s.icon,
+        pauseAfterMs: s.pauseAfterMs,
+      }))
+      const n = fwdSegs.length
+      const playSegs: Segment[] = forward
+        ? fwdSegs
+        : fwdSegs.map((_, j) => {
+            const orig = fwdSegs[n - 1 - j]
+            return {
+              points: orig.points.slice().reverse(),
+              icon: orig.icon,
+              pauseAfterMs: j < n - 1 ? fwdSegs[n - 2 - j].pauseAfterMs : undefined,
+            }
+          })
+      const playChain = (i: number) => {
+        if (i >= playSegs.length) return
+        const seg = playSegs[i]
+        ship.current?.setIcon(seg.icon)
+        panAlong(map, seg.points, tourZoom, raf, glideMsFn, moveShip, () => {
+          if (seg.pauseAfterMs) {
+            wreckTimer.current = window.setTimeout(() => playChain(i + 1), seg.pauseAfterMs)
+          } else {
+            playChain(i + 1)
+          }
+        })
+      }
+      playChain(0)
       return cancel
     }
     ship.current?.setIcon(shipIcon)
     const a = stopIdx[from]
     const b = stopIdx[idx]
     const path = a <= b ? route.slice(a, b + 1) : route.slice(b, a + 1).reverse()
-    panAlong(map, path, TOUR_ZOOM, raf, moveShip)
+    panAlong(map, path, tourZoom, raf, glideMsFn, moveShip)
     return cancel
-  }, [idx, map, route, stopIdx, wreckIdx])
+  }, [idx, map, route, stopIdx, resolvedSpecialLegs, shipIcon, tourZoom, jumpMs, bounds, glideMsFn])
   return null
 }
 
@@ -460,23 +390,64 @@ type EntryInfo = {
   zhDef: string
 }
 
+const DEFAULT_TUNING: Required<TourTuning> = {
+  tourZoom: 1,
+  labelZoom: -0.6,
+  tourPps: 150,
+  glideMin: 3500,
+  glideMax: 11000,
+  dwellMs: 3500,
+  jumpMs: 900,
+}
+
 export default function JourneyMap({
+  config,
   open,
+  editing,
   onClose,
   onSelect,
   lookup,
 }: {
+  config: JourneyConfig
   open: boolean
+  editing: boolean
   onClose: () => void
   onSelect: (term: string) => void
   lookup: (term: string) => EntryInfo | undefined
 }) {
-  // Calibration mode: open the map at #humaneyeball to drag the pins and
-  // copy back the corrected coordinates. No effect on the normal experience.
-  const editing =
-    typeof window !== "undefined" && window.location.hash.toLowerCase().includes("eyeball")
-  const [pos, setPos] = useState<Pt[]>(() => STOPS.map((s) => ({ x: s.x, y: s.y })))
-  const [vias, setVias] = useState<Pt[][]>(() => LEG_VIAS.map((a) => a.map((p) => ({ ...p }))))
+  const tuning = { ...DEFAULT_TUNING, ...config.tuning }
+  const yx = (x: number, y: number): L.LatLngTuple => [config.mapHeight - y, x]
+  const bounds = useMemo(
+    () => L.latLngBounds([0, 0], [config.mapHeight, config.mapWidth]),
+    [config.mapHeight, config.mapWidth],
+  )
+  const shipIcon = useMemo(
+    () => vesselIcon(config.vessel.svgUrl, config.vessel.alt),
+    [config.vessel],
+  )
+  // Memoized: this is LockMinZoom's `initialView` prop, which sits in that
+  // component's effect dependency array — a fresh array literal every render
+  // would re-fire the effect (and its per-run `focused` guard) on every
+  // JourneyMap re-render, snapping the camera back to the first stop on every
+  // tour/zoom/calibration-drag update instead of only on mount/resize.
+  const initialView = useMemo(
+    () => yx(config.stops[0].x, config.stops[0].y),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [config.stops, config.mapHeight],
+  )
+  // Glide speed is paced by on-screen pixels so a leg's speed is consistent,
+  // clamped so it's neither a crawl nor a lurch (some legs are ~10x longer
+  // on-screen than others). Memoized: it's threaded into TourController as a
+  // prop that also sits in that component's effect dependency array, so a
+  // fresh function identity every render would re-fire the tour-driving
+  // effect on every unrelated re-render (e.g. a zoom change mid-tour).
+  const glideMs = useCallback(
+    (px: number) => Math.min(tuning.glideMax, Math.max(tuning.glideMin, (px / tuning.tourPps) * 1000)),
+    [tuning.glideMax, tuning.glideMin, tuning.tourPps],
+  )
+
+  const [pos, setPos] = useState<Pt[]>(() => config.stops.map((s) => ({ x: s.x, y: s.y })))
+  const [vias, setVias] = useState<Pt[][]>(() => config.legVias.map((a) => a.map((p) => ({ ...p }))))
 
   // Flatten stops + their sea-routing vias, then smooth into a sailing curve.
   const routeLatLng = useMemo(() => {
@@ -486,7 +457,8 @@ export default function JourneyMap({
       if (i < pos.length - 1) vias[i].forEach((v) => flat.push(v))
     })
     return smooth(flat).map((p) => yx(p.x, p.y))
-  }, [pos, vias])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pos, vias, config.mapHeight])
 
   // Index of each stop within routeLatLng (input point k lands at k*ROUTE_SEG),
   // so the tour can slice the curve for the leg it's traversing.
@@ -500,20 +472,63 @@ export default function JourneyMap({
     return idxs
   }, [pos, vias])
 
-  // Slice out the Ogygia -> Scheria stretch so it can be drawn with its own
-  // drifting-raft dash style; the rest of the route keeps the normal one.
-  const raftStart = stopRouteIdx[OGYGIA_IDX]
-  const raftEnd = stopRouteIdx[SCHERIA_IDX]
-  const routeBeforeRaft = routeLatLng.slice(0, raftStart + 1)
-  const routeRaftLeg = routeLatLng.slice(raftStart, raftEnd + 1)
-  const routeAfterRaft = routeLatLng.slice(raftEnd)
-  // Route index of the wreck via point (see WRECK_VIA_INDEX) — where the
-  // tour swaps the raft for a swimmer.
-  const wreckRouteIdx = raftStart + (WRECK_VIA_INDEX + 1) * ROUTE_SEG
+  // Vessel icons only depend on the journey's specialLeg config (svgUrl/alt),
+  // never on stopRouteIdx — kept in its own memo so dragging a pin/via in
+  // calibration mode (which recomputes stopRouteIdx on every drag) doesn't
+  // reallocate an L.DivIcon per stage on every frame.
+  const specialLegIcons = useMemo(
+    () => (config.specialLegs ?? []).map((leg) => leg.stages.map((s) => vesselIcon(s.svgUrl, s.alt))),
+    [config.specialLegs],
+  )
+
+  // Resolve this journey's specialLegs (if any) against its stop indices and
+  // route positions — the one canonical derivation every consumer below reads
+  // instead of re-deriving "is this leg special" independently.
+  const resolvedSpecialLegs = useMemo<ResolvedSpecialLeg[]>(
+    () =>
+      (config.specialLegs ?? []).map((leg, li) => {
+        const fromIdx = config.stops.findIndex((s) => s.term === leg.fromTerm)
+        const toIdx = config.stops.findIndex((s) => s.term === leg.toTerm)
+        const legStart = Math.min(stopRouteIdx[fromIdx], stopRouteIdx[toIdx])
+        const legEnd = Math.max(stopRouteIdx[fromIdx], stopRouteIdx[toIdx])
+        return {
+          fromIdx,
+          toIdx,
+          routeClassName: leg.routeClassName,
+          stages: leg.stages.map((stage, si) => ({
+            icon: specialLegIcons[li][si],
+            wreckRouteIdx: stage.uptoViaIndex < 0 ? legEnd : legStart + (stage.uptoViaIndex + 1) * ROUTE_SEG,
+            pauseAfterMs: stage.pauseAfterMs,
+          })),
+        }
+      }),
+    [config.specialLegs, config.stops, stopRouteIdx, specialLegIcons],
+  )
+  // Split the route into styled segments: any specialLeg gets its own dash
+  // style (e.g. Odysseus's drifting-raft leg), the rest keeps the normal one.
+  // Degenerates to one segment covering the whole route when there are none.
+  const routeSegments = useMemo(() => {
+    const specials = resolvedSpecialLegs
+      .map((l) => ({
+        start: Math.min(stopRouteIdx[l.fromIdx], stopRouteIdx[l.toIdx]),
+        end: Math.max(stopRouteIdx[l.fromIdx], stopRouteIdx[l.toIdx]),
+        className: l.routeClassName ?? "journey-route",
+      }))
+      .sort((a, b) => a.start - b.start)
+    const segs: { positions: L.LatLngTuple[]; className: string }[] = []
+    let cursor = 0
+    for (const sp of specials) {
+      if (sp.start > cursor) segs.push({ positions: routeLatLng.slice(cursor, sp.start + 1), className: "journey-route" })
+      segs.push({ positions: routeLatLng.slice(sp.start, sp.end + 1), className: sp.className })
+      cursor = sp.end
+    }
+    if (cursor < routeLatLng.length - 1) segs.push({ positions: routeLatLng.slice(cursor), className: "journey-route" })
+    return segs
+  }, [resolvedSpecialLegs, routeLatLng, stopRouteIdx])
 
   // Click the route line → drop a bend point into the nearest leg, in order.
   const addVia = (lat: number, lng: number) => {
-    const p: Pt = { x: Math.round(lng), y: Math.round(H - lat) }
+    const p: Pt = { x: Math.round(lng), y: Math.round(config.mapHeight - lat) }
     let best = 0,
       bestD = Infinity
     for (let i = 0; i < pos.length - 1; i++) {
@@ -543,23 +558,23 @@ export default function JourneyMap({
     () =>
       JSON.stringify(
         {
-          stops: STOPS.map((s, i) => ({ term: s.term, x: pos[i].x, y: pos[i].y })),
+          stops: config.stops.map((s, i) => ({ term: s.term, x: pos[i].x, y: pos[i].y })),
           legVias: vias.map((a) => a.map((v) => ({ x: v.x, y: v.y }))),
         },
         null,
         1,
       ),
-    [pos, vias],
+    [config.stops, pos, vias],
   )
   const [tour, setTour] = useState(-1) // -1 = not touring; else current stop index
   const [focus, setFocus] = useState(-1) // legend pan target when not touring; -1 = whole map
   const [playing, setPlaying] = useState(false)
   const [zoom, setZoom] = useState<number | null>(null)
   const timer = useRef<number | undefined>(undefined)
-  const showLabels = zoom !== null && zoom >= LABEL_ZOOM
+  const showLabels = zoom !== null && zoom >= tuning.labelZoom
 
   // On-screen length of the glide from one stop to an adjacent one → its
-  // duration. Same px-at-TOUR_ZOOM measure panAlong uses, so the timer and the
+  // duration. Same px-at-tourZoom measure panAlong uses, so the timer and the
   // camera agree (a long leg gets a long glide without starving short stops).
   const pxBetween = (lo: number, hi: number) => {
     let px = 0
@@ -573,27 +588,27 @@ export default function JourneyMap({
   const legGlideMs = (from: number, to: number) => {
     const lo = Math.min(stopRouteIdx[from], stopRouteIdx[to])
     const hi = Math.max(stopRouteIdx[from], stopRouteIdx[to])
-    const isWreckLeg =
-      (from === OGYGIA_IDX && to === SCHERIA_IDX) || (from === SCHERIA_IDX && to === OGYGIA_IDX)
-    const scale = Math.pow(2, TOUR_ZOOM)
-    if (isWreckLeg)
-      return (
-        glideMs(pxBetween(lo, wreckRouteIdx) * scale) +
-        WRECK_PAUSE_MS +
-        glideMs(pxBetween(wreckRouteIdx, hi) * scale)
-      )
-    return glideMs(pxBetween(lo, hi) * scale)
+    const scale = Math.pow(2, tuning.tourZoom)
+    const leg = findSpecialLeg(resolvedSpecialLegs, from, to)
+    if (!leg) return glideMs(pxBetween(lo, hi) * scale)
+    const boundaries = [lo, ...leg.stages.map((s) => s.wreckRouteIdx)]
+    let total = 0
+    for (let i = 0; i < leg.stages.length; i++) {
+      total += glideMs(pxBetween(boundaries[i], boundaries[i + 1]) * scale)
+      if (leg.stages[i].pauseAfterMs) total += leg.stages[i].pauseAfterMs!
+    }
+    return total
   }
   // How long the current stop holds the tour: glide-in + a fixed dwell.
-  const enterMs = tour <= 0 ? JUMP_MS : legGlideMs(tour - 1, tour)
-  const cycleMs = enterMs + DWELL_MS
+  const enterMs = tour <= 0 ? tuning.jumpMs : legGlideMs(tour - 1, tour)
+  const cycleMs = enterMs + tuning.dwellMs
 
   // Auto-advance while playing; stop at the last stop.
   useEffect(() => {
     if (!playing || tour < 0) return
     timer.current = window.setTimeout(() => {
       setTour((i) => {
-        if (i >= STOPS.length - 1) {
+        if (i >= config.stops.length - 1) {
           setPlaying(false)
           return i
         }
@@ -601,7 +616,7 @@ export default function JourneyMap({
       })
     }, cycleMs)
     return () => window.clearTimeout(timer.current)
-  }, [playing, tour, cycleMs])
+  }, [playing, tour, cycleMs, config.stops.length])
 
   if (!open) return null
 
@@ -616,16 +631,16 @@ export default function JourneyMap({
   }
   const go = (i: number) => {
     setPlaying(false)
-    setTour(Math.max(0, Math.min(STOPS.length - 1, i)))
+    setTour(Math.max(0, Math.min(config.stops.length - 1, i)))
   }
-  const cur = tour >= 0 ? STOPS[tour] : null
+  const cur = tour >= 0 ? config.stops[tour] : null
 
   return (
-    <div className="modal modal-open" role="dialog" aria-label="The Journey of Odysseus">
+    <div className="modal modal-open" role="dialog" aria-label={config.title}>
       <div className="modal-box flex h-dvh max-h-dvh w-full max-w-none flex-col gap-2 rounded-none p-2 sm:h-auto sm:max-h-[94vh] sm:w-auto sm:max-w-[96vw] sm:gap-3 sm:rounded-box sm:p-4">
         <div className="flex items-center justify-between gap-3">
           <h2 className="font-display text-2xl font-semibold tracking-wide sm:text-3xl">
-            The Journey of Odysseus
+            {config.title}
           </h2>
           <button
             type="button"
@@ -637,7 +652,16 @@ export default function JourneyMap({
           </button>
         </div>
 
-        <div className="relative w-full grow overflow-hidden rounded-box border border-base-300 sm:h-[80vh] sm:w-auto sm:grow-0 sm:aspect-[4000/2337] sm:max-w-[94vw] sm:self-center">
+        <div
+          className="relative w-full grow sm:h-[80vh] sm:w-auto sm:grow-0 sm:aspect-[var(--journey-aspect)] sm:max-w-[94vw] sm:self-center"
+          style={{ "--journey-aspect": `${config.mapWidth} / ${config.mapHeight}` } as React.CSSProperties}
+        >
+          {/* The rounded-corner clip lives on this inner wrapper, not the
+              outer relative container -- so it clips only the map/tiles, not
+              the floating panels below (a shared corner-clip wrapper with
+              those panels used to slice each panel's own corner where the
+              container's curve cut across it). */}
+          <div className="absolute inset-0 overflow-hidden rounded-box border border-base-300">
           <MapContainer
             crs={L.CRS.Simple}
             bounds={bounds}
@@ -651,45 +675,28 @@ export default function JourneyMap({
             attributionControl={false}
             className="h-full w-full bg-base-300"
           >
-            <ImageOverlay url={MAP_URL} bounds={bounds} />
+            <ImageOverlay url={config.mapUrl} bounds={bounds} />
             <ZoomWatch onZoom={setZoom} />
-            <LockMinZoom />
-            {!editing && <Navigator />}
+            <LockMinZoom bounds={bounds} initialView={initialView} />
+            {!editing && <Navigator mapUrl={config.mapUrl} bounds={bounds} mapWidth={config.mapWidth} />}
             {/* Casing: a pale halo under the route so it reads on any part of the
                 busy antique map. Same dash+animation as the purple line on top
                 (per segment), so the marching-ants gaps stay transparent (not
-                filled). Split around the Ogygia -> Scheria leg, which gets its
-                own slower, uneven-dash "adrift on a raft" styling. */}
-            <Polyline
-              positions={routeBeforeRaft}
-              eventHandlers={markRoute}
-              pathOptions={{ color: "#fff", weight: 6, opacity: 0.85 }}
-            />
-            <Polyline
-              positions={routeBeforeRaft}
-              eventHandlers={markRoute}
-              pathOptions={{ color: "#6c2bd9", weight: 3 }}
-            />
-            <Polyline
-              positions={routeRaftLeg}
-              eventHandlers={markRaftRoute}
-              pathOptions={{ color: "#fff", weight: 6, opacity: 0.85 }}
-            />
-            <Polyline
-              positions={routeRaftLeg}
-              eventHandlers={markRaftRoute}
-              pathOptions={{ color: "#6c2bd9", weight: 3 }}
-            />
-            <Polyline
-              positions={routeAfterRaft}
-              eventHandlers={markRoute}
-              pathOptions={{ color: "#fff", weight: 6, opacity: 0.85 }}
-            />
-            <Polyline
-              positions={routeAfterRaft}
-              eventHandlers={markRoute}
-              pathOptions={{ color: "#6c2bd9", weight: 3 }}
-            />
+                filled). Any specialLeg segment gets its own styling class. */}
+            {routeSegments.map((seg, i) => (
+              <Fragment key={`route-${i}`}>
+                <Polyline
+                  positions={seg.positions}
+                  eventHandlers={markRouteWithClass(seg.className)}
+                  pathOptions={{ color: "#fff", weight: 6, opacity: 0.85 }}
+                />
+                <Polyline
+                  positions={seg.positions}
+                  eventHandlers={markRouteWithClass(seg.className)}
+                  pathOptions={{ color: "#6c2bd9", weight: 3 }}
+                />
+              </Fragment>
+            ))}
             {/* Editing: fat invisible line that's easy to click to drop a bend. */}
             {editing && (
               <Polyline
@@ -713,7 +720,9 @@ export default function JourneyMap({
                           prev.map((a, i) =>
                             i === legIdx
                               ? a.map((vv, jj) =>
-                                  jj === j ? { x: Math.round(ll.lng), y: Math.round(H - ll.lat) } : vv,
+                                  jj === j
+                                    ? { x: Math.round(ll.lng), y: Math.round(config.mapHeight - ll.lat) }
+                                    : vv,
                                 )
                               : a,
                           ),
@@ -727,7 +736,7 @@ export default function JourneyMap({
                   />
                 )),
               )}
-            {STOPS.map((s, i) => {
+            {config.stops.map((s, i) => {
               const info = lookup(s.term)
               return (
                 <Marker
@@ -741,7 +750,7 @@ export default function JourneyMap({
                       const ll = (e.target as L.Marker).getLatLng()
                       setPos((arr) =>
                         arr.map((p, j) =>
-                          j === i ? { x: Math.round(ll.lng), y: Math.round(H - ll.lat) } : p,
+                          j === i ? { x: Math.round(ll.lng), y: Math.round(config.mapHeight - ll.lat) } : p,
                         ),
                       )
                     },
@@ -781,34 +790,21 @@ export default function JourneyMap({
               idx={tour >= 0 ? tour : focus}
               route={routeLatLng}
               stopIdx={stopRouteIdx}
-              wreckIdx={wreckRouteIdx}
+              resolvedSpecialLegs={resolvedSpecialLegs}
+              shipIcon={shipIcon}
+              tourZoom={tuning.tourZoom}
+              jumpMs={tuning.jumpMs}
+              bounds={bounds}
+              glideMsFn={glideMs}
             />
           </MapContainer>
+          </div>
 
-          {/* Calibration panel — drag pins, then copy these coordinates back. */}
           {editing && (
-            <div className="absolute left-3 top-3 z-[1000] w-72 rounded-box border border-warning bg-base-100/95 p-3 shadow-xl backdrop-blur">
-              <p className="text-xs font-semibold uppercase tracking-wider text-warning">
-                Calibration
-              </p>
-              <p className="mt-1 text-[0.7rem] leading-snug opacity-80">
-                Drag pins to place stops. Click the route line to add a sea-bend;
-                drag bends into the water; double-click a bend to remove it.
-              </p>
-              <textarea
-                readOnly
-                value={dump}
-                onFocus={(e) => e.currentTarget.select()}
-                className="textarea textarea-bordered mt-2 h-48 w-full font-mono text-[0.7rem] leading-snug"
-              />
-              <button
-                type="button"
-                className="btn btn-warning btn-sm mt-2 w-full"
-                onClick={() => navigator.clipboard?.writeText(dump)}
-              >
-                Copy coordinates
-              </button>
-            </div>
+            <CalibrationPanel
+              hint="Drag pins to place stops. Click the route line to add a sea-bend; drag bends into the water; double-click a bend to remove it."
+              dump={dump}
+            />
           )}
 
           {/* Bottom-right: voyage control + the Fry-style numbered legend.
@@ -821,7 +817,7 @@ export default function JourneyMap({
             </button>
             {tour < 0 && (
               <ul className="hidden w-full overflow-auto rounded-box border border-base-300 bg-base-100/90 p-2 text-xs leading-tight shadow-lg backdrop-blur sm:block">
-                {STOPS.map((s, i) => (
+                {config.stops.map((s, i) => (
                   <li key={s.n}>
                     <button
                       type="button"
@@ -853,7 +849,7 @@ export default function JourneyMap({
               )}
               <div className="flex items-center justify-between gap-2">
                 <p className="text-xs uppercase tracking-wider text-primary">
-                  Stop {cur.n} of {STOPS.length}
+                  Stop {cur.n} of {config.stops.length}
                 </p>
                 <button
                   type="button"
@@ -891,7 +887,7 @@ export default function JourneyMap({
                     type="button"
                     className="btn btn-sm btn-square"
                     onClick={() => go(tour + 1)}
-                    disabled={tour >= STOPS.length - 1}
+                    disabled={tour >= config.stops.length - 1}
                     aria-label="Next stop"
                   >
                     ›
@@ -913,7 +909,9 @@ export default function JourneyMap({
         </div>
 
         <p className="text-center text-xs opacity-70">
-          Abraham Ortelius, <em>Vlyssis Errores</em> (1597)
+          {config.attribution.prefix}
+          <em>{config.attribution.workTitle}</em>
+          {config.attribution.suffix}
         </p>
       </div>
       <div className="modal-backdrop" onClick={onClose} />
