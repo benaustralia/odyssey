@@ -78,3 +78,24 @@
     display: none;
   }
 }
+
+/* Atlas's tile pyramid renders at fractional zoom (zoomSnap=0, needed for
+   smooth pinch/scroll), so Leaflet is nearly always CSS-scaling each 256px
+   tile image by a non-integer factor. Adjacent tiles round that scale to
+   different sub-pixel boundaries, leaving hairline gaps ("seams" — reported
+   visible at every zoom level on desktop) where the dark page behind bleeds
+   through. This is a known Leaflet raster-tile quirk; the standard fix is a
+   transparent outline, which some browsers use to paint a touch past each
+   tile's edge and close the gap. */
+.leaflet-tile {
+  outline: 1px solid transparent;
+}
+
+/* leaflet.css hardcodes `.leaflet-container { background: #ddd }`, which (as
+   a later/co-equal-specificity rule vs our bg-base-300 utility) wins and
+   shows a stark light-grey/white flash through any not-yet-loaded tile —
+   jarring against the dracula theme's dark chrome. Force it to the theme
+   color so loading gaps blend in instead of flashing white. */
+.leaflet-container {
+  background: var(--color-base-300);
+}
