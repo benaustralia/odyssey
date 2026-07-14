@@ -3,6 +3,7 @@ import { Search, Map as MapIcon } from "lucide-react"
 
 // Leaflet is heavy and the map is opt-in, so load it only when first opened.
 const JourneyMap = lazy(() => import("./JourneyMap"))
+const AtlasMap = lazy(() => import("./AtlasMap"))
 import Lightbox from "yet-another-react-lightbox"
 import Captions from "yet-another-react-lightbox/plugins/captions"
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen"
@@ -64,12 +65,21 @@ function App() {
   const [lbIndex, setLbIndex] = useState(-1) // >=0 => lightbox open at that slide
   // The journey map is URL-addressable via a hash route (#journey, and
   // #humaneyeball for calibration), so it's shareable and back-button friendly.
-  const MAP_HASH = /journey|eyeball/i
+  // The atlas map gets its own hash (#atlas, #atlas-eyeball) — kept distinct
+  // from "eyeball" alone so the two calibration modes don't collide.
+  const MAP_HASH = /journey|humaneyeball/i
+  const ATLAS_HASH = /atlas/i
   const [mapOpen, setMapOpen] = useState(
     () => typeof window !== "undefined" && MAP_HASH.test(window.location.hash),
   )
+  const [atlasOpen, setAtlasOpen] = useState(
+    () => typeof window !== "undefined" && ATLAS_HASH.test(window.location.hash),
+  )
   useEffect(() => {
-    const sync = () => setMapOpen(MAP_HASH.test(window.location.hash))
+    const sync = () => {
+      setMapOpen(MAP_HASH.test(window.location.hash))
+      setAtlasOpen(ATLAS_HASH.test(window.location.hash))
+    }
     window.addEventListener("hashchange", sync)
     return () => window.removeEventListener("hashchange", sync)
   }, [])
@@ -79,6 +89,14 @@ function App() {
   const closeMap = () => {
     setMapOpen(false)
     if (MAP_HASH.test(window.location.hash))
+      window.history.replaceState(null, "", window.location.pathname + window.location.search)
+  }
+  const openAtlas = () => {
+    window.location.hash = "atlas"
+  }
+  const closeAtlas = () => {
+    setAtlasOpen(false)
+    if (ATLAS_HASH.test(window.location.hash))
       window.history.replaceState(null, "", window.location.pathname + window.location.search)
   }
 
@@ -204,6 +222,14 @@ function App() {
             <MapIcon className="size-4" aria-hidden="true" />
             The Journey
           </button>
+          <button
+            type="button"
+            onClick={openAtlas}
+            className="btn btn-sm btn-outline gap-2 lg:btn-md"
+          >
+            <MapIcon className="size-4" aria-hidden="true" />
+            Atlas
+          </button>
         </div>
       </nav>
 
@@ -212,6 +238,17 @@ function App() {
           <JourneyMap
             open
             onClose={closeMap}
+            onSelect={openTerm}
+            lookup={(t) => byTerm.get(t)}
+          />
+        </Suspense>
+      )}
+
+      {atlasOpen && (
+        <Suspense fallback={null}>
+          <AtlasMap
+            open
+            onClose={closeAtlas}
             onSelect={openTerm}
             lookup={(t) => byTerm.get(t)}
           />

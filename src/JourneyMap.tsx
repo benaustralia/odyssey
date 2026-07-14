@@ -647,7 +647,7 @@ export default function JourneyMap({
             zoomSnap={0}
             zoomDelta={0.6}
             scrollWheelZoom
-            wheelPxPerZoomLevel={40}
+            wheelPxPerZoomLevel={15}
             attributionControl={false}
             className="h-full w-full bg-base-300"
           >
