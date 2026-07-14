@@ -629,7 +629,7 @@ export default function JourneyMap({
           </h2>
           <button
             type="button"
-            className="btn btn-sm btn-circle btn-ghost"
+            className="btn btn-circle btn-ghost btn-lg shrink-0 text-2xl sm:btn-sm sm:text-base"
             onClick={onClose}
             aria-label="Close"
           >

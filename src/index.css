@@ -69,3 +69,12 @@
 .leaflet-popup-close-button {
   color: var(--color-base-content) !important;
 }
+
+/* Touch devices already have pinch-to-zoom; the +/- buttons just eat screen
+   space and duplicate it (mobile QA feedback: "do we even need +/- buttons
+   in mobile view?"). Hide below the sm breakpoint on both interactive maps. */
+@media (max-width: 639px) {
+  .leaflet-control-zoom {
+    display: none;
+  }
+}

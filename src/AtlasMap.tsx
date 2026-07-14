@@ -197,13 +197,13 @@ function Pins({
             },
           }}
         >
-          <Popup>
-            <div className="flex flex-col gap-1">
-              <span className="font-heading font-semibold">{p.term}</span>
+          <Popup minWidth={160}>
+            <div className="flex flex-col gap-2">
+              <span className="font-heading text-base font-semibold">{p.term}</span>
               {lookup(p.term) ? (
                 <button
                   type="button"
-                  className="btn btn-xs btn-primary"
+                  className="btn btn-sm btn-primary"
                   onClick={() => onSelect(p.term)}
                 >
                   View artworks
@@ -249,7 +249,7 @@ export default function AtlasMap({
           </h2>
           <button
             type="button"
-            className="btn btn-sm btn-circle btn-ghost"
+            className="btn btn-circle btn-ghost btn-lg shrink-0 text-2xl sm:btn-sm sm:text-base"
             onClick={onClose}
             aria-label="Close"
           >
@@ -276,6 +276,8 @@ export default function AtlasMap({
               bounds={bounds ?? undefined}
               minZoom={0}
               maxZoom={MAX_ZOOM}
+              keepBuffer={6}
+              updateWhenIdle={false}
             />
             <FitWhenReady onBounds={setBounds} />
             {bounds && !editing && <Navigator bounds={bounds} />}
