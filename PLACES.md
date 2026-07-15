@@ -17,16 +17,16 @@ All 84 place entries from the glossary, pinned on the atlas map. Grouped by regi
 - ✓ Delos (8)
 - ✓ Elis (9)
 - ✓ Ephyra (10)
-- ✓ Euboea (11)
-- ✓ Geraestus (12)
-- ✓ Gortyn (13)
-- ✓ Gyrae (14)
-- ✓ Hyperesia (15)
-- ✓ Hyperia (16)
-- ✓ Iolcus (17)
-- ✓ Ismarus (18)
-- ✓ Ithaca (19)
-- ✓ Lemnos (20)
+- ✓ Euboea (11) — verified batch 11
+- ✓ Geraestus (12) — verified batch 11
+- ✓ Gortyn (13) — verified batch 11
+- ✓ Gyrae (14) — verified batch 11
+- ✓ Hyperesia (15) — verified batch 11
+- ✓ Hyperia (16) — verified batch 11
+- ✓ Iolcus (17) — verified batch 11
+- ✓ Ismarus (18) — verified batch 11
+- ✓ Ithaca (19) — verified batch 11
+- ✓ Lemnos (20) — verified batch 11
 - ✓ Lesbos (21)
 - ✓ Marathon (22)
 - ✓ Malea (23)
