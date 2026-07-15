@@ -508,8 +508,8 @@ function Pins({
           position={unprojectPixel(map, p.x, p.y)}
           icon={pinIcon}
           eventHandlers={
-            editing
-              ? ({
+            (editing
+              ? {
                   pointerdown: (e: any) => {
                     const marker = markerRefs.current[i]
                     if (!marker) return
@@ -522,8 +522,8 @@ function Pins({
                       startScreenY: screenPos.y,
                     }
                   },
-                } as any)
-              : {}
+                }
+              : {}) as any
           }
         >
           <Popup minWidth={160}>
