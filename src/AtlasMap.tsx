@@ -433,7 +433,8 @@ function FitWhenReady({ onBounds }: { onBounds: (b: L.LatLngBounds) => void }) {
 // into raw top-down image pixel coords, matching PLACES' x/y convention.
 function Calibrator({ onAdd }: { onAdd: (p: Place) => void }) {
   const map = useMapEvents({
-    click: (e) => {
+    click: (e: any) => {
+      if (!e.originalEvent.shiftKey) return
       const pt = map.project(e.latlng, MAX_ZOOM)
       onAdd({ term: "untitled", x: pt.x, y: pt.y })
     },
@@ -648,7 +649,7 @@ export default function AtlasMap({
           <div className="flex flex-col gap-2 rounded-box border border-base-300 bg-base-200 p-3 text-sm max-h-32 overflow-hidden flex">
             <div className="flex items-center justify-between gap-2 shrink-0">
               <span className="font-heading font-semibold">
-                Calibration — click the map to drop a pin, name it below, then copy
+                Calibration — Shift+click the map to drop a pin, name it below, then copy
               </span>
               <div className="flex gap-1">
                 {pins.some((p) => p.term === "untitled") && (
