@@ -97,11 +97,11 @@ All 84 place entries from the glossary, pinned on the atlas map. Grouped by regi
 - ✓ Aeolia (73)
 - ✓ Cimmerians (74)
 - ✓ Land of the Cyclopes (75)
-- Land of the Lotus-Eaters
-- Ogygia
-- Ortygia
-- Scheria
-- Thrinacia
+- ✓ Land of the Lotus-Eaters (76)
+- ✓ Ogygia (77)
+- ✓ Ortygia (78)
+- ✓ Scheria (79)
+- ✓ Thrinacia (80)
 
 ## Cosmic/Abstract
 
