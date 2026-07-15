@@ -84,11 +84,11 @@ All 84 place entries from the glossary, pinned on the atlas map. Grouped by regi
 
 ## Underworld & Mythical Realms
 
-- Acheron
-- Cocytus
-- Erebus
-- Pyriphlegethon
-- Styx
+- ✓ Acheron (66)
+- ✓ Cocytus (67)
+- ✓ Erebus (68)
+- ✓ Pyriphlegethon (69)
+- ✓ Styx (70)
 - The Underworld
 
 ## Fictional/Legendary Lands
