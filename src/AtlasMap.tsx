@@ -597,8 +597,8 @@ export default function AtlasMap({
         </div>
 
         {editing && (
-          <div className="flex flex-col gap-2 rounded-box border border-base-300 bg-base-200 p-3 text-sm">
-            <div className="flex items-center justify-between gap-2">
+          <div className="flex flex-col gap-2 rounded-box border border-base-300 bg-base-200 p-3 text-sm max-h-32 overflow-hidden flex">
+            <div className="flex items-center justify-between gap-2 shrink-0">
               <span className="font-heading font-semibold">
                 Calibration — click the map to drop a pin, name it below, then copy
               </span>
@@ -610,9 +610,9 @@ export default function AtlasMap({
                 Copy coordinates
               </button>
             </div>
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 overflow-y-auto min-h-0">
               {pins.map((p, i) => (
-                <div key={i} className="flex items-center gap-2">
+                <div key={i} className="flex items-center gap-2 shrink-0">
                   <input
                     className="input input-xs input-bordered flex-1"
                     value={p.term}
@@ -627,7 +627,7 @@ export default function AtlasMap({
                   </span>
                   <button
                     type="button"
-                    className="btn btn-xs btn-ghost"
+                    className="btn btn-xs btn-ghost shrink-0"
                     onClick={() => setPins((prev) => prev.filter((_, j) => j !== i))}
                   >
                     remove
