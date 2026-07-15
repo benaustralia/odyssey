@@ -22,57 +22,57 @@ All 84 place entries from the glossary, pinned on the atlas map. Grouped by regi
 - ✓ Gortyn (13)
 - ✓ Gyrae (14)
 - ✓ Hyperesia (15)
-- Hyperia
-- Iolcus
-- Ismarus
-- Ithaca
-- Lemnos
-- Lesbos
-- Marathon
-- Malea
-- Messenia
-- Mimas
-- Mycenae
-- Orchomenus
-- Phaea
-- Phaestus
-- Pherae
-- Phthia
-- Phylace
-- Pieria
-- Psara
-- Pylos
-- Same
-- Scyros
-- Sounion
-- Sparta
-- Taphos
-- Taygetus
-- Telepylus
-- Temese
-- Tenedos
-- Thesprotia
-- Thrace
-- Troy
-- Zacynthus
+- ✓ Hyperia (16)
+- ✓ Iolcus (17)
+- ✓ Ismarus (18)
+- ✓ Ithaca (19)
+- ✓ Lemnos (20)
+- ✓ Lesbos (21)
+- ✓ Marathon (22)
+- ✓ Malea (23)
+- ✓ Messenia (24)
+- ✓ Mimas (25)
+- ✓ Mycenae (26)
+- ✓ Orchomenus (27)
+- ✓ Phaea (28)
+- ✓ Phaestus (29)
+- ✓ Pherae (30)
+- ✓ Phthia (31)
+- ✓ Phylace (32)
+- ✓ Pieria (33)
+- ✓ Psara (34)
+- ✓ Pylos (35)
+- ✓ Same (36)
+- ✓ Scyros (37)
+- ✓ Sounion (38)
+- ✓ Sparta (39)
+- ✓ Taphos (40)
+- ✓ Taygetus (41)
+- ✓ Telepylus (42)
+- ✓ Temese (43)
+- ✓ Tenedos (44)
+- ✓ Thesprotia (45)
+- ✓ Thrace (46)
+- ✓ Troy (47)
+- ✓ Zacynthus (48)
 
 ## Mountains & Geographic Features
 
-- Erymanthus
-- Mount Neion
-- Mount Neriton
-- Mount Olympus
-- Mount Parnassus
-- Mount Solyma
-- Ossa
-- Pelion
-- Pieria
+- ✓ Erymanthus (49)
+- ✓ Mount Neion (50)
+- ✓ Mount Neriton (51)
+- ✓ Mount Olympus (52)
+- ✓ Mount Parnassus (53)
+- ✓ Mount Solyma (54)
+- ✓ Ossa (55)
+- ✓ Pelion (56)
+- ✓ Pieria (57)
 
 ## Red Sea & North Africa
 
-- Egypt
-- Ethiopia
-- Libya
+- ✓ Egypt (58)
+- ✓ Ethiopia (59)
+- ✓ Libya (60)
 - Pharos
 
 ## Levant & Eastern Mediterranean
