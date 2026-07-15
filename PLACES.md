@@ -2,23 +2,26 @@
 
 All 84 place entries from the glossary, pinned on the atlas map. Grouped by region for reference.
 
+**Active Dev Server:** http://localhost:5173/
+**Last Updated:** 2026-07-15
+
 ## Aegean & Mediterranean (Greece, Aegean Islands)
 
-- Achaea
-- Aegae
-- Athens
-- Chalcis
-- Chios
-- Cyprus
-- Cythera
-- Delos
-- Elis
-- Ephyra
-- Euboea
-- Geraestus
-- Gortyn
-- Gyrae
-- Hyperesia
+- ✓ Achaea (1)
+- ✓ Aegae (2)
+- ✓ Athens (3)
+- ✓ Chalcis (4)
+- ✓ Chios (5)
+- ✓ Cyprus (6)
+- ✓ Cythera (7)
+- ✓ Delos (8)
+- ✓ Elis (9)
+- ✓ Ephyra (10)
+- ✓ Euboea (11)
+- ✓ Geraestus (12)
+- ✓ Gortyn (13)
+- ✓ Gyrae (14)
+- ✓ Hyperesia (15)
 - Hyperia
 - Iolcus
 - Ismarus
