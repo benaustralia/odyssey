@@ -73,14 +73,14 @@ All 84 place entries from the glossary, pinned on the atlas map. Grouped by regi
 - ✓ Egypt (58)
 - ✓ Ethiopia (59)
 - ✓ Libya (60)
-- Pharos
+- ✓ Pharos (61)
 
 ## Levant & Eastern Mediterranean
 
-- Artaky
-- Phoenicia
-- River Jardan
-- Sidon
+- ✓ Artaky (62)
+- ✓ Phoenicia (63)
+- ✓ River Jardan (64)
+- ✓ Sidon (65)
 
 ## Underworld & Mythical Realms
 
