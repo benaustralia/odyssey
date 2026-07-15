@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import L from "leaflet"
 import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from "react-leaflet"
 import "leaflet/dist/leaflet.css"
@@ -444,10 +444,11 @@ function Calibrator({ onAdd }: { onAdd: (p: Place) => void }) {
 
 // Markers are given in raw image pixel coords (matching PLACES/Calibrator),
 // so placing them needs the same live-map unproject as the bounds fit. In
-// #atlas-eyeball, pins are also draggable -- dragend converts the marker's
-// dropped LatLng back to pixel coords via map.project(), the same inverse
-// used by Calibrator for new pins (same pattern as JourneyMap's STOPS/vias
-// draggable markers).
+// #atlas-eyeball, pins are also draggable -- pointer-based drag (pointerdown/
+// pointermove/pointerup) converts the dropped screen coords back to pixel coords
+// via map.project(), the same inverse used by Calibrator for new pins (same
+// pattern as JourneyMap's STOPS/vias draggable markers). Pointer events work on
+// both mouse and iOS touch, unlike Leaflet's native drag (which is mouse-only).
 function Pins({
   pins,
   editing,
@@ -462,20 +463,68 @@ function Pins({
   lookup: (term: string) => unknown
 }) {
   const map = useMap()
+  const dragState = useRef<{
+    index: number
+    startPointerX: number
+    startPointerY: number
+    startScreenX: number
+    startScreenY: number
+  } | null>(null)
+  const markerRefs = useRef<(L.Marker | null)[]>([])
+
+  useMapEvents({
+    pointermove: (e: any) => {
+      if (!dragState.current || !editing) return
+      const { index, startPointerX, startPointerY, startScreenX, startScreenY } = dragState.current
+      const dx = e.originalEvent.clientX - startPointerX
+      const dy = e.originalEvent.clientY - startPointerY
+      const marker = markerRefs.current[index]
+      if (!marker) return
+
+      const newContainerPoint = L.point(startScreenX + dx, startScreenY + dy)
+      const newLatLng = map.containerPointToLatLng(newContainerPoint)
+      marker.setLatLng(newLatLng)
+    },
+    pointerup: () => {
+      if (!dragState.current || !editing) return
+      const { index } = dragState.current
+      const marker = markerRefs.current[index]
+      if (!marker) return
+
+      const pt = map.project(marker.getLatLng(), MAX_ZOOM)
+      onMove(index, { x: pt.x, y: pt.y })
+      dragState.current = null
+    },
+  })
+
   return (
     <>
       {pins.map((p, i) => (
         <Marker
           key={`${p.term}-${i}`}
+          ref={(ref) => {
+            markerRefs.current[i] = ref
+          }}
           position={unprojectPixel(map, p.x, p.y)}
           icon={pinIcon}
-          draggable={editing}
-          eventHandlers={{
-            dragend: (e) => {
-              const pt = map.project((e.target as L.Marker).getLatLng(), MAX_ZOOM)
-              onMove(i, { x: pt.x, y: pt.y })
-            },
-          }}
+          eventHandlers={
+            editing
+              ? {
+                  pointerdown: (e: any) => {
+                    const marker = markerRefs.current[i]
+                    if (!marker) return
+                    const screenPos = map.latLngToContainerPoint(marker.getLatLng())
+                    dragState.current = {
+                      index: i,
+                      startPointerX: e.originalEvent.clientX,
+                      startPointerY: e.originalEvent.clientY,
+                      startScreenX: screenPos.x,
+                      startScreenY: screenPos.y,
+                    }
+                  },
+                }
+              : {}
+          }
         >
           <Popup minWidth={160}>
             <div className="flex flex-col gap-2">
