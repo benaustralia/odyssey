@@ -183,7 +183,7 @@ const PLACES: Place[] = [
   { term: "Delos", x: 6000, y: 8800 },
   { term: "Cyprus", x: 7200, y: 9200 },
   { term: "Gortyn", x: 6800, y: 9600 },
-  { term: "Cythera", x: 5400, y: 10000 },
+  { term: "Cythera", x: 7589, y: 8924 },
   { term: "Thrace", x: 6200, y: 8000 },
   { term: "Thesprotia", x: 4600, y: 8600 },
   { term: "Elis", x: 4300, y: 9500 },
