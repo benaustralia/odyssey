@@ -49,6 +49,28 @@ const THUMB_W = Math.ceil(W / Z0_SCALE) + 2
 const THUMB_H = Math.ceil(H / Z0_SCALE) + 2
 const THUMB_URL = `${CLD}/c_crop,x_0,y_0,w_${THUMB_W},h_${THUMB_H}/atlas/0/0/0`
 
+// Tile coverage index: which geographic regions fall in which tile coordinates at MAX_ZOOM.
+// Full plate is 13238×10802 px. At z=MAX_ZOOM (6), scale=2^6=64, so ~207×169 tiles of 256px each.
+// Tile (x,y) covers pixel range [x*256, (x+1)*256) × [y*256, (y+1)*256) in the scaled (z=6) grid.
+// To map a place's pixel coords (px, py) to a tile: tx = Math.floor(px/256), ty = Math.floor(py/256)
+//
+// Geographic regions (rough tile ranges at z=6):
+// - West Africa / Egypt (x: 0–1800): tiles tx=0–7, mostly Egypt (Nile delta at tx≈6–7, y≈30–35)
+// - Ethiopia inset (top-left): x≈2500–3200, y≈0–1200 in an "Annonis Periplus" inset panel
+// - Levant coast (x: 3000–3500, y: 2000–2500): Phoenicia, Sidon, River Jardan (if drawn — not confirmed in this plate)
+// - Greece / Aegean (x: 8000–9500, y: 1500–5500): tiles tx≈31–37, ty≈6–22
+//   - Northern Aegean (ty≈5–10, y≈1200–2600): Thrace, Troy, Lemnos, Aegae, Ossa, Pelion, Iolcus, Ismarus
+//   - Central Aegean (ty≈10–16, y≈2600–4100): Athens, Chalcis, Euboea, Delos, Chios, Lesbos, Marathon, Thesprotia
+//   - Southern Aegean & Peloponnese (ty≈16–25, y≈4100–6500): Sparta, Pylos, Messenia, Corinth, Cyprus, Crete (Gortyn, Phaestus)
+// - Fictional/mythical realms: scattered at out-of-bounds x>10000 or y>8000 (Underworld, Styx, etc.)
+//
+// First 5 Aegean places from PLACES.md (for accurate pin positioning):
+// 1. Achaea — not yet in array; Peloponnese, south of Corinth/Sparta region; expect ~x:8000–8200, y:4400–4600
+// 2. Aegae — northern coast of Macedonian peninsula; x:8700, y:2500 (currently too far east/right)
+// 3. Athens — central Greece; x:8400, y:3800 (reasonable, but verify against map labels)
+// 4. Chalcis — Euboea island; x:8650, y:3400 (check position relative to Athens)
+// 5. Chios — NE Aegean island; x:8900, y:3200 (verify island position off Turkish coast)
+
 // Enumerates every tile URL in the pyramid, split into "overview" (z 0-4,
 // ~202 tiles, a couple MB -- small enough to always warm immediately) and
 // "detail" (z 5-6, ~2808 tiles, the bulk of the ~43MB pyramid).
@@ -136,84 +158,93 @@ const PLACES: Place[] = [
   { term: "Ethiopia", x: 2821, y: 2305 },
   { term: "Pharos", x: 1631, y: 3758 },
   { term: "Libya", x: 1000, y: 6000 },
-  { term: "Ithaca", x: 8500, y: 3500 },
-  { term: "Sparta", x: 8200, y: 4200 },
-  { term: "Athens", x: 8400, y: 3800 },
-  { term: "Pylos", x: 8100, y: 4300 },
-  { term: "Argos (the city)", x: 8300, y: 4000 },
-  { term: "Troy", x: 8800, y: 2800 },
-  { term: "Mycenae", x: 8250, y: 4100 },
-  { term: "Aeaea", x: 8600, y: 4500 },
-  { term: "Scheria", x: 7800, y: 2800 },
-  { term: "Ogygia", x: 6800, y: 2300 },
-  { term: "Chios", x: 8900, y: 3200 },
-  { term: "Lemnos", x: 8700, y: 3000 },
-  { term: "Lesbos", x: 8650, y: 3100 },
-  { term: "Delos", x: 8800, y: 3600 },
-  { term: "Cyprus", x: 9200, y: 4200 },
-  { term: "Gortyn", x: 9100, y: 5000 },
-  { term: "Cythera", x: 8300, y: 5500 },
-  { term: "Thrace", x: 8700, y: 2400 },
-  { term: "Thesprotia", x: 8200, y: 3200 },
-  { term: "Elis", x: 8000, y: 4400 },
-  { term: "Messenia", x: 8100, y: 4600 },
-  { term: "Marathon", x: 8450, y: 3600 },
-  { term: "Sounion", x: 8500, y: 3900 },
-  { term: "Euboea", x: 8600, y: 3500 },
-  { term: "Chalcis", x: 8650, y: 3400 },
-  { term: "Orchomenus", x: 8300, y: 3600 },
-  { term: "Panopeus", x: 8250, y: 3700 },
-  { term: "Mount Parnassus", x: 8200, y: 3300 },
-  { term: "Pelion", x: 8800, y: 2900 },
-  { term: "Ossa", x: 8750, y: 2700 },
-  { term: "Erymanthus", x: 8100, y: 4200 },
-  { term: "Mount Neion", x: 8500, y: 3800 },
-  { term: "Mount Neriton", x: 8450, y: 3700 },
-  { term: "Taygetus", x: 8150, y: 4400 },
-  { term: "Asteris", x: 8550, y: 5100 },
-  { term: "Taphos", x: 8100, y: 3900 },
-  { term: "Iolcus", x: 8750, y: 2850 },
-  { term: "Ismarus", x: 8900, y: 2600 },
-  { term: "Aegae", x: 8700, y: 2500 },
-  { term: "Phaestus", x: 9050, y: 5100 },
-  { term: "Amnisus", x: 9150, y: 4900 },
-  { term: "Phaea", x: 8050, y: 4300 },
-  { term: "Pherae", x: 8700, y: 2800 },
-  { term: "Phthia", x: 8650, y: 2700 },
-  { term: "Phylace", x: 8700, y: 2900 },
-  { term: "Pieria", x: 8800, y: 2500 },
-  { term: "Hyperesia", x: 8300, y: 3800 },
-  { term: "Hyperia", x: 8250, y: 3700 },
-  { term: "Gyrae", x: 8900, y: 3600 },
-  { term: "Geraestus", x: 8600, y: 3600 },
-  { term: "Cimmerians", x: 9500, y: 3400 },
-  { term: "Psara", x: 8850, y: 3500 },
-  { term: "Same", x: 8000, y: 4500 },
-  { term: "Zacynthus", x: 7950, y: 4600 },
-  { term: "Tenedos", x: 8900, y: 2600 },
-  { term: "Scyros", x: 8750, y: 3300 },
-  { term: "Temese", x: 8000, y: 5100 },
-  { term: "Telepylus", x: 8050, y: 3700 },
-  { term: "Artaky", x: 9100, y: 3000 },
-  { term: "Arethusa", x: 8600, y: 4300 },
-  { term: "Aeolia", x: 7500, y: 2200 },
-  { term: "Land of the Lotus-Eaters", x: 5500, y: 7200 },
-  { term: "Land of the Cyclopes", x: 10000, y: 6500 },
-  { term: "Thrinacia", x: 6000, y: 4500 },
-  { term: "Styx", x: 11000, y: 8500 },
-  { term: "Acheron", x: 10500, y: 8300 },
-  { term: "Cocytus", x: 11500, y: 8400 },
-  { term: "Pyriphlegethon", x: 12000, y: 8500 },
-  { term: "Erebus", x: 10800, y: 8200 },
-  { term: "The Underworld", x: 11200, y: 8350 },
-  { term: "Phoenicia", x: 9300, y: 5200 },
-  { term: "Sidon", x: 9350, y: 5300 },
-  { term: "River Jardan", x: 9400, y: 5400 },
-  { term: "Mount Solyma", x: 9500, y: 5600 },
-  { term: "Ocean", x: 3000, y: 2000 },
-  { term: "Mount Olympus", x: 8750, y: 2300 },
-  { term: "Ortygia", x: 9150, y: 5100 },
-  { term: "Ephyra", x: 8000, y: 4000 },
+  // VLYSSIS ERRORES INSET (Greece/Aegean) — repositioned from incorrect Red Sea coords.
+  // Inset spans roughly x: 3200–7800, y: 7500–10200 on the full 13238×10802 plate.
+  // Within inset, places are arranged geographically:
+  // - Peloponnese/western Greece (left): Achaea, Elis, Messenia, Sparta, Pylos
+  // - Central mainland: Athens, Orchomenus, Thebes region
+  // - Euboea & nearby: Chalcis, Euboea, Marathon
+  // - Northern Aegean: Troy, Thrace, Aegae, Lemnos, Iolcus, Ossa
+  // - Southern/Eastern islands: Chios, Lesbos, Delos, Cyprus, Crete (Gortyn, Phaestus)
+  { term: "Achaea", x: 4200, y: 9400 },
+  { term: "Ithaca", x: 4000, y: 9600 },
+  { term: "Sparta", x: 4800, y: 9700 },
+  { term: "Athens", x: 5400, y: 8900 },
+  { term: "Pylos", x: 4100, y: 9800 },
+  { term: "Argos (the city)", x: 5000, y: 9200 },
+  { term: "Troy", x: 6200, y: 7900 },
+  { term: "Mycenae", x: 5100, y: 9100 },
+  { term: "Aeaea", x: 5800, y: 9300 },
+  { term: "Scheria", x: 3600, y: 8500 },
+  { term: "Ogygia", x: 3200, y: 8200 },
+  { term: "Chios", x: 6900, y: 8500 },
+  { term: "Lemnos", x: 6400, y: 8300 },
+  { term: "Lesbos", x: 6200, y: 8400 },
+  { term: "Delos", x: 6000, y: 8800 },
+  { term: "Cyprus", x: 7200, y: 9200 },
+  { term: "Gortyn", x: 6800, y: 9600 },
+  { term: "Cythera", x: 5400, y: 10000 },
+  { term: "Thrace", x: 6200, y: 8000 },
+  { term: "Thesprotia", x: 4600, y: 8600 },
+  { term: "Elis", x: 4300, y: 9500 },
+  { term: "Messenia", x: 4200, y: 9800 },
+  { term: "Marathon", x: 5600, y: 8700 },
+  { term: "Sounion", x: 5700, y: 9000 },
+  { term: "Euboea", x: 5700, y: 8700 },
+  { term: "Chalcis", x: 5800, y: 8600 },
+  { term: "Orchomenus", x: 5200, y: 8700 },
+  { term: "Panopeus", x: 5100, y: 8600 },
+  { term: "Mount Parnassus", x: 5000, y: 8500 },
+  { term: "Pelion", x: 6100, y: 8200 },
+  { term: "Ossa", x: 6000, y: 8100 },
+  { term: "Erymanthus", x: 4500, y: 9400 },
+  { term: "Mount Neion", x: 5500, y: 8900 },
+  { term: "Mount Neriton", x: 5200, y: 8800 },
+  { term: "Taygetus", x: 4700, y: 9700 },
+  { term: "Asteris", x: 5300, y: 9900 },
+  { term: "Taphos", x: 4400, y: 8800 },
+  { term: "Iolcus", x: 6000, y: 8250 },
+  { term: "Ismarus", x: 6400, y: 8100 },
+  { term: "Aegae", x: 6100, y: 8050 },
+  { term: "Phaestus", x: 6900, y: 9700 },
+  { term: "Amnisus", x: 6800, y: 9600 },
+  { term: "Phaea", x: 4400, y: 9500 },
+  { term: "Pherae", x: 5900, y: 8300 },
+  { term: "Phthia", x: 5800, y: 8200 },
+  { term: "Phylace", x: 6000, y: 8250 },
+  { term: "Pieria", x: 6200, y: 8000 },
+  { term: "Hyperesia", x: 5400, y: 8800 },
+  { term: "Hyperia", x: 5300, y: 8700 },
+  { term: "Gyrae", x: 6700, y: 8700 },
+  { term: "Geraestus", x: 5900, y: 8750 },
+  { term: "Cimmerians", x: 7000, y: 8400 },
+  { term: "Psara", x: 6700, y: 8600 },
+  { term: "Same", x: 4500, y: 9700 },
+  { term: "Zacynthus", x: 4300, y: 9800 },
+  { term: "Tenedos", x: 6300, y: 8000 },
+  { term: "Scyros", x: 6300, y: 8400 },
+  { term: "Temese", x: 4400, y: 9600 },
+  { term: "Telepylus", x: 4800, y: 8900 },
+  { term: "Artaky", x: 7100, y: 8300 },
+  { term: "Arethusa", x: 5900, y: 9000 },
+  { term: "Aeolia", x: 3800, y: 8400 },
+  { term: "Land of the Lotus-Eaters", x: 2000, y: 9500 },
+  { term: "Land of the Cyclopes", x: 7500, y: 10000 },
+  { term: "Thrinacia", x: 3500, y: 9000 },
+  { term: "Styx", x: 8800, y: 10100 },
+  { term: "Acheron", x: 8600, y: 10000 },
+  { term: "Cocytus", x: 8900, y: 10050 },
+  { term: "Pyriphlegethon", x: 9100, y: 10100 },
+  { term: "Erebus", x: 8700, y: 9950 },
+  { term: "The Underworld", x: 8800, y: 10050 },
+  { term: "Phoenicia", x: 8400, y: 6500 },
+  { term: "Sidon", x: 8500, y: 6600 },
+  { term: "River Jardan", x: 8600, y: 6700 },
+  { term: "Mount Solyma", x: 8800, y: 6900 },
+  { term: "Ocean", x: 1500, y: 4500 },
+  { term: "Mount Olympus", x: 6200, y: 8050 },
+  { term: "Ortygia", x: 6900, y: 9700 },
+  { term: "Ephyra", x: 4600, y: 9300 },
 ]
 
 // The visible dot stays 24px (size-6), but the divIcon itself is given a
