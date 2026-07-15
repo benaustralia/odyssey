@@ -26,8 +26,17 @@ export default function CalibrationPanel({
   dump: string
 }) {
   const panelRef = useRef<HTMLDivElement>(null)
-  const [pos, setPos] = useState({ left: 24, top: 88 })
+  // Desktop: dock top-right by default -- top-left sits directly over the
+  // map's most interesting content (pins cluster west/center). Mobile keeps
+  // top-left; the panel is nearly full-width there so left/right is moot.
+  const [pos, setPos] = useState(() =>
+    window.innerWidth >= 640 ? { left: window.innerWidth - 24 - 288, top: 88 } : { left: 24, top: 88 },
+  )
   const dragState = useRef<{ dx: number; dy: number } | null>(null)
+  // Collapsed to a bare header strip by default on mobile -- the full panel
+  // (textarea + copy button) covers too much of the map to place pins by
+  // touch. Desktop starts expanded since there's room to spare.
+  const [collapsed, setCollapsed] = useState(() => window.innerWidth < 640)
 
   useEffect(() => {
     const onMove = (e: PointerEvent) => {
@@ -56,30 +65,44 @@ export default function CalibrationPanel({
       style={{ left: pos.left, top: pos.top }}
       className="fixed z-[1000] w-64 rounded-box border border-warning bg-base-100/95 p-3 shadow-xl backdrop-blur sm:w-72"
     >
-      <p
-        className="cursor-grab select-none text-xs font-semibold uppercase tracking-wider text-warning active:cursor-grabbing"
-        onPointerDown={(e) => {
-          const rect = panelRef.current?.getBoundingClientRect()
-          if (!rect) return
-          dragState.current = { dx: e.clientX - rect.left, dy: e.clientY - rect.top }
-        }}
-      >
-        ⠿ Calibration
-      </p>
-      <p className="mt-1 text-[0.7rem] leading-snug opacity-80">{hint}</p>
-      <textarea
-        readOnly
-        value={dump}
-        onFocus={(e) => e.currentTarget.select()}
-        className="textarea textarea-bordered mt-2 h-32 w-full font-mono text-[0.7rem] leading-snug sm:h-48"
-      />
-      <button
-        type="button"
-        className="btn btn-warning btn-sm mt-2 w-full"
-        onClick={() => navigator.clipboard?.writeText(dump)}
-      >
-        Copy coordinates
-      </button>
+      <div className="flex items-center gap-2">
+        <p
+          className="flex-1 cursor-grab select-none text-xs font-semibold uppercase tracking-wider text-warning active:cursor-grabbing"
+          onPointerDown={(e) => {
+            const rect = panelRef.current?.getBoundingClientRect()
+            if (!rect) return
+            dragState.current = { dx: e.clientX - rect.left, dy: e.clientY - rect.top }
+          }}
+        >
+          ⠿ Calibration
+        </p>
+        <button
+          type="button"
+          className="btn btn-ghost btn-xs shrink-0 px-1 text-warning"
+          onClick={() => setCollapsed((c) => !c)}
+          aria-label={collapsed ? "Expand calibration panel" : "Collapse calibration panel"}
+        >
+          {collapsed ? "▸" : "▾"}
+        </button>
+      </div>
+      {!collapsed && (
+        <>
+          <p className="mt-1 text-[0.7rem] leading-snug opacity-80">{hint}</p>
+          <textarea
+            readOnly
+            value={dump}
+            onFocus={(e) => e.currentTarget.select()}
+            className="textarea textarea-bordered mt-2 h-32 w-full font-mono text-[0.7rem] leading-snug sm:h-48"
+          />
+          <button
+            type="button"
+            className="btn btn-warning btn-sm mt-2 w-full"
+            onClick={() => navigator.clipboard?.writeText(dump)}
+          >
+            Copy coordinates
+          </button>
+        </>
+      )}
     </div>,
     document.body,
   )
