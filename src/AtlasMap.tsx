@@ -5,6 +5,7 @@ import "leaflet/dist/leaflet.css"
 // @ts-expect-error - leaflet-minimap ships no type declarations
 import MiniMapControl from "leaflet-minimap"
 import "leaflet-minimap/dist/Control.MiniMap.min.css"
+import CalibrationPanel from "./CalibrationPanel"
 
 // Base map: Abraham Ortelius, "Erythraei Sive Rubri Maris Periplus" (1597) —
 // the FULL Red Sea plate (Egypt, Arabia, Persia, India, East Africa), not just
@@ -110,6 +111,10 @@ type Place = { term: string; x: number; y: number }
 //   cities sit) isn't drawn at all, not merely off in a margin.
 // - "Red Sea" / "Arabia": neither exists as its own glossary term (checked
 //   glossary.json), so there's nothing to pin for that TODO item specifically.
+// - Pharos: yes -- its own glossary entry (the island off Alexandria near the
+//   Nile mouth, where Menelaus is becalmed and wrestles Proteus in Book 4),
+//   distinct from the general "Egypt" entry. Pinned at the coast by
+//   "Alexandria" on this plate.
 // Every other one of the 84 glossary places is Aegean/mainland-Greek and
 // already covered by JourneyMap's Vlyssis Errores inset -- this plate mostly
 // functions as a "wider crop" backdrop, not a second pin-map for the same set
@@ -117,13 +122,20 @@ type Place = { term: string; x: number; y: number }
 const PLACES: Place[] = [
   { term: "Egypt", x: 1628, y: 5353 },
   { term: "Ethiopia", x: 2821, y: 2305 },
+  { term: "Pharos", x: 2301, y: 3394 },
 ]
 
+// The visible dot stays 24px (size-6), but the divIcon itself is given a
+// larger 40px hit box (padding around the dot) so a slightly imprecise
+// mousedown still grabs the marker instead of falling through to the map's
+// own click handler -- which, in #atlas-eyeball, interprets a miss as "drop a
+// new pin" (Calibrator) rather than "drag this one". cursor:grab signals it's
+// draggable at a glance.
 const pinIcon = L.divIcon({
   className: "",
-  html: `<div class="grid size-6 place-items-center rounded-full bg-primary text-primary-content shadow ring-2 ring-base-100"></div>`,
-  iconSize: [24, 24],
-  iconAnchor: [12, 12],
+  html: `<div class="grid size-10 cursor-grab place-items-center active:cursor-grabbing"><div class="size-6 rounded-full bg-primary text-primary-content shadow ring-2 ring-base-100"></div></div>`,
+  iconSize: [40, 40],
+  iconAnchor: [20, 20],
 })
 
 // Gotcha (cost real debugging time): `map.unproject(point, zoom)` (an
@@ -181,15 +193,16 @@ function Navigator({ bounds }: { bounds: L.LatLngBounds }) {
 // sees; re-running fitBounds on those snapped the view straight back to
 // "fit all" on every scroll-zoom tick, making scroll-to-zoom appear broken.
 // Same one-shot idea as JourneyMap's LockMinZoom (its `focused` flag).
-// Gotcha #2 (caught on an actual iPhone SE simulator, not just desktop): a
-// plain fitBounds "fits inside" the container -- on desktop the container is
-// aspect-locked to the image (sm:aspect-[...]) so that's exactly full-bleed,
-// but on mobile the container is just whatever vertical space is left
-// (h-dvh column), a portrait shape very unlike this landscape plate. Fitting
-// "inside" a portrait box left big empty grey bands above/below. JourneyMap
-// solves this with `getBoundsZoom(bounds, true)` ("cover", not "contain") as
-// the MIN zoom, so the map always fills the frame and you pan to see more --
-// same fix here.
+// Gotcha #2 (caught on an actual iPhone SE simulator, but the same fix now
+// applies at every screen size): a plain fitBounds "fits inside" the
+// container. The map's container is edge-to-edge at all breakpoints (no
+// aspect-ratio lock -- that used to shrink the desktop card to the image's
+// aspect ratio, wasting most of a wide viewport, so it was dropped), and its
+// shape is whatever the window happens to be -- rarely this landscape
+// plate's own aspect ratio. Fitting "inside" left big empty grey bands.
+// JourneyMap solves this with `getBoundsZoom(bounds, true)` ("cover", not
+// "contain") as the MIN zoom, so the map always fills the frame and you pan
+// to see more -- same fix here.
 function FitWhenReady({ onBounds }: { onBounds: (b: L.LatLngBounds) => void }) {
   const map = useMap()
   useEffect(() => {
@@ -310,7 +323,7 @@ export default function AtlasMap({
 
   return (
     <div className="modal modal-open" role="dialog" aria-label="Atlas of the Odyssey">
-      <div className="modal-box flex h-dvh max-h-dvh w-full max-w-none flex-col gap-2 rounded-none p-2 sm:h-auto sm:max-h-[94vh] sm:w-auto sm:max-w-[96vw] sm:gap-3 sm:rounded-box sm:p-4">
+      <div className="modal-box flex h-dvh max-h-dvh w-full max-w-none flex-col gap-2 rounded-none p-2">
         <div className="flex items-center justify-between gap-3">
           <h2 className="font-display text-2xl font-semibold tracking-wide sm:text-3xl">
             Atlas — the Red Sea Plate
@@ -325,41 +338,55 @@ export default function AtlasMap({
           </button>
         </div>
 
-        <div className="relative w-full grow overflow-hidden rounded-box border border-base-300 sm:h-[80vh] sm:w-auto sm:grow-0 sm:aspect-[13238/10802] sm:max-w-[94vw] sm:self-center">
-          <MapContainer
-            crs={L.CRS.Simple}
-            minZoom={0}
-            maxZoom={MAX_ZOOM}
-            zoomSnap={0}
-            zoomDelta={0.6}
-            scrollWheelZoom
-            wheelPxPerZoomLevel={15}
-            attributionControl={false}
-            className="h-full w-full bg-base-300"
-          >
-            <TileLayer
-              url={TILE_URL}
-              tileSize={256}
-              noWrap
-              bounds={bounds ?? undefined}
+        <div className="relative w-full grow">
+          {/* The rounded-corner clip lives on this inner wrapper, not the
+              outer relative container -- so it clips only the map/tiles, not
+              the floating calibration panel below (a shared corner-clip
+              wrapper with the panel used to slice the panel's own top-left
+              corner where the container's curve cut across it). */}
+          <div className="absolute inset-0 overflow-hidden rounded-box border border-base-300">
+            <MapContainer
+              crs={L.CRS.Simple}
               minZoom={0}
               maxZoom={MAX_ZOOM}
-              keepBuffer={6}
-              updateWhenIdle={false}
+              zoomSnap={0}
+              zoomDelta={0.6}
+              scrollWheelZoom
+              wheelPxPerZoomLevel={15}
+              attributionControl={false}
+              className="h-full w-full bg-base-300"
+            >
+              <TileLayer
+                url={TILE_URL}
+                tileSize={256}
+                noWrap
+                bounds={bounds ?? undefined}
+                minZoom={0}
+                maxZoom={MAX_ZOOM}
+                keepBuffer={6}
+                updateWhenIdle={false}
+              />
+              <FitWhenReady onBounds={setBounds} />
+              {bounds && !editing && <Navigator bounds={bounds} />}
+              {editing && <Calibrator onAdd={(p) => setPins((prev) => [...prev, p])} />}
+              <Pins
+                pins={pins}
+                editing={editing}
+                onSelect={onSelect}
+                onMove={(i, p) =>
+                  setPins((prev) => prev.map((q, j) => (j === i ? { ...q, ...p } : q)))
+                }
+                lookup={lookup}
+              />
+            </MapContainer>
+          </div>
+
+          {editing && (
+            <CalibrationPanel
+              hint="Drag pins to reposition. Click the map to drop a new one, name it below."
+              dump={dump}
             />
-            <FitWhenReady onBounds={setBounds} />
-            {bounds && !editing && <Navigator bounds={bounds} />}
-            {editing && <Calibrator onAdd={(p) => setPins((prev) => [...prev, p])} />}
-            <Pins
-              pins={pins}
-              editing={editing}
-              onSelect={onSelect}
-              onMove={(i, p) =>
-                setPins((prev) => prev.map((q, j) => (j === i ? { ...q, ...p } : q)))
-              }
-              lookup={lookup}
-            />
-          </MapContainer>
+          )}
         </div>
 
         {editing && (
