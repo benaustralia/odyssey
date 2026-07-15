@@ -472,20 +472,21 @@ function Pins({
   } | null>(null)
   const markerRefs = useRef<(L.Marker | null)[]>([])
 
-  useMapEvents({
-    pointermove: (e: any) => {
+  useEffect(() => {
+    const handlePointerMove = (e: PointerEvent) => {
       if (!dragState.current || !editing) return
       const { index, startPointerX, startPointerY, startScreenX, startScreenY } = dragState.current
-      const dx = e.originalEvent.clientX - startPointerX
-      const dy = e.originalEvent.clientY - startPointerY
+      const dx = e.clientX - startPointerX
+      const dy = e.clientY - startPointerY
       const marker = markerRefs.current[index]
       if (!marker) return
 
       const newContainerPoint = L.point(startScreenX + dx, startScreenY + dy)
       const newLatLng = map.containerPointToLatLng(newContainerPoint)
       marker.setLatLng(newLatLng)
-    },
-    pointerup: () => {
+    }
+
+    const handlePointerUp = () => {
       if (!dragState.current || !editing) return
       const { index } = dragState.current
       const marker = markerRefs.current[index]
@@ -494,8 +495,17 @@ function Pins({
       const pt = map.project(marker.getLatLng(), MAX_ZOOM)
       onMove(index, { x: pt.x, y: pt.y })
       dragState.current = null
-    },
-  } as any)
+    }
+
+    if (editing) {
+      window.addEventListener("pointermove", handlePointerMove)
+      window.addEventListener("pointerup", handlePointerUp)
+      return () => {
+        window.removeEventListener("pointermove", handlePointerMove)
+        window.removeEventListener("pointerup", handlePointerUp)
+      }
+    }
+  }, [map, editing, onMove])
 
   return (
     <>
