@@ -444,6 +444,12 @@ export default function AtlasMap({
               zoomDelta={0.6}
               scrollWheelZoom
               wheelPxPerZoomLevel={15}
+              // FitWhenReady below calls setMaxBounds once the plate's real
+              // bounds are known, but Leaflet's default maxBoundsViscosity
+              // is 0 -- "allow dragging past the bounds, snap back on
+              // release" -- which is what let the drag reveal empty grey
+              // past the plate edge. 1 makes the bounds a hard stop instead.
+              maxBoundsViscosity={1}
               attributionControl={false}
               className="h-full w-full bg-base-300"
             >
