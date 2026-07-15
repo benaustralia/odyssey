@@ -167,7 +167,7 @@ const PLACES: Place[] = [
   // - Northern Aegean: Troy, Thrace, Aegae, Lemnos, Iolcus, Ossa
   // - Southern/Eastern islands: Chios, Lesbos, Delos, Cyprus, Crete (Gortyn, Phaestus)
   { term: "Achaea", x: 4200, y: 9400 },
-  { term: "Ithaca", x: 6791, y: 8459 },
+  { term: "Ithaca", x: 6787, y: 8459 },
   { term: "Sparta", x: 4800, y: 9700 },
   { term: "Athens", x: 5400, y: 8900 },
   { term: "Pylos", x: 4100, y: 9800 },
