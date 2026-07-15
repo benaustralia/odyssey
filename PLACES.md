@@ -102,10 +102,13 @@ All 84 place entries from the glossary, pinned on the atlas map. Grouped by regi
 - ✓ Ortygia (78)
 - ✓ Scheria (79)
 - ✓ Thrinacia (80)
+- ✓ Amnisus (82)
+- ✓ Arethusa (83)
+- ✓ Argos (the city) (84)
 
 ## Cosmic/Abstract
 
-- Ocean
+- ✓ Ocean (81)
 
 ---
 
