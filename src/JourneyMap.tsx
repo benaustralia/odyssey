@@ -166,9 +166,10 @@ function ZoomWatch({ onZoom }: { onZoom: (z: number) => void }) {
 }
 
 // Min zoom = the zoom at which the image *covers* the container (inside=true),
-// so it always fills the frame: on desktop (container matches the image aspect)
-// that's the full map; on a portrait phone it fills the screen and you pan the
-// wide map horizontally. Can't zoom out past that. Recomputes on resize/rotate.
+// so it always fills the frame regardless of the window's shape (the modal is
+// edge-to-edge at every breakpoint, no aspect-ratio lock): a wide desktop
+// window shows most of the map, a portrait phone fills the screen and you pan
+// the wide map horizontally. Can't zoom out past that. Recomputes on resize/rotate.
 function LockMinZoom({ bounds, initialView }: { bounds: L.LatLngBounds; initialView: L.LatLngTuple }) {
   const map = useMap()
   useEffect(() => {
@@ -637,7 +638,7 @@ export default function JourneyMap({
 
   return (
     <div className="modal modal-open" role="dialog" aria-label={config.title}>
-      <div className="modal-box flex h-dvh max-h-dvh w-full max-w-none flex-col gap-2 rounded-none p-2 sm:h-auto sm:max-h-[94vh] sm:w-auto sm:max-w-[96vw] sm:gap-3 sm:rounded-box sm:p-4">
+      <div className="modal-box flex h-dvh max-h-dvh w-full max-w-none flex-col gap-2 rounded-none p-2">
         <div className="flex items-center justify-between gap-3">
           <h2 className="font-display text-2xl font-semibold tracking-wide sm:text-3xl">
             {config.title}
@@ -652,10 +653,7 @@ export default function JourneyMap({
           </button>
         </div>
 
-        <div
-          className="relative w-full grow sm:h-[80vh] sm:w-auto sm:grow-0 sm:aspect-[var(--journey-aspect)] sm:max-w-[94vw] sm:self-center"
-          style={{ "--journey-aspect": `${config.mapWidth} / ${config.mapHeight}` } as React.CSSProperties}
-        >
+        <div className="relative w-full grow">
           {/* The rounded-corner clip lives on this inner wrapper, not the
               outer relative container -- so it clips only the map/tiles, not
               the floating panels below (a shared corner-clip wrapper with
