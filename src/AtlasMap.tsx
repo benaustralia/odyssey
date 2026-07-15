@@ -650,13 +650,24 @@ export default function AtlasMap({
               <span className="font-heading font-semibold">
                 Calibration — click the map to drop a pin, name it below, then copy
               </span>
-              <button
-                type="button"
-                className="btn btn-xs"
-                onClick={() => navigator.clipboard.writeText(dump)}
-              >
-                Copy coordinates
-              </button>
+              <div className="flex gap-1">
+                {pins.some((p) => p.term === "untitled") && (
+                  <button
+                    type="button"
+                    className="btn btn-xs btn-error"
+                    onClick={() => setPins((prev) => prev.filter((p) => p.term !== "untitled"))}
+                  >
+                    Remove untitled
+                  </button>
+                )}
+                <button
+                  type="button"
+                  className="btn btn-xs"
+                  onClick={() => navigator.clipboard.writeText(dump)}
+                >
+                  Copy coordinates
+                </button>
+              </div>
             </div>
             <div className="flex flex-col gap-1 overflow-y-auto min-h-0">
               {pins.map((p, i) => (
