@@ -35,7 +35,19 @@ const CLD = "https://res.cloudinary.com/dhvvz91bh/image/upload"
 // pass only ever covers the formats it was tested with. One plain JPEG
 // variant per tile avoids that fragmentation entirely.
 const TILE_URL = `${CLD}/atlas/{z}/{y}/{x}`
-const THUMB_URL = `${CLD}/atlas/0/0/0`
+// z=0 is a single 256x256 JPEG canvas, but dzsave's "google" layout scales
+// the plate down by exactly 2^MAX_ZOOM for the top pyramid level and leaves
+// the rest of that 256x256 canvas as blank white padding -- it does NOT
+// stretch/center the content to fill the tile. Content only occupies the
+// top-left W/2^MAX_ZOOM x H/2^MAX_ZOOM px rectangle (confirmed by sampling
+// raw pixels: content ends at ~207x176, matching 13238/64=206.8x10802/64=
+// 168.8 plus a few px of border/JPEG-ringing). A couple of earlier attempts
+// at cropping this assumed *symmetric* top/bottom letterboxing instead --
+// wrong; the padding is right+bottom only, content anchored top-left.
+const Z0_SCALE = 2 ** MAX_ZOOM
+const THUMB_W = Math.ceil(W / Z0_SCALE) + 2
+const THUMB_H = Math.ceil(H / Z0_SCALE) + 2
+const THUMB_URL = `${CLD}/c_crop,x_0,y_0,w_${THUMB_W},h_${THUMB_H}/atlas/0/0/0`
 
 // Enumerates every tile URL in the pyramid, split into "overview" (z 0-4,
 // ~202 tiles, a couple MB -- small enough to always warm immediately) and
@@ -161,19 +173,98 @@ function Navigator({ bounds }: { bounds: L.LatLngBounds }) {
   useEffect(() => {
     const layer = L.imageOverlay(THUMB_URL, bounds)
     const W2 = 132
-    const fit = map.getBoundsZoom(bounds) + Math.log2(W2 / map.getSize().x)
+    // `bounds` was built by unprojecting pixel coords 0..W at MAX_ZOOM, so
+    // projecting back at MAX_ZOOM recovers exactly W px of width -- from
+    // there the zoom that fits `bounds` into a W2-px-wide box is a plain
+    // log2 scale, no dependency on the (differently-sized/differently
+    // -proportioned) main map. The old formula derived this from the main
+    // map's own getBoundsZoom()+container size, which fits `bounds` to the
+    // main map's current aspect ratio, not the minimap's -- so the minimap
+    // image came out smaller than its box, leaving a blank band on one side.
+    const fit = MAX_ZOOM + Math.log2(W2 / W)
     const mini = new MiniMapControl(layer, {
       position: "bottomleft",
       width: W2,
       height: Math.round((W2 * H) / W),
       zoomLevelFixed: fit,
+      // centerFixed keeps the overview pinned to the whole plate always --
+      // without it, leaflet-minimap resyncs the mini map's center to the
+      // MAIN map's current center on every move (still at the fixed zoom),
+      // which pans the plate partly out of the small frame as soon as the
+      // main map's center drifts from the plate's own centroid (any pan or
+      // off-center zoom) -- exactly the blank-space bug this was meant to
+      // fix in the first place, just reintroduced a different way.
       centerFixed: bounds.getCenter(),
       toggleDisplay: true,
       aimingRectOptions: { color: "#6c2bd9", weight: 2, fillColor: "#6c2bd9", fillOpacity: 0.15 },
+      // leaflet-minimap also draws a "shadowRect" (used for its own built-in
+      // drag-preview effect, unused here since dragging is off) directly on
+      // top of the aiming rect in paint order. It's meant to be invisible
+      // but still `interactive` by default in modern Leaflet (the plugin's
+      // own `clickable:false` is a pre-1.0 Leaflet option name, silently
+      // ignored now), so it swallowed every click before it reached the
+      // purple rect underneath -- confirmed by Playwright's own drag tool,
+      // which reported this exact element "intercepts pointer events".
+      // Leaflet options are shallow-merged, not deep -- passing just
+      // `{interactive:false}` here replaced the plugin's whole default
+      // object instead of adding to it, so it lost `opacity:0`/
+      // `fillOpacity:0` too and fell back to Leaflet's own default *visible
+      // blue* path style. Keep the plugin's original invisibility options
+      // alongside interactive:false.
+      shadowRectOptions: { color: "#000000", weight: 1, opacity: 0, fillOpacity: 0, interactive: false },
       mapOptions: { crs: L.CRS.Simple, zoomSnap: 0, minZoom: -10, maxZoom: 10 },
     })
     mini.addTo(map)
+
+    // centerFixed above hardcodes the mini map's own `dragging: false`
+    // (leaflet-minimap ties the two together), so the built-in "drag the
+    // mini map to pan the main map" interaction is off -- by design, since
+    // that would drag the static whole-plate thumbnail itself off-center
+    // (see above). Instead, make just the purple aiming rectangle
+    // draggable: drag deltas are read in the mini map's own (fixed-zoom)
+    // coordinate space via containerPointToLatLng, then replayed onto the
+    // main map's center -- CRS.Simple lat/lng are plain linear x/y here, so
+    // a delta computed in one map's space applies directly to the other's
+    // center with no extra scaling.
+    const miniMap = mini._miniMap as L.Map
+    const rect = mini._aimingRect as L.Rectangle
+    let dragStartPt: L.Point | null = null
+    let mainStartCenter: L.LatLng | null = null
+
+    const onRectDown = (e: L.LeafletMouseEvent) => {
+      dragStartPt = miniMap.latLngToContainerPoint(e.latlng)
+      mainStartCenter = map.getCenter()
+      L.DomEvent.stopPropagation(e.originalEvent)
+      L.DomEvent.preventDefault(e.originalEvent)
+    }
+    const onWindowMove = (e: MouseEvent) => {
+      if (!dragStartPt || !mainStartCenter) return
+      const miniRect = miniMap.getContainer().getBoundingClientRect()
+      const curPt = L.point(e.clientX - miniRect.left, e.clientY - miniRect.top)
+      const startLatLng = miniMap.containerPointToLatLng(dragStartPt)
+      const curLatLng = miniMap.containerPointToLatLng(curPt)
+      map.setView(
+        L.latLng(
+          mainStartCenter.lat + (curLatLng.lat - startLatLng.lat),
+          mainStartCenter.lng + (curLatLng.lng - startLatLng.lng),
+        ),
+        map.getZoom(),
+        { animate: false },
+      )
+    }
+    const onWindowUp = () => {
+      dragStartPt = null
+      mainStartCenter = null
+    }
+    rect.on("mousedown", onRectDown)
+    rect.getElement()?.classList.add("cursor-grab", "active:cursor-grabbing")
+    window.addEventListener("mousemove", onWindowMove)
+    window.addEventListener("mouseup", onWindowUp)
+
     return () => {
+      rect.off("mousedown", onRectDown)
+      window.removeEventListener("mousemove", onWindowMove)
+      window.removeEventListener("mouseup", onWindowUp)
       mini.remove()
     }
   }, [map, bounds])
