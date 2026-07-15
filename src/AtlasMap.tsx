@@ -495,7 +495,7 @@ function Pins({
       onMove(index, { x: pt.x, y: pt.y })
       dragState.current = null
     },
-  })
+  } as any)
 
   return (
     <>
@@ -509,7 +509,7 @@ function Pins({
           icon={pinIcon}
           eventHandlers={
             editing
-              ? {
+              ? ({
                   pointerdown: (e: any) => {
                     const marker = markerRefs.current[i]
                     if (!marker) return
@@ -522,7 +522,7 @@ function Pins({
                       startScreenY: screenPos.y,
                     }
                   },
-                }
+                } as any)
               : {}
           }
         >
