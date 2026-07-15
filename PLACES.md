@@ -89,14 +89,14 @@ All 84 place entries from the glossary, pinned on the atlas map. Grouped by regi
 - ✓ Erebus (68)
 - ✓ Pyriphlegethon (69)
 - ✓ Styx (70)
-- The Underworld
+- ✓ The Underworld (71)
 
 ## Fictional/Legendary Lands
 
-- Aeaea
-- Aeolia
-- Cimmerians
-- Land of the Cyclopes
+- ✓ Aeaea (72)
+- ✓ Aeolia (73)
+- ✓ Cimmerians (74)
+- ✓ Land of the Cyclopes (75)
 - Land of the Lotus-Eaters
 - Ogygia
 - Ortygia
