@@ -241,7 +241,6 @@ const PLACES: Place[] = [
   { term: "Sidon", x: 3500, y: 5900 },
   { term: "River Jardan", x: 3600, y: 6000 },
   { term: "Mount Solyma", x: 3700, y: 6100 },
-  { term: "Ocean", x: 1500, y: 4500 },
   { term: "Mount Olympus", x: 6200, y: 8050 },
   { term: "Ortygia", x: 6900, y: 9700 },
   { term: "Ephyra", x: 4600, y: 9300 },
