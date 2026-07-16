@@ -49,28 +49,6 @@ const THUMB_W = Math.ceil(W / Z0_SCALE) + 2
 const THUMB_H = Math.ceil(H / Z0_SCALE) + 2
 const THUMB_URL = `${CLD}/c_crop,x_0,y_0,w_${THUMB_W},h_${THUMB_H}/atlas/0/0/0`
 
-// Tile coverage index: which geographic regions fall in which tile coordinates at MAX_ZOOM.
-// Full plate is 13238×10802 px. At z=MAX_ZOOM (6), scale=2^6=64, so ~207×169 tiles of 256px each.
-// Tile (x,y) covers pixel range [x*256, (x+1)*256) × [y*256, (y+1)*256) in the scaled (z=6) grid.
-// To map a place's pixel coords (px, py) to a tile: tx = Math.floor(px/256), ty = Math.floor(py/256)
-//
-// Geographic regions (rough tile ranges at z=6):
-// - West Africa / Egypt (x: 0–1800): tiles tx=0–7, mostly Egypt (Nile delta at tx≈6–7, y≈30–35)
-// - Ethiopia inset (top-left): x≈2500–3200, y≈0–1200 in an "Annonis Periplus" inset panel
-// - Levant coast (x: 3000–3500, y: 2000–2500): Phoenicia, Sidon, River Jardan (if drawn — not confirmed in this plate)
-// - Greece / Aegean (x: 8000–9500, y: 1500–5500): tiles tx≈31–37, ty≈6–22
-//   - Northern Aegean (ty≈5–10, y≈1200–2600): Thrace, Troy, Lemnos, Aegae, Ossa, Pelion, Iolcus, Ismarus
-//   - Central Aegean (ty≈10–16, y≈2600–4100): Athens, Chalcis, Euboea, Delos, Chios, Lesbos, Marathon, Thesprotia
-//   - Southern Aegean & Peloponnese (ty≈16–25, y≈4100–6500): Sparta, Pylos, Messenia, Corinth, Cyprus, Crete (Gortyn, Phaestus)
-// - Fictional/mythical realms: scattered at out-of-bounds x>10000 or y>8000 (Underworld, Styx, etc.)
-//
-// First 5 Aegean places from PLACES.md (for accurate pin positioning):
-// 1. Achaea — not yet in array; Peloponnese, south of Corinth/Sparta region; expect ~x:8000–8200, y:4400–4600
-// 2. Aegae — northern coast of Macedonian peninsula; x:8700, y:2500 (currently too far east/right)
-// 3. Athens — central Greece; x:8400, y:3800 (reasonable, but verify against map labels)
-// 4. Chalcis — Euboea island; x:8650, y:3400 (check position relative to Athens)
-// 5. Chios — NE Aegean island; x:8900, y:3200 (verify island position off Turkish coast)
-
 // Enumerates every tile URL in the pyramid, split into "overview" (z 0-4,
 // ~202 tiles, a couple MB -- small enough to always warm immediately) and
 // "detail" (z 5-6, ~2808 tiles, the bulk of the ~43MB pyramid).
@@ -150,9 +128,12 @@ type Place = { term: string; x: number; y: number }
 //   distinct from the general "Egypt" entry. Pinned at the coast by
 //   "Alexandria" on this plate.
 // Every other one of the 84 glossary places is Aegean/mainland-Greek and
-// already covered by JourneyMap's Vlyssis Errores inset -- this plate mostly
-// functions as a "wider crop" backdrop, not a second pin-map for the same set
-// of places.
+// already covered by JourneyMap's Vlyssis Errores inset. (That audit backed
+// the original 3-pin plan; a later pass pinned ALL the glossary places on
+// this plate anyway -- Aegean ones inside the Vlyssis Errores inset region,
+// off-plate/mythical ones at approximate spots. Still missing: Malea and
+// Mimas; Ocean is deliberately unpinned. See PLACES.md for the coverage
+// index; this array is the coordinate source of truth.)
 const PLACES: Place[] = [
   { term: "Egypt", x: 1628, y: 5353 },
   { term: "Ethiopia", x: 2821, y: 2305 },
@@ -241,7 +222,9 @@ const PLACES: Place[] = [
   { term: "Sidon", x: 3500, y: 5900 },
   { term: "River Jardan", x: 3600, y: 6000 },
   { term: "Mount Solyma", x: 3700, y: 6100 },
-  { term: "Mount Olympus", x: 6059, y: 8283 },
+  // Glossary term is "Olympus" (was pinned as "Mount Olympus", which broke
+  // the popup's glossary lookup -- pin terms must match glossary terms).
+  { term: "Olympus", x: 6059, y: 8283 },
   { term: "Ortygia", x: 6900, y: 9700 },
   { term: "Ephyra", x: 4600, y: 9300 },
 ]

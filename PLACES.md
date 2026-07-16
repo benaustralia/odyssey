@@ -1,117 +1,112 @@
-# Odyssey Glossary Places
+# Odyssey Glossary Places — Atlas pin coverage
 
-All 84 place entries from the glossary, pinned on the atlas map. Grouped by region for reference.
+Status of the 84 Wilson-glossary place entries on the Atlas map. The `PLACES` array in
+`src/AtlasMap.tsx` is the **source of truth** for names + coordinates; this file is a
+human-readable index regenerated from it (glossary.json × AtlasMap.tsx).
 
-**Active Dev Server:** http://localhost:5173/
-**Last Updated:** 2026-07-15
+**Last regenerated:** 2026-07-16. The previous version of this file was a batch-calibration
+checklist that had drifted badly: it duplicated Pieria, omitted Asteris and Panopeus (both
+actually pinned), listed the pin as "Mount Olympus" (mismatching the glossary term "Olympus",
+which silently broke that popup's artwork lookup — since renamed), and ✓-marked Malea and
+Mimas though they were never pinned. Do not resurrect the checklist format — regenerate.
 
-## Aegean & Mediterranean (Greece, Aegean Islands)
+## Pinned (81)
 
-- ✓ Achaea (1)
-- ✓ Aegae (2)
-- ✓ Athens (3)
-- ✓ Chalcis (4)
-- ✓ Chios (5)
-- ✓ Cyprus (6)
-- ✓ Cythera (7)
-- ✓ Delos (8)
-- ✓ Elis (9)
-- ✓ Ephyra (10)
-- ✓ Euboea (11) — verified batch 11
-- ✓ Geraestus (12) — verified batch 11
-- ✓ Gortyn (13) — verified batch 11
-- ✓ Gyrae (14) — verified batch 11
-- ✓ Hyperesia (15) — verified batch 11
-- ✓ Hyperia (16) — verified batch 11
-- ✓ Iolcus (17) — verified batch 11
-- ✓ Ismarus (18) — verified batch 11
-- ✓ Ithaca (19) — verified batch 11
-- ✓ Lemnos (20) — verified batch 11
-- ✓ Lesbos (21)
-- ✓ Marathon (22)
-- ✓ Malea (23)
-- ✓ Messenia (24)
-- ✓ Mimas (25)
-- ✓ Mycenae (26)
-- ✓ Orchomenus (27)
-- ✓ Phaea (28)
-- ✓ Phaestus (29)
-- ✓ Pherae (30)
-- ✓ Phthia (31)
-- ✓ Phylace (32)
-- ✓ Pieria (33)
-- ✓ Psara (34)
-- ✓ Pylos (35)
-- ✓ Same (36)
-- ✓ Scyros (37)
-- ✓ Sounion (38)
-- ✓ Sparta (39)
-- ✓ Taphos (40)
-- ✓ Taygetus (41)
-- ✓ Telepylus (42)
-- ✓ Temese (43)
-- ✓ Tenedos (44)
-- ✓ Thesprotia (45)
-- ✓ Thrace (46)
-- ✓ Troy (47)
-- ✓ Zacynthus (48)
+- Acheron
+- Aeaea
+- Aegae
+- Aeolia
+- Amnisus
+- Arethusa
+- Argos (the city)
+- Artaky
+- Asteris
+- Athens
+- Chalcis
+- Chios
+- Cimmerians
+- Cocytus
+- Cyprus
+- Cythera
+- Delos
+- Egypt
+- Elis
+- Ephyra
+- Erebus
+- Erymanthus
+- Ethiopia
+- Euboea
+- Geraestus
+- Gortyn
+- Gyrae
+- Hyperesia
+- Hyperia
+- Iolcus
+- Ismarus
+- Ithaca
+- Land of the Cyclopes
+- Land of the Lotus-Eaters
+- Lemnos
+- Lesbos
+- Libya
+- Marathon
+- Messenia
+- Mount Neion
+- Mount Neriton
+- Mount Parnassus
+- Mount Solyma
+- Mycenae
+- Ogygia
+- Olympus
+- Orchomenus
+- Ortygia
+- Ossa
+- Panopeus
+- Pelion
+- Phaea
+- Phaestus
+- Pharos
+- Pherae
+- Phoenicia
+- Phthia
+- Phylace
+- Pieria
+- Psara
+- Pylos
+- Pyriphlegethon
+- River Jardan
+- Same
+- Scheria
+- Scyros
+- Sidon
+- Sounion
+- Sparta
+- Styx
+- Taphos
+- Taygetus
+- Telepylus
+- Temese
+- Tenedos
+- The Underworld
+- Thesprotia
+- Thrace
+- Thrinacia
+- Troy
+- Zacynthus
 
-## Mountains & Geographic Features
+## Not pinned yet (2)
 
-- ✓ Erymanthus (49)
-- ✓ Mount Neion (50)
-- ✓ Mount Neriton (51)
-- ✓ Mount Olympus (52)
-- ✓ Mount Parnassus (53)
-- ✓ Mount Solyma (54)
-- ✓ Ossa (55)
-- ✓ Pelion (56)
-- ✓ Pieria (57)
+Add via `#atlas-eyeball` (Shift+click to drop, drag to place — do NOT hand-guess coordinates):
 
-## Red Sea & North Africa
+- Malea — the cape at the SE tip of the Peloponnese (rounded by Odysseus, Book 9)
+- Mimas — the Anatolian promontory opposite Chios (Book 3)
 
-- ✓ Egypt (58)
-- ✓ Ethiopia (59)
-- ✓ Libya (60)
-- ✓ Pharos (61)
+## Deliberately unpinned (1)
 
-## Levant & Eastern Mediterranean
+- Ocean — the world-encircling river, not a point on the plate; its pin was useless and removed (`6ee7085`)
 
-- ✓ Artaky (62)
-- ✓ Phoenicia (63)
-- ✓ River Jardan (64)
-- ✓ Sidon (65)
+## Extra non-glossary pin (1)
 
-## Underworld & Mythical Realms
+- Achaea — pinned on the inset but not a Wilson-glossary term, so its popup has no "View artworks" link; kept as a harmless region label
 
-- ✓ Acheron (66)
-- ✓ Cocytus (67)
-- ✓ Erebus (68)
-- ✓ Pyriphlegethon (69)
-- ✓ Styx (70)
-- ✓ The Underworld (71)
-
-## Fictional/Legendary Lands
-
-- ✓ Aeaea (72)
-- ✓ Aeolia (73)
-- ✓ Cimmerians (74)
-- ✓ Land of the Cyclopes (75)
-- ✓ Land of the Lotus-Eaters (76)
-- ✓ Ogygia (77)
-- ✓ Ortygia (78)
-- ✓ Scheria (79)
-- ✓ Thrinacia (80)
-- ✓ Amnisus (82)
-- ✓ Arethusa (83)
-- ✓ Argos (the city) (84)
-
-## Cosmic/Abstract
-
-- ✓ Ocean (81)
-
----
-
-**Total: 84 places**
-
-See `src/AtlasMap.tsx` for coordinate mappings on the Ortelius Red Sea plate.
+**Reconciliation:** 84 glossary places = 81 pinned + 2 to pin + 1 deliberately unpinned. Pins in source: 82 (81 glossary + 1 Achaea).
