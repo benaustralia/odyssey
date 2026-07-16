@@ -737,14 +737,25 @@ export default function AtlasMap({
                 onMove={(i, p) =>
                   setPins((prev) => prev.map((q, j) => (j === i ? { ...q, ...p } : q)))
                 }
-                onClickPin={(i) => {
-                  setSearchTerm("") // Clear search filter when clicking a pin
-                  setPins((prev) => {
-                    if (i === 0) return prev // Already at top
-                    const p = prev[i]
-                    return [p, ...prev.slice(0, i), ...prev.slice(i + 1)]
-                  })
-                }}
+                // Float the clicked pin to the top of the calibration footer
+                // (and clear its filter) -- EYEBALL MODE ONLY. The reorder
+                // changes every earlier marker's positional key, so React
+                // remounts the clicked marker, and Leaflet closes a popup
+                // when its marker is removed -- with this wired in view mode
+                // too, every popup died ~200ms after opening and "View
+                // artworks" was unreachable from atlas pins.
+                onClickPin={
+                  editing
+                    ? (i) => {
+                        setSearchTerm("")
+                        setPins((prev) => {
+                          if (i === 0) return prev // Already at top
+                          const p = prev[i]
+                          return [p, ...prev.slice(0, i), ...prev.slice(i + 1)]
+                        })
+                      }
+                    : undefined
+                }
                 lookup={lookup}
               />
             </MapContainer>

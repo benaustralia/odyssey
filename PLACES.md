@@ -102,9 +102,9 @@ calibration at the user's request — see the note in `src/data/plates/index.ts`
 **Unpinned:** Ocean (deliberate — the world-encircling river isn't a point on a map).
 
 Every one of the other 83 places is pinned on **rubri** (which still carries its full original
-101-pin set — its planned cleanup, removing the ~70 Greek pins that now live on Graecia too, is
-part of the deferred Phase 4 calibration pass, not done yet) and on whichever new plate is its
-better cartographic home.
+pin set — 100 after the junk `"Land"` pin was deleted in the refactor; its planned cleanup,
+removing the ~70 Greek pins that now live on Graecia too, is part of the deferred Phase 4
+calibration pass, not done yet) and on whichever new plate is its better cartographic home.
 
 ## Non-glossary (`noGloss`) pins
 
