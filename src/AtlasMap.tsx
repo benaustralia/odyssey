@@ -1,11 +1,185 @@
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import L from "leaflet"
 import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from "react-leaflet"
+import { Search } from "lucide-react"
 import "leaflet/dist/leaflet.css"
 // @ts-expect-error - leaflet-minimap ships no type declarations
 import MiniMapControl from "leaflet-minimap"
 import "leaflet-minimap/dist/Control.MiniMap.min.css"
 import CalibrationPanel from "./CalibrationPanel"
+
+type Place = { term: string; x: number; y: number }
+
+function CalibrationFooter({
+  pins,
+  setPins,
+  dump,
+}: {
+  pins: Place[]
+  setPins: (fn: (prev: Place[]) => Place[]) => void
+  dump: string
+}) {
+  const [height, setHeight] = useState(128)
+  const [searchTerm, setSearchTerm] = useState("")
+  const dragRef = useRef<{ startY: number; startHeight: number } | null>(null)
+  const [editingCoords, setEditingCoords] = useState<Map<number, { x: string; y: string }>>(new Map())
+
+  const filteredPins = useMemo(() => {
+    if (!searchTerm.trim()) return pins
+    const q = searchTerm.toLowerCase().trim()
+    return pins.filter((p) => p.term.toLowerCase().includes(q))
+  }, [pins, searchTerm])
+
+  const handlePointerMove = (e: PointerEvent) => {
+    if (!dragRef.current) return
+    const delta = e.clientY - dragRef.current.startY
+    // Dragging upward (negative delta) increases height
+    const newHeight = Math.max(100, dragRef.current.startHeight - delta)
+    setHeight(newHeight)
+  }
+
+  const handlePointerUp = () => {
+    dragRef.current = null
+  }
+
+  useEffect(() => {
+    window.addEventListener("pointermove", handlePointerMove)
+    window.addEventListener("pointerup", handlePointerUp)
+    return () => {
+      window.removeEventListener("pointermove", handlePointerMove)
+      window.removeEventListener("pointerup", handlePointerUp)
+    }
+  }, [])
+
+  return (
+    <div
+      className="flex flex-col gap-2 rounded-box border border-base-300 bg-base-200 p-3 text-sm"
+      style={{ height: `${height}px` }}
+    >
+      {/* Resize bar at top */}
+      <div
+        className="h-1 w-full cursor-n-resize bg-base-300 hover:bg-primary -mx-3 -mt-3 mb-2 rounded-t"
+        onPointerDown={(e) => {
+          dragRef.current = { startY: e.clientY, startHeight: height }
+        }}
+        title="Drag upward to see more pins"
+      />
+
+      <div className="flex items-center justify-between gap-2 shrink-0">
+        <span className="font-heading font-semibold">
+          Calibration — Shift+click to add, edit coordinates below
+        </span>
+        <div className="flex gap-1">
+          {pins.some((p) => p.term === "untitled") && (
+            <button
+              type="button"
+              className="btn btn-xs btn-error"
+              onClick={() => setPins((prev) => prev.filter((p) => p.term !== "untitled"))}
+            >
+              Remove untitled
+            </button>
+          )}
+          <button
+            type="button"
+            className="btn btn-xs"
+            onClick={() => navigator.clipboard.writeText(dump)}
+          >
+            Copy all
+          </button>
+        </div>
+      </div>
+
+      {/* Search filter */}
+      <label className="input input-xs input-bordered flex items-center gap-2 shrink-0">
+        <Search className="size-3 opacity-70" aria-hidden="true" />
+        <input
+          type="search"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Filter pins..."
+          className="grow"
+        />
+      </label>
+
+      <div className="flex flex-col gap-1 overflow-y-auto min-h-0">
+        {filteredPins.map((p) => {
+          const i = pins.indexOf(p)
+          const editing = editingCoords.get(i)
+          const displayX = editing?.x ?? String(Math.round(p.x))
+          const displayY = editing?.y ?? String(Math.round(p.y))
+          return (
+            <div key={i} className="flex items-center gap-2 shrink-0">
+              <input
+                className="input input-xs input-bordered flex-1"
+                value={p.term}
+                onChange={(e) =>
+                  setPins((prev) =>
+                    prev.map((q, j) => (j === i ? { ...q, term: e.target.value } : q)),
+                  )
+                }
+                placeholder="name"
+              />
+              <input
+                type="number"
+                className="input input-xs input-bordered w-16"
+                value={displayX}
+                onChange={(e) => {
+                  const newMap = new Map(editingCoords)
+                  newMap.set(i, { ...editing || { x: "", y: "" }, x: e.target.value })
+                  setEditingCoords(newMap)
+                }}
+                placeholder="x"
+              />
+              <input
+                type="number"
+                className="input input-xs input-bordered w-16"
+                value={displayY}
+                onChange={(e) => {
+                  const newMap = new Map(editingCoords)
+                  newMap.set(i, { ...editing || { x: "", y: "" }, y: e.target.value })
+                  setEditingCoords(newMap)
+                }}
+                placeholder="y"
+              />
+              {editing ? (
+                <button
+                  type="button"
+                  className="btn btn-xs btn-primary shrink-0"
+                  onClick={() => {
+                    const x = parseFloat(editing.x) || p.x
+                    const y = parseFloat(editing.y) || p.y
+                    setPins((prev) =>
+                      prev.map((q, j) => (j === i ? { ...q, x, y } : q)),
+                    )
+                    editingCoords.delete(i)
+                    setEditingCoords(new Map(editingCoords))
+                  }}
+                >
+                  set
+                </button>
+              ) : null}
+              <button
+                type="button"
+                className="btn btn-xs btn-ghost shrink-0"
+                onClick={() => navigator.clipboard.writeText(JSON.stringify(p))}
+                title="Copy this pin"
+              >
+                📋
+              </button>
+              <button
+                type="button"
+                className="btn btn-xs btn-ghost shrink-0"
+                onClick={() => setPins((prev) => prev.filter((_, j) => j !== i))}
+              >
+                remove
+              </button>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
 
 // Base map: Abraham Ortelius, "Erythraei Sive Rubri Maris Periplus" (1597) —
 // the FULL Red Sea plate (Egypt, Arabia, Persia, India, East Africa), not just
@@ -107,8 +281,6 @@ function useTilePrefetch(enabled: boolean) {
     return () => controller.abort()
   }, [enabled])
 }
-
-type Place = { term: string; x: number; y: number }
 
 // Audited (via close inspection of the full-res plate, cross-referenced
 // against the 84-place glossary) which of the "other places" named in the
@@ -594,64 +766,13 @@ export default function AtlasMap({
 
           {editing && (
             <CalibrationPanel
-              hint="Drag pins to reposition. Shift+click the map to drop a new one, name it below."
+              hint="Drag pins to reposition. Shift+click the map to drop a new one."
               dump={dump}
             />
           )}
         </div>
 
-        {editing && (
-          <div className="flex flex-col gap-2 rounded-box border border-base-300 bg-base-200 p-3 text-sm max-h-32 overflow-hidden flex">
-            <div className="flex items-center justify-between gap-2 shrink-0">
-              <span className="font-heading font-semibold">
-                Calibration — Shift+click the map to drop a pin, name it below, then copy
-              </span>
-              <div className="flex gap-1">
-                {pins.some((p) => p.term === "untitled") && (
-                  <button
-                    type="button"
-                    className="btn btn-xs btn-error"
-                    onClick={() => setPins((prev) => prev.filter((p) => p.term !== "untitled"))}
-                  >
-                    Remove untitled
-                  </button>
-                )}
-                <button
-                  type="button"
-                  className="btn btn-xs"
-                  onClick={() => navigator.clipboard.writeText(dump)}
-                >
-                  Copy coordinates
-                </button>
-              </div>
-            </div>
-            <div className="flex flex-col gap-1 overflow-y-auto min-h-0">
-              {pins.map((p, i) => (
-                <div key={i} className="flex items-center gap-2 shrink-0">
-                  <input
-                    className="input input-xs input-bordered flex-1"
-                    value={p.term}
-                    onChange={(e) =>
-                      setPins((prev) =>
-                        prev.map((q, j) => (j === i ? { ...q, term: e.target.value } : q)),
-                      )
-                    }
-                  />
-                  <span className="w-28 shrink-0 font-mono text-xs opacity-70">
-                    x:{Math.round(p.x)} y:{Math.round(p.y)}
-                  </span>
-                  <button
-                    type="button"
-                    className="btn btn-xs btn-ghost shrink-0"
-                    onClick={() => setPins((prev) => prev.filter((_, j) => j !== i))}
-                  >
-                    remove
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+        {editing && <CalibrationFooter pins={pins} setPins={setPins} dump={dump} />}
       </div>
     </div>
   )
