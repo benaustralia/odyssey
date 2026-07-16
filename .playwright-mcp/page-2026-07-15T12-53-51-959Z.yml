@@ -1,0 +1,2133 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e9]:
+        - paragraph [ref=e10]: ΟΔΥΣΣΕΙΑ
+        - heading "The Odyssey" [level=1] [ref=e11]
+        - paragraph [ref=e12]: An illustrated glossary.
+    - navigation [ref=e13]:
+      - generic [ref=e14]:
+        - searchbox "Search the glossary" [ref=e19]
+        - form "Filter by category" [ref=e21]:
+          - button "All categories": ×
+          - radio "Gods" [ref=e22] [cursor=pointer]
+          - radio "Mortals" [ref=e23] [cursor=pointer]
+          - radio "Monsters" [ref=e24] [cursor=pointer]
+          - radio "World" [ref=e25] [cursor=pointer]
+        - button "The Journey" [ref=e26] [cursor=pointer]
+        - button "Atlas" [ref=e29] [cursor=pointer]
+    - dialog "Atlas of the Odyssey" [ref=e1710]:
+      - generic [ref=e1711]:
+        - generic [ref=e1712]:
+          - heading "Atlas — the Red Sea Plate" [level=2] [ref=e1713]
+          - button "Close" [ref=e1714] [cursor=pointer]: ✕
+        - generic [ref=e1717]:
+          - generic:
+            - generic:
+              - button [ref=e1718] [cursor=pointer]
+              - button [ref=e1721] [cursor=pointer]
+              - button [ref=e1724] [cursor=pointer]
+              - button [ref=e1727] [cursor=pointer]
+              - button [ref=e1730] [cursor=pointer]
+              - button [ref=e1733] [cursor=pointer]
+              - button [ref=e1736] [cursor=pointer]
+              - button [ref=e1739] [cursor=pointer]
+              - button [ref=e1742] [cursor=pointer]
+              - button [ref=e1745] [cursor=pointer]
+              - button [ref=e1748] [cursor=pointer]
+              - button [ref=e1751] [cursor=pointer]
+              - button [ref=e1754] [cursor=pointer]
+              - button [ref=e1757] [cursor=pointer]
+              - button [ref=e1760] [cursor=pointer]
+              - button [ref=e1763] [cursor=pointer]
+              - button [ref=e1766] [cursor=pointer]
+              - button [ref=e1769] [cursor=pointer]
+              - button [ref=e1772] [cursor=pointer]
+              - button [ref=e1775] [cursor=pointer]
+              - button [ref=e1778] [cursor=pointer]
+              - button [ref=e1781] [cursor=pointer]
+              - button [ref=e1784] [cursor=pointer]
+              - button [ref=e1787] [cursor=pointer]
+              - button [ref=e1790] [cursor=pointer]
+              - button [ref=e1793] [cursor=pointer]
+              - button [ref=e1796] [cursor=pointer]
+              - button [ref=e1799] [cursor=pointer]
+              - button [ref=e1802] [cursor=pointer]
+              - button [ref=e1805] [cursor=pointer]
+              - button [ref=e1808] [cursor=pointer]
+              - button [ref=e1811] [cursor=pointer]
+              - button [ref=e1814] [cursor=pointer]
+              - button [ref=e1817] [cursor=pointer]
+              - button [ref=e1820] [cursor=pointer]
+              - button [ref=e1823] [cursor=pointer]
+              - button [ref=e1826] [cursor=pointer]
+              - button [ref=e1829] [cursor=pointer]
+              - button [ref=e1832] [cursor=pointer]
+              - button [ref=e1835] [cursor=pointer]
+              - button [ref=e1838] [cursor=pointer]
+              - button [ref=e1841] [cursor=pointer]
+              - button [ref=e1844] [cursor=pointer]
+              - button [ref=e1847] [cursor=pointer]
+              - button [ref=e1850] [cursor=pointer]
+              - button [ref=e1853] [cursor=pointer]
+              - button [ref=e1856] [cursor=pointer]
+              - button [ref=e1859] [cursor=pointer]
+              - button [ref=e1862] [cursor=pointer]
+              - button [ref=e1865] [cursor=pointer]
+              - button [ref=e1868] [cursor=pointer]
+              - button [ref=e1871] [cursor=pointer]
+              - button [ref=e1874] [cursor=pointer]
+              - button [ref=e1877] [cursor=pointer]
+              - button [ref=e1880] [cursor=pointer]
+              - button [ref=e1883] [cursor=pointer]
+              - button [ref=e1886] [cursor=pointer]
+              - button [ref=e1889] [cursor=pointer]
+              - button [ref=e1892] [cursor=pointer]
+              - button [ref=e1895] [cursor=pointer]
+              - button [ref=e1898] [cursor=pointer]
+              - button [ref=e1901] [cursor=pointer]
+              - button [ref=e1904] [cursor=pointer]
+              - button [ref=e1907] [cursor=pointer]
+              - button [ref=e1910] [cursor=pointer]
+              - button [ref=e1913] [cursor=pointer]
+              - button [ref=e1916] [cursor=pointer]
+              - button [ref=e1919] [cursor=pointer]
+              - button [ref=e1922] [cursor=pointer]
+              - button [ref=e1925] [cursor=pointer]
+              - button [ref=e1928] [cursor=pointer]
+              - button [ref=e1931] [cursor=pointer]
+              - button [ref=e1934] [cursor=pointer]
+              - button [ref=e1937] [cursor=pointer]
+              - button [ref=e1940] [cursor=pointer]
+              - button [ref=e1943] [cursor=pointer]
+              - button [ref=e1946] [cursor=pointer]
+              - button [ref=e1949] [cursor=pointer]
+              - button [ref=e1952] [cursor=pointer]
+              - button [ref=e1955] [cursor=pointer]
+              - button [ref=e1958] [cursor=pointer]
+              - button [ref=e1961] [cursor=pointer]
+              - button [ref=e1964] [cursor=pointer]
+        - generic [ref=e1967]:
+          - generic [ref=e1968]:
+            - generic [ref=e1969]: Calibration — click the map to drop a pin, name it below, then copy
+            - button "Copy coordinates" [ref=e1970] [cursor=pointer]
+          - generic [ref=e1971]:
+            - generic [ref=e1972]:
+              - textbox [ref=e1973]: Egypt
+              - generic [ref=e1974]: x:1628 y:5353
+              - button "remove" [ref=e1975] [cursor=pointer]
+            - generic [ref=e1976]:
+              - textbox [ref=e1977]: Ethiopia
+              - generic [ref=e1978]: x:2821 y:2305
+              - button "remove" [ref=e1979] [cursor=pointer]
+            - generic [ref=e1980]:
+              - textbox [ref=e1981]: Pharos
+              - generic [ref=e1982]: x:1631 y:3758
+              - button "remove" [ref=e1983] [cursor=pointer]
+            - generic [ref=e1984]:
+              - textbox [ref=e1985]: Libya
+              - generic [ref=e1986]: x:1000 y:6000
+              - button "remove" [ref=e1987] [cursor=pointer]
+            - generic [ref=e1988]:
+              - textbox [ref=e1989]: Achaea
+              - generic [ref=e1990]: x:4200 y:9400
+              - button "remove" [ref=e1991] [cursor=pointer]
+            - generic [ref=e1992]:
+              - textbox [ref=e1993]: Ithaca
+              - generic [ref=e1994]: x:4000 y:9600
+              - button "remove" [ref=e1995] [cursor=pointer]
+            - generic [ref=e1996]:
+              - textbox [ref=e1997]: Sparta
+              - generic [ref=e1998]: x:4800 y:9700
+              - button "remove" [ref=e1999] [cursor=pointer]
+            - generic [ref=e2000]:
+              - textbox [ref=e2001]: Athens
+              - generic [ref=e2002]: x:5400 y:8900
+              - button "remove" [ref=e2003] [cursor=pointer]
+            - generic [ref=e2004]:
+              - textbox [ref=e2005]: Pylos
+              - generic [ref=e2006]: x:4100 y:9800
+              - button "remove" [ref=e2007] [cursor=pointer]
+            - generic [ref=e2008]:
+              - textbox [ref=e2009]: Argos (the city)
+              - generic [ref=e2010]: x:5000 y:9200
+              - button "remove" [ref=e2011] [cursor=pointer]
+            - generic [ref=e2012]:
+              - textbox [ref=e2013]: Troy
+              - generic [ref=e2014]: x:6200 y:7900
+              - button "remove" [ref=e2015] [cursor=pointer]
+            - generic [ref=e2016]:
+              - textbox [ref=e2017]: Mycenae
+              - generic [ref=e2018]: x:5100 y:9100
+              - button "remove" [ref=e2019] [cursor=pointer]
+            - generic [ref=e2020]:
+              - textbox [ref=e2021]: Aeaea
+              - generic [ref=e2022]: x:5800 y:9300
+              - button "remove" [ref=e2023] [cursor=pointer]
+            - generic [ref=e2024]:
+              - textbox [ref=e2025]: Scheria
+              - generic [ref=e2026]: x:3600 y:8500
+              - button "remove" [ref=e2027] [cursor=pointer]
+            - generic [ref=e2028]:
+              - textbox [ref=e2029]: Ogygia
+              - generic [ref=e2030]: x:3200 y:8200
+              - button "remove" [ref=e2031] [cursor=pointer]
+            - generic [ref=e2032]:
+              - textbox [ref=e2033]: Chios
+              - generic [ref=e2034]: x:6900 y:8500
+              - button "remove" [ref=e2035] [cursor=pointer]
+            - generic [ref=e2036]:
+              - textbox [ref=e2037]: Lemnos
+              - generic [ref=e2038]: x:6400 y:8300
+              - button "remove" [ref=e2039] [cursor=pointer]
+            - generic [ref=e2040]:
+              - textbox [ref=e2041]: Lesbos
+              - generic [ref=e2042]: x:6200 y:8400
+              - button "remove" [ref=e2043] [cursor=pointer]
+            - generic [ref=e2044]:
+              - textbox [ref=e2045]: Delos
+              - generic [ref=e2046]: x:6000 y:8800
+              - button "remove" [ref=e2047] [cursor=pointer]
+            - generic [ref=e2048]:
+              - textbox [ref=e2049]: Cyprus
+              - generic [ref=e2050]: x:7200 y:9200
+              - button "remove" [ref=e2051] [cursor=pointer]
+            - generic [ref=e2052]:
+              - textbox [ref=e2053]: Gortyn
+              - generic [ref=e2054]: x:6800 y:9600
+              - button "remove" [ref=e2055] [cursor=pointer]
+            - generic [ref=e2056]:
+              - textbox [ref=e2057]: Cythera
+              - generic [ref=e2058]: x:5400 y:10000
+              - button "remove" [ref=e2059] [cursor=pointer]
+            - generic [ref=e2060]:
+              - textbox [ref=e2061]: Thrace
+              - generic [ref=e2062]: x:6200 y:8000
+              - button "remove" [ref=e2063] [cursor=pointer]
+            - generic [ref=e2064]:
+              - textbox [ref=e2065]: Thesprotia
+              - generic [ref=e2066]: x:4600 y:8600
+              - button "remove" [ref=e2067] [cursor=pointer]
+            - generic [ref=e2068]:
+              - textbox [ref=e2069]: Elis
+              - generic [ref=e2070]: x:4300 y:9500
+              - button "remove" [ref=e2071] [cursor=pointer]
+            - generic [ref=e2072]:
+              - textbox [ref=e2073]: Messenia
+              - generic [ref=e2074]: x:4200 y:9800
+              - button "remove" [ref=e2075] [cursor=pointer]
+            - generic [ref=e2076]:
+              - textbox [ref=e2077]: Marathon
+              - generic [ref=e2078]: x:5600 y:8700
+              - button "remove" [ref=e2079] [cursor=pointer]
+            - generic [ref=e2080]:
+              - textbox [ref=e2081]: Sounion
+              - generic [ref=e2082]: x:5700 y:9000
+              - button "remove" [ref=e2083] [cursor=pointer]
+            - generic [ref=e2084]:
+              - textbox [ref=e2085]: Euboea
+              - generic [ref=e2086]: x:6000 y:8700
+              - button "remove" [ref=e2087] [cursor=pointer]
+            - generic [ref=e2088]:
+              - textbox [ref=e2089]: Chalcis
+              - generic [ref=e2090]: x:6100 y:8750
+              - button "remove" [ref=e2091] [cursor=pointer]
+            - generic [ref=e2092]:
+              - textbox [ref=e2093]: Orchomenus
+              - generic [ref=e2094]: x:5900 y:8600
+              - button "remove" [ref=e2095] [cursor=pointer]
+            - generic [ref=e2096]:
+              - textbox [ref=e2097]: Panopeus
+              - generic [ref=e2098]: x:5800 y:8650
+              - button "remove" [ref=e2099] [cursor=pointer]
+            - generic [ref=e2100]:
+              - textbox [ref=e2101]: Mount Parnassus
+              - generic [ref=e2102]: x:5000 y:8700
+              - button "remove" [ref=e2103] [cursor=pointer]
+            - generic [ref=e2104]:
+              - textbox [ref=e2105]: Pelion
+              - generic [ref=e2106]: x:7200 y:7900
+              - button "remove" [ref=e2107] [cursor=pointer]
+            - generic [ref=e2108]:
+              - textbox [ref=e2109]: Ossa
+              - generic [ref=e2110]: x:7100 y:7950
+              - button "remove" [ref=e2111] [cursor=pointer]
+            - generic [ref=e2112]:
+              - textbox [ref=e2113]: Erymanthus
+              - generic [ref=e2114]: x:4900 y:9000
+              - button "remove" [ref=e2115] [cursor=pointer]
+            - generic [ref=e2116]:
+              - textbox [ref=e2117]: Mount Neion
+              - generic [ref=e2118]: x:6400 y:8850
+              - button "remove" [ref=e2119] [cursor=pointer]
+            - generic [ref=e2120]:
+              - textbox [ref=e2121]: Mount Neriton
+              - generic [ref=e2122]: x:6300 y:8800
+              - button "remove" [ref=e2123] [cursor=pointer]
+            - generic [ref=e2124]:
+              - textbox [ref=e2125]: Taygetus
+              - generic [ref=e2126]: x:5200 y:8950
+              - button "remove" [ref=e2127] [cursor=pointer]
+            - generic [ref=e2128]:
+              - textbox [ref=e2129]: Asteris
+              - generic [ref=e2130]: x:6500 y:9000
+              - button "remove" [ref=e2131] [cursor=pointer]
+            - generic [ref=e2132]:
+              - textbox [ref=e2133]: Taphos
+              - generic [ref=e2134]: x:6600 y:9100
+              - button "remove" [ref=e2135] [cursor=pointer]
+            - generic [ref=e2136]:
+              - textbox [ref=e2137]: Iolcus
+              - generic [ref=e2138]: x:6700 y:7900
+              - button "remove" [ref=e2139] [cursor=pointer]
+            - generic [ref=e2140]:
+              - textbox [ref=e2141]: Ismarus
+              - generic [ref=e2142]: x:7200 y:7850
+              - button "remove" [ref=e2143] [cursor=pointer]
+            - generic [ref=e2144]:
+              - textbox [ref=e2145]: Aegae
+              - generic [ref=e2146]: x:7000 y:7850
+              - button "remove" [ref=e2147] [cursor=pointer]
+            - generic [ref=e2148]:
+              - textbox [ref=e2149]: Phaestus
+              - generic [ref=e2150]: x:6700 y:9500
+              - button "remove" [ref=e2151] [cursor=pointer]
+            - generic [ref=e2152]:
+              - textbox [ref=e2153]: Amnisus
+              - generic [ref=e2154]: x:6800 y:9400
+              - button "remove" [ref=e2155] [cursor=pointer]
+            - generic [ref=e2156]:
+              - textbox [ref=e2157]: Phaea
+              - generic [ref=e2158]: x:6700 y:9200
+              - button "remove" [ref=e2159] [cursor=pointer]
+            - generic [ref=e2160]:
+              - textbox [ref=e2161]: Pherae
+              - generic [ref=e2162]: x:6200 y:8700
+              - button "remove" [ref=e2163] [cursor=pointer]
+            - generic [ref=e2164]:
+              - textbox [ref=e2165]: Phthia
+              - generic [ref=e2166]: x:6200 y:8600
+              - button "remove" [ref=e2167] [cursor=pointer]
+            - generic [ref=e2168]:
+              - textbox [ref=e2169]: Phylace
+              - generic [ref=e2170]: x:6800 y:9300
+              - button "remove" [ref=e2171] [cursor=pointer]
+            - generic [ref=e2172]:
+              - textbox [ref=e2173]: Pieria
+              - generic [ref=e2174]: x:7300 y:7800
+              - button "remove" [ref=e2175] [cursor=pointer]
+            - generic [ref=e2176]:
+              - textbox [ref=e2177]: Hyperesia
+              - generic [ref=e2178]: x:5200 y:8650
+              - button "remove" [ref=e2179] [cursor=pointer]
+            - generic [ref=e2180]:
+              - textbox [ref=e2181]: Hyperia
+              - generic [ref=e2182]: x:5100 y:8700
+              - button "remove" [ref=e2183] [cursor=pointer]
+            - generic [ref=e2184]:
+              - textbox [ref=e2185]: Gyrae
+              - generic [ref=e2186]: x:6500 y:8500
+              - button "remove" [ref=e2187] [cursor=pointer]
+            - generic [ref=e2188]:
+              - textbox [ref=e2189]: Geraestus
+              - generic [ref=e2190]: x:5800 y:8600
+              - button "remove" [ref=e2191] [cursor=pointer]
+            - generic [ref=e2192]:
+              - textbox [ref=e2193]: Cimmerians
+              - generic [ref=e2194]: x:7000 y:8400
+              - button "remove" [ref=e2195] [cursor=pointer]
+            - generic [ref=e2196]:
+              - textbox [ref=e2197]: Psara
+              - generic [ref=e2198]: x:6700 y:8600
+              - button "remove" [ref=e2199] [cursor=pointer]
+            - generic [ref=e2200]:
+              - textbox [ref=e2201]: Same
+              - generic [ref=e2202]: x:4500 y:9700
+              - button "remove" [ref=e2203] [cursor=pointer]
+            - generic [ref=e2204]:
+              - textbox [ref=e2205]: Zacynthus
+              - generic [ref=e2206]: x:4300 y:9800
+              - button "remove" [ref=e2207] [cursor=pointer]
+            - generic [ref=e2208]:
+              - textbox [ref=e2209]: Tenedos
+              - generic [ref=e2210]: x:6300 y:8000
+              - button "remove" [ref=e2211] [cursor=pointer]
+            - generic [ref=e2212]:
+              - textbox [ref=e2213]: Scyros
+              - generic [ref=e2214]: x:6300 y:8400
+              - button "remove" [ref=e2215] [cursor=pointer]
+            - generic [ref=e2216]:
+              - textbox [ref=e2217]: Temese
+              - generic [ref=e2218]: x:4400 y:9600
+              - button "remove" [ref=e2219] [cursor=pointer]
+            - generic [ref=e2220]:
+              - textbox [ref=e2221]: Telepylus
+              - generic [ref=e2222]: x:4800 y:8900
+              - button "remove" [ref=e2223] [cursor=pointer]
+            - generic [ref=e2224]:
+              - textbox [ref=e2225]: Artaky
+              - generic [ref=e2226]: x:7100 y:8300
+              - button "remove" [ref=e2227] [cursor=pointer]
+            - generic [ref=e2228]:
+              - textbox [ref=e2229]: Arethusa
+              - generic [ref=e2230]: x:5900 y:9000
+              - button "remove" [ref=e2231] [cursor=pointer]
+            - generic [ref=e2232]:
+              - textbox [ref=e2233]: Aeolia
+              - generic [ref=e2234]: x:3800 y:8400
+              - button "remove" [ref=e2235] [cursor=pointer]
+            - generic [ref=e2236]:
+              - textbox [ref=e2237]: Land of the Lotus-Eaters
+              - generic [ref=e2238]: x:2000 y:9500
+              - button "remove" [ref=e2239] [cursor=pointer]
+            - generic [ref=e2240]:
+              - textbox [ref=e2241]: Land of the Cyclopes
+              - generic [ref=e2242]: x:7500 y:10000
+              - button "remove" [ref=e2243] [cursor=pointer]
+            - generic [ref=e2244]:
+              - textbox [ref=e2245]: Thrinacia
+              - generic [ref=e2246]: x:3500 y:9000
+              - button "remove" [ref=e2247] [cursor=pointer]
+            - generic [ref=e2248]:
+              - textbox [ref=e2249]: Styx
+              - generic [ref=e2250]: x:2500 y:7200
+              - button "remove" [ref=e2251] [cursor=pointer]
+            - generic [ref=e2252]:
+              - textbox [ref=e2253]: Acheron
+              - generic [ref=e2254]: x:2400 y:7300
+              - button "remove" [ref=e2255] [cursor=pointer]
+            - generic [ref=e2256]:
+              - textbox [ref=e2257]: Cocytus
+              - generic [ref=e2258]: x:2600 y:7400
+              - button "remove" [ref=e2259] [cursor=pointer]
+            - generic [ref=e2260]:
+              - textbox [ref=e2261]: Pyriphlegethon
+              - generic [ref=e2262]: x:2700 y:7500
+              - button "remove" [ref=e2263] [cursor=pointer]
+            - generic [ref=e2264]:
+              - textbox [ref=e2265]: Erebus
+              - generic [ref=e2266]: x:2300 y:7100
+              - button "remove" [ref=e2267] [cursor=pointer]
+            - generic [ref=e2268]:
+              - textbox [ref=e2269]: The Underworld
+              - generic [ref=e2270]: x:2500 y:7250
+              - button "remove" [ref=e2271] [cursor=pointer]
+            - generic [ref=e2272]:
+              - textbox [ref=e2273]: Phoenicia
+              - generic [ref=e2274]: x:3400 y:5800
+              - button "remove" [ref=e2275] [cursor=pointer]
+            - generic [ref=e2276]:
+              - textbox [ref=e2277]: Sidon
+              - generic [ref=e2278]: x:3500 y:5900
+              - button "remove" [ref=e2279] [cursor=pointer]
+            - generic [ref=e2280]:
+              - textbox [ref=e2281]: River Jardan
+              - generic [ref=e2282]: x:3600 y:6000
+              - button "remove" [ref=e2283] [cursor=pointer]
+            - generic [ref=e2284]:
+              - textbox [ref=e2285]: Mount Solyma
+              - generic [ref=e2286]: x:3700 y:6100
+              - button "remove" [ref=e2287] [cursor=pointer]
+            - generic [ref=e2288]:
+              - textbox [ref=e2289]: Ocean
+              - generic [ref=e2290]: x:1500 y:4500
+              - button "remove" [ref=e2291] [cursor=pointer]
+            - generic [ref=e2292]:
+              - textbox [ref=e2293]: Mount Olympus
+              - generic [ref=e2294]: x:6200 y:8050
+              - button "remove" [ref=e2295] [cursor=pointer]
+            - generic [ref=e2296]:
+              - textbox [ref=e2297]: Ortygia
+              - generic [ref=e2298]: x:6900 y:9700
+              - button "remove" [ref=e2299] [cursor=pointer]
+            - generic [ref=e2300]:
+              - textbox [ref=e2301]: Ephyra
+              - generic [ref=e2302]: x:4600 y:9300
+              - button "remove" [ref=e2303] [cursor=pointer]
+    - main [ref=e32]:
+      - generic [ref=e33]:
+        - button "Achaeans people /uh-KEE-unz/ Another name Homer uses for the Greeks. 阿开亚人·荷马对希腊人的别称。" [ref=e34] [cursor=pointer]:
+          - figure [ref=e35]:
+            - img "Achilles and Ajax Playing Dice" [ref=e36]
+            - generic [ref=e37]: 4 works
+          - generic [ref=e38]:
+            - generic [ref=e39]:
+              - heading "Achaeans" [level=2] [ref=e40]
+              - generic [ref=e41]: people
+            - paragraph [ref=e42]: /uh-KEE-unz/
+            - paragraph [ref=e43]: Another name Homer uses for the Greeks.
+            - paragraph [ref=e44]: 阿开亚人·荷马对希腊人的别称。
+        - button "Achilles person /uh-KILL-eez/ The greatest Greek warrior of the Trojan War. He is dead now; Odysseus meets his ghost in the land of the dead. 阿喀琉斯·特洛伊战争中最伟大的希腊勇士，已故；奥德修斯在冥界遇见他的鬼魂。" [ref=e45] [cursor=pointer]:
+          - figure [ref=e46]:
+            - img "The Anger of Achilles" [ref=e47]
+            - generic [ref=e48]: 14 works
+          - generic [ref=e49]:
+            - generic [ref=e50]:
+              - heading "Achilles" [level=2] [ref=e51]
+              - generic [ref=e52]: person
+            - paragraph [ref=e53]: /uh-KILL-eez/
+            - paragraph [ref=e54]: The greatest Greek warrior of the Trojan War. He is dead now; Odysseus meets his ghost in the land of the dead.
+            - paragraph [ref=e55]: 阿喀琉斯·特洛伊战争中最伟大的希腊勇士，已故；奥德修斯在冥界遇见他的鬼魂。
+        - button "Aeaea place /ee-EE-uh/ The island where the witch-goddess Circe lives. 埃埃亚岛·女巫喀耳刻居住的海岛。" [ref=e56] [cursor=pointer]:
+          - figure [ref=e57]:
+            - img "Circe and Her Lovers in a Landscape" [ref=e58]
+            - generic [ref=e59]: 2 works
+          - generic [ref=e60]:
+            - generic [ref=e61]:
+              - heading "Aeaea" [level=2] [ref=e62]
+              - generic [ref=e63]: place
+            - paragraph [ref=e64]: /ee-EE-uh/
+            - paragraph [ref=e65]: The island where the witch-goddess Circe lives.
+            - paragraph [ref=e66]: 埃埃亚岛·女巫喀耳刻居住的海岛。
+        - button "Aegisthus person /ee-JISS-thus/ The man who murdered King Agamemnon when he came home from the war. The poem uses him as a warning. 埃癸斯托斯·趁阿伽门农战后归家时将其谋杀的人，诗中以他为反面警示。" [ref=e67] [cursor=pointer]:
+          - figure [ref=e68]:
+            - img "Clytemnestra Hesitating Before Killing the Sleeping Agamemnon" [ref=e69]
+            - generic [ref=e70]: 4 works
+          - generic [ref=e71]:
+            - generic [ref=e72]:
+              - heading "Aegisthus" [level=2] [ref=e73]
+              - generic [ref=e74]: person
+            - paragraph [ref=e75]: /ee-JISS-thus/
+            - paragraph [ref=e76]: The man who murdered King Agamemnon when he came home from the war. The poem uses him as a warning.
+            - paragraph [ref=e77]: 埃癸斯托斯·趁阿伽门农战后归家时将其谋杀的人，诗中以他为反面警示。
+        - button "Aeolus god /EE-oh-lus/ The god who keeps the winds. He gives Odysseus a bag holding the winds. 埃俄罗斯·掌管风的神，赠给奥德修斯一只装风的皮袋。" [ref=e78] [cursor=pointer]:
+          - figure [ref=e79]:
+            - img "The Companions of Odysseus Open the Bag of Winds" [ref=e80]
+          - generic [ref=e81]:
+            - generic [ref=e82]:
+              - heading "Aeolus" [level=2] [ref=e83]
+              - generic [ref=e84]: god
+            - paragraph [ref=e85]: /EE-oh-lus/
+            - paragraph [ref=e86]: The god who keeps the winds. He gives Odysseus a bag holding the winds.
+            - paragraph [ref=e87]: 埃俄罗斯·掌管风的神，赠给奥德修斯一只装风的皮袋。
+        - button "Agamemnon person /ag-uh-MEM-non/ The leader of the whole Greek army at Troy; brother of Menelaus. He was killed by his wife and her lover at home. 阿伽门农·特洛伊希腊联军统帅，墨涅拉俄斯之兄，归国后被妻子及其情夫所杀。" [ref=e88] [cursor=pointer]:
+          - figure [ref=e89]:
+            - img "The Mask of Agamemnon" [ref=e90]
+            - generic [ref=e91]: 7 works
+          - generic [ref=e92]:
+            - generic [ref=e93]:
+              - heading "Agamemnon" [level=2] [ref=e94]
+              - generic [ref=e95]: person
+            - paragraph [ref=e96]: /ag-uh-MEM-non/
+            - paragraph [ref=e97]: The leader of the whole Greek army at Troy; brother of Menelaus. He was killed by his wife and her lover at home.
+            - paragraph [ref=e98]: 阿伽门农·特洛伊希腊联军统帅，墨涅拉俄斯之兄，归国后被妻子及其情夫所杀。
+        - button "Ajax the Great person /AY-jaks/ The greater of two Greek warriors called Ajax; a mighty fighter, now dead. He is still angry with Odysseus when they meet among the dead. 大埃阿斯·两位名叫埃阿斯的希腊勇士中较伟大的一位；勇猛的战士，已故；在冥界仍对奥德修斯心怀怨恨。" [ref=e99] [cursor=pointer]:
+          - figure [ref=e100]:
+            - img "The Suicide of Ajax" [ref=e101]
+            - generic [ref=e102]: 9 works
+          - generic [ref=e103]:
+            - generic [ref=e104]:
+              - heading "Ajax the Great" [level=2] [ref=e105]
+              - generic [ref=e106]: person
+            - paragraph [ref=e107]: /AY-jaks/
+            - paragraph [ref=e108]: The greater of two Greek warriors called Ajax; a mighty fighter, now dead. He is still angry with Odysseus when they meet among the dead.
+            - paragraph [ref=e109]: 大埃阿斯·两位名叫埃阿斯的希腊勇士中较伟大的一位；勇猛的战士，已故；在冥界仍对奥德修斯心怀怨恨。
+        - button "Ajax the Lesser person /AY-jaks/ The lesser of two warriors called Ajax (son of Oïleus). Sailing home he boasted he had escaped the sea against the gods' will, so Poseidon drowned him. 小埃阿斯·两位名叫埃阿斯的勇士中较小的一位（俄琉斯之子）。归航途中他夸口违背神意逃过大海，波塞冬便将他淹死。" [ref=e110] [cursor=pointer]:
+          - figure [ref=e111]:
+            - img "Ajax and Cassandra" [ref=e112]
+          - generic [ref=e113]:
+            - generic [ref=e114]:
+              - heading "Ajax the Lesser" [level=2] [ref=e115]
+              - generic [ref=e116]: person
+            - paragraph [ref=e117]: /AY-jaks/
+            - paragraph [ref=e118]: The lesser of two warriors called Ajax (son of Oïleus). Sailing home he boasted he had escaped the sea against the gods' will, so Poseidon drowned him.
+            - paragraph [ref=e119]: 小埃阿斯·两位名叫埃阿斯的勇士中较小的一位（俄琉斯之子）。归航途中他夸口违背神意逃过大海，波塞冬便将他淹死。
+        - button "Alcinous person /al-SIN-oh-us/ The kind king of the Phaeacians, who listens to Odysseus's story and gives him a ship home. 阿尔喀诺俄斯·善良的费阿喀亚国王，听完奥德修斯的故事后送他船只回乡。" [ref=e120] [cursor=pointer]:
+          - figure [ref=e121]:
+            - img "Odysseus before Alcinous, King of the Phaeacians" [ref=e122]
+          - generic [ref=e123]:
+            - generic [ref=e124]:
+              - heading "Alcinous" [level=2] [ref=e125]
+              - generic [ref=e126]: person
+            - paragraph [ref=e127]: /al-SIN-oh-us/
+            - paragraph [ref=e128]: The kind king of the Phaeacians, who listens to Odysseus's story and gives him a ship home.
+            - paragraph [ref=e129]: 阿尔喀诺俄斯·善良的费阿喀亚国王，听完奥德修斯的故事后送他船只回乡。
+        - button "ambrosia thing /am-BROH-zhuh/ The special food of the gods, which keeps them young forever. 神食 / 仙馔·神所食用的食物，使其永葆青春。" [ref=e130] [cursor=pointer]:
+          - figure [ref=e131]:
+            - img "The Feast of the Gods" [ref=e132]
+            - generic [ref=e133]: 5 works
+          - generic [ref=e134]:
+            - generic [ref=e135]:
+              - heading "ambrosia" [level=2] [ref=e136]
+              - generic [ref=e137]: thing
+            - paragraph [ref=e138]: /am-BROH-zhuh/
+            - paragraph [ref=e139]: The special food of the gods, which keeps them young forever.
+            - paragraph [ref=e140]: 神食 / 仙馔·神所食用的食物，使其永葆青春。
+        - button "Amphinomus person /am-FIN-oh-mus/ The most polite and least cruel of the suitors. He still dies with the rest. 安菲诺摩斯·求婚者中最有礼、最不残暴的一个，但仍与众人一同被杀。" [ref=e141] [cursor=pointer]:
+          - figure [ref=e142]:
+            - img "Penelope and the Suitors" [ref=e143]
+          - generic [ref=e144]:
+            - generic [ref=e145]:
+              - heading "Amphinomus" [level=2] [ref=e146]
+              - generic [ref=e147]: person
+            - paragraph [ref=e148]: /am-FIN-oh-mus/
+            - paragraph [ref=e149]: The most polite and least cruel of the suitors. He still dies with the rest.
+            - paragraph [ref=e150]: 安菲诺摩斯·求婚者中最有礼、最不残暴的一个，但仍与众人一同被杀。
+        - button "Antinous person /an-TIN-oh-us/ The rudest and most violent of the suitors who crowd Odysseus's house. He is the first to be killed. 安提诺俄斯·求婚者中最粗暴狠毒者，第一个被射杀。" [ref=e151] [cursor=pointer]:
+          - figure [ref=e152]:
+            - img "The Massacre of the Suitors" [ref=e153]
+            - generic [ref=e154]: 2 works
+          - generic [ref=e155]:
+            - generic [ref=e156]:
+              - heading "Antinous" [level=2] [ref=e157]
+              - generic [ref=e158]: person
+            - paragraph [ref=e159]: /an-TIN-oh-us/
+            - paragraph [ref=e160]: The rudest and most violent of the suitors who crowd Odysseus's house. He is the first to be killed.
+            - paragraph [ref=e161]: 安提诺俄斯·求婚者中最粗暴狠毒者，第一个被射杀。
+        - button "Aphrodite god /af-roh-DY-tee/ The goddess of love and beauty. 阿佛洛狄忒·爱与美的女神。" [ref=e162] [cursor=pointer]:
+          - figure [ref=e163]:
+            - img "The Birth of Venus" [ref=e164]
+            - generic [ref=e165]: 12 works
+          - generic [ref=e166]:
+            - generic [ref=e167]:
+              - heading "Aphrodite" [level=2] [ref=e168]
+              - generic [ref=e169]: god
+            - paragraph [ref=e170]: /af-roh-DY-tee/
+            - paragraph [ref=e171]: The goddess of love and beauty.
+            - paragraph [ref=e172]: 阿佛洛狄忒·爱与美的女神。
+        - button "Apollo god /uh-POL-oh/ The god of the sun, music, healing, and archery. 阿波罗·太阳、音乐、医疗与射箭之神。" [ref=e173] [cursor=pointer]:
+          - figure [ref=e174]:
+            - img "Apollo Belvedere" [ref=e175]
+            - generic [ref=e176]: 10 works
+          - generic [ref=e177]:
+            - generic [ref=e178]:
+              - heading "Apollo" [level=2] [ref=e179]
+              - generic [ref=e180]: god
+            - paragraph [ref=e181]: /uh-POL-oh/
+            - paragraph [ref=e182]: The god of the sun, music, healing, and archery.
+            - paragraph [ref=e183]: 阿波罗·太阳、音乐、医疗与射箭之神。
+        - button "Arete person /uh-REE-tee/ The wise and respected queen of the Phaeacians, wife of Alcinous. 阿瑞忒·费阿喀亚睿智而受敬重的王后，阿尔喀诺俄斯之妻。" [ref=e184] [cursor=pointer]:
+          - figure [ref=e185]:
+            - img "Ulysses at the Court of Alcinous" [ref=e186]
+          - generic [ref=e187]:
+            - generic [ref=e188]:
+              - heading "Arete" [level=2] [ref=e189]
+              - generic [ref=e190]: person
+            - paragraph [ref=e191]: /uh-REE-tee/
+            - paragraph [ref=e192]: The wise and respected queen of the Phaeacians, wife of Alcinous.
+            - paragraph [ref=e193]: 阿瑞忒·费阿喀亚睿智而受敬重的王后，阿尔喀诺俄斯之妻。
+        - button "Ares god /AIR-eez/ The god of war. 阿瑞斯·战神。" [ref=e194] [cursor=pointer]:
+          - figure [ref=e195]:
+            - img "Mars Resting" [ref=e196]
+            - generic [ref=e197]: 9 works
+          - generic [ref=e198]:
+            - generic [ref=e199]:
+              - heading "Ares" [level=2] [ref=e200]
+              - generic [ref=e201]: god
+            - paragraph [ref=e202]: /AIR-eez/
+            - paragraph [ref=e203]: The god of war.
+            - paragraph [ref=e204]: 阿瑞斯·战神。
+        - button "Argos animal /AR-goss/ Odysseus's old hunting dog. He waits twenty years, recognizes his master, and then dies. 阿耳戈斯·奥德修斯的老猎犬，苦等二十年，认出主人后即死去。" [ref=e205] [cursor=pointer]:
+          - figure [ref=e206]:
+            - img "Odysseus Recognized by His Dog Argos" [ref=e207]
+          - generic [ref=e208]:
+            - generic [ref=e209]:
+              - heading "Argos" [level=2] [ref=e210]
+              - generic [ref=e211]: animal
+            - paragraph [ref=e212]: /AR-goss/
+            - paragraph [ref=e213]: Odysseus's old hunting dog. He waits twenty years, recognizes his master, and then dies.
+            - paragraph [ref=e214]: 阿耳戈斯·奥德修斯的老猎犬，苦等二十年，认出主人后即死去。
+        - button "Artemis god /AR-tuh-miss/ The goddess of hunting and wild animals; sister of Apollo. 阿耳忒弥斯·狩猎与野兽女神，阿波罗之妹。" [ref=e215] [cursor=pointer]:
+          - figure [ref=e216]:
+            - img "Diana of Versailles" [ref=e217]
+            - generic [ref=e218]: 14 works
+          - generic [ref=e219]:
+            - generic [ref=e220]:
+              - heading "Artemis" [level=2] [ref=e221]
+              - generic [ref=e222]: god
+            - paragraph [ref=e223]: /AR-tuh-miss/
+            - paragraph [ref=e224]: The goddess of hunting and wild animals; sister of Apollo.
+            - paragraph [ref=e225]: 阿耳忒弥斯·狩猎与野兽女神，阿波罗之妹。
+        - button "Athena god /uh-THEE-nuh/ The goddess of wisdom and skill in war. She loves clever Odysseus and protects both him and his son Telemachus. 雅典娜·智慧与战争技艺女神，钟爱机敏的奥德修斯，并护佑他与其子忒勒马科斯。" [ref=e226] [cursor=pointer]:
+          - figure [ref=e227]:
+            - img "Pallas Athene" [ref=e228]
+            - generic [ref=e229]: 13 works
+          - generic [ref=e230]:
+            - generic [ref=e231]:
+              - heading "Athena" [level=2] [ref=e232]
+              - generic [ref=e233]: god
+            - paragraph [ref=e234]: /uh-THEE-nuh/
+            - paragraph [ref=e235]: The goddess of wisdom and skill in war. She loves clever Odysseus and protects both him and his son Telemachus.
+            - paragraph [ref=e236]: 雅典娜·智慧与战争技艺女神，钟爱机敏的奥德修斯，并护佑他与其子忒勒马科斯。
+        - button "bard (singer) thing /bard/ A poet who sings stories out loud while playing a lyre. Demodocus and Phemius are bards in the poem. 吟游诗人·弹奏里拉琴、吟唱故事的诗人，如得摩多科斯与菲弥俄斯。" [ref=e237] [cursor=pointer]:
+          - figure [ref=e238]:
+            - img "Flute-Player and Rhapsode" [ref=e239]
+            - generic [ref=e240]: 3 works
+          - generic [ref=e241]:
+            - generic [ref=e242]:
+              - heading "bard (singer)" [level=2] [ref=e243]
+              - generic [ref=e244]: thing
+            - paragraph [ref=e245]: /bard/
+            - paragraph [ref=e246]: A poet who sings stories out loud while playing a lyre. Demodocus and Phemius are bards in the poem.
+            - paragraph [ref=e247]: 吟游诗人·弹奏里拉琴、吟唱故事的诗人，如得摩多科斯与菲弥俄斯。
+        - button "Calypso god /kuh-LIP-soh/ A beautiful goddess-nymph who keeps Odysseus on her island for seven years and wants him to stay forever. 卡吕普索·美丽的女神，将奥德修斯困于岛上七年，欲留他永世相伴。" [ref=e248] [cursor=pointer]:
+          - figure [ref=e249]:
+            - img "Odysseus and Calypso" [ref=e250]
+            - generic [ref=e251]: 11 works
+          - generic [ref=e252]:
+            - generic [ref=e253]:
+              - heading "Calypso" [level=2] [ref=e254]
+              - generic [ref=e255]: god
+            - paragraph [ref=e256]: /kuh-LIP-soh/
+            - paragraph [ref=e257]: A beautiful goddess-nymph who keeps Odysseus on her island for seven years and wants him to stay forever.
+            - paragraph [ref=e258]: 卡吕普索·美丽的女神，将奥德修斯困于岛上七年，欲留他永世相伴。
+        - button "Charybdis monster /kuh-RIB-diss/ A deadly whirlpool monster that swallows the sea three times a day. Sailors must pass it and Scylla together. 卡律布狄斯·每日三次吞吐海水的致命大漩涡怪物，与斯库拉相邻。" [ref=e259] [cursor=pointer]:
+          - figure [ref=e260]:
+            - img "Odysseus in Front of Scylla and Charybdis" [ref=e261]
+            - generic [ref=e262]: 3 works
+          - generic [ref=e263]:
+            - generic [ref=e264]:
+              - heading "Charybdis" [level=2] [ref=e265]
+              - generic [ref=e266]: monster
+            - paragraph [ref=e267]: /kuh-RIB-diss/
+            - paragraph [ref=e268]: A deadly whirlpool monster that swallows the sea three times a day. Sailors must pass it and Scylla together.
+            - paragraph [ref=e269]: 卡律布狄斯·每日三次吞吐海水的致命大漩涡怪物，与斯库拉相邻。
+        - button "Cicones people /sih-KOH-neez/ A people whose town Odysseus and his men raid right after leaving Troy. The raid goes badly. 喀孔涅斯人·奥德修斯离开特洛伊后劫掠的部族，劫掠以失败告终。" [ref=e270] [cursor=pointer]:
+          - figure [ref=e271]:
+            - img "The Warrior Vase" [ref=e272]
+            - generic [ref=e273]: 4 works
+          - generic [ref=e274]:
+            - generic [ref=e275]:
+              - heading "Cicones" [level=2] [ref=e276]
+              - generic [ref=e277]: people
+            - paragraph [ref=e278]: /sih-KOH-neez/
+            - paragraph [ref=e279]: A people whose town Odysseus and his men raid right after leaving Troy. The raid goes badly.
+            - paragraph [ref=e280]: 喀孔涅斯人·奥德修斯离开特洛伊后劫掠的部族，劫掠以失败告终。
+        - button "Circe god /SUR-see/ A witch-goddess who turns Odysseus's men into pigs, then becomes his helper and lover for a year. 喀耳刻·女巫，先把奥德修斯的同伴变成猪，后成为帮助他的爱人，相处一年。" [ref=e281] [cursor=pointer]:
+          - figure [ref=e282]:
+            - img "Circe Offering the Cup to Odysseus" [ref=e283]
+            - generic [ref=e284]: 10 works
+          - generic [ref=e285]:
+            - generic [ref=e286]:
+              - heading "Circe" [level=2] [ref=e287]
+              - generic [ref=e288]: god
+            - paragraph [ref=e289]: /SUR-see/
+            - paragraph [ref=e290]: A witch-goddess who turns Odysseus's men into pigs, then becomes his helper and lover for a year.
+            - paragraph [ref=e291]: 喀耳刻·女巫，先把奥德修斯的同伴变成猪，后成为帮助他的爱人，相处一年。
+        - button "Clytemnestra person /kly-tem-NESS-truh/ Agamemnon's wife, who helped kill him. She is the dark opposite of loyal Penelope. 克吕泰墨斯特拉·阿伽门农之妻，参与谋杀丈夫，与忠贞的珀涅罗珀形成鲜明对比。" [ref=e292] [cursor=pointer]:
+          - figure [ref=e293]:
+            - img "Clytemnestra" [ref=e294]
+            - generic [ref=e295]: 3 works
+          - generic [ref=e296]:
+            - generic [ref=e297]:
+              - heading "Clytemnestra" [level=2] [ref=e298]
+              - generic [ref=e299]: person
+            - paragraph [ref=e300]: /kly-tem-NESS-truh/
+            - paragraph [ref=e301]: Agamemnon's wife, who helped kill him. She is the dark opposite of loyal Penelope.
+            - paragraph [ref=e302]: 克吕泰墨斯特拉·阿伽门农之妻，参与谋杀丈夫，与忠贞的珀涅罗珀形成鲜明对比。
+        - button "Cronus god /KROH-nus/ An older god, the father of Zeus. Zeus is often called \"son of Cronus.\" 克洛诺斯·年长的神，宙斯之父；宙斯常被称为\"克洛诺斯之子\"。" [ref=e303] [cursor=pointer]:
+          - figure [ref=e304]:
+            - img "Saturn Devouring His Son" [ref=e305]
+            - generic [ref=e306]: 8 works
+          - generic [ref=e307]:
+            - generic [ref=e308]:
+              - heading "Cronus" [level=2] [ref=e309]
+              - generic [ref=e310]: god
+            - paragraph [ref=e311]: /KROH-nus/
+            - paragraph [ref=e312]: An older god, the father of Zeus. Zeus is often called "son of Cronus."
+            - paragraph [ref=e313]: 克洛诺斯·年长的神，宙斯之父；宙斯常被称为"克洛诺斯之子"。
+        - button "Cyclops (pl. Cyclopes) monster /SY-klops/ A giant with a single eye in the middle of his forehead. They live without laws. The most famous one is Polyphemus. 独眼巨人·额心仅有一目的巨人，无法无天；最著名者为波吕斐摩斯。" [ref=e314] [cursor=pointer]:
+          - figure [ref=e315]:
+            - img "The Cyclops" [ref=e316]
+            - generic [ref=e317]: 7 works
+          - generic [ref=e318]:
+            - generic [ref=e319]:
+              - heading "Cyclops (pl. Cyclopes)" [level=2] [ref=e320]
+              - generic [ref=e321]: monster
+            - paragraph [ref=e322]: /SY-klops/
+            - paragraph [ref=e323]: A giant with a single eye in the middle of his forehead. They live without laws. The most famous one is Polyphemus.
+            - paragraph [ref=e324]: 独眼巨人·额心仅有一目的巨人，无法无天；最著名者为波吕斐摩斯。
+        - button "Dawn god /dawn/ The goddess of the morning. Wilson often calls her \"rosy-fingered Dawn,\" marking the start of a new day. 黎明女神·即厄俄斯，威尔逊常称其为\"玫瑰色手指的黎明\"，标志新一天的开始。" [ref=e325] [cursor=pointer]:
+          - figure [ref=e326]:
+            - img "Aurora Triumphans" [ref=e327]
+            - generic [ref=e328]: 14 works
+          - generic [ref=e329]:
+            - generic [ref=e330]:
+              - heading "Dawn" [level=2] [ref=e331]
+              - generic [ref=e332]: god
+            - paragraph [ref=e333]: /dawn/
+            - paragraph [ref=e334]: The goddess of the morning. Wilson often calls her "rosy-fingered Dawn," marking the start of a new day.
+            - paragraph [ref=e335]: 黎明女神·即厄俄斯，威尔逊常称其为"玫瑰色手指的黎明"，标志新一天的开始。
+        - button "Demodocus person /dee-MOD-oh-kus/ A blind singer (bard) at the Phaeacian court. His songs about Troy make Odysseus weep. 得摩多科斯·费阿喀亚宫廷的盲人歌手，其特洛伊之歌使奥德修斯落泪。" [ref=e336] [cursor=pointer]:
+          - figure [ref=e337]:
+            - img "Demodocus Singing" [ref=e338]
+          - generic [ref=e339]:
+            - generic [ref=e340]:
+              - heading "Demodocus" [level=2] [ref=e341]
+              - generic [ref=e342]: person
+            - paragraph [ref=e343]: /dee-MOD-oh-kus/
+            - paragraph [ref=e344]: A blind singer (bard) at the Phaeacian court. His songs about Troy make Odysseus weep.
+            - paragraph [ref=e345]: 得摩多科斯·费阿喀亚宫廷的盲人歌手，其特洛伊之歌使奥德修斯落泪。
+        - button "Egypt place /EE-jipt/ A far-off, rich land in travelers' tales. Odysseus invents stories about going there. 埃及·旅人故事中遥远而富庶的国度；奥德修斯曾编造去过该地的经历。" [ref=e346] [cursor=pointer]:
+          - figure [ref=e347]:
+            - img "The Hypostyle Hall, Karnak" [ref=e348]
+            - generic [ref=e349]: 5 works
+          - generic [ref=e350]:
+            - generic [ref=e351]:
+              - heading "Egypt" [level=2] [ref=e352]
+              - generic [ref=e353]: place
+            - paragraph [ref=e354]: /EE-jipt/
+            - paragraph [ref=e355]: A far-off, rich land in travelers' tales. Odysseus invents stories about going there.
+            - paragraph [ref=e356]: 埃及·旅人故事中遥远而富庶的国度；奥德修斯曾编造去过该地的经历。
+        - button "Elpenor person /el-PEE-nor/ A young crewman who dies by falling off Circe's roof. His ghost begs Odysseus for a proper burial. 厄尔佩诺耳·从喀耳刻屋顶坠亡的年轻船员，其鬼魂恳求奥德修斯予以安葬。" [ref=e357] [cursor=pointer]:
+          - figure [ref=e358]:
+            - img "Odysseus Cremating the Body of Elpenor" [ref=e359]
+          - generic [ref=e360]:
+            - generic [ref=e361]:
+              - heading "Elpenor" [level=2] [ref=e362]
+              - generic [ref=e363]: person
+            - paragraph [ref=e364]: /el-PEE-nor/
+            - paragraph [ref=e365]: A young crewman who dies by falling off Circe's roof. His ghost begs Odysseus for a proper burial.
+            - paragraph [ref=e366]: 厄尔佩诺耳·从喀耳刻屋顶坠亡的年轻船员，其鬼魂恳求奥德修斯予以安葬。
+        - button "Eumaeus person /yoo-MEE-us/ The loyal swineherd (pig farmer). He shelters the disguised Odysseus and helps fight the suitors. 欧迈俄斯·忠诚的牧猪奴，收留乔装的奥德修斯，并助其铲除求婚者。" [ref=e367] [cursor=pointer]:
+          - figure [ref=e368]:
+            - img "Odysseus and the Swineherd Eumaeus" [ref=e369]
+          - generic [ref=e370]:
+            - generic [ref=e371]:
+              - heading "Eumaeus" [level=2] [ref=e372]
+              - generic [ref=e373]: person
+            - paragraph [ref=e374]: /yoo-MEE-us/
+            - paragraph [ref=e375]: The loyal swineherd (pig farmer). He shelters the disguised Odysseus and helps fight the suitors.
+            - paragraph [ref=e376]: 欧迈俄斯·忠诚的牧猪奴，收留乔装的奥德修斯，并助其铲除求婚者。
+        - button "Eurycleia person /yoo-rih-KLY-uh/ Odysseus's old nurse. While washing the disguised stranger's feet, she knows him by an old scar. 欧律克勒亚·奥德修斯的老乳母，为乔装的他洗脚时凭旧疤认出主人。" [ref=e377] [cursor=pointer]:
+          - figure [ref=e378]:
+            - img "Eurycleia Washing the Feet of Odysseus" [ref=e379]
+            - generic [ref=e380]: 3 works
+          - generic [ref=e381]:
+            - generic [ref=e382]:
+              - heading "Eurycleia" [level=2] [ref=e383]
+              - generic [ref=e384]: person
+            - paragraph [ref=e385]: /yoo-rih-KLY-uh/
+            - paragraph [ref=e386]: Odysseus's old nurse. While washing the disguised stranger's feet, she knows him by an old scar.
+            - paragraph [ref=e387]: 欧律克勒亚·奥德修斯的老乳母，为乔装的他洗脚时凭旧疤认出主人。
+        - button "Eurylochus person /yoo-RIL-oh-kus/ Odysseus's second-in-command. He often argues, panics, or makes bad choices for the crew. 欧律罗科斯·奥德修斯的副手，常争辩、惊慌或为船员做出错误决定。" [ref=e388] [cursor=pointer]:
+          - figure [ref=e389]:
+            - img "Circe and the Companions of Ulysses" [ref=e390]
+            - generic [ref=e391]: 5 works
+          - generic [ref=e392]:
+            - generic [ref=e393]:
+              - heading "Eurylochus" [level=2] [ref=e394]
+              - generic [ref=e395]: person
+            - paragraph [ref=e396]: /yoo-RIL-oh-kus/
+            - paragraph [ref=e397]: Odysseus's second-in-command. He often argues, panics, or makes bad choices for the crew.
+            - paragraph [ref=e398]: 欧律罗科斯·奥德修斯的副手，常争辩、惊慌或为船员做出错误决定。
+        - button "Eurymachus person /yoo-RIM-uh-kus/ A smooth-talking, two-faced suitor who lies easily. 欧律马科斯·能言善辩、口蜜腹剑的求婚者。" [ref=e399] [cursor=pointer]:
+          - figure [ref=e400]:
+            - img "The Slaying of the Suitors" [ref=e401]
+          - generic [ref=e402]:
+            - generic [ref=e403]:
+              - heading "Eurymachus" [level=2] [ref=e404]
+              - generic [ref=e405]: person
+            - paragraph [ref=e406]: /yoo-RIM-uh-kus/
+            - paragraph [ref=e407]: A smooth-talking, two-faced suitor who lies easily.
+            - paragraph [ref=e408]: 欧律马科斯·能言善辩、口蜜腹剑的求婚者。
+        - button "Hades god / place /HAY-deez/ The god who rules the dead — and also the name of the underworld, the dark place where dead souls go. 哈得斯·统治亡者的冥王，亦指死者所去的幽暗冥界。" [ref=e409] [cursor=pointer]:
+          - figure [ref=e410]:
+            - img "The Rape of Proserpina" [ref=e411]
+            - generic [ref=e412]: 12 works
+          - generic [ref=e413]:
+            - generic [ref=e414]:
+              - heading "Hades" [level=2] [ref=e415]
+              - generic [ref=e416]: god / place
+            - paragraph [ref=e417]: /HAY-deez/
+            - paragraph [ref=e418]: The god who rules the dead — and also the name of the underworld, the dark place where dead souls go.
+            - paragraph [ref=e419]: 哈得斯·统治亡者的冥王，亦指死者所去的幽暗冥界。
+        - button "Helen person /HEL-en/ The most beautiful woman in the world. Her running away with Paris started the Trojan War. Now back home in Sparta. 海伦·世上最美的女子，与帕里斯私奔引发特洛伊战争，如今已回到斯巴达。" [ref=e420] [cursor=pointer]:
+          - figure [ref=e421]:
+            - img "Helen of Troy" [ref=e422]
+            - generic [ref=e423]: 11 works
+          - generic [ref=e424]:
+            - generic [ref=e425]:
+              - heading "Helen" [level=2] [ref=e426]
+              - generic [ref=e427]: person
+            - paragraph [ref=e428]: /HEL-en/
+            - paragraph [ref=e429]: The most beautiful woman in the world. Her running away with Paris started the Trojan War. Now back home in Sparta.
+            - paragraph [ref=e430]: 海伦·世上最美的女子，与帕里斯私奔引发特洛伊战争，如今已回到斯巴达。
+        - button "Helius god /HEE-lee-us/ The sun god. Odysseus's starving men kill and eat his sacred cattle — a deadly mistake. 赫利俄斯·太阳神；奥德修斯饥饿的同伴宰食了他的圣牛，铸成致命大错。" [ref=e431] [cursor=pointer]:
+          - figure [ref=e432]:
+            - img "Aurora and the Chariot of the Sun" [ref=e433]
+            - generic [ref=e434]: 10 works
+          - generic [ref=e435]:
+            - generic [ref=e436]:
+              - heading "Helius" [level=2] [ref=e437]
+              - generic [ref=e438]: god
+            - paragraph [ref=e439]: /HEE-lee-us/
+            - paragraph [ref=e440]: The sun god. Odysseus's starving men kill and eat his sacred cattle — a deadly mistake.
+            - paragraph [ref=e441]: 赫利俄斯·太阳神；奥德修斯饥饿的同伴宰食了他的圣牛，铸成致命大错。
+        - button "Hephaestus god /heh-FESS-tus/ The god of fire and metalworking — the blacksmith who makes things for the gods. 赫淮斯托斯·火与锻造之神，为众神打造器物的铁匠。" [ref=e442] [cursor=pointer]:
+          - figure [ref=e443]:
+            - img "Apollo in the Forge of Vulcan" [ref=e444]
+            - generic [ref=e445]: 8 works
+          - generic [ref=e446]:
+            - generic [ref=e447]:
+              - heading "Hephaestus" [level=2] [ref=e448]
+              - generic [ref=e449]: god
+            - paragraph [ref=e450]: /heh-FESS-tus/
+            - paragraph [ref=e451]: The god of fire and metalworking — the blacksmith who makes things for the gods.
+            - paragraph [ref=e452]: 赫淮斯托斯·火与锻造之神，为众神打造器物的铁匠。
+        - button "Hera god /HEER-uh/ The queen of the gods and wife of Zeus. 赫拉·天后，宙斯之妻。" [ref=e453] [cursor=pointer]:
+          - figure [ref=e454]:
+            - img "Hera Barberini" [ref=e455]
+            - generic [ref=e456]: 12 works
+          - generic [ref=e457]:
+            - generic [ref=e458]:
+              - heading "Hera" [level=2] [ref=e459]
+              - generic [ref=e460]: god
+            - paragraph [ref=e461]: /HEER-uh/
+            - paragraph [ref=e462]: The queen of the gods and wife of Zeus.
+            - paragraph [ref=e463]: 赫拉·天后，宙斯之妻。
+        - button "Heracles person /HAIR-uh-kleez/ A famous super-strong hero (also known by the Roman name Hercules). 赫拉克勒斯·著名的大力英雄（罗马名为赫丘利）。" [ref=e464] [cursor=pointer]:
+          - figure [ref=e465]:
+            - img "Farnese Hercules" [ref=e466]
+            - generic [ref=e467]: 12 works
+          - generic [ref=e468]:
+            - generic [ref=e469]:
+              - heading "Heracles" [level=2] [ref=e470]
+              - generic [ref=e471]: person
+            - paragraph [ref=e472]: /HAIR-uh-kleez/
+            - paragraph [ref=e473]: A famous super-strong hero (also known by the Roman name Hercules).
+            - paragraph [ref=e474]: 赫拉克勒斯·著名的大力英雄（罗马名为赫丘利）。
+        - button "Hermes god /HUR-meez/ The messenger god, who wears winged sandals and carries orders from Zeus. 赫尔墨斯·传信之神，脚穿带翼凉鞋，传达宙斯的命令。" [ref=e475] [cursor=pointer]:
+          - figure [ref=e476]:
+            - img "Mercury" [ref=e477]
+            - generic [ref=e478]: 12 works
+          - generic [ref=e479]:
+            - generic [ref=e480]:
+              - heading "Hermes" [level=2] [ref=e481]
+              - generic [ref=e482]: god
+            - paragraph [ref=e483]: /HUR-meez/
+            - paragraph [ref=e484]: The messenger god, who wears winged sandals and carries orders from Zeus.
+            - paragraph [ref=e485]: 赫尔墨斯·传信之神，脚穿带翼凉鞋，传达宙斯的命令。
+        - button "hospitality (xenia) idea /hoss-pih-TAL-ih-tee/ The sacred custom of treating guests and strangers with kindness — food, a bath, a bed, a gift. Breaking it angers the gods. A central theme. 待客之道 / 宾客之礼·善待客人与陌生人的神圣习俗（款待饮食、沐浴、留宿、馈赠）；违背者将触怒神明，是全诗核心主题。" [ref=e486] [cursor=pointer]:
+          - figure [ref=e487]:
+            - img "Philemon and Baucis" [ref=e488]
+            - generic [ref=e489]: 5 works
+          - generic [ref=e490]:
+            - generic [ref=e491]:
+              - heading "hospitality (xenia)" [level=2] [ref=e492]
+              - generic [ref=e493]: idea
+            - paragraph [ref=e494]: /hoss-pih-TAL-ih-tee/
+            - paragraph [ref=e495]: The sacred custom of treating guests and strangers with kindness — food, a bath, a bed, a gift. Breaking it angers the gods. A central theme.
+            - paragraph [ref=e496]: 待客之道 / 宾客之礼·善待客人与陌生人的神圣习俗（款待饮食、沐浴、留宿、馈赠）；违背者将触怒神明，是全诗核心主题。
+        - button "Ino (Leucothea) god /EYE-noh/ A sea goddess who gives Odysseus a magic veil to keep him afloat in a terrible storm. 伊诺 / 琉科忒亚·海中女神，赠奥德修斯神巾，助他在狂风暴雨中漂浮求生。" [ref=e497] [cursor=pointer]:
+          - figure [ref=e498]:
+            - img "Neptune's Horses" [ref=e499]
+            - generic [ref=e500]: 9 works
+          - generic [ref=e501]:
+            - generic [ref=e502]:
+              - heading "Ino (Leucothea)" [level=2] [ref=e503]
+              - generic [ref=e504]: god
+            - paragraph [ref=e505]: /EYE-noh/
+            - paragraph [ref=e506]: A sea goddess who gives Odysseus a magic veil to keep him afloat in a terrible storm.
+            - paragraph [ref=e507]: 伊诺 / 琉科忒亚·海中女神，赠奥德修斯神巾，助他在狂风暴雨中漂浮求生。
+        - button "Irus person /EYE-rus/ A local beggar who tries to bully the disguised Odysseus, and is beaten in a fight. 伊洛斯·当地乞丐，欲欺凌乔装的奥德修斯，结果被打败。" [ref=e508] [cursor=pointer]:
+          - figure [ref=e509]:
+            - img "The Fight between Odysseus and Irus" [ref=e510]
+          - generic [ref=e511]:
+            - generic [ref=e512]:
+              - heading "Irus" [level=2] [ref=e513]
+              - generic [ref=e514]: person
+            - paragraph [ref=e515]: /EYE-rus/
+            - paragraph [ref=e516]: A local beggar who tries to bully the disguised Odysseus, and is beaten in a fight.
+            - paragraph [ref=e517]: 伊洛斯·当地乞丐，欲欺凌乔装的奥德修斯，结果被打败。
+        - button "Ithaca place /ITH-uh-kuh/ Odysseus's home — the rocky island kingdom he spends the whole poem trying to reach. 伊塔卡·奥德修斯的故乡，他穷尽全篇努力归返的多石岛国。" [ref=e518] [cursor=pointer]:
+          - figure [ref=e519]:
+            - img "The Return of Ulysses" [ref=e520]
+            - generic [ref=e521]: 2 works
+          - generic [ref=e522]:
+            - generic [ref=e523]:
+              - heading "Ithaca" [level=2] [ref=e524]
+              - generic [ref=e525]: place
+            - paragraph [ref=e526]: /ITH-uh-kuh/
+            - paragraph [ref=e527]: Odysseus's home — the rocky island kingdom he spends the whole poem trying to reach.
+            - paragraph [ref=e528]: 伊塔卡·奥德修斯的故乡，他穷尽全篇努力归返的多石岛国。
+        - button "Laertes person /lay-UR-teez/ Odysseus's aged father, who lives alone and grieving on a country farm. 拉厄耳忒斯·奥德修斯年迈的父亲，独自悲居乡间农庄。" [ref=e529] [cursor=pointer]:
+          - figure [ref=e530]:
+            - img "Odysseus Embracing Laertes in His Vineyard" [ref=e531]
+            - generic [ref=e532]: 2 works
+          - generic [ref=e533]:
+            - generic [ref=e534]:
+              - heading "Laertes" [level=2] [ref=e535]
+              - generic [ref=e536]: person
+            - paragraph [ref=e537]: /lay-UR-teez/
+            - paragraph [ref=e538]: Odysseus's aged father, who lives alone and grieving on a country farm.
+            - paragraph [ref=e539]: 拉厄耳忒斯·奥德修斯年迈的父亲，独自悲居乡间农庄。
+        - button "Laestrygonians monster /less-trih-GOH-nee-ans/ Giant cannibals who smash and eat the crews of all but one of Odysseus's ships. 莱斯特律戈涅斯人·食人巨人，摧毁并吞食了奥德修斯除一艘外的全部船队。" [ref=e540] [cursor=pointer]:
+          - figure [ref=e541]:
+            - img "The Laestrygonians" [ref=e542]
+            - generic [ref=e543]: 6 works
+          - generic [ref=e544]:
+            - generic [ref=e545]:
+              - heading "Laestrygonians" [level=2] [ref=e546]
+              - generic [ref=e547]: monster
+            - paragraph [ref=e548]: /less-trih-GOH-nee-ans/
+            - paragraph [ref=e549]: Giant cannibals who smash and eat the crews of all but one of Odysseus's ships.
+            - paragraph [ref=e550]: 莱斯特律戈涅斯人·食人巨人，摧毁并吞食了奥德修斯除一艘外的全部船队。
+        - button "libation thing /ly-BAY-shun/ Pouring out a little wine on the ground as a gift to the gods before drinking. 奠酒·饮酒前把少许酒洒在地上献给神灵的仪式。" [ref=e551] [cursor=pointer]:
+          - figure [ref=e552]:
+            - img "Woman Pouring a Libation" [ref=e553]
+            - generic [ref=e554]: 12 works
+          - generic [ref=e555]:
+            - generic [ref=e556]:
+              - heading "libation" [level=2] [ref=e557]
+              - generic [ref=e558]: thing
+            - paragraph [ref=e559]: /ly-BAY-shun/
+            - paragraph [ref=e560]: Pouring out a little wine on the ground as a gift to the gods before drinking.
+            - paragraph [ref=e561]: 奠酒·饮酒前把少许酒洒在地上献给神灵的仪式。
+        - button "Lotus-Eaters people /LOH-tus EE-ters/ A peaceful people who eat a flower that makes visitors forget home and never want to leave. 食莲族·性情平和的部族，食用一种使人忘乡、不愿离去的莲花。" [ref=e562] [cursor=pointer]:
+          - figure [ref=e563]:
+            - img "Land of the Lotus Eaters" [ref=e564]
+            - generic [ref=e565]: 2 works
+          - generic [ref=e566]:
+            - generic [ref=e567]:
+              - heading "Lotus-Eaters" [level=2] [ref=e568]
+              - generic [ref=e569]: people
+            - paragraph [ref=e570]: /LOH-tus EE-ters/
+            - paragraph [ref=e571]: A peaceful people who eat a flower that makes visitors forget home and never want to leave.
+            - paragraph [ref=e572]: 食莲族·性情平和的部族，食用一种使人忘乡、不愿离去的莲花。
+        - button "lyre thing /LY-er/ A small harp-like string instrument that singers play while telling stories. 里拉琴·形似小竖琴的弦乐器，歌手讲故事时弹奏。" [ref=e573] [cursor=pointer]:
+          - figure [ref=e574]:
+            - img "Apollo with the Kithara" [ref=e575]
+            - generic [ref=e576]: 11 works
+          - generic [ref=e577]:
+            - generic [ref=e578]:
+              - heading "lyre" [level=2] [ref=e579]
+              - generic [ref=e580]: thing
+            - paragraph [ref=e581]: /LY-er/
+            - paragraph [ref=e582]: A small harp-like string instrument that singers play while telling stories.
+            - paragraph [ref=e583]: 里拉琴·形似小竖琴的弦乐器，歌手讲故事时弹奏。
+        - button "Melanthius person /meh-LAN-thee-us/ A disloyal goatherd who insults and kicks the disguised Odysseus and sides with the suitors. 墨兰透斯·不忠的牧羊奴，辱骂、踢打乔装的奥德修斯，投靠求婚者。" [ref=e584] [cursor=pointer]:
+          - figure [ref=e585]:
+            - img "Odysseus Slaying the Suitors" [ref=e586]
+          - generic [ref=e587]:
+            - generic [ref=e588]:
+              - heading "Melanthius" [level=2] [ref=e589]
+              - generic [ref=e590]: person
+            - paragraph [ref=e591]: /meh-LAN-thee-us/
+            - paragraph [ref=e592]: A disloyal goatherd who insults and kicks the disguised Odysseus and sides with the suitors.
+            - paragraph [ref=e593]: 墨兰透斯·不忠的牧羊奴，辱骂、踢打乔装的奥德修斯，投靠求婚者。
+        - button "Menelaus person /men-eh-LAY-us/ King of Sparta, husband of Helen, brother of Agamemnon. Telemachus visits him for news. 墨涅拉俄斯·斯巴达国王，海伦之夫，阿伽门农之弟；忒勒马科斯曾往访探询消息。" [ref=e594] [cursor=pointer]:
+          - figure [ref=e595]:
+            - img "Menelaus Supporting the Body of Patroclus" [ref=e596]
+            - generic [ref=e597]: 4 works
+          - generic [ref=e598]:
+            - generic [ref=e599]:
+              - heading "Menelaus" [level=2] [ref=e600]
+              - generic [ref=e601]: person
+            - paragraph [ref=e602]: /men-eh-LAY-us/
+            - paragraph [ref=e603]: King of Sparta, husband of Helen, brother of Agamemnon. Telemachus visits him for news.
+            - paragraph [ref=e604]: 墨涅拉俄斯·斯巴达国王，海伦之夫，阿伽门农之弟；忒勒马科斯曾往访探询消息。
+        - button "Mentor person /MEN-tor/ An old friend of Odysseus. Athena often takes his form to advise Telemachus. (The English word \"mentor\" comes from this name.) 门托耳·奥德修斯的老友，雅典娜常化作他来指点忒勒马科斯（英文\"mentor\"一词即源于此名）。" [ref=e605] [cursor=pointer]:
+          - figure [ref=e606]:
+            - img "Athena as Mentor" [ref=e607]
+            - generic [ref=e608]: 2 works
+          - generic [ref=e609]:
+            - generic [ref=e610]:
+              - heading "Mentor" [level=2] [ref=e611]
+              - generic [ref=e612]: person
+            - paragraph [ref=e613]: /MEN-tor/
+            - paragraph [ref=e614]: An old friend of Odysseus. Athena often takes his form to advise Telemachus. (The English word "mentor" comes from this name.)
+            - paragraph [ref=e615]: 门托耳·奥德修斯的老友，雅典娜常化作他来指点忒勒马科斯（英文"mentor"一词即源于此名）。
+        - button "Muse god /myooz/ A goddess who gives poets their inspiration. The poem opens by asking the Muse to tell the story. 缪斯·赐予诗人灵感的女神；全诗开篇即祈请缪斯讲述这个故事。" [ref=e616] [cursor=pointer]:
+          - figure [ref=e617]:
+            - img "Four Muses and Pegasus" [ref=e618]
+            - generic [ref=e619]: 12 works
+          - generic [ref=e620]:
+            - generic [ref=e621]:
+              - heading "Muse" [level=2] [ref=e622]
+              - generic [ref=e623]: god
+            - paragraph [ref=e624]: /myooz/
+            - paragraph [ref=e625]: A goddess who gives poets their inspiration. The poem opens by asking the Muse to tell the story.
+            - paragraph [ref=e626]: 缪斯·赐予诗人灵感的女神；全诗开篇即祈请缪斯讲述这个故事。
+        - button "Nausicaa person /naw-SIK-ay-uh/ A young Phaeacian princess who finds the shipwrecked Odysseus on the beach and leads him to her parents' palace. 瑙西卡·费阿喀亚年轻公主，在海滩发现遇难的奥德修斯，引他前往父母的宫殿。" [ref=e627] [cursor=pointer]:
+          - figure [ref=e628]:
+            - img "Nausicaa" [ref=e629]
+            - generic [ref=e630]: 9 works
+          - generic [ref=e631]:
+            - generic [ref=e632]:
+              - heading "Nausicaa" [level=2] [ref=e633]
+              - generic [ref=e634]: person
+            - paragraph [ref=e635]: /naw-SIK-ay-uh/
+            - paragraph [ref=e636]: A young Phaeacian princess who finds the shipwrecked Odysseus on the beach and leads him to her parents' palace.
+            - paragraph [ref=e637]: 瑙西卡·费阿喀亚年轻公主，在海滩发现遇难的奥德修斯，引他前往父母的宫殿。
+        - button "nectar thing /NEK-ter/ The special drink of the gods (the partner of ambrosia). 神饮 / 琼浆·神所饮用的饮料，与神食相配。" [ref=e638] [cursor=pointer]:
+          - figure [ref=e639]:
+            - img "Hebe Giving Drink to the Eagle of Jupiter" [ref=e640]
+            - generic [ref=e641]: 3 works
+          - generic [ref=e642]:
+            - generic [ref=e643]:
+              - heading "nectar" [level=2] [ref=e644]
+              - generic [ref=e645]: thing
+            - paragraph [ref=e646]: /NEK-ter/
+            - paragraph [ref=e647]: The special drink of the gods (the partner of ambrosia).
+            - paragraph [ref=e648]: 神饮 / 琼浆·神所饮用的饮料，与神食相配。
+        - button "Nestor person /NESS-tor/ The very old, wise king of Pylos who fought at Troy. Telemachus visits him for news of his father. 涅斯托耳·年迈睿智的皮洛斯国王，曾征战特洛伊；忒勒马科斯往访探询父讯。" [ref=e649] [cursor=pointer]:
+          - figure [ref=e650]:
+            - img "The Sacrifice of Nestor at Pylos" [ref=e651]
+            - generic [ref=e652]: 2 works
+          - generic [ref=e653]:
+            - generic [ref=e654]:
+              - heading "Nestor" [level=2] [ref=e655]
+              - generic [ref=e656]: person
+            - paragraph [ref=e657]: /NESS-tor/
+            - paragraph [ref=e658]: The very old, wise king of Pylos who fought at Troy. Telemachus visits him for news of his father.
+            - paragraph [ref=e659]: 涅斯托耳·年迈睿智的皮洛斯国王，曾征战特洛伊；忒勒马科斯往访探询父讯。
+        - button "nymph thing /nimf/ A minor female nature-goddess linked to a place such as a spring, river, or wood. Calypso is one. 宁芙 / 山林水泽女神·与泉、河、林等自然之地相关的次级女神，卡吕普索即为其一。" [ref=e660] [cursor=pointer]:
+          - figure [ref=e661]:
+            - img "Hylas and the Nymphs" [ref=e662]
+            - generic [ref=e663]: 12 works
+          - generic [ref=e664]:
+            - generic [ref=e665]:
+              - heading "nymph" [level=2] [ref=e666]
+              - generic [ref=e667]: thing
+            - paragraph [ref=e668]: /nimf/
+            - paragraph [ref=e669]: A minor female nature-goddess linked to a place such as a spring, river, or wood. Calypso is one.
+            - paragraph [ref=e670]: 宁芙 / 山林水泽女神·与泉、河、林等自然之地相关的次级女神，卡吕普索即为其一。
+        - button "Nobody trick /NOH-bod-ee/ The false name Odysseus gives the Cyclops. So when the blinded giant shouts \"Nobody is hurting me!\" no neighbours come to help. \"无人\" / 没有人·奥德修斯骗独眼巨人时所报的假名；故当被刺瞎的巨人喊\"没有人在害我\"时，无人前来相助。" [ref=e671] [cursor=pointer]:
+          - figure [ref=e672]:
+            - img "Odysseus in the Cave of Polyphemus" [ref=e673]
+            - generic [ref=e674]: 10 works
+          - generic [ref=e675]:
+            - generic [ref=e676]:
+              - heading "Nobody" [level=2] [ref=e677]
+              - generic [ref=e678]: trick
+            - paragraph [ref=e679]: /NOH-bod-ee/
+            - paragraph [ref=e680]: The false name Odysseus gives the Cyclops. So when the blinded giant shouts "Nobody is hurting me!" no neighbours come to help.
+            - paragraph [ref=e681]: "\"无人\" / 没有人·奥德修斯骗独眼巨人时所报的假名；故当被刺瞎的巨人喊\"没有人在害我\"时，无人前来相助。"
+        - 'button "Odysseus hero /oh-DISS-ee-us/ The hero of the poem: the clever, daring king of Ithaca who spends ten years struggling home after the Trojan War. 奥德修斯·史诗主角，机智勇敢的伊塔卡国王，特洛伊战后历经十年艰险返乡。" [ref=e682] [cursor=pointer]':
+          - figure [ref=e683]:
+            - img "Head of Odysseus" [ref=e684]
+            - generic [ref=e685]: 7 works
+          - generic [ref=e686]:
+            - generic [ref=e687]:
+              - heading "Odysseus" [level=2] [ref=e688]
+              - generic [ref=e689]: hero
+            - paragraph [ref=e690]: /oh-DISS-ee-us/
+            - paragraph [ref=e691]: "The hero of the poem: the clever, daring king of Ithaca who spends ten years struggling home after the Trojan War."
+            - paragraph [ref=e692]: 奥德修斯·史诗主角，机智勇敢的伊塔卡国王，特洛伊战后历经十年艰险返乡。
+        - button "Ogygia place /oh-JIH-jee-uh/ Calypso's lonely island, where Odysseus is trapped for seven years. 俄吉吉亚·卡吕普索孤寂的海岛，奥德修斯被困于此七年。" [ref=e693] [cursor=pointer]:
+          - figure [ref=e694]:
+            - img "Isle of the Dead" [ref=e695]
+            - generic [ref=e696]: 2 works
+          - generic [ref=e697]:
+            - generic [ref=e698]:
+              - heading "Ogygia" [level=2] [ref=e699]
+              - generic [ref=e700]: place
+            - paragraph [ref=e701]: /oh-JIH-jee-uh/
+            - paragraph [ref=e702]: Calypso's lonely island, where Odysseus is trapped for seven years.
+            - paragraph [ref=e703]: 俄吉吉亚·卡吕普索孤寂的海岛，奥德修斯被困于此七年。
+        - button "Olympus place /oh-LIM-pus/ The high mountain where the gods live. 奥林波斯山·众神居住的高山。" [ref=e704] [cursor=pointer]:
+          - figure [ref=e705]:
+            - img "The Assembly of the Gods" [ref=e706]
+            - generic [ref=e707]: 2 works
+          - generic [ref=e708]:
+            - generic [ref=e709]:
+              - heading "Olympus" [level=2] [ref=e710]
+              - generic [ref=e711]: place
+            - paragraph [ref=e712]: /oh-LIM-pus/
+            - paragraph [ref=e713]: The high mountain where the gods live.
+            - paragraph [ref=e714]: 奥林波斯山·众神居住的高山。
+        - button "omen idea /OH-men/ A sign — often an eagle or other bird — believed to reveal what the gods plan. 预兆·被认为显示神意的征兆，常表现为雄鹰等飞鸟。" [ref=e715] [cursor=pointer]:
+          - figure [ref=e716]:
+            - img "Zeus with Lightning Bolt and Eagle" [ref=e717]
+          - generic [ref=e718]:
+            - generic [ref=e719]:
+              - heading "omen" [level=2] [ref=e720]
+              - generic [ref=e721]: idea
+            - paragraph [ref=e722]: /OH-men/
+            - paragraph [ref=e723]: A sign — often an eagle or other bird — believed to reveal what the gods plan.
+            - paragraph [ref=e724]: 预兆·被认为显示神意的征兆，常表现为雄鹰等飞鸟。
+        - button "Orestes person /oh-RESS-teez/ Agamemnon's son, who grows up and takes revenge for his murdered father. He is held up as a model for Telemachus. 俄瑞斯忒斯·阿伽门农之子，长大后为遇害的父亲复仇，被树为忒勒马科斯的榜样。" [ref=e725] [cursor=pointer]:
+          - figure [ref=e726]:
+            - img "Orestes Pursued by the Furies" [ref=e727]
+            - generic [ref=e728]: 9 works
+          - generic [ref=e729]:
+            - generic [ref=e730]:
+              - heading "Orestes" [level=2] [ref=e731]
+              - generic [ref=e732]: person
+            - paragraph [ref=e733]: /oh-RESS-teez/
+            - paragraph [ref=e734]: Agamemnon's son, who grows up and takes revenge for his murdered father. He is held up as a model for Telemachus.
+            - paragraph [ref=e735]: 俄瑞斯忒斯·阿伽门农之子，长大后为遇害的父亲复仇，被树为忒勒马科斯的榜样。
+        - button "Penelope person /puh-NEL-oh-pee/ Odysseus's faithful and clever wife. She holds off dozens of suitors for years with patience and tricks. 珀涅罗珀·奥德修斯忠贞而聪慧的妻子，以耐心与智计周旋于众多求婚者之间多年。" [ref=e736] [cursor=pointer]:
+          - figure [ref=e737]:
+            - img "Penelope Unraveling Her Work at Night" [ref=e738]
+            - generic [ref=e739]: 7 works
+          - generic [ref=e740]:
+            - generic [ref=e741]:
+              - heading "Penelope" [level=2] [ref=e742]
+              - generic [ref=e743]: person
+            - paragraph [ref=e744]: /puh-NEL-oh-pee/
+            - paragraph [ref=e745]: Odysseus's faithful and clever wife. She holds off dozens of suitors for years with patience and tricks.
+            - paragraph [ref=e746]: 珀涅罗珀·奥德修斯忠贞而聪慧的妻子，以耐心与智计周旋于众多求婚者之间多年。
+        - button "Persephone god /per-SEF-oh-nee/ The queen of the underworld, who rules the dead with Hades. 珀耳塞福涅·冥后，与哈得斯共治亡者之国。" [ref=e747] [cursor=pointer]:
+          - figure [ref=e748]:
+            - img "Proserpine" [ref=e749]
+            - generic [ref=e750]: 13 works
+          - generic [ref=e751]:
+            - generic [ref=e752]:
+              - heading "Persephone" [level=2] [ref=e753]
+              - generic [ref=e754]: god
+            - paragraph [ref=e755]: /per-SEF-oh-nee/
+            - paragraph [ref=e756]: The queen of the underworld, who rules the dead with Hades.
+            - paragraph [ref=e757]: 珀耳塞福涅·冥后，与哈得斯共治亡者之国。
+        - button "Phaeacians people /fee-AY-shuns/ A friendly, sea-loving people whose ships are almost magic. They listen to Odysseus's tale and carry him home. (Their land is Scheria.) 费阿喀亚人·友善、热爱航海的民族，其船近乎神奇；他们听罢奥德修斯的故事后送他归乡（其国为斯刻里亚）。" [ref=e758] [cursor=pointer]:
+          - figure [ref=e759]:
+            - img "Ulysses Landing on the Island of the Phaeacians" [ref=e760]
+            - generic [ref=e761]: 2 works
+          - generic [ref=e762]:
+            - generic [ref=e763]:
+              - heading "Phaeacians" [level=2] [ref=e764]
+              - generic [ref=e765]: people
+            - paragraph [ref=e766]: /fee-AY-shuns/
+            - paragraph [ref=e767]: A friendly, sea-loving people whose ships are almost magic. They listen to Odysseus's tale and carry him home. (Their land is Scheria.)
+            - paragraph [ref=e768]: 费阿喀亚人·友善、热爱航海的民族，其船近乎神奇；他们听罢奥德修斯的故事后送他归乡（其国为斯刻里亚）。
+        - button "Phemius person /FEE-mee-us/ A singer forced to perform for the suitors in Odysseus's hall. Odysseus spares his life in the end. 菲弥俄斯·被迫在奥德修斯厅堂为求婚者献唱的歌手，最终获奥德修斯赦免。" [ref=e769] [cursor=pointer]:
+          - figure [ref=e770]:
+            - img "Phemius the Minstrel" [ref=e771]
+          - generic [ref=e772]:
+            - generic [ref=e773]:
+              - heading "Phemius" [level=2] [ref=e774]
+              - generic [ref=e775]: person
+            - paragraph [ref=e776]: /FEE-mee-us/
+            - paragraph [ref=e777]: A singer forced to perform for the suitors in Odysseus's hall. Odysseus spares his life in the end.
+            - paragraph [ref=e778]: 菲弥俄斯·被迫在奥德修斯厅堂为求婚者献唱的歌手，最终获奥德修斯赦免。
+        - button "Polyphemus monster /pol-ih-FEE-mus/ The man-eating Cyclops (one-eyed giant), a son of Poseidon. Odysseus blinds him to escape his cave — which earns Poseidon's anger. 波吕斐摩斯·食人的独眼巨人，波塞冬之子；奥德修斯刺瞎他以逃出山洞，因而招致波塞冬的愤怒。" [ref=e779] [cursor=pointer]:
+          - figure [ref=e780]:
+            - img "Ulysses Deriding Polyphemus" [ref=e781]
+            - generic [ref=e782]: 10 works
+          - generic [ref=e783]:
+            - generic [ref=e784]:
+              - heading "Polyphemus" [level=2] [ref=e785]
+              - generic [ref=e786]: monster
+            - paragraph [ref=e787]: /pol-ih-FEE-mus/
+            - paragraph [ref=e788]: The man-eating Cyclops (one-eyed giant), a son of Poseidon. Odysseus blinds him to escape his cave — which earns Poseidon's anger.
+            - paragraph [ref=e789]: 波吕斐摩斯·食人的独眼巨人，波塞冬之子；奥德修斯刺瞎他以逃出山洞，因而招致波塞冬的愤怒。
+        - button "Poseidon god /poh-SY-dun/ The powerful god of the sea and earthquakes. He hates Odysseus for blinding his son and keeps him from home. 波塞冬·威力强大的海洋与地震之神；因儿子被刺瞎而仇视奥德修斯，百般阻其归乡。" [ref=e790] [cursor=pointer]:
+          - figure [ref=e791]:
+            - img "The Artemision Bronze" [ref=e792]
+            - generic [ref=e793]: 10 works
+          - generic [ref=e794]:
+            - generic [ref=e795]:
+              - heading "Poseidon" [level=2] [ref=e796]
+              - generic [ref=e797]: god
+            - paragraph [ref=e798]: /poh-SY-dun/
+            - paragraph [ref=e799]: The powerful god of the sea and earthquakes. He hates Odysseus for blinding his son and keeps him from home.
+            - paragraph [ref=e800]: 波塞冬·威力强大的海洋与地震之神；因儿子被刺瞎而仇视奥德修斯，百般阻其归乡。
+        - button "prophecy idea /PROF-uh-see/ A message telling the future, usually sent by the gods. A person who gives one is a prophet or seer. 预言·预告未来的话语，多由神明降下；传达预言者称先知或预言家。" [ref=e801] [cursor=pointer]:
+          - figure [ref=e802]:
+            - img "Priestess of Delphi" [ref=e803]
+          - generic [ref=e804]:
+            - generic [ref=e805]:
+              - heading "prophecy" [level=2] [ref=e806]
+              - generic [ref=e807]: idea
+            - paragraph [ref=e808]: /PROF-uh-see/
+            - paragraph [ref=e809]: A message telling the future, usually sent by the gods. A person who gives one is a prophet or seer.
+            - paragraph [ref=e810]: 预言·预告未来的话语，多由神明降下；传达预言者称先知或预言家。
+        - button "Proteus god /PROH-tee-us/ The \"Old Man of the Sea,\" a god who changes shape to escape questions but must answer if held tight. 普罗透斯·\"海中老人\"，善变形以躲避盘问，但被紧紧擒住后必须作答。" [ref=e811] [cursor=pointer]:
+          - figure [ref=e812]:
+            - img "Menelaus and His Companions Battling Proteus" [ref=e813]
+            - generic [ref=e814]: 4 works
+          - generic [ref=e815]:
+            - generic [ref=e816]:
+              - heading "Proteus" [level=2] [ref=e817]
+              - generic [ref=e818]: god
+            - paragraph [ref=e819]: /PROH-tee-us/
+            - paragraph [ref=e820]: The "Old Man of the Sea," a god who changes shape to escape questions but must answer if held tight.
+            - paragraph [ref=e821]: 普罗透斯·"海中老人"，善变形以躲避盘问，但被紧紧擒住后必须作答。
+        - button "Pylos place /PY-loss/ Nestor's seaside kingdom, the first place Telemachus sails to for news. 皮洛斯·涅斯托耳的海滨王国，忒勒马科斯出海探讯的第一站。" [ref=e822] [cursor=pointer]:
+          - figure [ref=e823]:
+            - img "Lyre Player and Bird Fresco from the Palace of Nestor" [ref=e824]
+            - generic [ref=e825]: 2 works
+          - generic [ref=e826]:
+            - generic [ref=e827]:
+              - heading "Pylos" [level=2] [ref=e828]
+              - generic [ref=e829]: place
+            - paragraph [ref=e830]: /PY-loss/
+            - paragraph [ref=e831]: Nestor's seaside kingdom, the first place Telemachus sails to for news.
+            - paragraph [ref=e832]: 皮洛斯·涅斯托耳的海滨王国，忒勒马科斯出海探讯的第一站。
+        - button "Scheria place /SKEER-ee-uh/ The island land of the Phaeacians, Odysseus's last stop before he finally reaches Ithaca. 斯刻里亚·费阿喀亚人的海岛之国，奥德修斯抵达伊塔卡前的最后一站。" [ref=e833] [cursor=pointer]:
+          - figure [ref=e834]:
+            - img "Coast Scene with the Embarkation of Ulysses" [ref=e835]
+          - generic [ref=e836]:
+            - generic [ref=e837]:
+              - heading "Scheria" [level=2] [ref=e838]
+              - generic [ref=e839]: place
+            - paragraph [ref=e840]: /SKEER-ee-uh/
+            - paragraph [ref=e841]: The island land of the Phaeacians, Odysseus's last stop before he finally reaches Ithaca.
+            - paragraph [ref=e842]: 斯刻里亚·费阿喀亚人的海岛之国，奥德修斯抵达伊塔卡前的最后一站。
+        - button "Scylla monster /SIL-uh/ A six-headed monster living on a cliff. She snatches and eats six of Odysseus's men as the ship passes. 斯库拉·栖于峭壁、长有六头的怪物；船只经过时，她攫食了奥德修斯的六名同伴。" [ref=e843] [cursor=pointer]:
+          - figure [ref=e844]:
+            - img "Glaucus and Scylla" [ref=e845]
+            - generic [ref=e846]: 6 works
+          - generic [ref=e847]:
+            - generic [ref=e848]:
+              - heading "Scylla" [level=2] [ref=e849]
+              - generic [ref=e850]: monster
+            - paragraph [ref=e851]: /SIL-uh/
+            - paragraph [ref=e852]: A six-headed monster living on a cliff. She snatches and eats six of Odysseus's men as the ship passes.
+            - paragraph [ref=e853]: 斯库拉·栖于峭壁、长有六头的怪物；船只经过时，她攫食了奥德修斯的六名同伴。
+        - button "shroud thing /shrowd/ A cloth for covering a dead body. Penelope says she must finish weaving one before she can remarry — then secretly unpicks it each night. 裹尸布·包裹尸体的布；珀涅罗珀诡称织完才肯改嫁，却夜夜偷偷拆解。" [ref=e854] [cursor=pointer]:
+          - figure [ref=e855]:
+            - img "Skyphos by the Penelope Painter" [ref=e856]
+            - generic [ref=e857]: 2 works
+          - generic [ref=e858]:
+            - generic [ref=e859]:
+              - heading "shroud" [level=2] [ref=e860]
+              - generic [ref=e861]: thing
+            - paragraph [ref=e862]: /shrowd/
+            - paragraph [ref=e863]: A cloth for covering a dead body. Penelope says she must finish weaving one before she can remarry — then secretly unpicks it each night.
+            - paragraph [ref=e864]: 裹尸布·包裹尸体的布；珀涅罗珀诡称织完才肯改嫁，却夜夜偷偷拆解。
+        - button "Sirens monster /SY-renz/ Creatures whose beautiful singing lures sailors to steer onto the rocks and die. Odysseus has himself tied to the mast to hear them safely. 塞壬·以美妙歌声诱使水手触礁丧命的海妖；奥德修斯命人把自己绑在桅杆上，以便安全聆听。" [ref=e865] [cursor=pointer]:
+          - figure [ref=e866]:
+            - img "Ulysses and the Sirens" [ref=e867]
+            - generic [ref=e868]: 12 works
+          - generic [ref=e869]:
+            - generic [ref=e870]:
+              - heading "Sirens" [level=2] [ref=e871]
+              - generic [ref=e872]: monster
+            - paragraph [ref=e873]: /SY-renz/
+            - paragraph [ref=e874]: Creatures whose beautiful singing lures sailors to steer onto the rocks and die. Odysseus has himself tied to the mast to hear them safely.
+            - paragraph [ref=e875]: 塞壬·以美妙歌声诱使水手触礁丧命的海妖；奥德修斯命人把自己绑在桅杆上，以便安全聆听。
+        - button "Sparta place /SPAR-tuh/ The kingdom of Menelaus and Helen, which Telemachus visits. 斯巴达·墨涅拉俄斯与海伦的王国，忒勒马科斯曾往访。" [ref=e876] [cursor=pointer]:
+          - figure [ref=e877]:
+            - img "The Love of Helen and Paris" [ref=e878]
+            - generic [ref=e879]: 2 works
+          - generic [ref=e880]:
+            - generic [ref=e881]:
+              - heading "Sparta" [level=2] [ref=e882]
+              - generic [ref=e883]: place
+            - paragraph [ref=e884]: /SPAR-tuh/
+            - paragraph [ref=e885]: The kingdom of Menelaus and Helen, which Telemachus visits.
+            - paragraph [ref=e886]: 斯巴达·墨涅拉俄斯与海伦的王国，忒勒马科斯曾往访。
+        - button "suitors people /SOO-ters/ The crowd of rude young men who fill Odysseus's house, eat his food, and pressure Penelope to marry one of them. 求婚者·一群无礼的年轻人，占据奥德修斯的家、耗食其财，逼迫珀涅罗珀从中择一改嫁。" [ref=e887] [cursor=pointer]:
+          - figure [ref=e888]:
+            - img "Odysseus and the Suitors" [ref=e889]
+            - generic [ref=e890]: 3 works
+          - generic [ref=e891]:
+            - generic [ref=e892]:
+              - heading "suitors" [level=2] [ref=e893]
+              - generic [ref=e894]: people
+            - paragraph [ref=e895]: /SOO-ters/
+            - paragraph [ref=e896]: The crowd of rude young men who fill Odysseus's house, eat his food, and pressure Penelope to marry one of them.
+            - paragraph [ref=e897]: 求婚者·一群无礼的年轻人，占据奥德修斯的家、耗食其财，逼迫珀涅罗珀从中择一改嫁。
+        - button "Telemachus person /tuh-LEM-uh-kus/ The son of Odysseus and Penelope. The poem follows him as he grows up and sails out to seek news of his father. 忒勒马科斯·奥德修斯与珀涅罗珀之子；诗中追随他逐渐成长、出海寻访父亲的消息。" [ref=e898] [cursor=pointer]:
+          - figure [ref=e899]:
+            - img "Telemachus and the Nymphs of Calypso" [ref=e900]
+            - generic [ref=e901]: 4 works
+          - generic [ref=e902]:
+            - generic [ref=e903]:
+              - heading "Telemachus" [level=2] [ref=e904]
+              - generic [ref=e905]: person
+            - paragraph [ref=e906]: /tuh-LEM-uh-kus/
+            - paragraph [ref=e907]: The son of Odysseus and Penelope. The poem follows him as he grows up and sails out to seek news of his father.
+            - paragraph [ref=e908]: 忒勒马科斯·奥德修斯与珀涅罗珀之子；诗中追随他逐渐成长、出海寻访父亲的消息。
+        - button "Tiresias person /ty-REE-see-us/ A famous blind prophet. Odysseus journeys to the land of the dead to ask his ghost the way home. 忒瑞西阿斯·著名的盲眼先知；奥德修斯远赴冥界，向其鬼魂问询归途。" [ref=e909] [cursor=pointer]:
+          - figure [ref=e910]:
+            - img "Tiresias Foretells the Future to Odysseus" [ref=e911]
+            - generic [ref=e912]: 4 works
+          - generic [ref=e913]:
+            - generic [ref=e914]:
+              - heading "Tiresias" [level=2] [ref=e915]
+              - generic [ref=e916]: person
+            - paragraph [ref=e917]: /ty-REE-see-us/
+            - paragraph [ref=e918]: A famous blind prophet. Odysseus journeys to the land of the dead to ask his ghost the way home.
+            - paragraph [ref=e919]: 忒瑞西阿斯·著名的盲眼先知；奥德修斯远赴冥界，向其鬼魂问询归途。
+        - button "Troy place /troy/ The great city where the Greeks fought a ten-year war that ends just before the poem starts. 特洛伊·希腊人鏖战十年的雄城，战事于全诗开篇前不久方告结束。" [ref=e920] [cursor=pointer]:
+          - figure [ref=e921]:
+            - img "The Burning of Troy" [ref=e922]
+            - generic [ref=e923]: 4 works
+          - generic [ref=e924]:
+            - generic [ref=e925]:
+              - heading "Troy" [level=2] [ref=e926]
+              - generic [ref=e927]: place
+            - paragraph [ref=e928]: /troy/
+            - paragraph [ref=e929]: The great city where the Greeks fought a ten-year war that ends just before the poem starts.
+            - paragraph [ref=e930]: 特洛伊·希腊人鏖战十年的雄城，战事于全诗开篇前不久方告结束。
+        - button "Trojan Horse thing /TROH-jun hors/ The giant hollow wooden horse, full of hidden soldiers, that Odysseus used to capture Troy. 特洛伊木马·内藏伏兵的巨型空心木马，奥德修斯借此攻陷特洛伊。" [ref=e931] [cursor=pointer]:
+          - figure [ref=e932]:
+            - img "The Procession of the Trojan Horse into Troy" [ref=e933]
+            - generic [ref=e934]: 6 works
+          - generic [ref=e935]:
+            - generic [ref=e936]:
+              - heading "Trojan Horse" [level=2] [ref=e937]
+              - generic [ref=e938]: thing
+            - paragraph [ref=e939]: /TROH-jun hors/
+            - paragraph [ref=e940]: The giant hollow wooden horse, full of hidden soldiers, that Odysseus used to capture Troy.
+            - paragraph [ref=e941]: 特洛伊木马·内藏伏兵的巨型空心木马，奥德修斯借此攻陷特洛伊。
+        - button "Zeus god /zooss/ The king of all the gods; god of the sky, of storms, and of justice. He especially protects guests and strangers. 宙斯·众神之王，天空、雷霆与正义之神，尤其护佑宾客与异乡人。" [ref=e942] [cursor=pointer]:
+          - figure [ref=e943]:
+            - img "Zeus of Smyrna" [ref=e944]
+            - generic [ref=e945]: 11 works
+          - generic [ref=e946]:
+            - generic [ref=e947]:
+              - heading "Zeus" [level=2] [ref=e948]
+              - generic [ref=e949]: god
+            - paragraph [ref=e950]: /zooss/
+            - paragraph [ref=e951]: The king of all the gods; god of the sky, of storms, and of justice. He especially protects guests and strangers.
+            - paragraph [ref=e952]: 宙斯·众神之王，天空、雷霆与正义之神，尤其护佑宾客与异乡人。
+        - button "Acheron place /A-ker-on/ A river in the land of the dead; also a real river in the Thesprotia region of Greece. 阿刻戎河·冥界中的一条河流；也是希腊塞斯普罗提亚地区一条真实的河流。" [ref=e953] [cursor=pointer]:
+          - figure [ref=e954]:
+            - img "The World According to Homer" [ref=e955]
+          - generic [ref=e956]:
+            - generic [ref=e957]:
+              - heading "Acheron" [level=2] [ref=e958]
+              - generic [ref=e959]: place
+            - paragraph [ref=e960]: /A-ker-on/
+            - paragraph [ref=e961]: A river in the land of the dead; also a real river in the Thesprotia region of Greece.
+            - paragraph [ref=e962]: 阿刻戎河·冥界中的一条河流；也是希腊塞斯普罗提亚地区一条真实的河流。
+        - button "Aegae place /EE-jee/ A city in the northern Peloponnese, a region of southern Greece, sacred to the sea god Poseidon. 埃盖·伯罗奔尼撒北部的一座城市，是供奉海神波塞冬的圣地。" [ref=e963] [cursor=pointer]:
+          - figure [ref=e964]:
+            - img "Homeric Greece" [ref=e965]
+          - generic [ref=e966]:
+            - generic [ref=e967]:
+              - heading "Aegae" [level=2] [ref=e968]
+              - generic [ref=e969]: place
+            - paragraph [ref=e970]: /EE-jee/
+            - paragraph [ref=e971]: A city in the northern Peloponnese, a region of southern Greece, sacred to the sea god Poseidon.
+            - paragraph [ref=e972]: 埃盖·伯罗奔尼撒北部的一座城市，是供奉海神波塞冬的圣地。
+        - button "Amnisus place /am-NEE-sus/ A port town serving the city of Knossos, on the northern coast of the island of Crete. 阿姆尼索斯·为克诺索斯城服务的港口，位于克里特岛北岸。" [ref=e973] [cursor=pointer]:
+          - figure [ref=e974]:
+            - img "Homeric Greece" [ref=e975]
+          - generic [ref=e976]:
+            - generic [ref=e977]:
+              - heading "Amnisus" [level=2] [ref=e978]
+              - generic [ref=e979]: place
+            - paragraph [ref=e980]: /am-NEE-sus/
+            - paragraph [ref=e981]: A port town serving the city of Knossos, on the northern coast of the island of Crete.
+            - paragraph [ref=e982]: 阿姆尼索斯·为克诺索斯城服务的港口，位于克里特岛北岸。
+        - button "Arethusa place /a-re-THOO-sa/ A freshwater spring on Ithaca, the home island of the hero Odysseus. 阿瑞图萨泉·位于伊塔卡岛上的一处淡水泉，伊塔卡是英雄奥德修斯的家乡。" [ref=e983] [cursor=pointer]:
+          - figure [ref=e984]:
+            - img "Homeric Greece" [ref=e985]
+          - generic [ref=e986]:
+            - generic [ref=e987]:
+              - heading "Arethusa" [level=2] [ref=e988]
+              - generic [ref=e989]: place
+            - paragraph [ref=e990]: /a-re-THOO-sa/
+            - paragraph [ref=e991]: A freshwater spring on Ithaca, the home island of the hero Odysseus.
+            - paragraph [ref=e992]: 阿瑞图萨泉·位于伊塔卡岛上的一处淡水泉，伊塔卡是英雄奥德修斯的家乡。
+        - button "Artaky place /AR-ta-kee/ A spring on the island of the Laestrygonians, a race of fierce giants in Odysseus's travels. 阿尔塔基泉·莱斯特律戈涅斯人岛上的一处泉水，那是奥德修斯旅途中凶猛巨人族居住的地方。" [ref=e993] [cursor=pointer]:
+          - figure [ref=e994]:
+            - img "Sunset over Erdek Harbour" [ref=e995]
+          - generic [ref=e996]:
+            - generic [ref=e997]:
+              - heading "Artaky" [level=2] [ref=e998]
+              - generic [ref=e999]: place
+            - paragraph [ref=e1000]: /AR-ta-kee/
+            - paragraph [ref=e1001]: A spring on the island of the Laestrygonians, a race of fierce giants in Odysseus's travels.
+            - paragraph [ref=e1002]: 阿尔塔基泉·莱斯特律戈涅斯人岛上的一处泉水，那是奥德修斯旅途中凶猛巨人族居住的地方。
+        - button "Asteris place /AS-ter-is/ A small island lying near Ithaca, the home island of the hero Odysseus. 阿斯特里斯·靠近伊塔卡岛的一座小岛，伊塔卡是英雄奥德修斯的家乡。" [ref=e1003] [cursor=pointer]:
+          - figure [ref=e1004]:
+            - img "Homeric Greece" [ref=e1005]
+          - generic [ref=e1006]:
+            - generic [ref=e1007]:
+              - heading "Asteris" [level=2] [ref=e1008]
+              - generic [ref=e1009]: place
+            - paragraph [ref=e1010]: /AS-ter-is/
+            - paragraph [ref=e1011]: A small island lying near Ithaca, the home island of the hero Odysseus.
+            - paragraph [ref=e1012]: 阿斯特里斯·靠近伊塔卡岛的一座小岛，伊塔卡是英雄奥德修斯的家乡。
+        - button "Athens place /ATH-ens/ A city in Attica, a region of mainland Greece, later one of the most famous Greek cities. 雅典·希腊大陆阿提卡地区的一座城市，后来成为最著名的希腊城市之一。" [ref=e1013] [cursor=pointer]:
+          - figure [ref=e1014]:
+            - img "Homeric Greece" [ref=e1015]
+          - generic [ref=e1016]:
+            - generic [ref=e1017]:
+              - heading "Athens" [level=2] [ref=e1018]
+              - generic [ref=e1019]: place
+            - paragraph [ref=e1020]: /ATH-ens/
+            - paragraph [ref=e1021]: A city in Attica, a region of mainland Greece, later one of the most famous Greek cities.
+            - paragraph [ref=e1022]: 雅典·希腊大陆阿提卡地区的一座城市，后来成为最著名的希腊城市之一。
+        - button "Chalcis place /KAL-sis/ A town in western Greece, different from the better-known Chalcis on the island of Euboea. 卡尔基斯·希腊西部的一座城镇，不同于欧波亚岛上更著名的卡尔基斯。" [ref=e1023] [cursor=pointer]:
+          - figure [ref=e1024]:
+            - img "Homeric Greece" [ref=e1025]
+          - generic [ref=e1026]:
+            - generic [ref=e1027]:
+              - heading "Chalcis" [level=2] [ref=e1028]
+              - generic [ref=e1029]: place
+            - paragraph [ref=e1030]: /KAL-sis/
+            - paragraph [ref=e1031]: A town in western Greece, different from the better-known Chalcis on the island of Euboea.
+            - paragraph [ref=e1032]: 卡尔基斯·希腊西部的一座城镇，不同于欧波亚岛上更著名的卡尔基斯。
+        - button "Chios place /KEE-os/ An island in the Aegean Sea, lying off the western coast of Asia Minor. 希俄斯·爱琴海中的一座岛屿，位于小亚细亚西海岸外。" [ref=e1033] [cursor=pointer]:
+          - figure [ref=e1034]:
+            - img "Homeric Greece" [ref=e1035]
+          - generic [ref=e1036]:
+            - generic [ref=e1037]:
+              - heading "Chios" [level=2] [ref=e1038]
+              - generic [ref=e1039]: place
+            - paragraph [ref=e1040]: /KEE-os/
+            - paragraph [ref=e1041]: An island in the Aegean Sea, lying off the western coast of Asia Minor.
+            - paragraph [ref=e1042]: 希俄斯·爱琴海中的一座岛屿，位于小亚细亚西海岸外。
+        - button "Cimmerians place /sim-AIR-ee-anz/ A people who live near the land of the dead, in a place of permanent darkness and fog. 辛梅里安人·居住在冥界附近的一个民族，那里终年笼罩着黑暗与浓雾。" [ref=e1043] [cursor=pointer]:
+          - figure [ref=e1044]:
+            - img "The World According to Homer" [ref=e1045]
+          - generic [ref=e1046]:
+            - generic [ref=e1047]:
+              - heading "Cimmerians" [level=2] [ref=e1048]
+              - generic [ref=e1049]: place
+            - paragraph [ref=e1050]: /sim-AIR-ee-anz/
+            - paragraph [ref=e1051]: A people who live near the land of the dead, in a place of permanent darkness and fog.
+            - paragraph [ref=e1052]: 辛梅里安人·居住在冥界附近的一个民族，那里终年笼罩着黑暗与浓雾。
+        - button "Cocytus place /KO-see-tus/ A river in the land of the dead; its name means \"lamentation\" or \"wailing.\" 科库托斯河·冥界中的一条河流；其名意为\"悲叹\"或\"哀号\"。" [ref=e1053] [cursor=pointer]:
+          - figure [ref=e1054]:
+            - img "The World According to Homer" [ref=e1055]
+          - generic [ref=e1056]:
+            - generic [ref=e1057]:
+              - heading "Cocytus" [level=2] [ref=e1058]
+              - generic [ref=e1059]: place
+            - paragraph [ref=e1060]: /KO-see-tus/
+            - paragraph [ref=e1061]: A river in the land of the dead; its name means "lamentation" or "wailing."
+            - paragraph [ref=e1062]: 科库托斯河·冥界中的一条河流；其名意为"悲叹"或"哀号"。
+        - button "Cyprus place /SAI-prus/ A large island in the eastern Mediterranean Sea, off the coast of the Near East. 塞浦路斯·地中海东部的一座大岛，位于近东海岸外。" [ref=e1063] [cursor=pointer]:
+          - figure [ref=e1064]:
+            - img "Aphrodite's Rock (Petra tou Romiou)" [ref=e1065]
+          - generic [ref=e1066]:
+            - generic [ref=e1067]:
+              - heading "Cyprus" [level=2] [ref=e1068]
+              - generic [ref=e1069]: place
+            - paragraph [ref=e1070]: /SAI-prus/
+            - paragraph [ref=e1071]: A large island in the eastern Mediterranean Sea, off the coast of the Near East.
+            - paragraph [ref=e1072]: 塞浦路斯·地中海东部的一座大岛，位于近东海岸外。
+        - button "Cythera place /SI-the-ra/ An island lying south of Cape Malea, at the southeastern tip of the Peloponnese. 基西拉·位于马莱亚角以南的一座岛屿，靠近伯罗奔尼撒东南端。" [ref=e1073] [cursor=pointer]:
+          - figure [ref=e1074]:
+            - img "Homeric Greece" [ref=e1075]
+          - generic [ref=e1076]:
+            - generic [ref=e1077]:
+              - heading "Cythera" [level=2] [ref=e1078]
+              - generic [ref=e1079]: place
+            - paragraph [ref=e1080]: /SI-the-ra/
+            - paragraph [ref=e1081]: An island lying south of Cape Malea, at the southeastern tip of the Peloponnese.
+            - paragraph [ref=e1082]: 基西拉·位于马莱亚角以南的一座岛屿，靠近伯罗奔尼撒东南端。
+        - button "Delos place /DEE-los/ One of the Cycladic islands in the Aegean Sea; sacred to Apollo and birthplace of Apollo and Artemis. 提洛岛·爱琴海基克拉泽斯群岛之一；是供奉阿波罗的圣地，也是阿波罗和阿尔忒弥斯的出生地。" [ref=e1083] [cursor=pointer]:
+          - figure [ref=e1084]:
+            - img "Homeric Greece" [ref=e1085]
+          - generic [ref=e1086]:
+            - generic [ref=e1087]:
+              - heading "Delos" [level=2] [ref=e1088]
+              - generic [ref=e1089]: place
+            - paragraph [ref=e1090]: /DEE-los/
+            - paragraph [ref=e1091]: One of the Cycladic islands in the Aegean Sea; sacred to Apollo and birthplace of Apollo and Artemis.
+            - paragraph [ref=e1092]: 提洛岛·爱琴海基克拉泽斯群岛之一；是供奉阿波罗的圣地，也是阿波罗和阿尔忒弥斯的出生地。
+        - button "Elis place /EL-is/ A region in the northwestern part of the Peloponnese, in southern Greece. 厄利斯·位于伯罗奔尼撒西北部的一个地区，在希腊南部。" [ref=e1093] [cursor=pointer]:
+          - figure [ref=e1094]:
+            - img "Homeric Greece" [ref=e1095]
+          - generic [ref=e1096]:
+            - generic [ref=e1097]:
+              - heading "Elis" [level=2] [ref=e1098]
+              - generic [ref=e1099]: place
+            - paragraph [ref=e1100]: /EL-is/
+            - paragraph [ref=e1101]: A region in the northwestern part of the Peloponnese, in southern Greece.
+            - paragraph [ref=e1102]: 厄利斯·位于伯罗奔尼撒西北部的一个地区，在希腊南部。
+        - button "Ephyra place /e-FAI-ra/ A city in Thesprotia, on the western mainland of Greece. 厄菲拉·希腊西部大陆塞斯普罗提亚地区的一座城市。" [ref=e1103] [cursor=pointer]:
+          - figure [ref=e1104]:
+            - img "Northern Ancient Greece" [ref=e1105]
+          - generic [ref=e1106]:
+            - generic [ref=e1107]:
+              - heading "Ephyra" [level=2] [ref=e1108]
+              - generic [ref=e1109]: place
+            - paragraph [ref=e1110]: /e-FAI-ra/
+            - paragraph [ref=e1111]: A city in Thesprotia, on the western mainland of Greece.
+            - paragraph [ref=e1112]: 厄菲拉·希腊西部大陆塞斯普罗提亚地区的一座城市。
+        - button "Erebus place /E-reb-us/ A dark region of the underworld, the gloomy place where the dead go. 厄瑞玻斯·冥界中一处幽暗之地，亡者前往的阴暗所在。" [ref=e1113] [cursor=pointer]:
+          - figure [ref=e1114]:
+            - img "The World According to Homer" [ref=e1115]
+          - generic [ref=e1116]:
+            - generic [ref=e1117]:
+              - heading "Erebus" [level=2] [ref=e1118]
+              - generic [ref=e1119]: place
+            - paragraph [ref=e1120]: /E-reb-us/
+            - paragraph [ref=e1121]: A dark region of the underworld, the gloomy place where the dead go.
+            - paragraph [ref=e1122]: 厄瑞玻斯·冥界中一处幽暗之地，亡者前往的阴暗所在。
+        - button "Erymanthus place /e-ree-MAN-thus/ A mountain range on the border between Achaea and Elis, in the northwestern Peloponnese. 厄律曼托斯山·位于伯罗奔尼撒西北部、阿凯亚与厄利斯交界处的山脉。" [ref=e1123] [cursor=pointer]:
+          - figure [ref=e1124]:
+            - img "Homeric Greece" [ref=e1125]
+          - generic [ref=e1126]:
+            - generic [ref=e1127]:
+              - heading "Erymanthus" [level=2] [ref=e1128]
+              - generic [ref=e1129]: place
+            - paragraph [ref=e1130]: /e-ree-MAN-thus/
+            - paragraph [ref=e1131]: A mountain range on the border between Achaea and Elis, in the northwestern Peloponnese.
+            - paragraph [ref=e1132]: 厄律曼托斯山·位于伯罗奔尼撒西北部、阿凯亚与厄利斯交界处的山脉。
+        - button "Ethiopia place /ee-thee-O-pee-ya/ A mythical land at the edge of the world, lying between sunset and dawn; not the modern country. 埃塞俄比亚·世界尽头的神话之地，位于日落与日出之间；并非现代国家。" [ref=e1133] [cursor=pointer]:
+          - figure [ref=e1134]:
+            - img "The World According to Homer" [ref=e1135]
+            - generic [ref=e1136]: 2 works
+          - generic [ref=e1137]:
+            - generic [ref=e1138]:
+              - heading "Ethiopia" [level=2] [ref=e1139]
+              - generic [ref=e1140]: place
+            - paragraph [ref=e1141]: /ee-thee-O-pee-ya/
+            - paragraph [ref=e1142]: A mythical land at the edge of the world, lying between sunset and dawn; not the modern country.
+            - paragraph [ref=e1143]: 埃塞俄比亚·世界尽头的神话之地，位于日落与日出之间；并非现代国家。
+        - button "Euboea place /you-BEE-a/ A large island lying just east of the Greek mainland. 埃维亚岛·位于希腊大陆以东的一座大岛。" [ref=e1144] [cursor=pointer]:
+          - figure [ref=e1145]:
+            - img "Homeric Greece" [ref=e1146]
+          - generic [ref=e1147]:
+            - generic [ref=e1148]:
+              - heading "Euboea" [level=2] [ref=e1149]
+              - generic [ref=e1150]: place
+            - paragraph [ref=e1151]: /you-BEE-a/
+            - paragraph [ref=e1152]: A large island lying just east of the Greek mainland.
+            - paragraph [ref=e1153]: 埃维亚岛·位于希腊大陆以东的一座大岛。
+        - button "Geraestus place /ger-AIS-tus/ A headland on the coast of Euboea, where Nestor stops for a night sailing home from Troy. 革赖斯托斯·埃维亚岛海岸的一处海角，涅斯托耳从特洛伊归途中在此停泊过夜。" [ref=e1154] [cursor=pointer]:
+          - figure [ref=e1155]:
+            - img "Homeric Greece" [ref=e1156]
+          - generic [ref=e1157]:
+            - generic [ref=e1158]:
+              - heading "Geraestus" [level=2] [ref=e1159]
+              - generic [ref=e1160]: place
+            - paragraph [ref=e1161]: /ger-AIS-tus/
+            - paragraph [ref=e1162]: A headland on the coast of Euboea, where Nestor stops for a night sailing home from Troy.
+            - paragraph [ref=e1163]: 革赖斯托斯·埃维亚岛海岸的一处海角，涅斯托耳从特洛伊归途中在此停泊过夜。
+        - button "Gortyn place /GOR-tin/ A city in the south central part of the island of Crete. 戈尔廷·克里特岛中南部的一座城市。" [ref=e1164] [cursor=pointer]:
+          - figure [ref=e1165]:
+            - img "Homeric Greece" [ref=e1166]
+          - generic [ref=e1167]:
+            - generic [ref=e1168]:
+              - heading "Gortyn" [level=2] [ref=e1169]
+              - generic [ref=e1170]: place
+            - paragraph [ref=e1171]: /GOR-tin/
+            - paragraph [ref=e1172]: A city in the south central part of the island of Crete.
+            - paragraph [ref=e1173]: 戈尔廷·克里特岛中南部的一座城市。
+        - button "Gyrae place /GEE-rai/ A perhaps mythical rocky outcrop in the Aegean Sea, where Poseidon wrecked the Lesser Ajax. 古赖岩·爱琴海中或许虚构的礁岩，波塞冬曾在此使小埃阿斯触礁沉船。" [ref=e1174] [cursor=pointer]:
+          - figure [ref=e1175]:
+            - img "Homeric Greece" [ref=e1176]
+          - generic [ref=e1177]:
+            - generic [ref=e1178]:
+              - heading "Gyrae" [level=2] [ref=e1179]
+              - generic [ref=e1180]: place
+            - paragraph [ref=e1181]: /GEE-rai/
+            - paragraph [ref=e1182]: A perhaps mythical rocky outcrop in the Aegean Sea, where Poseidon wrecked the Lesser Ajax.
+            - paragraph [ref=e1183]: 古赖岩·爱琴海中或许虚构的礁岩，波塞冬曾在此使小埃阿斯触礁沉船。
+        - button "Hyperesia place /hai-per-EE-see-a/ A town in Achaea, in the northern Peloponnese; home of Polypheides. 许佩瑞西亚·伯罗奔尼撒北部阿凯亚地区的一座城镇，波吕斐得斯的家乡。" [ref=e1184] [cursor=pointer]:
+          - figure [ref=e1185]:
+            - img "Homeric Greece" [ref=e1186]
+          - generic [ref=e1187]:
+            - generic [ref=e1188]:
+              - heading "Hyperesia" [level=2] [ref=e1189]
+              - generic [ref=e1190]: place
+            - paragraph [ref=e1191]: /hai-per-EE-see-a/
+            - paragraph [ref=e1192]: A town in Achaea, in the northern Peloponnese; home of Polypheides.
+            - paragraph [ref=e1193]: 许佩瑞西亚·伯罗奔尼撒北部阿凯亚地区的一座城镇，波吕斐得斯的家乡。
+        - button "Hyperia place /hai-PEHR-ee-a/ The Phaeacians' former homeland, lying near the land of the Cyclopes. 许佩里亚·费阿刻斯人从前的家园，靠近独眼巨人居住的地方。" [ref=e1194] [cursor=pointer]:
+          - figure [ref=e1195]:
+            - img "Odysseus Bids the Phaeacians Farewell" [ref=e1196]
+          - generic [ref=e1197]:
+            - generic [ref=e1198]:
+              - heading "Hyperia" [level=2] [ref=e1199]
+              - generic [ref=e1200]: place
+            - paragraph [ref=e1201]: /hai-PEHR-ee-a/
+            - paragraph [ref=e1202]: The Phaeacians' former homeland, lying near the land of the Cyclopes.
+            - paragraph [ref=e1203]: 许佩里亚·费阿刻斯人从前的家园，靠近独眼巨人居住的地方。
+        - button "Iolcus place /YOL-kus/ A city in Thessaly; home of Pelias, who sent Jason to seek the Golden Fleece. 伊俄尔科斯·色萨利的一座城市，珀利阿斯的家乡，他派伊阿宋去寻找金羊毛。" [ref=e1204] [cursor=pointer]:
+          - figure [ref=e1205]:
+            - img "Northern Ancient Greece" [ref=e1206]
+          - generic [ref=e1207]:
+            - generic [ref=e1208]:
+              - heading "Iolcus" [level=2] [ref=e1209]
+              - generic [ref=e1210]: place
+            - paragraph [ref=e1211]: /YOL-kus/
+            - paragraph [ref=e1212]: A city in Thessaly; home of Pelias, who sent Jason to seek the Golden Fleece.
+            - paragraph [ref=e1213]: 伊俄尔科斯·色萨利的一座城市，珀利阿斯的家乡，他派伊阿宋去寻找金羊毛。
+        - button "Ismarus place /IS-mar-us/ A city in Thrace; home of the Cicones people. 伊斯马罗斯·色雷斯的一座城市，基科涅斯人的家乡。" [ref=e1214] [cursor=pointer]:
+          - figure [ref=e1215]:
+            - img "Northern Ancient Greece" [ref=e1216]
+          - generic [ref=e1217]:
+            - generic [ref=e1218]:
+              - heading "Ismarus" [level=2] [ref=e1219]
+              - generic [ref=e1220]: place
+            - paragraph [ref=e1221]: /IS-mar-us/
+            - paragraph [ref=e1222]: A city in Thrace; home of the Cicones people.
+            - paragraph [ref=e1223]: 伊斯马罗斯·色雷斯的一座城市，基科涅斯人的家乡。
+        - button "River Jardan place /JAR-dan/ A river on the island of Crete. 雅尔达诺斯河·克里特岛上的一条河流。" [ref=e1224] [cursor=pointer]:
+          - figure [ref=e1225]:
+            - img "Homeric Greece" [ref=e1226]
+          - generic [ref=e1227]:
+            - generic [ref=e1228]:
+              - heading "River Jardan" [level=2] [ref=e1229]
+              - generic [ref=e1230]: place
+            - paragraph [ref=e1231]: /JAR-dan/
+            - paragraph [ref=e1232]: A river on the island of Crete.
+            - paragraph [ref=e1233]: 雅尔达诺斯河·克里特岛上的一条河流。
+        - button "Lemnos place /LEM-nos/ An island in the northeastern Aegean Sea, inhabited by the Sintians. 利姆诺斯岛·爱琴海东北部的一座岛屿，辛提亚人居住于此。" [ref=e1234] [cursor=pointer]:
+          - figure [ref=e1235]:
+            - img "Northern Ancient Greece" [ref=e1236]
+          - generic [ref=e1237]:
+            - generic [ref=e1238]:
+              - heading "Lemnos" [level=2] [ref=e1239]
+              - generic [ref=e1240]: place
+            - paragraph [ref=e1241]: /LEM-nos/
+            - paragraph [ref=e1242]: An island in the northeastern Aegean Sea, inhabited by the Sintians.
+            - paragraph [ref=e1243]: 利姆诺斯岛·爱琴海东北部的一座岛屿，辛提亚人居住于此。
+        - button "Lesbos place /LES-bos/ A large island in the northeastern Aegean Sea, off the coast of Asia Minor. 莱斯沃斯岛·爱琴海东北部的一座大岛，靠近小亚细亚海岸。" [ref=e1244] [cursor=pointer]:
+          - figure [ref=e1245]:
+            - img "Homeric Greece" [ref=e1246]
+          - generic [ref=e1247]:
+            - generic [ref=e1248]:
+              - heading "Lesbos" [level=2] [ref=e1249]
+              - generic [ref=e1250]: place
+            - paragraph [ref=e1251]: /LES-bos/
+            - paragraph [ref=e1252]: A large island in the northeastern Aegean Sea, off the coast of Asia Minor.
+            - paragraph [ref=e1253]: 莱斯沃斯岛·爱琴海东北部的一座大岛，靠近小亚细亚海岸。
+        - button "Libya place /LIB-ee-ya/ A land on the northern coast of Africa, vaguely imagined and not the same as the modern country. 利比亚·非洲北部海岸的一片土地，在荷马笔下界限模糊，与今天的国家并不相同。" [ref=e1254] [cursor=pointer]:
+          - figure [ref=e1255]:
+            - img "Aegyptus Antiqua (Ancient Egypt)" [ref=e1256]
+          - generic [ref=e1257]:
+            - generic [ref=e1258]:
+              - heading "Libya" [level=2] [ref=e1259]
+              - generic [ref=e1260]: place
+            - paragraph [ref=e1261]: /LIB-ee-ya/
+            - paragraph [ref=e1262]: A land on the northern coast of Africa, vaguely imagined and not the same as the modern country.
+            - paragraph [ref=e1263]: 利比亚·非洲北部海岸的一片土地，在荷马笔下界限模糊，与今天的国家并不相同。
+        - button "Malea place /MA-lee-a/ A cape at the southeastern tip of the Peloponnese, famous for its dangerous, treacherous sailing conditions. 马莱亚角·伯罗奔尼撒半岛东南端的海角，以航行凶险、危机四伏而闻名。" [ref=e1264] [cursor=pointer]:
+          - figure [ref=e1265]:
+            - img "Homeric Greece" [ref=e1266]
+          - generic [ref=e1267]:
+            - generic [ref=e1268]:
+              - heading "Malea" [level=2] [ref=e1269]
+              - generic [ref=e1270]: place
+            - paragraph [ref=e1271]: /MA-lee-a/
+            - paragraph [ref=e1272]: A cape at the southeastern tip of the Peloponnese, famous for its dangerous, treacherous sailing conditions.
+            - paragraph [ref=e1273]: 马莱亚角·伯罗奔尼撒半岛东南端的海角，以航行凶险、危机四伏而闻名。
+        - button "Marathon place /MA-ra-thon/ A town northeast of Athens, lying near the northeastern coast of the region of Attica. 马拉松·雅典东北方的一座城镇，靠近阿提卡地区的东北海岸。" [ref=e1274] [cursor=pointer]:
+          - figure [ref=e1275]:
+            - img "Homeric Greece" [ref=e1276]
+          - generic [ref=e1277]:
+            - generic [ref=e1278]:
+              - heading "Marathon" [level=2] [ref=e1279]
+              - generic [ref=e1280]: place
+            - paragraph [ref=e1281]: /MA-ra-thon/
+            - paragraph [ref=e1282]: A town northeast of Athens, lying near the northeastern coast of the region of Attica.
+            - paragraph [ref=e1283]: 马拉松·雅典东北方的一座城镇，靠近阿提卡地区的东北海岸。
+        - button "Messenia place /mes-EE-nee-ya/ A region in the southwestern part of the Peloponnese, the large peninsula of southern Greece. 美塞尼亚·伯罗奔尼撒半岛西南部的一个地区，位于希腊南部的大半岛上。" [ref=e1284] [cursor=pointer]:
+          - figure [ref=e1285]:
+            - img "Homeric Greece" [ref=e1286]
+          - generic [ref=e1287]:
+            - generic [ref=e1288]:
+              - heading "Messenia" [level=2] [ref=e1289]
+              - generic [ref=e1290]: place
+            - paragraph [ref=e1291]: /mes-EE-nee-ya/
+            - paragraph [ref=e1292]: A region in the southwestern part of the Peloponnese, the large peninsula of southern Greece.
+            - paragraph [ref=e1293]: 美塞尼亚·伯罗奔尼撒半岛西南部的一个地区，位于希腊南部的大半岛上。
+        - button "Mimas place /MAI-mas/ A promontory on the coast of Asia Minor, lying directly opposite the island of Chios. 米马斯·小亚细亚海岸上的一处海角，正对着希俄斯岛。" [ref=e1294] [cursor=pointer]:
+          - figure [ref=e1295]:
+            - img "Homeric Greece" [ref=e1296]
+          - generic [ref=e1297]:
+            - generic [ref=e1298]:
+              - heading "Mimas" [level=2] [ref=e1299]
+              - generic [ref=e1300]: place
+            - paragraph [ref=e1301]: /MAI-mas/
+            - paragraph [ref=e1302]: A promontory on the coast of Asia Minor, lying directly opposite the island of Chios.
+            - paragraph [ref=e1303]: 米马斯·小亚细亚海岸上的一处海角，正对着希俄斯岛。
+        - button "Mycenae place /mai-SEE-nee/ A grand palace city in the northeastern Peloponnese, home of King Agamemnon. 迈锡尼·伯罗奔尼撒半岛东北部的一座宏伟宫殿之城，是阿伽门农国王的居所。" [ref=e1304] [cursor=pointer]:
+          - figure [ref=e1305]:
+            - img "Homeric Greece" [ref=e1306]
+          - generic [ref=e1307]:
+            - generic [ref=e1308]:
+              - heading "Mycenae" [level=2] [ref=e1309]
+              - generic [ref=e1310]: place
+            - paragraph [ref=e1311]: /mai-SEE-nee/
+            - paragraph [ref=e1312]: A grand palace city in the northeastern Peloponnese, home of King Agamemnon.
+            - paragraph [ref=e1313]: 迈锡尼·伯罗奔尼撒半岛东北部的一座宏伟宫殿之城，是阿伽门农国王的居所。
+        - button "Mount Neion place /NAY-on/ A mountain on the island of Ithaca; another name for Mount Neriton. 涅伊翁山·伊塔卡岛上的一座山；是涅里同山的别名。" [ref=e1314] [cursor=pointer]:
+          - figure [ref=e1315]:
+            - img "Homeric Greece" [ref=e1316]
+          - generic [ref=e1317]:
+            - generic [ref=e1318]:
+              - heading "Mount Neion" [level=2] [ref=e1319]
+              - generic [ref=e1320]: place
+            - paragraph [ref=e1321]: /NAY-on/
+            - paragraph [ref=e1322]: A mountain on the island of Ithaca; another name for Mount Neriton.
+            - paragraph [ref=e1323]: 涅伊翁山·伊塔卡岛上的一座山；是涅里同山的别名。
+        - button "Mount Neriton place /NE-rit-on/ A mountain on the island of Ithaca, Odysseus's home in the Ionian Sea. 涅里同山·伊塔卡岛上的一座山，伊塔卡是奥德修斯在伊奥尼亚海中的家乡。" [ref=e1324] [cursor=pointer]:
+          - figure [ref=e1325]:
+            - img "Homeric Greece" [ref=e1326]
+          - generic [ref=e1327]:
+            - generic [ref=e1328]:
+              - heading "Mount Neriton" [level=2] [ref=e1329]
+              - generic [ref=e1330]: place
+            - paragraph [ref=e1331]: /NE-rit-on/
+            - paragraph [ref=e1332]: A mountain on the island of Ithaca, Odysseus's home in the Ionian Sea.
+            - paragraph [ref=e1333]: 涅里同山·伊塔卡岛上的一座山，伊塔卡是奥德修斯在伊奥尼亚海中的家乡。
+        - button "Orchomenus place /or-KO-me-nus/ A city in Boeotia, central Greece, home to the people called the Minyans. 奥尔霍迈诺斯·希腊中部彼奥提亚地区的一座城市，是被称为米尼亚人的居所。" [ref=e1334] [cursor=pointer]:
+          - figure [ref=e1335]:
+            - img "Homeric Greece" [ref=e1336]
+          - generic [ref=e1337]:
+            - generic [ref=e1338]:
+              - heading "Orchomenus" [level=2] [ref=e1339]
+              - generic [ref=e1340]: place
+            - paragraph [ref=e1341]: /or-KO-me-nus/
+            - paragraph [ref=e1342]: A city in Boeotia, central Greece, home to the people called the Minyans.
+            - paragraph [ref=e1343]: 奥尔霍迈诺斯·希腊中部彼奥提亚地区的一座城市，是被称为米尼亚人的居所。
+        - button "Ortygia place /or-TI-ja/ A small Sicilian island near the mainland; here it seems a fantastical place with no real location. 奥尔提伽·西西里附近的一座小岛；但此处似乎是个虚构之地，没有真实位置。" [ref=e1344] [cursor=pointer]:
+          - figure [ref=e1345]:
+            - img "A View of Ortygia, Syracuse" [ref=e1346]
+          - generic [ref=e1347]:
+            - generic [ref=e1348]:
+              - heading "Ortygia" [level=2] [ref=e1349]
+              - generic [ref=e1350]: place
+            - paragraph [ref=e1351]: /or-TI-ja/
+            - paragraph [ref=e1352]: A small Sicilian island near the mainland; here it seems a fantastical place with no real location.
+            - paragraph [ref=e1353]: 奥尔提伽·西西里附近的一座小岛；但此处似乎是个虚构之地，没有真实位置。
+        - button "Ossa place /O-sa/ A mountain in the region of Thessaly in northern Greece, lying just south of Mount Olympus. 奥萨山·希腊北部色萨利地区的一座山，位于奥林匹斯山以南不远处。" [ref=e1354] [cursor=pointer]:
+          - figure [ref=e1355]:
+            - img "Northern Ancient Greece" [ref=e1356]
+          - generic [ref=e1357]:
+            - generic [ref=e1358]:
+              - heading "Ossa" [level=2] [ref=e1359]
+              - generic [ref=e1360]: place
+            - paragraph [ref=e1361]: /O-sa/
+            - paragraph [ref=e1362]: A mountain in the region of Thessaly in northern Greece, lying just south of Mount Olympus.
+            - paragraph [ref=e1363]: 奥萨山·希腊北部色萨利地区的一座山，位于奥林匹斯山以南不远处。
+        - button "Panopeus place /pan-OH-pee-yus/ A Greek town located near the border of the region of Boeotia in central Greece. 帕诺佩乌斯·一座希腊城镇，位于希腊中部彼奥提亚地区的边界附近。" [ref=e1364] [cursor=pointer]:
+          - figure [ref=e1365]:
+            - img "Homeric Greece" [ref=e1366]
+          - generic [ref=e1367]:
+            - generic [ref=e1368]:
+              - heading "Panopeus" [level=2] [ref=e1369]
+              - generic [ref=e1370]: place
+            - paragraph [ref=e1371]: /pan-OH-pee-yus/
+            - paragraph [ref=e1372]: A Greek town located near the border of the region of Boeotia in central Greece.
+            - paragraph [ref=e1373]: 帕诺佩乌斯·一座希腊城镇，位于希腊中部彼奥提亚地区的边界附近。
+        - button "Mount Parnassus place /par-NAS-us/ A mountain in central Greece, where a wild boar wounded Odysseus when he was a boy. 帕尔纳索斯山·希腊中部的一座山，奥德修斯小时候在此被一头野猪所伤。" [ref=e1374] [cursor=pointer]:
+          - figure [ref=e1375]:
+            - img "Homeric Greece" [ref=e1376]
+          - generic [ref=e1377]:
+            - generic [ref=e1378]:
+              - heading "Mount Parnassus" [level=2] [ref=e1379]
+              - generic [ref=e1380]: place
+            - paragraph [ref=e1381]: /par-NAS-us/
+            - paragraph [ref=e1382]: A mountain in central Greece, where a wild boar wounded Odysseus when he was a boy.
+            - paragraph [ref=e1383]: 帕尔纳索斯山·希腊中部的一座山，奥德修斯小时候在此被一头野猪所伤。
+        - button "Pelion place /PEE-lee-on/ A mountain in the region of Thessaly in northern Greece. 佩利翁山·希腊北部色萨利地区的一座山。" [ref=e1384] [cursor=pointer]:
+          - figure [ref=e1385]:
+            - img "Northern Ancient Greece" [ref=e1386]
+          - generic [ref=e1387]:
+            - generic [ref=e1388]:
+              - heading "Pelion" [level=2] [ref=e1389]
+              - generic [ref=e1390]: place
+            - paragraph [ref=e1391]: /PEE-lee-on/
+            - paragraph [ref=e1392]: A mountain in the region of Thessaly in northern Greece.
+            - paragraph [ref=e1393]: 佩利翁山·希腊北部色萨利地区的一座山。
+        - button "Phaea place /FAI-ya/ A port on the coast of Elis, a region in the northwestern Peloponnese. 斐埃·埃利斯海岸上的一座港口，埃利斯是伯罗奔尼撒半岛西北部的一个地区。" [ref=e1394] [cursor=pointer]:
+          - figure [ref=e1395]:
+            - img "Homeric Greece" [ref=e1396]
+          - generic [ref=e1397]:
+            - generic [ref=e1398]:
+              - heading "Phaea" [level=2] [ref=e1399]
+              - generic [ref=e1400]: place
+            - paragraph [ref=e1401]: /FAI-ya/
+            - paragraph [ref=e1402]: A port on the coast of Elis, a region in the northwestern Peloponnese.
+            - paragraph [ref=e1403]: 斐埃·埃利斯海岸上的一座港口，埃利斯是伯罗奔尼撒半岛西北部的一个地区。
+        - button "Phaestus place /FAI-stus/ A city in south-central Crete, the large island lying south of mainland Greece. 费斯托斯·克里特岛中南部的一座城市，克里特岛位于希腊大陆以南。" [ref=e1404] [cursor=pointer]:
+          - figure [ref=e1405]:
+            - img "Homeric Greece" [ref=e1406]
+          - generic [ref=e1407]:
+            - generic [ref=e1408]:
+              - heading "Phaestus" [level=2] [ref=e1409]
+              - generic [ref=e1410]: place
+            - paragraph [ref=e1411]: /FAI-stus/
+            - paragraph [ref=e1412]: A city in south-central Crete, the large island lying south of mainland Greece.
+            - paragraph [ref=e1413]: 费斯托斯·克里特岛中南部的一座城市，克里特岛位于希腊大陆以南。
+        - button "Pharos place /FEHR-os/ A small island lying just off the coast of Egypt, near the mouth of the Nile. 法罗斯岛·位于埃及海岸外不远处的一座小岛，靠近尼罗河口。" [ref=e1414] [cursor=pointer]:
+          - figure [ref=e1415]:
+            - img "Aegyptus Antiqua (Ancient Egypt)" [ref=e1416]
+          - generic [ref=e1417]:
+            - generic [ref=e1418]:
+              - heading "Pharos" [level=2] [ref=e1419]
+              - generic [ref=e1420]: place
+            - paragraph [ref=e1421]: /FEHR-os/
+            - paragraph [ref=e1422]: A small island lying just off the coast of Egypt, near the mouth of the Nile.
+            - paragraph [ref=e1423]: 法罗斯岛·位于埃及海岸外不远处的一座小岛，靠近尼罗河口。
+        - button "Pherae place /FEHR-ai/ A city in the Peloponnese, lying on the route between Pylos and Sparta in southern Greece. 费莱·伯罗奔尼撒半岛上的一座城市，位于皮洛斯和斯巴达之间。" [ref=e1424] [cursor=pointer]:
+          - figure [ref=e1425]:
+            - img "Homeric Greece" [ref=e1426]
+          - generic [ref=e1427]:
+            - generic [ref=e1428]:
+              - heading "Pherae" [level=2] [ref=e1429]
+              - generic [ref=e1430]: place
+            - paragraph [ref=e1431]: /FEHR-ai/
+            - paragraph [ref=e1432]: A city in the Peloponnese, lying on the route between Pylos and Sparta in southern Greece.
+            - paragraph [ref=e1433]: 费莱·伯罗奔尼撒半岛上的一座城市，位于皮洛斯和斯巴达之间。
+        - button "Phoenicia place /fu-NEE-sha/ A coastal region of seafaring traders in the eastern Mediterranean, covering modern Lebanon and nearby lands. 腓尼基·地中海东岸的一个航海商人聚居区，包括今天的黎巴嫩及邻近地区。" [ref=e1434] [cursor=pointer]:
+          - figure [ref=e1435]:
+            - img "Port of Tyre" [ref=e1436]
+          - generic [ref=e1437]:
+            - generic [ref=e1438]:
+              - heading "Phoenicia" [level=2] [ref=e1439]
+              - generic [ref=e1440]: place
+            - paragraph [ref=e1441]: /fu-NEE-sha/
+            - paragraph [ref=e1442]: A coastal region of seafaring traders in the eastern Mediterranean, covering modern Lebanon and nearby lands.
+            - paragraph [ref=e1443]: 腓尼基·地中海东岸的一个航海商人聚居区，包括今天的黎巴嫩及邻近地区。
+        - button "Phthia place /FTHEE-ya/ The kingdom of Peleus and his son Achilles, located in central Greece. 弗提亚·珀琉斯和他儿子阿喀琉斯的王国，位于希腊中部。" [ref=e1444] [cursor=pointer]:
+          - figure [ref=e1445]:
+            - img "Northern Ancient Greece" [ref=e1446]
+          - generic [ref=e1447]:
+            - generic [ref=e1448]:
+              - heading "Phthia" [level=2] [ref=e1449]
+              - generic [ref=e1450]: place
+            - paragraph [ref=e1451]: /FTHEE-ya/
+            - paragraph [ref=e1452]: The kingdom of Peleus and his son Achilles, located in central Greece.
+            - paragraph [ref=e1453]: 弗提亚·珀琉斯和他儿子阿喀琉斯的王国，位于希腊中部。
+        - button "Phylace place /FEE-la-see/ A city in Thessaly, a region in northern Greece. 费拉刻·塞萨利的一座城市，塞萨利是希腊北部的一个地区。" [ref=e1454] [cursor=pointer]:
+          - figure [ref=e1455]:
+            - img "Northern Ancient Greece" [ref=e1456]
+          - generic [ref=e1457]:
+            - generic [ref=e1458]:
+              - heading "Phylace" [level=2] [ref=e1459]
+              - generic [ref=e1460]: place
+            - paragraph [ref=e1461]: /FEE-la-see/
+            - paragraph [ref=e1462]: A city in Thessaly, a region in northern Greece.
+            - paragraph [ref=e1463]: 费拉刻·塞萨利的一座城市，塞萨利是希腊北部的一个地区。
+        - button "Pieria place /pai-REE-ya/ A region in northern Greece, lying near Mount Olympus. 皮埃里亚·希腊北部的一个地区，靠近奥林匹斯山。" [ref=e1464] [cursor=pointer]:
+          - figure [ref=e1465]:
+            - img "Northern Ancient Greece" [ref=e1466]
+          - generic [ref=e1467]:
+            - generic [ref=e1468]:
+              - heading "Pieria" [level=2] [ref=e1469]
+              - generic [ref=e1470]: place
+            - paragraph [ref=e1471]: /pai-REE-ya/
+            - paragraph [ref=e1472]: A region in northern Greece, lying near Mount Olympus.
+            - paragraph [ref=e1473]: 皮埃里亚·希腊北部的一个地区，靠近奥林匹斯山。
+        - button "Psara place /PSA-ra/ A small island in the Aegean Sea, off the western coast of Asia Minor. 普萨拉岛·爱琴海中的一座小岛，位于小亚细亚西海岸外。" [ref=e1474] [cursor=pointer]:
+          - figure [ref=e1475]:
+            - img "Homeric Greece" [ref=e1476]
+          - generic [ref=e1477]:
+            - generic [ref=e1478]:
+              - heading "Psara" [level=2] [ref=e1479]
+              - generic [ref=e1480]: place
+            - paragraph [ref=e1481]: /PSA-ra/
+            - paragraph [ref=e1482]: A small island in the Aegean Sea, off the western coast of Asia Minor.
+            - paragraph [ref=e1483]: 普萨拉岛·爱琴海中的一座小岛，位于小亚细亚西海岸外。
+        - button "Pyriphlegethon place /pi-ri-FLE-ge-thon/ A river of fire in the underworld, one of the streams flowing into the river Styx. 皮里弗勒革同河·冥界中的一条火焰之河，是流入斯堤克斯河的支流之一。" [ref=e1484] [cursor=pointer]:
+          - figure [ref=e1485]:
+            - img "The World According to Homer" [ref=e1486]
+          - generic [ref=e1487]:
+            - generic [ref=e1488]:
+              - heading "Pyriphlegethon" [level=2] [ref=e1489]
+              - generic [ref=e1490]: place
+            - paragraph [ref=e1491]: /pi-ri-FLE-ge-thon/
+            - paragraph [ref=e1492]: A river of fire in the underworld, one of the streams flowing into the river Styx.
+            - paragraph [ref=e1493]: 皮里弗勒革同河·冥界中的一条火焰之河，是流入斯堤克斯河的支流之一。
+        - button "Same place /SAY-mee/ An island in the eastern part of the Ionian Sea near Ithaca, also called Samos in Homer. 萨墨岛·靠近伊萨卡的爱奥尼亚海东部的一座岛屿，荷马也称之为萨摩斯。" [ref=e1494] [cursor=pointer]:
+          - figure [ref=e1495]:
+            - img "Homeric Greece" [ref=e1496]
+          - generic [ref=e1497]:
+            - generic [ref=e1498]:
+              - heading "Same" [level=2] [ref=e1499]
+              - generic [ref=e1500]: place
+            - paragraph [ref=e1501]: /SAY-mee/
+            - paragraph [ref=e1502]: An island in the eastern part of the Ionian Sea near Ithaca, also called Samos in Homer.
+            - paragraph [ref=e1503]: 萨墨岛·靠近伊萨卡的爱奥尼亚海东部的一座岛屿，荷马也称之为萨摩斯。
+        - button "Scyros place /SKAI-ros/ An island in the Aegean Sea, home of Achilles' son Neoptolemus. 斯库罗斯岛·爱琴海中的一座岛屿，是阿喀琉斯之子涅俄普托勒摩斯的家乡。" [ref=e1504] [cursor=pointer]:
+          - figure [ref=e1505]:
+            - img "Homeric Greece" [ref=e1506]
+          - generic [ref=e1507]:
+            - generic [ref=e1508]:
+              - heading "Scyros" [level=2] [ref=e1509]
+              - generic [ref=e1510]: place
+            - paragraph [ref=e1511]: /SKAI-ros/
+            - paragraph [ref=e1512]: An island in the Aegean Sea, home of Achilles' son Neoptolemus.
+            - paragraph [ref=e1513]: 斯库罗斯岛·爱琴海中的一座岛屿，是阿喀琉斯之子涅俄普托勒摩斯的家乡。
+        - button "Sidon place /SAI-don/ A major Phoenician city on the eastern Mediterranean coast, now in modern Lebanon. 西顿·地中海东岸的一座腓尼基大城，今属黎巴嫩。" [ref=e1514] [cursor=pointer]:
+          - figure [ref=e1515]:
+            - img "Citadel of Sidon" [ref=e1516]
+          - generic [ref=e1517]:
+            - generic [ref=e1518]:
+              - heading "Sidon" [level=2] [ref=e1519]
+              - generic [ref=e1520]: place
+            - paragraph [ref=e1521]: /SAI-don/
+            - paragraph [ref=e1522]: A major Phoenician city on the eastern Mediterranean coast, now in modern Lebanon.
+            - paragraph [ref=e1523]: 西顿·地中海东岸的一座腓尼基大城，今属黎巴嫩。
+        - button "Mount Solyma place /SOL-im-a/ A mountain in Lycia, on the southern coast of Asia Minor in the far eastern Mediterranean. 索吕玛山·吕基亚的一座山，位于地中海东部小亚细亚南岸。" [ref=e1524] [cursor=pointer]:
+          - figure [ref=e1525]:
+            - img "Mount Tahtalı (ancient Solyma)" [ref=e1526]
+          - generic [ref=e1527]:
+            - generic [ref=e1528]:
+              - heading "Mount Solyma" [level=2] [ref=e1529]
+              - generic [ref=e1530]: place
+            - paragraph [ref=e1531]: /SOL-im-a/
+            - paragraph [ref=e1532]: A mountain in Lycia, on the southern coast of Asia Minor in the far eastern Mediterranean.
+            - paragraph [ref=e1533]: 索吕玛山·吕基亚的一座山，位于地中海东部小亚细亚南岸。
+        - button "Sounion place /SOO-nee-yon/ A cape at the southern tip of Attica, site of an important temple to Poseidon. 苏尼翁·阿提卡最南端的海角，建有一座重要的波塞冬神庙。" [ref=e1534] [cursor=pointer]:
+          - figure [ref=e1535]:
+            - img "Homeric Greece" [ref=e1536]
+          - generic [ref=e1537]:
+            - generic [ref=e1538]:
+              - heading "Sounion" [level=2] [ref=e1539]
+              - generic [ref=e1540]: place
+            - paragraph [ref=e1541]: /SOO-nee-yon/
+            - paragraph [ref=e1542]: A cape at the southern tip of Attica, site of an important temple to Poseidon.
+            - paragraph [ref=e1543]: 苏尼翁·阿提卡最南端的海角，建有一座重要的波塞冬神庙。
+        - button "Styx place /stix/ The river forming the boundary of the underworld, the realm of the dead. 斯堤克斯河·构成冥界（死者的国度）边界的河流。" [ref=e1544] [cursor=pointer]:
+          - figure [ref=e1545]:
+            - img "The World According to Homer" [ref=e1546]
+          - generic [ref=e1547]:
+            - generic [ref=e1548]:
+              - heading "Styx" [level=2] [ref=e1549]
+              - generic [ref=e1550]: place
+            - paragraph [ref=e1551]: /stix/
+            - paragraph [ref=e1552]: The river forming the boundary of the underworld, the realm of the dead.
+            - paragraph [ref=e1553]: 斯堤克斯河·构成冥界（死者的国度）边界的河流。
+        - button "Taphos place /TAY-fos/ An island in the Ionian Sea; its people, the Taphians, were often described as pirates and sea-raiders. 塔福斯·爱奥尼亚海中的一座岛屿；岛上居民塔福斯人常被描述为海盗和劫掠者。" [ref=e1554] [cursor=pointer]:
+          - figure [ref=e1555]:
+            - img "Homeric Greece" [ref=e1556]
+          - generic [ref=e1557]:
+            - generic [ref=e1558]:
+              - heading "Taphos" [level=2] [ref=e1559]
+              - generic [ref=e1560]: place
+            - paragraph [ref=e1561]: /TAY-fos/
+            - paragraph [ref=e1562]: An island in the Ionian Sea; its people, the Taphians, were often described as pirates and sea-raiders.
+            - paragraph [ref=e1563]: 塔福斯·爱奥尼亚海中的一座岛屿；岛上居民塔福斯人常被描述为海盗和劫掠者。
+        - button "Taygetus place /TAI-ge-tus/ A high mountain range in the southern Peloponnese, in southern mainland Greece. 泰格托斯山·希腊南部伯罗奔尼撒半岛的一道高大山脉。" [ref=e1564] [cursor=pointer]:
+          - figure [ref=e1565]:
+            - img "Homeric Greece" [ref=e1566]
+          - generic [ref=e1567]:
+            - generic [ref=e1568]:
+              - heading "Taygetus" [level=2] [ref=e1569]
+              - generic [ref=e1570]: place
+            - paragraph [ref=e1571]: /TAI-ge-tus/
+            - paragraph [ref=e1572]: A high mountain range in the southern Peloponnese, in southern mainland Greece.
+            - paragraph [ref=e1573]: 泰格托斯山·希腊南部伯罗奔尼撒半岛的一道高大山脉。
+        - button "Telepylus place /te-le-PAI-lus/ A town in the land of the Laestrygonians, giant cannibals; its name suggests \"Far Gate.\" 忒勒皮洛斯·食人巨人莱斯特律戈涅斯人之地的一座城镇；其名意为“远门”。" [ref=e1574] [cursor=pointer]:
+          - figure [ref=e1575]:
+            - img "Odysseus among the Laestrygonians" [ref=e1576]
+          - generic [ref=e1577]:
+            - generic [ref=e1578]:
+              - heading "Telepylus" [level=2] [ref=e1579]
+              - generic [ref=e1580]: place
+            - paragraph [ref=e1581]: /te-le-PAI-lus/
+            - paragraph [ref=e1582]: A town in the land of the Laestrygonians, giant cannibals; its name suggests "Far Gate."
+            - paragraph [ref=e1583]: 忒勒皮洛斯·食人巨人莱斯特律戈涅斯人之地的一座城镇；其名意为“远门”。
+        - button "Temese place /TE-me-see/ A city in Bruttium, the Greek colony in the \"toe\" of Italy, modern Calabria. 忒墨塞·布鲁提乌姆的一座城市，即意大利“脚趾”地区（今卡拉布里亚）的希腊殖民地。" [ref=e1584] [cursor=pointer]:
+          - figure [ref=e1585]:
+            - img "Royal Tomb at Tamassos" [ref=e1586]
+          - generic [ref=e1587]:
+            - generic [ref=e1588]:
+              - heading "Temese" [level=2] [ref=e1589]
+              - generic [ref=e1590]: place
+            - paragraph [ref=e1591]: /TE-me-see/
+            - paragraph [ref=e1592]: A city in Bruttium, the Greek colony in the "toe" of Italy, modern Calabria.
+            - paragraph [ref=e1593]: 忒墨塞·布鲁提乌姆的一座城市，即意大利“脚趾”地区（今卡拉布里亚）的希腊殖民地。
+        - button "Tenedos place /TE-ne-dos/ An island in the northeastern Aegean Sea, lying near the coast of Troy. 忒涅多斯·爱琴海东北部的一座岛屿，靠近特洛伊海岸。" [ref=e1594] [cursor=pointer]:
+          - figure [ref=e1595]:
+            - img "Homeric Greece" [ref=e1596]
+          - generic [ref=e1597]:
+            - generic [ref=e1598]:
+              - heading "Tenedos" [level=2] [ref=e1599]
+              - generic [ref=e1600]: place
+            - paragraph [ref=e1601]: /TE-ne-dos/
+            - paragraph [ref=e1602]: An island in the northeastern Aegean Sea, lying near the coast of Troy.
+            - paragraph [ref=e1603]: 忒涅多斯·爱琴海东北部的一座岛屿，靠近特洛伊海岸。
+        - button "Thesprotia place /thes-PROH-sha/ A region of Epirus in northwestern Greece. 忒斯普洛提亚·希腊西北部伊庇鲁斯地区的一个区域。" [ref=e1604] [cursor=pointer]:
+          - figure [ref=e1605]:
+            - img "Northern Ancient Greece" [ref=e1606]
+          - generic [ref=e1607]:
+            - generic [ref=e1608]:
+              - heading "Thesprotia" [level=2] [ref=e1609]
+              - generic [ref=e1610]: place
+            - paragraph [ref=e1611]: /thes-PROH-sha/
+            - paragraph [ref=e1612]: A region of Epirus in northwestern Greece.
+            - paragraph [ref=e1613]: 忒斯普洛提亚·希腊西北部伊庇鲁斯地区的一个区域。
+        - button "Thrace place /thrays/ A region of northeastern Greece, lying north of the Aegean Sea. 色雷斯·希腊东北部的一个区域，位于爱琴海以北。" [ref=e1614] [cursor=pointer]:
+          - figure [ref=e1615]:
+            - img "Northern Ancient Greece" [ref=e1616]
+          - generic [ref=e1617]:
+            - generic [ref=e1618]:
+              - heading "Thrace" [level=2] [ref=e1619]
+              - generic [ref=e1620]: place
+            - paragraph [ref=e1621]: /thrays/
+            - paragraph [ref=e1622]: A region of northeastern Greece, lying north of the Aegean Sea.
+            - paragraph [ref=e1623]: 色雷斯·希腊东北部的一个区域，位于爱琴海以北。
+        - button "Zacynthus place /za-KIN-thus/ An island in the Ionian Sea, off the western coast of Greece. 扎金索斯·爱奥尼亚海中的一座岛屿，位于希腊西海岸外。" [ref=e1624] [cursor=pointer]:
+          - figure [ref=e1625]:
+            - img "Homeric Greece" [ref=e1626]
+          - generic [ref=e1627]:
+            - generic [ref=e1628]:
+              - heading "Zacynthus" [level=2] [ref=e1629]
+              - generic [ref=e1630]: place
+            - paragraph [ref=e1631]: /za-KIN-thus/
+            - paragraph [ref=e1632]: An island in the Ionian Sea, off the western coast of Greece.
+            - paragraph [ref=e1633]: 扎金索斯·爱奥尼亚海中的一座岛屿，位于希腊西海岸外。
+        - button "The Underworld place /UN-der-world/ The land of the dead, ruled by Hades, where Odysseus journeys to consult the prophet Tiresias. 冥界·由哈得斯统治的死者之国，奥德修斯前往此地求问先知忒瑞西阿斯。" [ref=e1634] [cursor=pointer]:
+          - figure [ref=e1635]:
+            - img "The World According to Homer" [ref=e1636]
+          - generic [ref=e1637]:
+            - generic [ref=e1638]:
+              - heading "The Underworld" [level=2] [ref=e1639]
+              - generic [ref=e1640]: place
+            - paragraph [ref=e1641]: /UN-der-world/
+            - paragraph [ref=e1642]: The land of the dead, ruled by Hades, where Odysseus journeys to consult the prophet Tiresias.
+            - paragraph [ref=e1643]: 冥界·由哈得斯统治的死者之国，奥德修斯前往此地求问先知忒瑞西阿斯。
+        - button "Aeolia place /ee-OH-lee-a/ The floating island of Aeolus, keeper of the winds, who gives Odysseus a bag of storms. 埃俄利亚·风神埃俄罗斯的漂浮之岛，他赠给奥德修斯一个装着风暴的口袋。" [ref=e1644] [cursor=pointer]:
+          - figure [ref=e1645]:
+            - img "Aeolus Giving the Winds to Ulysses" [ref=e1646]
+          - generic [ref=e1647]:
+            - generic [ref=e1648]:
+              - heading "Aeolia" [level=2] [ref=e1649]
+              - generic [ref=e1650]: place
+            - paragraph [ref=e1651]: /ee-OH-lee-a/
+            - paragraph [ref=e1652]: The floating island of Aeolus, keeper of the winds, who gives Odysseus a bag of storms.
+            - paragraph [ref=e1653]: 埃俄利亚·风神埃俄罗斯的漂浮之岛，他赠给奥德修斯一个装着风暴的口袋。
+        - button "Land of the Lotus-Eaters place /LOH-tus EE-terz/ The land whose lotus fruit makes Odysseus' men forget their home and wish only to stay. 食莲者之地·其莲果使奥德修斯的同伴忘却家乡、只愿留下的国度。" [ref=e1654] [cursor=pointer]:
+          - figure [ref=e1655]:
+            - img "The Lotus Eaters" [ref=e1656]
+          - generic [ref=e1657]:
+            - generic [ref=e1658]:
+              - heading "Land of the Lotus-Eaters" [level=2] [ref=e1659]
+              - generic [ref=e1660]: place
+            - paragraph [ref=e1661]: /LOH-tus EE-terz/
+            - paragraph [ref=e1662]: The land whose lotus fruit makes Odysseus' men forget their home and wish only to stay.
+            - paragraph [ref=e1663]: 食莲者之地·其莲果使奥德修斯的同伴忘却家乡、只愿留下的国度。
+        - button "Land of the Cyclopes place /SY-kloh-peez/ The wild land of the one-eyed giants, where Odysseus blinds the Cyclops Polyphemus. 独眼巨人之地·独眼巨人的荒野之地，奥德修斯在此弄瞎了独眼巨人波吕斐摩斯。" [ref=e1664] [cursor=pointer]:
+          - figure [ref=e1665]:
+            - img "Ulysses Fleeing the Cave of Polyphemus" [ref=e1666]
+          - generic [ref=e1667]:
+            - generic [ref=e1668]:
+              - heading "Land of the Cyclopes" [level=2] [ref=e1669]
+              - generic [ref=e1670]: place
+            - paragraph [ref=e1671]: /SY-kloh-peez/
+            - paragraph [ref=e1672]: The wild land of the one-eyed giants, where Odysseus blinds the Cyclops Polyphemus.
+            - paragraph [ref=e1673]: 独眼巨人之地·独眼巨人的荒野之地，奥德修斯在此弄瞎了独眼巨人波吕斐摩斯。
+        - button "Thrinacia place /thri-NAY-sha/ The island where the Sun god's sacred cattle graze; Odysseus' men kill them and are doomed. 特里那基亚·太阳神圣牛吃草的岛屿；奥德修斯的同伴杀牛食用，因而注定灭亡。" [ref=e1674] [cursor=pointer]:
+          - figure [ref=e1675]:
+            - img "The Cattle of Helios" [ref=e1676]
+          - generic [ref=e1677]:
+            - generic [ref=e1678]:
+              - heading "Thrinacia" [level=2] [ref=e1679]
+              - generic [ref=e1680]: place
+            - paragraph [ref=e1681]: /thri-NAY-sha/
+            - paragraph [ref=e1682]: The island where the Sun god's sacred cattle graze; Odysseus' men kill them and are doomed.
+            - paragraph [ref=e1683]: 特里那基亚·太阳神圣牛吃草的岛屿；奥德修斯的同伴杀牛食用，因而注定灭亡。
+        - button "Ocean place /OH-shan/ The vast river the Greeks believed encircled the flat disc of the world. 俄刻阿诺斯·古希腊人相信环绕着扁平大地圆盘的浩瀚之河。" [ref=e1684] [cursor=pointer]:
+          - figure [ref=e1685]:
+            - img "The World According to Homer" [ref=e1686]
+          - generic [ref=e1687]:
+            - generic [ref=e1688]:
+              - heading "Ocean" [level=2] [ref=e1689]
+              - generic [ref=e1690]: place
+            - paragraph [ref=e1691]: /OH-shan/
+            - paragraph [ref=e1692]: The vast river the Greeks believed encircled the flat disc of the world.
+            - paragraph [ref=e1693]: 俄刻阿诺斯·古希腊人相信环绕着扁平大地圆盘的浩瀚之河。
+        - button "Argos (the city) place /AR-gos/ A city and region in the northeast Peloponnese; Homer also uses the name for Greece as a whole. 阿尔戈斯·伯罗奔尼撒东北部的城市与地区；荷马也用此名泛指整个希腊。" [ref=e1694] [cursor=pointer]:
+          - figure [ref=e1695]:
+            - img "Homeric Greece" [ref=e1696]
+          - generic [ref=e1697]:
+            - generic [ref=e1698]:
+              - heading "Argos (the city)" [level=2] [ref=e1699]
+              - generic [ref=e1700]: place
+            - paragraph [ref=e1701]: /AR-gos/
+            - paragraph [ref=e1702]: A city and region in the northeast Peloponnese; Homer also uses the name for Greece as a whole.
+            - paragraph [ref=e1703]: 阿尔戈斯·伯罗奔尼撒东北部的城市与地区；荷马也用此名泛指整个希腊。
+    - contentinfo [ref=e1704]:
+      - complementary [ref=e1705]:
+        - paragraph [ref=e1706]: FINIS
+        - paragraph [ref=e1707]:
+          - text: Definitions from a study glossary for
+          - emphasis [ref=e1708]: The Odyssey
+          - text: ", trans. Emily Wilson (W. W. Norton)."
+        - paragraph [ref=e1709]: Artworks are public domain or openly licensed (CC), via Wikimedia Commons. Built with React, Vite, DaisyUI & yet-another-react-lightbox.
+  - generic [ref=e2304]:
+    - generic [ref=e2305]:
+      - paragraph [ref=e2306]: ⠿ Calibration
+      - button "Collapse calibration panel" [ref=e2307] [cursor=pointer]: ▾
+    - paragraph [ref=e2308]: Drag pins to reposition. Click the map to drop a new one, name it below.
+    - textbox [ref=e2309]: "[ { \"term\": \"Egypt\", \"x\": 1628, \"y\": 5353 }, { \"term\": \"Ethiopia\", \"x\": 2821, \"y\": 2305 }, { \"term\": \"Pharos\", \"x\": 1631, \"y\": 3758 }, { \"term\": \"Libya\", \"x\": 1000, \"y\": 6000 }, { \"term\": \"Achaea\", \"x\": 4200, \"y\": 9400 }, { \"term\": \"Ithaca\", \"x\": 4000, \"y\": 9600 }, { \"term\": \"Sparta\", \"x\": 4800, \"y\": 9700 }, { \"term\": \"Athens\", \"x\": 5400, \"y\": 8900 }, { \"term\": \"Pylos\", \"x\": 4100, \"y\": 9800 }, { \"term\": \"Argos (the city)\", \"x\": 5000, \"y\": 9200 }, { \"term\": \"Troy\", \"x\": 6200, \"y\": 7900 }, { \"term\": \"Mycenae\", \"x\": 5100, \"y\": 9100 }, { \"term\": \"Aeaea\", \"x\": 5800, \"y\": 9300 }, { \"term\": \"Scheria\", \"x\": 3600, \"y\": 8500 }, { \"term\": \"Ogygia\", \"x\": 3200, \"y\": 8200 }, { \"term\": \"Chios\", \"x\": 6900, \"y\": 8500 }, { \"term\": \"Lemnos\", \"x\": 6400, \"y\": 8300 }, { \"term\": \"Lesbos\", \"x\": 6200, \"y\": 8400 }, { \"term\": \"Delos\", \"x\": 6000, \"y\": 8800 }, { \"term\": \"Cyprus\", \"x\": 7200, \"y\": 9200 }, { \"term\": \"Gortyn\", \"x\": 6800, \"y\": 9600 }, { \"term\": \"Cythera\", \"x\": 5400, \"y\": 10000 }, { \"term\": \"Thrace\", \"x\": 6200, \"y\": 8000 }, { \"term\": \"Thesprotia\", \"x\": 4600, \"y\": 8600 }, { \"term\": \"Elis\", \"x\": 4300, \"y\": 9500 }, { \"term\": \"Messenia\", \"x\": 4200, \"y\": 9800 }, { \"term\": \"Marathon\", \"x\": 5600, \"y\": 8700 }, { \"term\": \"Sounion\", \"x\": 5700, \"y\": 9000 }, { \"term\": \"Euboea\", \"x\": 6000, \"y\": 8700 }, { \"term\": \"Chalcis\", \"x\": 6100, \"y\": 8750 }, { \"term\": \"Orchomenus\", \"x\": 5900, \"y\": 8600 }, { \"term\": \"Panopeus\", \"x\": 5800, \"y\": 8650 }, { \"term\": \"Mount Parnassus\", \"x\": 5000, \"y\": 8700 }, { \"term\": \"Pelion\", \"x\": 7200, \"y\": 7900 }, { \"term\": \"Ossa\", \"x\": 7100, \"y\": 7950 }, { \"term\": \"Erymanthus\", \"x\": 4900, \"y\": 9000 }, { \"term\": \"Mount Neion\", \"x\": 6400, \"y\": 8850 }, { \"term\": \"Mount Neriton\", \"x\": 6300, \"y\": 8800 }, { \"term\": \"Taygetus\", \"x\": 5200, \"y\": 8950 }, { \"term\": \"Asteris\", \"x\": 6500, \"y\": 9000 }, { \"term\": \"Taphos\", \"x\": 6600, \"y\": 9100 }, { \"term\": \"Iolcus\", \"x\": 6700, \"y\": 7900 }, { \"term\": \"Ismarus\", \"x\": 7200, \"y\": 7850 }, { \"term\": \"Aegae\", \"x\": 7000, \"y\": 7850 }, { \"term\": \"Phaestus\", \"x\": 6700, \"y\": 9500 }, { \"term\": \"Amnisus\", \"x\": 6800, \"y\": 9400 }, { \"term\": \"Phaea\", \"x\": 6700, \"y\": 9200 }, { \"term\": \"Pherae\", \"x\": 6200, \"y\": 8700 }, { \"term\": \"Phthia\", \"x\": 6200, \"y\": 8600 }, { \"term\": \"Phylace\", \"x\": 6800, \"y\": 9300 }, { \"term\": \"Pieria\", \"x\": 7300, \"y\": 7800 }, { \"term\": \"Hyperesia\", \"x\": 5200, \"y\": 8650 }, { \"term\": \"Hyperia\", \"x\": 5100, \"y\": 8700 }, { \"term\": \"Gyrae\", \"x\": 6500, \"y\": 8500 }, { \"term\": \"Geraestus\", \"x\": 5800, \"y\": 8600 }, { \"term\": \"Cimmerians\", \"x\": 7000, \"y\": 8400 }, { \"term\": \"Psara\", \"x\": 6700, \"y\": 8600 }, { \"term\": \"Same\", \"x\": 4500, \"y\": 9700 }, { \"term\": \"Zacynthus\", \"x\": 4300, \"y\": 9800 }, { \"term\": \"Tenedos\", \"x\": 6300, \"y\": 8000 }, { \"term\": \"Scyros\", \"x\": 6300, \"y\": 8400 }, { \"term\": \"Temese\", \"x\": 4400, \"y\": 9600 }, { \"term\": \"Telepylus\", \"x\": 4800, \"y\": 8900 }, { \"term\": \"Artaky\", \"x\": 7100, \"y\": 8300 }, { \"term\": \"Arethusa\", \"x\": 5900, \"y\": 9000 }, { \"term\": \"Aeolia\", \"x\": 3800, \"y\": 8400 }, { \"term\": \"Land of the Lotus-Eaters\", \"x\": 2000, \"y\": 9500 }, { \"term\": \"Land of the Cyclopes\", \"x\": 7500, \"y\": 10000 }, { \"term\": \"Thrinacia\", \"x\": 3500, \"y\": 9000 }, { \"term\": \"Styx\", \"x\": 2500, \"y\": 7200 }, { \"term\": \"Acheron\", \"x\": 2400, \"y\": 7300 }, { \"term\": \"Cocytus\", \"x\": 2600, \"y\": 7400 }, { \"term\": \"Pyriphlegethon\", \"x\": 2700, \"y\": 7500 }, { \"term\": \"Erebus\", \"x\": 2300, \"y\": 7100 }, { \"term\": \"The Underworld\", \"x\": 2500, \"y\": 7250 }, { \"term\": \"Phoenicia\", \"x\": 3400, \"y\": 5800 }, { \"term\": \"Sidon\", \"x\": 3500, \"y\": 5900 }, { \"term\": \"River Jardan\", \"x\": 3600, \"y\": 6000 }, { \"term\": \"Mount Solyma\", \"x\": 3700, \"y\": 6100 }, { \"term\": \"Ocean\", \"x\": 1500, \"y\": 4500 }, { \"term\": \"Mount Olympus\", \"x\": 6200, \"y\": 8050 }, { \"term\": \"Ortygia\", \"x\": 6900, \"y\": 9700 }, { \"term\": \"Ephyra\", \"x\": 4600, \"y\": 9300 } ]"
+    - button "Copy coordinates" [ref=e2310] [cursor=pointer]

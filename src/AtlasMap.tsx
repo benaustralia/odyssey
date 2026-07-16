@@ -462,32 +462,43 @@ function Pins({
   onMove: (index: number, p: { x: number; y: number }) => void
   lookup: (term: string) => unknown
 }) {
-  const map = useMap()
-  const dragState = useRef<{
-    index: number
-    startPointerX: number
-    startPointerY: number
-    startScreenX: number
-    startScreenY: number
-  } | null>(null)
+  const map = useMapEvents({
+    mousedown: (e: any) => {
+      if (!editing || !e.originalEvent.shiftKey) return
+      const layer = e.layer
+      if (!layer || !(layer instanceof L.Marker)) return
+
+      const markerIndex = markerRefs.current.indexOf(layer)
+      if (markerIndex === -1) return
+
+      e.originalEvent.preventDefault()
+      e.originalEvent.stopPropagation()
+      dragState.current = { index: markerIndex }
+    },
+  })
   const markerRefs = useRef<(L.Marker | null)[]>([])
+  const dragState = useRef<{ index: number } | null>(null)
 
   useEffect(() => {
-    const handlePointerMove = (e: PointerEvent) => {
-      if (!dragState.current || !editing) return
-      const { index, startPointerX, startPointerY, startScreenX, startScreenY } = dragState.current
-      const dx = e.clientX - startPointerX
-      const dy = e.clientY - startPointerY
-      const marker = markerRefs.current[index]
+    if (!editing) return
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!dragState.current || !e.shiftKey) {
+        dragState.current = null
+        return
+      }
+      const marker = markerRefs.current[dragState.current.index]
       if (!marker) return
 
-      const newContainerPoint = L.point(startScreenX + dx, startScreenY + dy)
-      const newLatLng = map.containerPointToLatLng(newContainerPoint)
-      marker.setLatLng(newLatLng)
+      const mapRect = map.getContainer().getBoundingClientRect()
+      const containerX = e.clientX - mapRect.left
+      const containerY = e.clientY - mapRect.top
+      const latLng = map.containerPointToLatLng(L.point(containerX, containerY))
+      marker.setLatLng(latLng)
     }
 
-    const handlePointerUp = () => {
-      if (!dragState.current || !editing) return
+    const handleMouseUp = () => {
+      if (!dragState.current) return
       const { index } = dragState.current
       const marker = markerRefs.current[index]
       if (!marker) return
@@ -497,13 +508,11 @@ function Pins({
       dragState.current = null
     }
 
-    if (editing) {
-      window.addEventListener("pointermove", handlePointerMove)
-      window.addEventListener("pointerup", handlePointerUp)
-      return () => {
-        window.removeEventListener("pointermove", handlePointerMove)
-        window.removeEventListener("pointerup", handlePointerUp)
-      }
+    window.addEventListener("mousemove", handleMouseMove)
+    window.addEventListener("mouseup", handleMouseUp)
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove)
+      window.removeEventListener("mouseup", handleMouseUp)
     }
   }, [map, editing, onMove])
 
@@ -517,24 +526,6 @@ function Pins({
           }}
           position={unprojectPixel(map, p.x, p.y)}
           icon={pinIcon}
-          eventHandlers={
-            (editing
-              ? {
-                  pointerdown: (e: any) => {
-                    const marker = markerRefs.current[i]
-                    if (!marker) return
-                    const screenPos = map.latLngToContainerPoint(marker.getLatLng())
-                    dragState.current = {
-                      index: i,
-                      startPointerX: e.originalEvent.clientX,
-                      startPointerY: e.originalEvent.clientY,
-                      startScreenX: screenPos.x,
-                      startScreenY: screenPos.y,
-                    }
-                  },
-                }
-              : {}) as any
-          }
         >
           <Popup minWidth={160}>
             <div className="flex flex-col gap-2">
@@ -649,7 +640,7 @@ export default function AtlasMap({
 
           {editing && (
             <CalibrationPanel
-              hint="Drag pins to reposition. Click the map to drop a new one, name it below."
+              hint="Shift+drag pins to reposition. Shift+click the map to drop a new one, name it below."
               dump={dump}
             />
           )}
