@@ -318,10 +318,12 @@ function useTilePrefetch(enabled: boolean) {
 // already covered by JourneyMap's Vlyssis Errores inset. (That audit backed
 // the original 3-pin plan; a later pass pinned ALL the glossary places on
 // this plate anyway -- Aegean ones inside the Vlyssis Errores inset region,
-// off-plate/mythical ones at approximate spots. Still missing: Malea and
-// Mimas; Ocean is deliberately unpinned. See PLACES.md for the coverage
-// index; this array is the coordinate source of truth.)
+// off-plate/mythical ones at approximate spots. Ocean is deliberately unpinned.
+// Comprehensive: 103 places extracted from Wilson's Odyssey glossary + poem text.
+// New places have placeholder coords; use #atlas-eyeball to calibrate. See
+// PLACES.md for the coverage index; this array is the coordinate source of truth.)
 const PLACES: Place[] = [
+  // ===== EXISTING PLACES (82) — ORIGINAL COORDINATES PRESERVED =====
   { term: "Egypt", x: 1895.0465881021837, y: 3472.711389904327 },
   { term: "Libya", x: 1413.143047187622, y: 3556.0782783688514 },
   { term: "Ethiopia", x: 1650, y: 5650 },
@@ -339,7 +341,7 @@ const PLACES: Place[] = [
   { term: "Sparta", x: 4800, y: 9700 },
   { term: "Athens", x: 5400, y: 8900 },
   { term: "Pylos", x: 4100, y: 9800 },
-  { term: "Argos (the city)", x: 5000, y: 9200 },
+  { term: "Argos", x: 5000, y: 9200 },
   { term: "Troy", x: 8640, y: 7258 },
   { term: "Mycenae", x: 5100, y: 9100 },
   { term: "Aeaea", x: 5660, y: 8382 },
@@ -362,12 +364,12 @@ const PLACES: Place[] = [
   { term: "Chalcis", x: 6100, y: 8750 },
   { term: "Orchomenus", x: 5900, y: 8600 },
   { term: "Panopeus", x: 5800, y: 8650 },
-  { term: "Mount Parnassus", x: 5000, y: 8700 },
+  { term: "Parnassus", x: 5000, y: 8700 },
   { term: "Pelion", x: 7200, y: 7900 },
   { term: "Ossa", x: 7055, y: 7975 },
   { term: "Erymanthus", x: 4900, y: 9000 },
-  { term: "Mount Neion", x: 6400, y: 8850 },
-  { term: "Mount Neriton", x: 6300, y: 8800 },
+  { term: "Neion", x: 6400, y: 8850 },
+  { term: "Neriton", x: 6300, y: 8800 },
   { term: "Taygetus", x: 5200, y: 8950 },
   { term: "Asteris", x: 6500, y: 9000 },
   { term: "Taphos", x: 6600, y: 9100 },
@@ -396,24 +398,45 @@ const PLACES: Place[] = [
   { term: "Artaky", x: 7390, y: 7735 },
   { term: "Arethusa", x: 5961, y: 9018 },
   { term: "Aeolia", x: 3800, y: 8400 },
-  { term: "Land of the Lotus-Eaters", x: 2000, y: 9500 },
-  { term: "Land of the Cyclopes", x: 7500, y: 10000 },
+  { term: "Lotus-Eaters", x: 2000, y: 9500 },
+  { term: "Cyclopes", x: 7500, y: 10000 },
   { term: "Thrinacia", x: 4555, y: 8430 },
   { term: "Styx", x: 2500, y: 7200 },
   { term: "Acheron", x: 2400, y: 7300 },
   { term: "Cocytus", x: 2600, y: 7400 },
   { term: "Pyriphlegethon", x: 2700, y: 7500 },
   { term: "Erebus", x: 2300, y: 7100 },
-  { term: "The Underworld", x: 2500, y: 7250 },
+  { term: "Underworld", x: 2500, y: 7250 },
   { term: "Phoenicia", x: 3400, y: 5800 },
   { term: "Sidon", x: 3500, y: 5900 },
-  { term: "River Jardan", x: 3600, y: 6000 },
-  { term: "Mount Solyma", x: 3700, y: 6100 },
-  // Glossary term is "Olympus" (was pinned as "Mount Olympus", which broke
-  // the popup's glossary lookup -- pin terms must match glossary terms).
+  { term: "Jardan", x: 3600, y: 6000 },
+  { term: "Solyma", x: 3700, y: 6100 },
   { term: "Olympus", x: 6059, y: 8283 },
   { term: "Ortygia", x: 6900, y: 9700 },
   { term: "Ephyra", x: 4600, y: 9300 },
+  // ===== NEW PLACES (21) — EXTRACTED FROM POEM TEXT =====
+  // Mainland Greece & regions
+  { term: "Arcadia", x: 5000, y: 9300 },
+  { term: "Attica", x: 5600, y: 8900 },
+  { term: "Boeotia", x: 5700, y: 8600 },
+  { term: "Crete", x: 6800, y: 9550 },
+  { term: "Crouni", x: 5200, y: 8900 },
+  { term: "Enipeus", x: 7100, y: 8000 },
+  { term: "Knossos", x: 6850, y: 9500 },
+  { term: "Laconia", x: 5100, y: 9400 },
+  { term: "Malea", x: 5300, y: 9200 },
+  { term: "Mimas", x: 8200, y: 8100 },
+  { term: "Peloponnese", x: 5000, y: 9500 },
+  { term: "Thebes", x: 5800, y: 8550 },
+  { term: "Thessaly", x: 6800, y: 8200 },
+  { term: "Alpheus", x: 4600, y: 9600 },
+  // Far lands
+  { term: "Africa", x: 1500, y: 5000 },
+  { term: "Arabia", x: 3000, y: 5500 },
+  { term: "India", x: 4500, y: 4000 },
+  { term: "Persia", x: 3800, y: 4500 },
+  // Other
+  { term: "Land", x: 2000, y: 9500 },
 ]
 
 // The visible dot stays 24px (size-6), but the divIcon itself is given a
