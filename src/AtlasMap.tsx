@@ -15,14 +15,17 @@ function CalibrationFooter({
   setPins,
   dump,
   onFocusPlace,
+  searchTerm,
+  setSearchTerm,
 }: {
   pins: Place[]
   setPins: (fn: (prev: Place[]) => Place[]) => void
   dump: string
   onFocusPlace?: (place: Place) => void
+  searchTerm: string
+  setSearchTerm: (term: string) => void
 }) {
   const [height, setHeight] = useState(128)
-  const [searchTerm, setSearchTerm] = useState("")
   const dragRef = useRef<{ startY: number; startHeight: number } | null>(null)
   const [editingCoords, setEditingCoords] = useState<Map<number, { x: string; y: string }>>(new Map())
 
@@ -319,10 +322,10 @@ function useTilePrefetch(enabled: boolean) {
 // Mimas; Ocean is deliberately unpinned. See PLACES.md for the coverage
 // index; this array is the coordinate source of truth.)
 const PLACES: Place[] = [
-  { term: "Egypt", x: 1512.287785642452, y: 3596.294124393636 },
-  { term: "Ethiopia", x: 2821, y: 2305 },
+  { term: "Egypt", x: 1895.0465881021837, y: 3472.711389904327 },
+  { term: "Libya", x: 1413.143047187622, y: 3556.0782783688514 },
+  { term: "Ethiopia", x: 1650, y: 5650 },
   { term: "Pharos", x: 2391.0785275036137, y: 3261.3480639249724 },
-  { term: "Libya", x: 1000, y: 6000 },
   // VLYSSIS ERRORES INSET (Greece/Aegean) — repositioned from incorrect Red Sea coords.
   // Inset spans roughly x: 3200–7800, y: 7500–10200 on the full 13238×10802 plate.
   // Within inset, places are arranged geographically:
@@ -727,6 +730,7 @@ export default function AtlasMap({
   const [pins, setPins] = useState<Place[]>(PLACES)
   const [bounds, setBounds] = useState<L.LatLngBounds | null>(null)
   const [focusPlace, setFocusPlace] = useState<Place | null>(null)
+  const [searchTerm, setSearchTerm] = useState("")
 
   const dump = useMemo(
     () => JSON.stringify(pins.map((p) => ({ term: p.term, x: Math.round(p.x), y: Math.round(p.y) })), null, 1),
@@ -800,6 +804,7 @@ export default function AtlasMap({
                   setPins((prev) => prev.map((q, j) => (j === i ? { ...q, ...p } : q)))
                 }
                 onClickPin={(i) => {
+                  setSearchTerm("") // Clear search filter when clicking a pin
                   setPins((prev) => {
                     if (i === 0) return prev // Already at top
                     const p = prev[i]
@@ -825,6 +830,8 @@ export default function AtlasMap({
             setPins={setPins}
             dump={dump}
             onFocusPlace={(p) => setFocusPlace(p)}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
           />
         )}
       </div>
