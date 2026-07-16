@@ -462,25 +462,59 @@ function Pins({
   onMove: (index: number, p: { x: number; y: number }) => void
   lookup: (term: string) => unknown
 }) {
-  const map = useMapEvents({
-    mousedown: (e: any) => {
-      if (!editing || !e.originalEvent.shiftKey) return
-      const layer = e.layer
-      if (!layer || !(layer instanceof L.Marker)) return
-
-      const markerIndex = markerRefs.current.indexOf(layer)
-      if (markerIndex === -1) return
-
-      e.originalEvent.preventDefault()
-      e.originalEvent.stopPropagation()
-      dragState.current = { index: markerIndex }
-    },
-  })
+  const map = useMap()
   const markerRefs = useRef<(L.Marker | null)[]>([])
   const dragState = useRef<{ index: number } | null>(null)
+  const handlersRef = useRef<Map<number, (e: L.LeafletMouseEvent) => void>>(new Map())
+  const shiftKeyRef = useRef(false)
 
   useEffect(() => {
-    if (!editing) return
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Shift") shiftKeyRef.current = true
+    }
+    const handleKeyUp = (e: KeyboardEvent) => {
+      if (e.key === "Shift") shiftKeyRef.current = false
+    }
+    window.addEventListener("keydown", handleKeyDown)
+    window.addEventListener("keyup", handleKeyUp)
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown)
+      window.removeEventListener("keyup", handleKeyUp)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!editing) {
+      // Clean up handlers when not editing
+      handlersRef.current.forEach((handler, index) => {
+        const marker = markerRefs.current[index]
+        if (marker) {
+          marker.off("mousedown", handler)
+        }
+      })
+      handlersRef.current.clear()
+      return
+    }
+
+    // Attach handlers to all markers for Shift+drag detection
+    markerRefs.current.forEach((marker, index) => {
+      if (!marker) return
+
+      const handler = (e: L.LeafletMouseEvent) => {
+        if (!shiftKeyRef.current) return
+        dragState.current = { index }
+        L.DomEvent.stop(e)
+      }
+
+      // Remove old handler if it exists
+      const oldHandler = handlersRef.current.get(index)
+      if (oldHandler) {
+        marker.off("mousedown", oldHandler)
+      }
+
+      marker.on("mousedown", handler)
+      handlersRef.current.set(index, handler)
+    })
 
     const handleMouseMove = (e: MouseEvent) => {
       if (!dragState.current || !e.shiftKey) {
@@ -514,7 +548,7 @@ function Pins({
       window.removeEventListener("mousemove", handleMouseMove)
       window.removeEventListener("mouseup", handleMouseUp)
     }
-  }, [map, editing, onMove])
+  }, [map, editing, onMove, pins.length])
 
   return (
     <>
