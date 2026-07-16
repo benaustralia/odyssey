@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react"
 import L from "leaflet"
 import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from "react-leaflet"
-import { Search } from "lucide-react"
+import { Search, Crosshair } from "lucide-react"
 import "leaflet/dist/leaflet.css"
 // @ts-expect-error - leaflet-minimap ships no type declarations
 import MiniMapControl from "leaflet-minimap"
@@ -14,10 +14,12 @@ function CalibrationFooter({
   pins,
   setPins,
   dump,
+  onFocusPlace,
 }: {
   pins: Place[]
   setPins: (fn: (prev: Place[]) => Place[]) => void
   dump: string
+  onFocusPlace?: (place: Place) => void
 }) {
   const [height, setHeight] = useState(128)
   const [searchTerm, setSearchTerm] = useState("")
@@ -158,6 +160,16 @@ function CalibrationFooter({
                   set
                 </button>
               ) : null}
+              {onFocusPlace && (
+                <button
+                  type="button"
+                  className="btn btn-xs btn-ghost shrink-0"
+                  onClick={() => onFocusPlace(p)}
+                  title="Center and zoom on this place"
+                >
+                  <Crosshair className="size-3.5" />
+                </button>
+              )}
               <button
                 type="button"
                 className="btn btn-xs btn-ghost shrink-0"
@@ -307,7 +319,7 @@ function useTilePrefetch(enabled: boolean) {
 // Mimas; Ocean is deliberately unpinned. See PLACES.md for the coverage
 // index; this array is the coordinate source of truth.)
 const PLACES: Place[] = [
-  { term: "Egypt", x: 1628, y: 5353 },
+  { term: "Egypt", x: 1512.287785642452, y: 3596.294124393636 },
   { term: "Ethiopia", x: 2821, y: 2305 },
   { term: "Pharos", x: 2391.0785275036137, y: 3261.3480639249724 },
   { term: "Libya", x: 1000, y: 6000 },
@@ -597,6 +609,26 @@ function Calibrator({ onAdd }: { onAdd: (p: Place) => void }) {
   return null
 }
 
+// Handles focusing (centering and zooming) the map on a specific place.
+// Decoupled from Pins so it can be triggered independently from the footer.
+function PlaceFocuser({
+  focusPlace,
+  onFocus,
+}: {
+  focusPlace: Place | null
+  onFocus: (place: Place) => void
+}) {
+  const map = useMap()
+  useEffect(() => {
+    if (!focusPlace) return
+    // Zoom in on the place at a reasonable level (z=3 for good detail)
+    const latlng = unprojectPixel(map, focusPlace.x, focusPlace.y)
+    map.setView(latlng, 3, { animate: true })
+    onFocus(focusPlace)
+  }, [focusPlace, map, onFocus])
+  return null
+}
+
 // Markers are given in raw image pixel coords (matching PLACES/Calibrator),
 // so placing them needs the same live-map unproject as the bounds fit. In
 // #atlas-eyeball, pins are also draggable -- dragend converts the marker's
@@ -688,6 +720,7 @@ export default function AtlasMap({
     typeof window !== "undefined" && window.location.hash.toLowerCase().includes("eyeball")
   const [pins, setPins] = useState<Place[]>(PLACES)
   const [bounds, setBounds] = useState<L.LatLngBounds | null>(null)
+  const [focusPlace, setFocusPlace] = useState<Place | null>(null)
 
   const dump = useMemo(
     () => JSON.stringify(pins.map((p) => ({ term: p.term, x: Math.round(p.x), y: Math.round(p.y) })), null, 1),
@@ -752,6 +785,7 @@ export default function AtlasMap({
               <FitWhenReady onBounds={setBounds} />
               {bounds && !editing && <Navigator bounds={bounds} />}
               {editing && <Calibrator onAdd={(p) => setPins((prev) => [...prev, p])} />}
+              <PlaceFocuser focusPlace={focusPlace} onFocus={() => setFocusPlace(null)} />
               <Pins
                 pins={pins}
                 editing={editing}
@@ -772,7 +806,14 @@ export default function AtlasMap({
           )}
         </div>
 
-        {editing && <CalibrationFooter pins={pins} setPins={setPins} dump={dump} />}
+        {editing && (
+          <CalibrationFooter
+            pins={pins}
+            setPins={setPins}
+            dump={dump}
+            onFocusPlace={(p) => setFocusPlace(p)}
+          />
+        )}
       </div>
     </div>
   )
