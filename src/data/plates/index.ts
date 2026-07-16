@@ -15,8 +15,10 @@ export const PLATES: Record<string, PlateConfig> = {
   africae: africaePlate,
 }
 
-// Flips to "graecia" once that plate's pins are calibrated — the Greek map
-// is where most of the pins live, so it becomes the Atlas's face.
-export const DEFAULT_PLATE_SLUG = "rubri"
+// The Greek map is where most of the pins live, so it's the Atlas's face.
+// NOTE: graecia's ~69 pins are still a seed grid (not yet calibrated via
+// #atlas/graecia-eyeball) — flipped ahead of calibration at the user's
+// request. Recalibrate before/while this is live; see CLAUDE.md Atlas section.
+export const DEFAULT_PLATE_SLUG = "graecia"
 
 export type { AtlasPlace, PlateConfig } from "./types"
