@@ -7,8 +7,8 @@ import "leaflet/dist/leaflet.css"
 import MiniMapControl from "leaflet-minimap"
 import "leaflet-minimap/dist/Control.MiniMap.min.css"
 import CalibrationPanel from "./CalibrationPanel"
-
-type Place = { term: string; x: number; y: number }
+import { PLATES, DEFAULT_PLATE_SLUG } from "@/data/plates"
+import type { AtlasPlace as Place, PlateConfig } from "@/data/plates"
 
 function CalibrationFooter({
   pins,
@@ -196,61 +196,64 @@ function CalibrationFooter({
   )
 }
 
-// Base map: Abraham Ortelius, "Erythraei Sive Rubri Maris Periplus" (1597) —
-// the FULL Red Sea plate (Egypt, Arabia, Persia, India, East Africa), not just
-// the "Vlyssis Errores" Aegean inset JourneyMap.tsx uses. Native scan is
-// 13238x10802px — far past what Cloudinary's live c_crop transform API can
-// handle in one request, so it's pre-sliced into a Google-Maps-style tile
-// pyramid (`vips dzsave --layout google`, 7 zoom levels, 256px tiles) and each
-// tile uploaded to Cloudinary at a deterministic public_id, so tile URLs need
-// no lookup manifest — unlike art.json's `cld` field, which exists only
-// because this account's dynamic-folder mode assigns *random* ids on a plain
-// upload; passing an explicit `public_id` still pins the delivery path.
+// Each plate is an antique-map scan far past what Cloudinary's live c_crop
+// transform API can handle in one request (the Red Sea plate is 13238x10802),
+// so every plate is pre-sliced into a Google-Maps-style tile pyramid
+// (`vips dzsave --layout google`, 256px tiles — scripts/make-plate.sh) and
+// each tile uploaded to Cloudinary at a deterministic public_id
+// (scripts/upload_tiles.py), so tile URLs need no lookup manifest — unlike
+// art.json's `cld` field, which exists only because this account's
+// dynamic-folder mode assigns *random* ids on a plain upload; passing an
+// explicit `public_id` still pins the delivery path. Which plate this
+// component shows, and where its pins sit, comes entirely from the
+// `config: PlateConfig` prop (src/data/plates/) — same pattern as
+// JourneyMap's JourneyConfig.
 //
 // Gotcha: dzsave's "google" layout addresses tiles on disk as
 // {z}/{row}/{col}.jpg — the TRANSPOSE of Leaflet's {z}/{x}/{y} tile template
 // (x=column, y=row). The URL below swaps y/x to compensate; get this backwards
 // and the map renders as a scrambled, transposed puzzle (each tile intact,
 // wrong tile in each cell) rather than a blank or missing-tiles failure.
-const W = 13238
-const H = 10802
-const MAX_ZOOM = 6
 const CLD = "https://res.cloudinary.com/dhvvz91bh/image/upload"
 // No f_auto/q_auto here (unlike cldUrl's artwork delivery): each tile is
 // already a small, pre-optimized JPEG baked by the vips dzsave pipeline
 // (Q=82). f_auto/q_auto would make Cloudinary cache a separate variant per
-// negotiated format (JPEG for curl, WebP for Chrome, etc.) across all 3010
-// tiles -- every extra variant is its own cold-cache risk, and a warm-up
+// negotiated format (JPEG for curl, WebP for Chrome, etc.) across thousands
+// of tiles -- every extra variant is its own cold-cache risk, and a warm-up
 // pass only ever covers the formats it was tested with. One plain JPEG
 // variant per tile avoids that fragmentation entirely.
-const TILE_URL = `${CLD}/atlas/{z}/{y}/{x}`
+const tileUrlTemplate = (cfg: PlateConfig) => `${CLD}/${cfg.tileBase}/{z}/{y}/{x}`
 // z=0 is a single 256x256 JPEG canvas, but dzsave's "google" layout scales
-// the plate down by exactly 2^MAX_ZOOM for the top pyramid level and leaves
+// the plate down by exactly 2^maxZoom for the top pyramid level and leaves
 // the rest of that 256x256 canvas as blank white padding -- it does NOT
 // stretch/center the content to fill the tile. Content only occupies the
-// top-left W/2^MAX_ZOOM x H/2^MAX_ZOOM px rectangle (confirmed by sampling
-// raw pixels: content ends at ~207x176, matching 13238/64=206.8x10802/64=
-// 168.8 plus a few px of border/JPEG-ringing). A couple of earlier attempts
-// at cropping this assumed *symmetric* top/bottom letterboxing instead --
-// wrong; the padding is right+bottom only, content anchored top-left.
-const Z0_SCALE = 2 ** MAX_ZOOM
-const THUMB_W = Math.ceil(W / Z0_SCALE) + 2
-const THUMB_H = Math.ceil(H / Z0_SCALE) + 2
-const THUMB_URL = `${CLD}/c_crop,x_0,y_0,w_${THUMB_W},h_${THUMB_H}/atlas/0/0/0`
+// top-left w/2^maxZoom x h/2^maxZoom px rectangle (confirmed on the Red Sea
+// plate by sampling raw pixels: content ends at ~207x176, matching
+// 13238/64=206.8 x 10802/64=168.8 plus a few px of border/JPEG-ringing). A
+// couple of earlier attempts at cropping this assumed *symmetric* top/bottom
+// letterboxing instead -- wrong; the padding is right+bottom only, content
+// anchored top-left.
+const thumbUrl = (cfg: PlateConfig) => {
+  const z0Scale = 2 ** cfg.maxZoom
+  const tw = Math.ceil(cfg.w / z0Scale) + 2
+  const th = Math.ceil(cfg.h / z0Scale) + 2
+  return `${CLD}/c_crop,x_0,y_0,w_${tw},h_${th}/${cfg.tileBase}/0/0/0`
+}
 
-// Enumerates every tile URL in the pyramid, split into "overview" (z 0-4,
-// ~202 tiles, a couple MB -- small enough to always warm immediately) and
-// "detail" (z 5-6, ~2808 tiles, the bulk of the ~43MB pyramid).
-function allTileUrls() {
+// Enumerates every tile URL in the plate's pyramid, split into "overview"
+// (low z, a couple hundred tiles / a few MB -- small enough to always warm
+// immediately) and "detail" (the top two levels, the bulk of the pyramid's
+// tens of MB).
+function allTileUrls(cfg: PlateConfig) {
   const overview: string[] = []
   const detail: string[] = []
-  for (let z = 0; z <= MAX_ZOOM; z++) {
-    const factor = 2 ** (MAX_ZOOM - z)
-    const cols = Math.ceil(Math.ceil(W / factor) / 256)
-    const rows = Math.ceil(Math.ceil(H / factor) / 256)
-    const bucket = z <= 4 ? overview : detail
+  for (let z = 0; z <= cfg.maxZoom; z++) {
+    const factor = 2 ** (cfg.maxZoom - z)
+    const cols = Math.ceil(Math.ceil(cfg.w / factor) / 256)
+    const rows = Math.ceil(Math.ceil(cfg.h / factor) / 256)
+    const bucket = z <= cfg.maxZoom - 2 ? overview : detail
     for (let row = 0; row < rows; row++) {
-      for (let col = 0; col < cols; col++) bucket.push(`${CLD}/atlas/${z}/${row}/${col}`)
+      for (let col = 0; col < cols; col++) bucket.push(`${CLD}/${cfg.tileBase}/${z}/${row}/${col}`)
     }
   }
   return { overview, detail }
@@ -280,169 +283,29 @@ async function prefetchTiles(urls: string[], concurrency: number, signal: AbortS
 // effect, the CDN edge nearest this visitor) as soon as the map opens, so
 // panning anywhere -- not just the initial viewport -- hits a warm cache
 // instead of the ~1s cold Cloudinary fetch. Skipped on Data Saver / 2G,
-// where an unsolicited ~43MB download would be actively hostile.
-function useTilePrefetch(enabled: boolean) {
+// where an unsolicited tens-of-MB download would be actively hostile.
+// Per-plate: the AtlasMap remount on plate switch (key={slug} in App) runs
+// this effect's cleanup, aborting the old plate's prefetch.
+function useTilePrefetch(enabled: boolean, cfg: PlateConfig) {
   useEffect(() => {
     if (!enabled) return
     const conn = (navigator as { connection?: { saveData?: boolean; effectiveType?: string } })
       .connection
     if (conn?.saveData || conn?.effectiveType === "2g" || conn?.effectiveType === "slow-2g") return
     const controller = new AbortController()
-    const { overview, detail } = allTileUrls()
+    const { overview, detail } = allTileUrls(cfg)
     ;(async () => {
       await prefetchTiles(overview, 8, controller.signal)
       await prefetchTiles(detail, 6, controller.signal)
     })()
     return () => controller.abort()
-  }, [enabled])
+  }, [enabled, cfg])
 }
-
-// Audited (via close inspection of the full-res plate, cross-referenced
-// against the 84-place glossary) which of the "other places" named in the
-// CLAUDE.md TODO -- Egypt, Phoenicia, Sidon, Red Sea/Arabia, Ethiopia/E.
-// Africa -- actually fall within this plate's printed frame:
-// - Egypt: yes, clearly labelled "AEGYPTVS" with Alexandria/Coptos/Diospolis.
-// - Ethiopia: yes, but only in the small "Annonis Periplus" inset (Hanno's
-//   voyage along the Atlantic coast, top-left), labelled "AETHIOPES AXENI" --
-//   not the main plate body. Placed with that in mind.
-// - Phoenicia / Sidon: NO -- the frame's top edge cuts off right at
-//   "Hierusalem"; the Mediterranean coast further north (where Phoenicia's
-//   cities sit) isn't drawn at all, not merely off in a margin.
-// - "Red Sea" / "Arabia": neither exists as its own glossary term (checked
-//   glossary.json), so there's nothing to pin for that TODO item specifically.
-// - Pharos: yes -- its own glossary entry (the island off Alexandria near the
-//   Nile mouth, where Menelaus is becalmed and wrestles Proteus in Book 4),
-//   distinct from the general "Egypt" entry. Pinned at the coast by
-//   "Alexandria" on this plate.
-// Every other one of the 84 glossary places is Aegean/mainland-Greek and
-// already covered by JourneyMap's Vlyssis Errores inset. (That audit backed
-// the original 3-pin plan; a later pass pinned ALL the glossary places on
-// this plate anyway -- Aegean ones inside the Vlyssis Errores inset region,
-// off-plate/mythical ones at approximate spots. Ocean is deliberately unpinned.
-// Comprehensive: 103 places extracted from Wilson's Odyssey glossary + poem text.
-// New places have placeholder coords; use #atlas-eyeball to calibrate. See
-// PLACES.md for the coverage index; this array is the coordinate source of truth.)
-const PLACES: Place[] = [
-  // ===== EXISTING PLACES (82) — ORIGINAL COORDINATES PRESERVED =====
-  { term: "Egypt", x: 1895.0465881021837, y: 3472.711389904327 },
-  { term: "Libya", x: 1413.143047187622, y: 3556.0782783688514 },
-  { term: "Ethiopia", x: 1650, y: 5650 },
-  { term: "Pharos", x: 2391.0785275036137, y: 3261.3480639249724 },
-  // VLYSSIS ERRORES INSET (Greece/Aegean) — repositioned from incorrect Red Sea coords.
-  // Inset spans roughly x: 3200–7800, y: 7500–10200 on the full 13238×10802 plate.
-  // Within inset, places are arranged geographically:
-  // - Peloponnese/western Greece (left): Achaea, Elis, Messenia, Sparta, Pylos
-  // - Central mainland: Athens, Orchomenus, Thebes region
-  // - Euboea & nearby: Chalcis, Euboea, Marathon
-  // - Northern Aegean: Troy, Thrace, Aegae, Lemnos, Iolcus, Ossa
-  // - Southern/Eastern islands: Chios, Lesbos, Delos, Cyprus, Crete (Gortyn, Phaestus)
-  { term: "Achaea", x: 4200, y: 9400 },
-  { term: "Ithaca", x: 6787, y: 8459 },
-  { term: "Sparta", x: 4800, y: 9700 },
-  { term: "Athens", x: 5400, y: 8900 },
-  { term: "Pylos", x: 4100, y: 9800 },
-  { term: "Argos", x: 5000, y: 9200 },
-  { term: "Troy", x: 8640, y: 7258 },
-  { term: "Mycenae", x: 5100, y: 9100 },
-  { term: "Aeaea", x: 5660, y: 8382 },
-  { term: "Scheria", x: 6448, y: 8082 },
-  { term: "Ogygia", x: 5818, y: 8011 },
-  { term: "Chios", x: 8560, y: 7942 },
-  { term: "Lemnos", x: 7630, y: 8796 },
-  { term: "Lesbos", x: 6200, y: 8400 },
-  { term: "Delos", x: 6000, y: 8800 },
-  { term: "Cyprus", x: 7699, y: 9105 },
-  { term: "Gortyn", x: 6800, y: 9600 },
-  { term: "Cythera", x: 7589, y: 8924 },
-  { term: "Thrace", x: 6200, y: 8000 },
-  { term: "Thesprotia", x: 4422, y: 8843 },
-  { term: "Elis", x: 4300, y: 9500 },
-  { term: "Messenia", x: 4200, y: 9800 },
-  { term: "Marathon", x: 5600, y: 8700 },
-  { term: "Sounion", x: 5700, y: 9000 },
-  { term: "Euboea", x: 6000, y: 8700 },
-  { term: "Chalcis", x: 6100, y: 8750 },
-  { term: "Orchomenus", x: 5900, y: 8600 },
-  { term: "Panopeus", x: 5800, y: 8650 },
-  { term: "Parnassus", x: 5000, y: 8700 },
-  { term: "Pelion", x: 7200, y: 7900 },
-  { term: "Ossa", x: 7055, y: 7975 },
-  { term: "Erymanthus", x: 4900, y: 9000 },
-  { term: "Neion", x: 6400, y: 8850 },
-  { term: "Neriton", x: 6300, y: 8800 },
-  { term: "Taygetus", x: 5200, y: 8950 },
-  { term: "Asteris", x: 6500, y: 9000 },
-  { term: "Taphos", x: 6600, y: 9100 },
-  { term: "Iolcus", x: 6700, y: 7900 },
-  { term: "Ismarus", x: 7200, y: 7850 },
-  { term: "Aegae", x: 7000, y: 7850 },
-  { term: "Phaestus", x: 6700, y: 9500 },
-  { term: "Amnisus", x: 6800, y: 9400 },
-  { term: "Phaea", x: 6700, y: 9200 },
-  { term: "Pherae", x: 6200, y: 8700 },
-  { term: "Phthia", x: 6200, y: 8600 },
-  { term: "Phylace", x: 6800, y: 9300 },
-  { term: "Pieria", x: 7300, y: 7800 },
-  { term: "Hyperesia", x: 5200, y: 8650 },
-  { term: "Hyperia", x: 5413, y: 8664 },
-  { term: "Gyrae", x: 5415, y: 7951 },
-  { term: "Geraestus", x: 5317, y: 8787 },
-  { term: "Cimmerians", x: 7467, y: 7934 },
-  { term: "Psara", x: 6336, y: 9075 },
-  { term: "Same", x: 4500, y: 9700 },
-  { term: "Zacynthus", x: 4300, y: 9800 },
-  { term: "Tenedos", x: 6442, y: 8252 },
-  { term: "Scyros", x: 6300, y: 8400 },
-  { term: "Temese", x: 4400, y: 9600 },
-  { term: "Telepylus", x: 4800, y: 8900 },
-  { term: "Artaky", x: 7390, y: 7735 },
-  { term: "Arethusa", x: 5961, y: 9018 },
-  { term: "Aeolia", x: 3800, y: 8400 },
-  { term: "Lotus-Eaters", x: 2000, y: 9500 },
-  { term: "Cyclopes", x: 7500, y: 10000 },
-  { term: "Thrinacia", x: 4555, y: 8430 },
-  { term: "Styx", x: 2500, y: 7200 },
-  { term: "Acheron", x: 2400, y: 7300 },
-  { term: "Cocytus", x: 2600, y: 7400 },
-  { term: "Pyriphlegethon", x: 2700, y: 7500 },
-  { term: "Erebus", x: 2300, y: 7100 },
-  { term: "Underworld", x: 2500, y: 7250 },
-  { term: "Phoenicia", x: 3400, y: 5800 },
-  { term: "Sidon", x: 3500, y: 5900 },
-  { term: "Jardan", x: 3600, y: 6000 },
-  { term: "Solyma", x: 3700, y: 6100 },
-  { term: "Olympus", x: 6059, y: 8283 },
-  { term: "Ortygia", x: 6900, y: 9700 },
-  { term: "Ephyra", x: 4600, y: 9300 },
-  // ===== NEW PLACES (21) — EXTRACTED FROM POEM TEXT =====
-  // Mainland Greece & regions
-  { term: "Arcadia", x: 5000, y: 9300 },
-  { term: "Attica", x: 5600, y: 8900 },
-  { term: "Boeotia", x: 5700, y: 8600 },
-  { term: "Crete", x: 6800, y: 9550 },
-  { term: "Crouni", x: 5200, y: 8900 },
-  { term: "Enipeus", x: 7100, y: 8000 },
-  { term: "Knossos", x: 6850, y: 9500 },
-  { term: "Laconia", x: 5100, y: 9400 },
-  { term: "Malea", x: 5300, y: 9200 },
-  { term: "Mimas", x: 8200, y: 8100 },
-  { term: "Peloponnese", x: 5000, y: 9500 },
-  { term: "Thebes", x: 5800, y: 8550 },
-  { term: "Thessaly", x: 6800, y: 8200 },
-  { term: "Alpheus", x: 4600, y: 9600 },
-  // Far lands
-  { term: "Africa", x: 1500, y: 5000 },
-  { term: "Arabia", x: 3000, y: 5500 },
-  { term: "India", x: 4500, y: 4000 },
-  { term: "Persia", x: 3800, y: 4500 },
-  // Other
-  { term: "Land", x: 2000, y: 9500 },
-]
 
 // The visible dot stays 24px (size-6), but the divIcon itself is given a
 // larger 40px hit box (padding around the dot) so a slightly imprecise
 // mousedown still grabs the marker instead of falling through to the map's
-// own click handler -- which, in #atlas-eyeball, interprets a miss as "drop a
+// own click handler -- which, in eyeball mode, interprets a miss as "drop a
 // new pin" (Calibrator) rather than "drag this one". cursor:grab signals it's
 // draggable at a glance.
 const pinIcon = L.divIcon({
@@ -463,31 +326,32 @@ const pinIcon = L.divIcon({
 // fitBounds "solves" the resulting nonsense box by landing on a wrong zoom,
 // which then makes the tile grid compute negative row/col indices (a wall of
 // 404s like atlas/2/-2/1). So: only ever the instance method, off a live map.
-function unprojectPixel(map: L.Map, x: number, y: number) {
-  return map.unproject(L.point(x, y), MAX_ZOOM)
+// The zoom to unproject at is the plate's native level (cfg.maxZoom).
+function unprojectPixel(map: L.Map, x: number, y: number, maxZoom: number) {
+  return map.unproject(L.point(x, y), maxZoom)
 }
 
 // Overview "navigator": the z=0 tile is already a whole-map thumbnail (a
 // single 256x256 tile, by construction of the pyramid), so it doubles as the
 // minimap's image layer for free.
-function Navigator({ bounds }: { bounds: L.LatLngBounds }) {
+function Navigator({ bounds, cfg }: { bounds: L.LatLngBounds; cfg: PlateConfig }) {
   const map = useMap()
   useEffect(() => {
-    const layer = L.imageOverlay(THUMB_URL, bounds)
+    const layer = L.imageOverlay(thumbUrl(cfg), bounds)
     const W2 = 132
-    // `bounds` was built by unprojecting pixel coords 0..W at MAX_ZOOM, so
-    // projecting back at MAX_ZOOM recovers exactly W px of width -- from
+    // `bounds` was built by unprojecting pixel coords 0..w at maxZoom, so
+    // projecting back at maxZoom recovers exactly w px of width -- from
     // there the zoom that fits `bounds` into a W2-px-wide box is a plain
     // log2 scale, no dependency on the (differently-sized/differently
     // -proportioned) main map. The old formula derived this from the main
     // map's own getBoundsZoom()+container size, which fits `bounds` to the
     // main map's current aspect ratio, not the minimap's -- so the minimap
     // image came out smaller than its box, leaving a blank band on one side.
-    const fit = MAX_ZOOM + Math.log2(W2 / W)
+    const fit = cfg.maxZoom + Math.log2(W2 / cfg.w)
     const mini = new MiniMapControl(layer, {
       position: "bottomleft",
       width: W2,
-      height: Math.round((W2 * H) / W),
+      height: Math.round((W2 * cfg.h) / cfg.w),
       zoomLevelFixed: fit,
       // centerFixed keeps the overview pinned to the whole plate always --
       // without it, leaflet-minimap resyncs the mini map's center to the
@@ -569,7 +433,7 @@ function Navigator({ bounds }: { bounds: L.LatLngBounds }) {
       window.removeEventListener("mouseup", onWindowUp)
       mini.remove()
     }
-  }, [map, bounds])
+  }, [map, bounds, cfg])
   return null
 }
 
@@ -591,12 +455,12 @@ function Navigator({ bounds }: { bounds: L.LatLngBounds }) {
 // container. The map's container is edge-to-edge at all breakpoints (no
 // aspect-ratio lock -- that used to shrink the desktop card to the image's
 // aspect ratio, wasting most of a wide viewport, so it was dropped), and its
-// shape is whatever the window happens to be -- rarely this landscape
-// plate's own aspect ratio. Fitting "inside" left big empty grey bands.
+// shape is whatever the window happens to be -- rarely a given plate's own
+// aspect ratio. Fitting "inside" left big empty grey bands.
 // JourneyMap solves this with `getBoundsZoom(bounds, true)` ("cover", not
 // "contain") as the MIN zoom, so the map always fills the frame and you pan
 // to see more -- same fix here.
-function FitWhenReady({ onBounds }: { onBounds: (b: L.LatLngBounds) => void }) {
+function FitWhenReady({ cfg, onBounds }: { cfg: PlateConfig; onBounds: (b: L.LatLngBounds) => void }) {
   const map = useMap()
   useEffect(() => {
     let fitted = false
@@ -606,7 +470,10 @@ function FitWhenReady({ onBounds }: { onBounds: (b: L.LatLngBounds) => void }) {
       const sz = map.getSize()
       if (sz.x <= 0 || sz.y <= 0) return
       fitted = true
-      const b = L.latLngBounds(unprojectPixel(map, 0, H), unprojectPixel(map, W, 0))
+      const b = L.latLngBounds(
+        unprojectPixel(map, 0, cfg.h, cfg.maxZoom),
+        unprojectPixel(map, cfg.w, 0, cfg.maxZoom),
+      )
       map.invalidateSize()
       map.setMaxBounds(b)
       const z = map.getBoundsZoom(b, true)
@@ -616,19 +483,21 @@ function FitWhenReady({ onBounds }: { onBounds: (b: L.LatLngBounds) => void }) {
     })
     ro.observe(el)
     return () => ro.disconnect()
-  }, [map, onBounds])
+  }, [map, onBounds, cfg])
   return null
 }
 
-// Calibration mode: open at #atlas-eyeball, click the map to drop a pin, name
-// it below, then "Copy coordinates" to paste the result back into PLACES.
-// map.project() is the inverse of unproject() — turns the click's LatLng back
-// into raw top-down image pixel coords, matching PLACES' x/y convention.
-function Calibrator({ onAdd }: { onAdd: (p: Place) => void }) {
+// Calibration mode: open at #atlas/<slug>-eyeball (#atlas-eyeball for the
+// default plate), Shift+click the map to drop a pin, name it below, then
+// "Copy coordinates" to paste the result back into that plate's `places` in
+// src/data/plates/<slug>.ts. map.project() is the inverse of unproject() —
+// turns the click's LatLng back into raw top-down image pixel coords,
+// matching the places' x/y convention.
+function Calibrator({ maxZoom, onAdd }: { maxZoom: number; onAdd: (p: Place) => void }) {
   const map = useMapEvents({
-    click: (e: any) => {
+    click: (e: L.LeafletMouseEvent) => {
       if (!e.originalEvent.shiftKey) return
-      const pt = map.project(e.latlng, MAX_ZOOM)
+      const pt = map.project(e.latlng, maxZoom)
       onAdd({ term: "untitled", x: pt.x, y: pt.y })
     },
   })
@@ -639,25 +508,27 @@ function Calibrator({ onAdd }: { onAdd: (p: Place) => void }) {
 // Decoupled from Pins so it can be triggered independently from the footer.
 function PlaceFocuser({
   focusPlace,
+  maxZoom,
   onFocus,
 }: {
   focusPlace: Place | null
+  maxZoom: number
   onFocus: (place: Place) => void
 }) {
   const map = useMap()
   useEffect(() => {
     if (!focusPlace) return
     // Zoom in on the place at a reasonable level (z=3 for good detail)
-    const latlng = unprojectPixel(map, focusPlace.x, focusPlace.y)
+    const latlng = unprojectPixel(map, focusPlace.x, focusPlace.y, maxZoom)
     map.setView(latlng, 3, { animate: true })
     onFocus(focusPlace)
-  }, [focusPlace, map, onFocus])
+  }, [focusPlace, map, maxZoom, onFocus])
   return null
 }
 
-// Markers are given in raw image pixel coords (matching PLACES/Calibrator),
+// Markers are given in raw image pixel coords (matching places/Calibrator),
 // so placing them needs the same live-map unproject as the bounds fit. In
-// #atlas-eyeball, pins are also draggable -- dragend converts the marker's
+// eyeball mode, pins are also draggable -- dragend converts the marker's
 // dropped LatLng back to pixel coords via map.project(), the same inverse
 // used by Calibrator for new pins (same pattern as JourneyMap's STOPS/vias
 // draggable markers).
@@ -685,6 +556,7 @@ function PlaceFocuser({
 function Pins({
   pins,
   editing,
+  maxZoom,
   onSelect,
   onMove,
   onClickPin,
@@ -692,6 +564,7 @@ function Pins({
 }: {
   pins: Place[]
   editing: boolean
+  maxZoom: number
   onSelect: (term: string) => void
   onMove: (index: number, p: { x: number; y: number }) => void
   onClickPin?: (index: number) => void
@@ -703,7 +576,7 @@ function Pins({
       {pins.map((p, i) => (
         <Marker
           key={`${p.term}-${i}`}
-          position={unprojectPixel(map, p.x, p.y)}
+          position={unprojectPixel(map, p.x, p.y, maxZoom)}
           icon={pinIcon}
           draggable={editing}
           eventHandlers={{
@@ -712,14 +585,14 @@ function Pins({
               onClickPin?.(i)
             },
             dragend: (e) => {
-              const pt = map.project((e.target as L.Marker).getLatLng(), MAX_ZOOM)
+              const pt = map.project((e.target as L.Marker).getLatLng(), maxZoom)
               onMove(i, { x: pt.x, y: pt.y })
             },
           }}
         >
           <Popup minWidth={160}>
             <div className="flex flex-col gap-2">
-              <span className="font-heading text-base font-semibold">{p.term}</span>
+              <span className="font-heading text-base font-semibold">{p.label ?? p.term}</span>
               {lookup(p.term) ? (
                 <button
                   type="button"
@@ -738,29 +611,46 @@ function Pins({
 }
 
 export default function AtlasMap({
+  config,
   open,
+  editing,
   onClose,
   onSelect,
   lookup,
 }: {
+  config: PlateConfig
   open: boolean
+  editing: boolean
   onClose: () => void
   onSelect: (term: string) => void
   lookup: (term: string) => { zhName?: string } | undefined
 }) {
-  const editing =
-    typeof window !== "undefined" && window.location.hash.toLowerCase().includes("eyeball")
-  const [pins, setPins] = useState<Place[]>(PLACES)
+  const [pins, setPins] = useState<Place[]>(config.places)
   const [bounds, setBounds] = useState<L.LatLngBounds | null>(null)
   const [focusPlace, setFocusPlace] = useState<Place | null>(null)
   const [searchTerm, setSearchTerm] = useState("")
 
+  // The dump keeps label/noGloss alongside term/x/y so a Copy-all round-trip
+  // back into src/data/plates/<slug>.ts loses nothing.
   const dump = useMemo(
-    () => JSON.stringify(pins.map((p) => ({ term: p.term, x: Math.round(p.x), y: Math.round(p.y) })), null, 1),
+    () =>
+      JSON.stringify(
+        pins.map((p) => ({ ...p, x: Math.round(p.x), y: Math.round(p.y) })),
+        null,
+        1,
+      ),
     [pins],
   )
 
-  useTilePrefetch(open && !editing)
+  useTilePrefetch(open && !editing, config)
+
+  // Plate switcher: navigating by hash (not local state) keeps App's
+  // atlasRoute the single source of truth and remounts this component with a
+  // fresh key per plate (clean pin state, aborted prefetch, one-shot fit).
+  const switchPlate = (slug: string) => {
+    const suffix = editing ? "-eyeball" : ""
+    window.location.hash = slug === DEFAULT_PLATE_SLUG ? `atlas${suffix}` : `atlas/${slug}${suffix}`
+  }
 
   if (!open) return null
 
@@ -768,9 +658,23 @@ export default function AtlasMap({
     <div className="modal modal-open" role="dialog" aria-label="Atlas of the Odyssey">
       <div className="modal-box flex h-dvh max-h-dvh w-full max-w-none flex-col gap-2 rounded-none p-2 overflow-hidden">
         <div className="flex items-center justify-between gap-3">
-          <h2 className="font-display text-2xl font-semibold tracking-wide sm:text-3xl">
-            Atlas — the Red Sea Plate
-          </h2>
+          <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+            <h2 className="font-display text-2xl font-semibold tracking-wide sm:text-3xl">
+              Atlas
+            </h2>
+            <select
+              className="select select-bordered select-sm min-w-0"
+              aria-label="Choose a plate"
+              value={config.slug}
+              onChange={(e) => switchPlate(e.target.value)}
+            >
+              {Object.values(PLATES).map((p) => (
+                <option key={p.slug} value={p.slug}>
+                  {p.title}
+                </option>
+              ))}
+            </select>
+          </div>
           <button
             type="button"
             className="btn btn-circle btn-ghost btn-lg shrink-0 text-2xl sm:btn-sm sm:text-base"
@@ -791,7 +695,7 @@ export default function AtlasMap({
             <MapContainer
               crs={L.CRS.Simple}
               minZoom={0}
-              maxZoom={MAX_ZOOM}
+              maxZoom={config.maxZoom}
               zoomSnap={0}
               zoomDelta={0.6}
               scrollWheelZoom
@@ -806,22 +710,29 @@ export default function AtlasMap({
               className="h-full w-full bg-base-300"
             >
               <TileLayer
-                url={TILE_URL}
+                url={tileUrlTemplate(config)}
                 tileSize={256}
                 noWrap
                 bounds={bounds ?? undefined}
                 minZoom={0}
-                maxZoom={MAX_ZOOM}
+                maxZoom={config.maxZoom}
                 keepBuffer={6}
                 updateWhenIdle={false}
               />
-              <FitWhenReady onBounds={setBounds} />
-              {bounds && !editing && <Navigator bounds={bounds} />}
-              {editing && <Calibrator onAdd={(p) => setPins((prev) => [...prev, p])} />}
-              <PlaceFocuser focusPlace={focusPlace} onFocus={() => setFocusPlace(null)} />
+              <FitWhenReady cfg={config} onBounds={setBounds} />
+              {bounds && !editing && <Navigator bounds={bounds} cfg={config} />}
+              {editing && (
+                <Calibrator maxZoom={config.maxZoom} onAdd={(p) => setPins((prev) => [...prev, p])} />
+              )}
+              <PlaceFocuser
+                focusPlace={focusPlace}
+                maxZoom={config.maxZoom}
+                onFocus={() => setFocusPlace(null)}
+              />
               <Pins
                 pins={pins}
                 editing={editing}
+                maxZoom={config.maxZoom}
                 onSelect={onSelect}
                 onMove={(i, p) =>
                   setPins((prev) => prev.map((q, j) => (j === i ? { ...q, ...p } : q)))
@@ -841,7 +752,7 @@ export default function AtlasMap({
 
           {editing && (
             <CalibrationPanel
-              hint="Drag pins to reposition. Shift+click the map to drop a new one."
+              hint={`Drag pins to reposition. Shift+click the map to drop a new one. Paste the JSON back into src/data/plates/${config.slug}.ts.`}
               dump={dump}
             />
           )}

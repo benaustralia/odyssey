@@ -16,6 +16,7 @@ import "yet-another-react-lightbox/plugins/thumbnails.css"
 import glossaryData from "@/data/glossary.json"
 import artData from "@/data/art.json"
 import { JOURNEYS, DEFAULT_JOURNEY_SLUG } from "@/data/journeys"
+import { PLATES, DEFAULT_PLATE_SLUG } from "@/data/plates"
 
 type Entry = {
   term: string
@@ -67,10 +68,12 @@ function App() {
   // The journey map is URL-addressable via a hash route: #journey /
   // #humaneyeball open the default (Odysseus) journey, kept working for old
   // bookmarks/links; #journey/<slug> and #journey/<slug>-eyeball address any
-  // other registered personage's journey the same way. The atlas map gets its
-  // own hash (#atlas, #atlas-eyeball) — kept distinct from "eyeball" alone so
-  // the two calibration modes don't collide.
-  const ATLAS_HASH = /^#?atlas(-eyeball)?$/i
+  // other registered personage's journey the same way. The atlas gets the
+  // mirror-image scheme for its plates: #atlas / #atlas-eyeball open the
+  // default plate (old links keep working), #atlas/<slug> and
+  // #atlas/<slug>-eyeball address any registered plate. Both "-eyeball"
+  // suffixes stay distinct from bare "#humaneyeball" so the calibration
+  // modes don't collide.
   const parseJourneyHash = (hash: string): { slug: string; eyeball: boolean } | null => {
     const h = hash.toLowerCase().replace(/^#/, "")
     if (h === "journey" || h === "humaneyeball")
@@ -79,16 +82,24 @@ function App() {
     if (m && JOURNEYS[m[1]]) return { slug: m[1], eyeball: !!m[2] }
     return null
   }
+  const parseAtlasHash = (hash: string): { slug: string; eyeball: boolean } | null => {
+    const h = hash.toLowerCase().replace(/^#/, "")
+    if (h === "atlas" || h === "atlas-eyeball")
+      return { slug: DEFAULT_PLATE_SLUG, eyeball: h === "atlas-eyeball" }
+    const m = h.match(/^atlas\/([a-z0-9-]+?)(-eyeball)?$/)
+    if (m && PLATES[m[1]]) return { slug: m[1], eyeball: !!m[2] }
+    return null
+  }
   const [journeyRoute, setJourneyRoute] = useState(
     () => (typeof window !== "undefined" ? parseJourneyHash(window.location.hash) : null),
   )
-  const [atlasOpen, setAtlasOpen] = useState(
-    () => typeof window !== "undefined" && ATLAS_HASH.test(window.location.hash),
+  const [atlasRoute, setAtlasRoute] = useState(
+    () => (typeof window !== "undefined" ? parseAtlasHash(window.location.hash) : null),
   )
   useEffect(() => {
     const sync = () => {
       setJourneyRoute(parseJourneyHash(window.location.hash))
-      setAtlasOpen(ATLAS_HASH.test(window.location.hash))
+      setAtlasRoute(parseAtlasHash(window.location.hash))
     }
     window.addEventListener("hashchange", sync)
     return () => window.removeEventListener("hashchange", sync)
@@ -105,8 +116,8 @@ function App() {
     window.location.hash = "atlas"
   }
   const closeAtlas = () => {
-    setAtlasOpen(false)
-    if (ATLAS_HASH.test(window.location.hash))
+    setAtlasRoute(null)
+    if (parseAtlasHash(window.location.hash))
       window.history.replaceState(null, "", window.location.pathname + window.location.search)
   }
 
@@ -257,10 +268,13 @@ function App() {
         </Suspense>
       )}
 
-      {atlasOpen && (
+      {atlasRoute && (
         <Suspense fallback={null}>
           <AtlasMap
+            key={atlasRoute.slug}
+            config={PLATES[atlasRoute.slug]}
             open
+            editing={atlasRoute.eyeball}
             onClose={closeAtlas}
             onSelect={openTerm}
             lookup={(t) => byTerm.get(t)}
