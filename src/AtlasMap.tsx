@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import L from "leaflet"
 import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from "react-leaflet"
 import "leaflet/dist/leaflet.css"
@@ -444,11 +444,31 @@ function Calibrator({ onAdd }: { onAdd: (p: Place) => void }) {
 
 // Markers are given in raw image pixel coords (matching PLACES/Calibrator),
 // so placing them needs the same live-map unproject as the bounds fit. In
-// #atlas-eyeball, pins are also draggable -- pointer-based drag (pointerdown/
-// pointermove/pointerup) converts the dropped screen coords back to pixel coords
-// via map.project(), the same inverse used by Calibrator for new pins (same
-// pattern as JourneyMap's STOPS/vias draggable markers). Pointer events work on
-// both mouse and iOS touch, unlike Leaflet's native drag (which is mouse-only).
+// #atlas-eyeball, pins are also draggable -- dragend converts the marker's
+// dropped LatLng back to pixel coords via map.project(), the same inverse
+// used by Calibrator for new pins (same pattern as JourneyMap's STOPS/vias
+// draggable markers).
+//
+// Use Leaflet's NATIVE marker drag (`draggable` + dragend), nothing custom.
+// A hand-rolled replacement was tried and reverted (6 commits); the traps,
+// for the record:
+// - Leaflet markers fire NO 'pointerdown'/'pointermove' events: Leaflet
+//   translates DOM pointer events into its own 'mousedown'/'mousemove'
+//   before dispatch, so eventHandlers={{ pointerdown }} attaches cleanly but
+//   never fires. @types/leaflet rejecting those event names was the type
+//   system being RIGHT -- casting to `any` just hid the dead code.
+// - "Shift+drag the pin" can't work either: Shift+drag is Leaflet's builtin
+//   BoxZoom gesture, bound as a raw DOM listener on the container, so it
+//   engages even when the mousedown lands on a marker (rubber-band box over
+//   the map, then a violent fitBounds zoom on release). L.Draggable also
+//   deliberately ignores shift-mousedowns, so shift can never mean "drag".
+// - A plain drag on a NON-draggable marker bubbles to the container and
+//   pans the whole map; native MarkerDrag claims the gesture first (the
+//   L.Draggable._dragging static lock) so the map holds still while a pin
+//   is dragged.
+// Native drag listens for both mouse and touch starts, so the same code
+// path covers iOS finger-drags -- the "Leaflet drag is mouse-only" premise
+// that motivated the removed rewrite was wrong.
 function Pins({
   pins,
   editing,
@@ -463,103 +483,20 @@ function Pins({
   lookup: (term: string) => unknown
 }) {
   const map = useMap()
-  const markerRefs = useRef<(L.Marker | null)[]>([])
-  const dragState = useRef<{ index: number } | null>(null)
-  const handlersRef = useRef<Map<number, (e: L.LeafletMouseEvent) => void>>(new Map())
-  const shiftKeyRef = useRef(false)
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Shift") shiftKeyRef.current = true
-    }
-    const handleKeyUp = (e: KeyboardEvent) => {
-      if (e.key === "Shift") shiftKeyRef.current = false
-    }
-    window.addEventListener("keydown", handleKeyDown)
-    window.addEventListener("keyup", handleKeyUp)
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown)
-      window.removeEventListener("keyup", handleKeyUp)
-    }
-  }, [])
-
-  useEffect(() => {
-    if (!editing) {
-      // Clean up handlers when not editing
-      handlersRef.current.forEach((handler, index) => {
-        const marker = markerRefs.current[index]
-        if (marker) {
-          marker.off("mousedown", handler)
-        }
-      })
-      handlersRef.current.clear()
-      return
-    }
-
-    // Attach handlers to all markers for Shift+drag detection
-    markerRefs.current.forEach((marker, index) => {
-      if (!marker) return
-
-      const handler = (e: L.LeafletMouseEvent) => {
-        if (!shiftKeyRef.current) return
-        dragState.current = { index }
-        L.DomEvent.stop(e)
-      }
-
-      // Remove old handler if it exists
-      const oldHandler = handlersRef.current.get(index)
-      if (oldHandler) {
-        marker.off("mousedown", oldHandler)
-      }
-
-      marker.on("mousedown", handler)
-      handlersRef.current.set(index, handler)
-    })
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!dragState.current || !e.shiftKey) {
-        dragState.current = null
-        return
-      }
-      const marker = markerRefs.current[dragState.current.index]
-      if (!marker) return
-
-      const mapRect = map.getContainer().getBoundingClientRect()
-      const containerX = e.clientX - mapRect.left
-      const containerY = e.clientY - mapRect.top
-      const latLng = map.containerPointToLatLng(L.point(containerX, containerY))
-      marker.setLatLng(latLng)
-    }
-
-    const handleMouseUp = () => {
-      if (!dragState.current) return
-      const { index } = dragState.current
-      const marker = markerRefs.current[index]
-      if (!marker) return
-
-      const pt = map.project(marker.getLatLng(), MAX_ZOOM)
-      onMove(index, { x: pt.x, y: pt.y })
-      dragState.current = null
-    }
-
-    window.addEventListener("mousemove", handleMouseMove)
-    window.addEventListener("mouseup", handleMouseUp)
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove)
-      window.removeEventListener("mouseup", handleMouseUp)
-    }
-  }, [map, editing, onMove, pins.length])
-
   return (
     <>
       {pins.map((p, i) => (
         <Marker
           key={`${p.term}-${i}`}
-          ref={(ref) => {
-            markerRefs.current[i] = ref
-          }}
           position={unprojectPixel(map, p.x, p.y)}
           icon={pinIcon}
+          draggable={editing}
+          eventHandlers={{
+            dragend: (e) => {
+              const pt = map.project((e.target as L.Marker).getLatLng(), MAX_ZOOM)
+              onMove(i, { x: pt.x, y: pt.y })
+            },
+          }}
         >
           <Popup minWidth={160}>
             <div className="flex flex-col gap-2">
@@ -674,7 +611,7 @@ export default function AtlasMap({
 
           {editing && (
             <CalibrationPanel
-              hint="Shift+drag pins to reposition. Shift+click the map to drop a new one, name it below."
+              hint="Drag pins to reposition. Shift+click the map to drop a new one, name it below."
               dump={dump}
             />
           )}
