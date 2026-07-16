@@ -309,7 +309,7 @@ function useTilePrefetch(enabled: boolean) {
 const PLACES: Place[] = [
   { term: "Egypt", x: 1628, y: 5353 },
   { term: "Ethiopia", x: 2821, y: 2305 },
-  { term: "Pharos", x: 1631, y: 3758 },
+  { term: "Pharos", x: 2391.0785275036137, y: 3261.3480639249724 },
   { term: "Libya", x: 1000, y: 6000 },
   // VLYSSIS ERRORES INSET (Greece/Aegean) — repositioned from incorrect Red Sea coords.
   // Inset spans roughly x: 3200–7800, y: 7500–10200 on the full 13238×10802 plate.
