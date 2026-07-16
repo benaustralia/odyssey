@@ -103,7 +103,7 @@ function CalibrationFooter({
         />
       </label>
 
-      <div className="flex flex-col gap-1 overflow-y-auto min-h-0">
+      <div className="flex flex-col gap-1 overflow-y-auto min-h-0" style={{ scrollbarGutter: "stable" }}>
         {filteredPins.map((p) => {
           const i = pins.indexOf(p)
           const editing = editingCoords.get(i)
@@ -661,12 +661,14 @@ function Pins({
   editing,
   onSelect,
   onMove,
+  onClickPin,
   lookup,
 }: {
   pins: Place[]
   editing: boolean
   onSelect: (term: string) => void
   onMove: (index: number, p: { x: number; y: number }) => void
+  onClickPin?: (index: number) => void
   lookup: (term: string) => unknown
 }) {
   const map = useMap()
@@ -679,6 +681,10 @@ function Pins({
           icon={pinIcon}
           draggable={editing}
           eventHandlers={{
+            click: (e) => {
+              L.DomEvent.stopPropagation(e.originalEvent)
+              onClickPin?.(i)
+            },
             dragend: (e) => {
               const pt = map.project((e.target as L.Marker).getLatLng(), MAX_ZOOM)
               onMove(i, { x: pt.x, y: pt.y })
@@ -733,7 +739,7 @@ export default function AtlasMap({
 
   return (
     <div className="modal modal-open" role="dialog" aria-label="Atlas of the Odyssey">
-      <div className="modal-box flex h-dvh max-h-dvh w-full max-w-none flex-col gap-2 rounded-none p-2">
+      <div className="modal-box flex h-dvh max-h-dvh w-full max-w-none flex-col gap-2 rounded-none p-2 overflow-hidden">
         <div className="flex items-center justify-between gap-3">
           <h2 className="font-display text-2xl font-semibold tracking-wide sm:text-3xl">
             Atlas — the Red Sea Plate
@@ -793,6 +799,13 @@ export default function AtlasMap({
                 onMove={(i, p) =>
                   setPins((prev) => prev.map((q, j) => (j === i ? { ...q, ...p } : q)))
                 }
+                onClickPin={(i) => {
+                  setPins((prev) => {
+                    if (i === 0) return prev // Already at top
+                    const p = prev[i]
+                    return [p, ...prev.slice(0, i), ...prev.slice(i + 1)]
+                  })
+                }}
                 lookup={lookup}
               />
             </MapContainer>
