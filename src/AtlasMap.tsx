@@ -214,15 +214,12 @@ function CalibrationFooter({
 // (x=column, y=row). The URL below swaps y/x to compensate; get this backwards
 // and the map renders as a scrambled, transposed puzzle (each tile intact,
 // wrong tile in each cell) rather than a blank or missing-tiles failure.
-const CLD = "https://res.cloudinary.com/dhvvz91bh/image/upload"
-// No f_auto/q_auto here (unlike cldUrl's artwork delivery): each tile is
-// already a small, pre-optimized JPEG baked by the vips dzsave pipeline
-// (Q=82). f_auto/q_auto would make Cloudinary cache a separate variant per
-// negotiated format (JPEG for curl, WebP for Chrome, etc.) across thousands
-// of tiles -- every extra variant is its own cold-cache risk, and a warm-up
-// pass only ever covers the formats it was tested with. One plain JPEG
-// variant per tile avoids that fragmentation entirely.
-const tileUrlTemplate = (cfg: PlateConfig) => `${CLD}/${cfg.tileBase}/{z}/{y}/{x}`
+const R2_ATLAS = "https://pub-b57180e24c9841f58854ecd1c164523a.r2.dev"
+// Tiles were uploaded to R2 with a literal ".jpg" suffix per object (unlike
+// Cloudinary, which served the same public_id as any format via content
+// negotiation) -- the template needs that extension appended after the
+// {x}/{y}/{z} substitution.
+const tileUrlTemplate = (cfg: PlateConfig) => `${R2_ATLAS}/${cfg.tileBase}/{z}/{y}/{x}.jpg`
 // z=0 is a single 256x256 JPEG canvas, but dzsave's "google" layout scales
 // the plate down by exactly 2^maxZoom for the top pyramid level and leaves
 // the rest of that 256x256 canvas as blank white padding -- it does NOT
@@ -233,12 +230,10 @@ const tileUrlTemplate = (cfg: PlateConfig) => `${CLD}/${cfg.tileBase}/{z}/{y}/{x
 // couple of earlier attempts at cropping this assumed *symmetric* top/bottom
 // letterboxing instead -- wrong; the padding is right+bottom only, content
 // anchored top-left.
-const thumbUrl = (cfg: PlateConfig) => {
-  const z0Scale = 2 ** cfg.maxZoom
-  const tw = Math.ceil(cfg.w / z0Scale) + 2
-  const th = Math.ceil(cfg.h / z0Scale) + 2
-  return `${CLD}/c_crop,x_0,y_0,w_${tw},h_${th}/${cfg.tileBase}/0/0/0`
-}
+// R2 has no on-the-fly crop transform (unlike Cloudinary's c_crop), so this
+// content-bounds crop is pre-baked per plate at upload time into a small
+// `atlas/<slug>/thumb.jpg` object instead of computed here at request time.
+const thumbUrl = (cfg: PlateConfig) => `${R2_ATLAS}/atlas/${cfg.slug}/thumb.jpg`
 
 // Enumerates every tile URL in the plate's pyramid, split into "overview"
 // (low z, a couple hundred tiles / a few MB -- small enough to always warm
@@ -253,7 +248,7 @@ function allTileUrls(cfg: PlateConfig) {
     const rows = Math.ceil(Math.ceil(cfg.h / factor) / 256)
     const bucket = z <= cfg.maxZoom - 2 ? overview : detail
     for (let row = 0; row < rows; row++) {
-      for (let col = 0; col < cols; col++) bucket.push(`${CLD}/${cfg.tileBase}/${z}/${row}/${col}`)
+      for (let col = 0; col < cols; col++) bucket.push(`${R2_ATLAS}/${cfg.tileBase}/${z}/${row}/${col}.jpg`)
     }
   }
   return { overview, detail }

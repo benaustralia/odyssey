@@ -33,11 +33,12 @@ type Art = { file: string; artist: string; title: string; year: string; source: 
 const entries = glossaryData as Entry[]
 const art = artData as Record<string, Art>
 
-// Images are delivered from Cloudinary (cloud `dhvvz91bh`, folder `odyssey`).
-// f_auto,q_auto => AVIF/WebP at automatic quality; c_limit,w_N caps the width.
-const CLD = "https://res.cloudinary.com/dhvvz91bh/image/upload"
-const cldUrl = (a: Art, w: number) =>
-  a.cld ? `${CLD}/f_auto,q_auto,c_limit,w_${w}/${a.cld}` : a.file
+// Images are delivered from Cloudflare R2 (bucket `odyssey-assets`).
+// Masters are already ImageMagick-recompressed to 1600px max / q82 at
+// upload time (see CLAUDE.md), so R2 just serves them as-is — no on-the-fly
+// resize/format transform like Cloudinary's f_auto,q_auto,w_ (R2 has none).
+const R2_ASSETS = "https://pub-b57180e24c9841f58854ecd1c164523a.r2.dev"
+const assetUrl = (a: Art) => `${R2_ASSETS}${a.file}`
 
 const CATEGORIES = [
   { id: "all", label: "All" },
@@ -166,7 +167,7 @@ function App() {
       ) : (
         line || a.note || undefined
       )
-    return { src: cldUrl(a, 1600), description }
+    return { src: assetUrl(a), description }
   })
 
   return (
@@ -306,7 +307,7 @@ function App() {
                   {cover && (
                     <figure className="relative aspect-[4/3] overflow-hidden">
                       <img
-                        src={cldUrl(cover, 800)}
+                        src={assetUrl(cover)}
                         alt={cover.title}
                         loading="lazy"
                         decoding="async"

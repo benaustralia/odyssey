@@ -5,8 +5,12 @@ import type { AtlasPlace, PlateConfig } from "./types"
 // "Vlyssis Errores" Aegean inset JourneyMap uses is only a corner. Source
 // scan: Wikimedia Commons, 13238x10802px; local master at
 // plates/rubri/master.jpg (git-ignored; MD5-identical copy also at
-// ~/Desktop/ortelius-FULL-PLATE.jpg). Tiles predate plate namespacing so
-// they live at the bare "atlas/{z}/{row}/{col}" Cloudinary prefix.
+// ~/Desktop/ortelius-FULL-PLATE.jpg). Tiles were regenerated from that
+// master during the Cloudinary->R2 migration (the original tile pyramid was
+// never persisted locally, only the master), and now live at the same
+// namespaced "atlas/rubri/{z}/{row}/{col}.jpg" R2 prefix as every other
+// plate — R2 is a fresh key space, so the old bare "atlas/..." Cloudinary
+// exception (tiles predating plate namespacing) wasn't replicated.
 //
 // Plate-coverage audit (close inspection of the full-res scan, cross-
 // referenced against the glossary):
@@ -137,7 +141,7 @@ export const rubriPlate: PlateConfig = {
   w: 13238,
   h: 10802,
   maxZoom: 6,
-  tileBase: "atlas",
+  tileBase: "atlas/rubri",
   attribution: "Abraham Ortelius, Erythraei sive Rubri Maris Periplus (1597) · Wikimedia Commons",
   places,
 }

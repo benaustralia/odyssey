@@ -31,9 +31,10 @@ export type PlateConfig = {
   // resolution. Equals ceil(log2(max(w,h)/256)); record the value the
   // tiling script actually reports, don't derive it by hand.
   maxZoom: number
-  // Cloudinary public_id prefix the tiles live under: "atlas" for the
-  // legacy rubri pyramid (uploaded before plates were namespaced),
-  // `atlas/<slug>` for every plate since.
+  // R2 object-key prefix the tiles live under, always `atlas/<slug>`
+  // (uniform across every plate, including rubri — R2 is a fresh key space
+  // so the old Cloudinary-era bare "atlas" prefix for rubri wasn't carried
+  // over).
   tileBase: string
   attribution: string // e.g. "Abraham Ortelius, Graecia Sophiani (1579) · Wikimedia Commons"
   places: AtlasPlace[]

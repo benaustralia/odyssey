@@ -1,13 +1,14 @@
 #!/usr/bin/env zsh
 # Fetch an Ortelius plate scan from Wikimedia Commons and slice it into the
-# Google-layout tile pyramid AtlasMap.tsx serves from Cloudinary.
+# Google-layout tile pyramid AtlasMap.tsx serves from Cloudflare R2.
 #
 #   ./scripts/make-plate.sh graecia "Graecia Sophiani.jpg"
 #
 # Writes plates/<slug>/master.jpg (kept as the local master, git-ignored) and
 # plates/<slug>/tiles/{z}/{row}/{col}.jpg, then prints the values the plate's
 # config in src/data/plates/<slug>.ts needs (w/h/maxZoom/tile count).
-# Upload the tiles with scripts/upload_tiles.py afterwards.
+# Upload the tiles with scripts/upload_to_r2.py afterwards (uploads
+# everything under public/art/ and plates/ in one pass, not just this plate).
 #
 # Note dzsave's "google" layout writes {z}/{row}/{col}.jpg — the transpose of
 # Leaflet's {z}/{x}/{y}; AtlasMap's URL template compensates. Don't "fix" it.

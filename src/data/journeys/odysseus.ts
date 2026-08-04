@@ -5,11 +5,10 @@ import type { JourneyConfig, Pt, Stop } from "./types"
 
 // Base map: Abraham Ortelius, "Vlyssis Errores" (1597) — the wide inset cropped
 // from a 13238px public-domain scan of his Red Sea plate. Native master is
-// 3600x2279 on Cloudinary. Pin coords below are in this image's pixel space.
-const MAP_CLD = "cdll9uth8di3xcsh8djn"
-// Pin the asset version so browsers fetch the latest crop instead of a cached
-// copy (bump this when the map image is re-uploaded).
-const MAP_VER = "v1781683903"
+// 4000x2337, served as-is from R2 (art/map-wanderings.jpg — same file as the
+// glossary's wandering-isle place entries). Pin coords below are in this
+// image's pixel space.
+const MAP_URL = "https://pub-b57180e24c9841f58854ecd1c164523a.r2.dev/art/map-wanderings.jpg"
 
 // The 14 canonical stops of Odysseus's voyage (after Stephen Fry's map), each
 // pinned where Ortelius drew it, linked to its glossary `term` — plus one
@@ -88,7 +87,7 @@ export const odysseusJourney: JourneyConfig = {
   attribution: { prefix: "Abraham Ortelius, ", workTitle: "Vlyssis Errores", suffix: " (1597)" },
   mapWidth: 4000,
   mapHeight: 2337,
-  mapUrl: `https://res.cloudinary.com/dhvvz91bh/image/upload/f_auto,q_auto,c_limit,w_3000/${MAP_VER}/${MAP_CLD}`,
+  mapUrl: MAP_URL,
   vessel: { svgUrl: galleyUrl, alt: "Odysseus's ship" },
   stops,
   legVias,
