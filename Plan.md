@@ -157,9 +157,11 @@ Don't treat either as "next up" without the user re-raising it.
   an explicit rewrite (`/entry/:slug` → `/entry/:slug/index.html`) so the actual deployed URLs
   (used by both our internal links and the sitemap, all written without a trailing slash) serve
   the real static file. **Not verifiable pre-deploy** — `vercel.json` rewrites aren't understood
-  by `vite preview`, so this specific behavior should be spot-checked once live (e.g.
-  `curl -s https://odysseygloss.vercel.app/entry/circe | grep '<title>'` after deploy).
-  Verified via `curl` (raw HTML has full bilingual content + correct title/meta/OG with zero JS)
+  by `vite preview`, so this specific behavior needed a live spot-check.
+  **Confirmed live, 2026-08-07** (commit `d171d3d`, deployed): the no-trailing-slash form
+  correctly serves the prerendered bilingual page via the rewrite, the trailing-slash form and
+  home page both still work, and the live sitemap serves all 168 URLs.
+  Verified pre-deploy via `curl` (raw HTML has full bilingual content + correct title/meta/OG with zero JS)
   and in a real browser (console clean, existing card-click-to-gallery and card-click-to-map
   behavior unchanged, new term-link navigates correctly). `check:pins` clean; the 3 pre-existing
   `eslint` errors in `AtlasMap.tsx`/`JourneyMap.tsx` predate this work (confirmed via `git
