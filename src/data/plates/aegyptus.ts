@@ -14,7 +14,7 @@ import type { AtlasPlace, PlateConfig } from "./types"
 //
 // SEED GRID — the 2 places below are parked in open sea ("AEGYPTIVM MARE",
 // top-left of the frame), NOT at their real location yet. Calibrate at
-// #atlas/aegyptus-eyeball, then paste the JSON back over this array. Egypt
+// #atlas/aegyptus/edit, then paste the JSON back over this array. Egypt
 // and Pharos also have a home on rubri (the Red Sea plate) — this plate is
 // their higher-fidelity second home, per the plan's redistribution notes.
 const places: AtlasPlace[] = [

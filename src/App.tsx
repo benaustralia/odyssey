@@ -66,31 +66,33 @@ function App() {
   const [cat, setCat] = useState("all")
   const [selected, setSelected] = useState<Entry | null>(null)
   const [lbIndex, setLbIndex] = useState(-1) // >=0 => lightbox open at that slide
-  // The journey map is URL-addressable via a hash route: #journey /
-  // #humaneyeball open the default (Odysseus) journey, kept working for old
-  // bookmarks/links; #journey/<slug> and #journey/<slug>-eyeball address any
-  // other registered personage's journey the same way. The atlas gets the
-  // mirror-image scheme for its plates: #atlas / #atlas-eyeball open the
-  // default plate (old links keep working), #atlas/<slug> and
-  // #atlas/<slug>-eyeball address any registered plate. Both "-eyeball"
-  // suffixes stay distinct from bare "#humaneyeball" so the calibration
-  // modes don't collide.
-  const parseJourneyHash = (hash: string): { slug: string; eyeball: boolean } | null => {
+  // Both maps are URL-addressable via hash routes with ONE universal editing
+  // gate: append "/edit" to any map route to open its calibration mode —
+  // #journey/edit, #journey/<slug>/edit, #atlas/edit, #atlas/<slug>/edit.
+  // The pre-/edit spellings parse forever as legacy aliases for old
+  // bookmarks/links/muscle memory: bare #humaneyeball (the original journey
+  // calibration route) and the "-eyeball" suffix forms (#atlas-eyeball,
+  // #atlas/<slug>-eyeball, #journey/<slug>-eyeball). Writers (AtlasMap's
+  // plate switcher) emit only the /edit form. No slug may be named "edit".
+  const parseMapHash = (
+    hash: string,
+    base: "journey" | "atlas",
+    registry: Record<string, unknown>,
+    defaultSlug: string,
+  ): { slug: string; eyeball: boolean } | null => {
     const h = hash.toLowerCase().replace(/^#/, "")
-    if (h === "journey" || h === "humaneyeball")
-      return { slug: DEFAULT_JOURNEY_SLUG, eyeball: h === "humaneyeball" }
-    const m = h.match(/^journey\/([a-z0-9-]+?)(-eyeball)?$/)
-    if (m && JOURNEYS[m[1]]) return { slug: m[1], eyeball: !!m[2] }
+    if (base === "journey" && h === "humaneyeball") return { slug: defaultSlug, eyeball: true }
+    if (h === base) return { slug: defaultSlug, eyeball: false }
+    if (h === `${base}/edit` || h === `${base}-eyeball`) return { slug: defaultSlug, eyeball: true }
+    let m = h.match(new RegExp(`^${base}/([a-z0-9-]+)/edit$`))
+    if (m && registry[m[1]]) return { slug: m[1], eyeball: true }
+    m = h.match(new RegExp(`^${base}/([a-z0-9-]+?)(-eyeball)?$`))
+    if (m && registry[m[1]]) return { slug: m[1], eyeball: !!m[2] }
     return null
   }
-  const parseAtlasHash = (hash: string): { slug: string; eyeball: boolean } | null => {
-    const h = hash.toLowerCase().replace(/^#/, "")
-    if (h === "atlas" || h === "atlas-eyeball")
-      return { slug: DEFAULT_PLATE_SLUG, eyeball: h === "atlas-eyeball" }
-    const m = h.match(/^atlas\/([a-z0-9-]+?)(-eyeball)?$/)
-    if (m && PLATES[m[1]]) return { slug: m[1], eyeball: !!m[2] }
-    return null
-  }
+  const parseJourneyHash = (hash: string) =>
+    parseMapHash(hash, "journey", JOURNEYS, DEFAULT_JOURNEY_SLUG)
+  const parseAtlasHash = (hash: string) => parseMapHash(hash, "atlas", PLATES, DEFAULT_PLATE_SLUG)
   const [journeyRoute, setJourneyRoute] = useState(
     () => (typeof window !== "undefined" ? parseJourneyHash(window.location.hash) : null),
   )

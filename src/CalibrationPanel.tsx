@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
 
 // Shared floating overlay for the two hash-gated calibration modes
-// (JourneyMap's #humaneyeball, AtlasMap's #atlas-eyeball): drag pins on the
+// (JourneyMap's #journey/edit, AtlasMap's #atlas/edit): drag pins on the
 // map, watch this panel's live JSON dump update, copy it back into the
 // source. The two maps' actual pin/route dragging logic stays separate
 // (JourneyMap works in raw pixel lat/lng via a manual yx() flip; AtlasMap

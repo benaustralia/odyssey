@@ -14,7 +14,7 @@ import type { AtlasPlace, PlateConfig } from "./types"
 // evidence in graecia-draft/flags.md; flagged for review there: the four
 // interpretive pins Chalcis/Crouni/Enipeus/Gyrae, the Phylace
 // label-vs-geography call, and a possible Argos/Mycenae castle swap).
-// Adjust any pin at #atlas/graecia-eyeball (drag -> "Copy all" -> paste back
+// Adjust any pin at #atlas/graecia/edit (drag -> "Copy all" -> paste back
 // over this array). Next: delete the now-redundant Greek pins from rubri.ts.
 const places: AtlasPlace[] = [
   { term: "Achaea", noGloss: true, x: 4760, y: 6035 },

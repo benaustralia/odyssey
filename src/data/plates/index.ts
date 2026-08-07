@@ -17,7 +17,7 @@ export const PLATES: Record<string, PlateConfig> = {
 
 // The Greek map is where most of the pins live, so it's the Atlas's face.
 // NOTE: graecia's ~69 pins are still a seed grid (not yet calibrated via
-// #atlas/graecia-eyeball) — flipped ahead of calibration at the user's
+// #atlas/graecia/edit) — flipped ahead of calibration at the user's
 // request. Recalibrate before/while this is live; see CLAUDE.md Atlas section.
 export const DEFAULT_PLATE_SLUG = "graecia"
 

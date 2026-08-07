@@ -15,7 +15,7 @@ import type { AtlasPlace, PlateConfig } from "./types"
 //
 // SEED GRID — the 2 places below are parked in open sea near the title
 // cartouche ("MARE AEGYPTIVM"), NOT at their real location yet. Calibrate
-// at #atlas/palestinae-eyeball, then paste the JSON back over this array.
+// at #atlas/palestinae/edit, then paste the JSON back over this array.
 const places: AtlasPlace[] = [
   { term: "Phoenicia", x: 1260, y: 2860 },
   { term: "Sidon", x: 1490, y: 2860 },

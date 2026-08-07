@@ -494,8 +494,8 @@ function FitWhenReady({ cfg, onBounds }: { cfg: PlateConfig; onBounds: (b: L.Lat
   return null
 }
 
-// Calibration mode: open at #atlas/<slug>-eyeball (#atlas-eyeball for the
-// default plate), Shift+click the map to drop a pin, name it below, then
+// Calibration mode: open at #atlas/<slug>/edit (#atlas/edit for the
+// default plate; legacy -eyeball spellings still parse), Shift+click the map to drop a pin, name it below, then
 // "Copy coordinates" to paste the result back into that plate's `places` in
 // src/data/plates/<slug>.ts. map.project() is the inverse of unproject() —
 // turns the click's LatLng back into raw top-down image pixel coords,
@@ -668,7 +668,7 @@ export default function AtlasMap({
   // atlasRoute the single source of truth and remounts this component with a
   // fresh key per plate (clean pin state, aborted prefetch, one-shot fit).
   const switchPlate = (slug: string) => {
-    const suffix = editing ? "-eyeball" : ""
+    const suffix = editing ? "/edit" : ""
     window.location.hash = slug === DEFAULT_PLATE_SLUG ? `atlas${suffix}` : `atlas/${slug}${suffix}`
   }
 

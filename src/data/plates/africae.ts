@@ -17,7 +17,7 @@ import type { AtlasPlace, PlateConfig } from "./types"
 //
 // SEED GRID — the 3 places below are parked in open water in the
 // "OCEANVS ATLANTICVS" corner, NOT at their real location yet. Calibrate
-// at #atlas/africae-eyeball, then paste the JSON back over this array.
+// at #atlas/africae/edit, then paste the JSON back over this array.
 // Libya and Ethiopia also have a home on rubri (its margin/inset).
 const places: AtlasPlace[] = [
   { term: "Africa", noGloss: true, x: 1340, y: 900 },

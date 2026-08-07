@@ -17,7 +17,7 @@ import type { AtlasPlace, PlateConfig } from "./types"
 //
 // SEED GRID — the 4 places below are parked in open water in the "MARIS
 // MEDITERRANEI PARS" label area, NOT at their real location yet. Calibrate
-// at #atlas/natoliae-eyeball, then paste the JSON back over this array.
+// at #atlas/natoliae/edit, then paste the JSON back over this array.
 // Troy also has a home on rubri (the Vlyssis Errores inset).
 const places: AtlasPlace[] = [
   { term: "Mimas", x: 3860, y: 3750 },

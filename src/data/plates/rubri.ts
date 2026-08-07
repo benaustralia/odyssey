@@ -24,7 +24,7 @@ import type { AtlasPlace, PlateConfig } from "./types"
 //   real home is the Palestinae plate (see palestinae.ts).
 // - Arabia / Persia / India: genuinely drawn on the main plate body (the
 //   Erythraean periplus is the plate's whole subject) — current pins are
-//   rough placeholders awaiting #atlas/rubri-eyeball calibration.
+//   rough placeholders awaiting #atlas/rubri/edit calibration.
 // - The Greek/Aegean places sit inside the Vlyssis Errores inset region
 //   (x≈3200–7800, y≈7500–10200). Once the Graecia Sophiani plate is
 //   calibrated they MOVE there (decluttering the dense inset cluster);
