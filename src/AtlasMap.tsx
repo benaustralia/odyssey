@@ -7,7 +7,7 @@ import "leaflet/dist/leaflet.css"
 import MiniMapControl from "leaflet-minimap"
 import "leaflet-minimap/dist/Control.MiniMap.min.css"
 import CalibrationPanel from "./CalibrationPanel"
-import { PLATES, DEFAULT_PLATE_SLUG, atlasHash, searchPins } from "@/data/plates"
+import { PLATES, DEFAULT_PLATE_SLUG, atlasHash, searchPins, latinFor } from "@/data/plates"
 // Same Journey-vs-Atlas policy the place cards use: a handful of pins here
 // (the Vlyssis-inset isles) belong on the Journey map, and the search must not
 // contradict the card that sends you there.
@@ -315,7 +315,12 @@ function PlateSearch({
                   onMouseEnter={() => setActive(i)}
                   onClick={() => pick(r)}
                 >
-                  <span className="text-sm font-medium leading-tight">{r.label ?? r.term}</span>
+                  <span className="text-sm font-medium leading-tight">
+                    {r.label ?? r.term}
+                    {latinFor(r) && (
+                      <span className="font-normal italic opacity-60"> ({latinFor(r)})</span>
+                    )}
+                  </span>
                   <span className="text-xs leading-tight opacity-60">{destOf(r).title}</span>
                 </button>
               </li>
@@ -811,7 +816,12 @@ function Pins({
         >
           <Popup minWidth={160}>
             <div className="flex flex-col gap-2">
-              <span className="font-heading text-base font-semibold">{p.label ?? p.term}</span>
+              <span className="font-heading text-base font-semibold">
+                {p.label ?? p.term}
+                {latinFor(p) && (
+                  <span className="font-normal italic opacity-70"> ({latinFor(p)})</span>
+                )}
+              </span>
               {hasArt(p.term) ? (
                 <button
                   type="button"

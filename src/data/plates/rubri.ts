@@ -43,24 +43,32 @@ import type { AtlasPlace, PlateConfig } from "./types"
 //   Deleting from here is deliberate and one-way: if a term ever needs to
 //   come back, re-derive it against the graecia term set, don't restore
 //   these old inset coordinates.
+// Latin forms harvested 2026-08-07 by reading the master at native
+// resolution — see CLAUDE.md TODO 1b. Most of this plate's Vlyssis-inset
+// pins were positioned by geography rather than a tight label match (unlike
+// graecia's calibration pass), so ABSENT is common here — it means no
+// engraved caption sits within a plausible distance of the pin, not that
+// none was checked. Phoenicia/Sidon are this plate's placeholder/symbolic
+// duplicates (real home: palestinae.ts); India rides "Mambari regnum",
+// which names the region, not India itself. All three deliberately absent.
 const places: AtlasPlace[] = [
-  { term: "Egypt", x: 1895.0465881021837, y: 3472.711389904327 },
+  { term: "Egypt", latin: "ÆGYPTVS", x: 1895.0465881021837, y: 3472.711389904327 },
   { term: "Libya", x: 1413.143047187622, y: 3556.0782783688514 },
   { term: "Ethiopia", x: 1650, y: 5650 },
   { term: "Pharos", x: 2391.0785275036137, y: 3261.3480639249724 },
   { term: "Aeaea", x: 5660, y: 8382 },
-  { term: "Scheria", x: 6448, y: 8082 },
-  { term: "Ogygia", x: 5818, y: 8011 },
+  { term: "Scheria", latin: "Phæacia, quę Scheria", x: 6448, y: 8082 },
+  { term: "Ogygia", latin: "Ogygia Calypsonis habitaculum", x: 5818, y: 8011 },
   { term: "Cyprus", x: 7699, y: 9105 },
   { term: "Hyperia", x: 5413, y: 8664 },
   { term: "Cimmerians", x: 7467, y: 7934 },
   { term: "Temese", x: 4400, y: 9600 },
   { term: "Telepylus", x: 4800, y: 8900 },
   { term: "Artaky", x: 7390, y: 7735 },
-  { term: "Aeolia", x: 3800, y: 8400 },
+  { term: "Aeolia", latin: "Aeoliæ, et Planctæ", x: 3800, y: 8400 },
   { term: "Land of the Lotus-Eaters", label: "Lotus-Eaters", x: 2000, y: 9500 },
   { term: "Land of the Cyclopes", label: "Cyclopes", x: 7500, y: 10000 },
-  { term: "Thrinacia", x: 4555, y: 8430 },
+  { term: "Thrinacia", latin: "THRINACIA, Sive Solis insula", x: 4555, y: 8430 },
   { term: "Styx", x: 2500, y: 7200 },
   { term: "Acheron", x: 2400, y: 7300 },
   { term: "Cocytus", x: 2600, y: 7400 },
@@ -72,9 +80,9 @@ const places: AtlasPlace[] = [
   { term: "Mount Solyma", label: "Solyma", x: 3700, y: 6100 },
   { term: "Ortygia", x: 6900, y: 9700 },
   { term: "Africa", noGloss: true, x: 1500, y: 5000 },
-  { term: "Arabia", noGloss: true, x: 3280, y: 3960 },
+  { term: "Arabia", noGloss: true, latin: "ARABIA EVDAEMON, Sive FELIX", x: 3280, y: 3960 },
   { term: "India", noGloss: true, x: 7760, y: 4530 },
-  { term: "Persia", noGloss: true, x: 5250, y: 3175 },
+  { term: "Persia", noGloss: true, latin: "PERSIA", x: 5250, y: 3175 },
 ]
 
 export const rubriPlate: PlateConfig = {

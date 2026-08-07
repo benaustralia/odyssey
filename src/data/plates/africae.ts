@@ -37,10 +37,15 @@ import type { AtlasPlace, PlateConfig } from "./types"
 //   identified it with Abyssinia/Ethiopia — and the glossary's own "not the
 //   modern country" framing makes a legendary anchor an apt compromise, the
 //   same kind of call as rubri's India pin landing on "Mambari regnum."
+// Latin forms per the calibration notes above: Africa rides the title
+// cartouche's own words; Ethiopia deliberately has NONE — "totius Africae"
+// (the Prester John legend its pin sits on) does not NAME Ethiopia, it
+// merely anchors it, so a bracket would mislead (interpretive pin, on the
+// check-pins NO_LATIN allowlist).
 const places: AtlasPlace[] = [
-  { term: "Africa", noGloss: true, x: 3980, y: 6480 },
+  { term: "Africa", noGloss: true, latin: "AFRICAE TABULA NOVA", x: 3980, y: 6480 },
   { term: "Ethiopia", x: 7700, y: 4350 },
-  { term: "Libya", x: 5650, y: 2450 },
+  { term: "Libya", latin: "Lybiae Deserta", x: 5650, y: 2450 },
 ]
 
 export const africaePlate: PlateConfig = {

@@ -21,7 +21,12 @@
 //    journey, a real glossary term, and a real stop of that journey — a
 //    typo'd alias fails silently, exactly like a mistyped pin term;
 //  - every glossary `place` entry must be pinned on at least one plate,
-//    except Ocean (the world-encircling river isn't a point on a map).
+//    except Ocean (the world-encircling river isn't a point on a map);
+//  - every pin must carry a `latin` (the engraved toponym, harvested by
+//    reading each plate master at native resolution — CLAUDE.md TODO 1b) or
+//    be named on NO_LATIN below — an unlisted pin with no `latin` is either
+//    a fresh pin nobody's read yet or a stale copy-paste, not a deliberate
+//    "the plate prints nothing here".
 import { readFileSync, readdirSync } from "node:fs"
 import { join, dirname } from "node:path"
 import { fileURLToPath } from "node:url"
@@ -29,6 +34,65 @@ import process from "node:process"
 import glossaryData from "../src/data/glossary.json"
 import { PLATES } from "../src/data/plates"
 import { JOURNEY_ALIASES } from "../src/data/journeys/aliases"
+
+// "slug:term" pairs where the plate genuinely prints no name for the place —
+// confirmed by reading the master at native resolution, not just unchecked.
+// Positional/interpretive pins (flags.md's L-confidence graecia terms, most
+// of rubri's loosely-placed Vlyssis-inset isles) and this-plate-only
+// placeholders (rubri's Phoenicia/Sidon, whose real home is palestinae) live
+// here so their absence reads as a checked fact, not an oversight.
+const NO_LATIN = new Set([
+  // graecia — flags.md M/L-confidence pins the plate prints no label for.
+  "graecia:Aegae",
+  "graecia:Amnisus",
+  "graecia:Arethusa",
+  "graecia:Chalcis",
+  "graecia:Crouni",
+  "graecia:Enipeus",
+  "graecia:Ephyra",
+  "graecia:Erymanthus",
+  "graecia:Gyrae",
+  "graecia:Mount Neion",
+  "graecia:Mount Neriton",
+  "graecia:Panopeus",
+  "graecia:Phaestus",
+  "graecia:Phylace",
+  "graecia:River Jardan",
+  "graecia:Taphos",
+  // rubri — mostly the loosely-placed Vlyssis-inset mythical isles, plus the
+  // Phoenicia/Sidon placeholders (real home: palestinae) and India (its pin
+  // rides "Mambari regnum", which names the region, not India itself).
+  "rubri:Libya",
+  "rubri:Ethiopia",
+  "rubri:Pharos",
+  "rubri:Aeaea",
+  "rubri:Cyprus",
+  "rubri:Hyperia",
+  "rubri:Cimmerians",
+  "rubri:Temese",
+  "rubri:Telepylus",
+  "rubri:Artaky",
+  "rubri:Land of the Lotus-Eaters",
+  "rubri:Land of the Cyclopes",
+  "rubri:Styx",
+  "rubri:Acheron",
+  "rubri:Cocytus",
+  "rubri:Pyriphlegethon",
+  "rubri:Erebus",
+  "rubri:The Underworld",
+  "rubri:Phoenicia",
+  "rubri:Sidon",
+  "rubri:Mount Solyma",
+  "rubri:Ortygia",
+  "rubri:Africa",
+  "rubri:India",
+  // natoliae — no label for either on this Ottoman-era edition.
+  "natoliae:Mimas",
+  "natoliae:Mount Solyma",
+  // africae — Ethiopia's pin rides the Prester John legend, which anchors
+  // but doesn't name it (same compromise as rubri's India).
+  "africae:Ethiopia",
+])
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..")
 const glossary = glossaryData as { term: string; tag: string }[]
@@ -52,6 +116,12 @@ for (const plate of Object.values(PLATES)) {
     pinnedTerms.add(p.term)
     if (p.x < 0 || p.x > plate.w || p.y < 0 || p.y > plate.h)
       errors.push(`${where} at (${Math.round(p.x)}, ${Math.round(p.y)}) is outside the ${plate.w}x${plate.h} plate`)
+    const key = `${plate.slug}:${p.term}`
+    if (p.latin === "") errors.push(`${where} has an empty latin string — use undefined instead`)
+    else if (!p.latin && !NO_LATIN.has(key))
+      errors.push(`${where} has no latin and isn't on NO_LATIN — read the plate or add it to the allowlist`)
+    else if (p.latin && NO_LATIN.has(key))
+      errors.push(`${where} has a latin value but is also on NO_LATIN — remove it from the allowlist`)
   }
 }
 

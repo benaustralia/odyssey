@@ -15,15 +15,18 @@ import type { AtlasPlace, PlateConfig } from "./types"
 // names (Mentese, Aldineli) there rather than "Lycia" itself. No watermark,
 // frame intact.
 //
-// SEED GRID — the 4 places below are parked in open water in the "MARIS
-// MEDITERRANEI PARS" label area, NOT at their real location yet. Calibrate
-// at #atlas/natoliae/edit, then paste the JSON back over this array.
-// Troy also has a home on rubri (the Vlyssis Errores inset).
+// CALIBRATED 2026-08-07 (offline PIL grid-crops of the master at native
+// resolution, marked-ring verified — see CLAUDE.md TODO 1b, which needed
+// this plate's real positions to harvest Latin toponyms). Orientation is
+// rotated on this sheet: East ("ORIENS") is at the TOP, West at the bottom,
+// North on the left margin, South on the right — confirmed against the
+// Black Sea/Euphrates/Cyprus labels before placing anything. Troy also has
+// a home on rubri (the Vlyssis Errores inset).
 const places: AtlasPlace[] = [
-  { term: "Mimas", x: 3860, y: 3750 },
-  { term: "Mount Solyma", label: "Solyma", x: 4030, y: 3750 },
-  { term: "Tenedos", x: 3860, y: 3920 },
-  { term: "Troy", x: 4030, y: 3920 },
+  { term: "Mimas", x: 3170, y: 6270 },
+  { term: "Mount Solyma", label: "Solyma", x: 3700, y: 4200 },
+  { term: "Tenedos", latin: "Tenedo", x: 2225, y: 6625 },
+  { term: "Troy", latin: "TROIA", x: 2255, y: 6405 },
 ]
 
 export const natoliaePlate: PlateConfig = {

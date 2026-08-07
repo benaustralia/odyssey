@@ -68,6 +68,18 @@ export function findPin(
 export const atlasHash = (slug: string, term: string) =>
   `${slug === DEFAULT_PLATE_SLUG ? "atlas" : `atlas/${slug}`}/@${encodeURIComponent(term)}`
 
+// Bracket text shown beside a place's English name — the engraved Ortelius
+// form ("Knossos (Cnodos)"), unless it's just the English name over again
+// ("Phylace (Phylace)", "Persia (PERSIA)" add nothing; compare
+// case-insensitively against both the term and the display label).
+export function latinFor(p: { term: string; label?: string; latin?: string }): string | null {
+  const l = p.latin?.trim()
+  if (!l) return null
+  const low = l.toLowerCase()
+  if (low === p.term.toLowerCase() || low === p.label?.toLowerCase()) return null
+  return l
+}
+
 // One row per (plate, pin), in PLATE_PRIORITY order — the corpus the Atlas's
 // in-map search matches against. Flattened once at module load; the pin data
 // is static.
@@ -75,6 +87,7 @@ export type PinRow = {
   term: string
   label?: string
   noGloss?: boolean
+  latin?: string
   slug: string
   plateTitle: string
 }
@@ -86,6 +99,7 @@ export const ALL_PINS: PinRow[] = PLATE_PRIORITY.flatMap((slug) => {
     term: p.term,
     label: p.label,
     noGloss: p.noGloss,
+    latin: p.latin,
     slug,
     plateTitle: plate.title,
   }))
@@ -103,7 +117,14 @@ export function searchPins(query: string, preferSlug?: string, limit = 8): PinRo
   const best = new Map<string, PinRow>()
   for (const row of ALL_PINS) {
     const name = (row.label ?? row.term).toLowerCase()
-    if (!name.includes(q) && !row.term.toLowerCase().includes(q)) continue
+    // The engraved Latin spelling matches too, so typing "Cnodos" finds
+    // Knossos — the reverse lookup for someone reading the plate itself.
+    if (
+      !name.includes(q) &&
+      !row.term.toLowerCase().includes(q) &&
+      !row.latin?.toLowerCase().includes(q)
+    )
+      continue
     const key = row.term.toLowerCase()
     const held = best.get(key)
     // ALL_PINS is already in priority order, so the first hit wins unless the

@@ -25,8 +25,8 @@ import type { AtlasPlace, PlateConfig } from "./types"
 // Egypt and Pharos also have a home on rubri (the Red Sea plate) — this
 // plate is their higher-fidelity second home.
 const places: AtlasPlace[] = [
-  { term: "Egypt", x: 3030, y: 2270 },
-  { term: "Pharos", x: 1163, y: 3179 },
+  { term: "Egypt", latin: "AEGYPTVS INFERIOR", x: 3030, y: 2270 },
+  { term: "Pharos", latin: "Pharos colonia", x: 1163, y: 3179 },
 ]
 
 export const aegyptusPlate: PlateConfig = {

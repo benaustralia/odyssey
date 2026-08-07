@@ -13,12 +13,14 @@ import type { AtlasPlace, PlateConfig } from "./types"
 // latitude stops short of the island, so Cyprus stays pinned on rubri only.
 // No watermark, frame intact.
 //
-// SEED GRID — the 2 places below are parked in open sea near the title
-// cartouche ("MARE AEGYPTIVM"), NOT at their real location yet. Calibrate
-// at #atlas/palestinae/edit, then paste the JSON back over this array.
+// CALIBRATED 2026-08-07 (offline PIL grid-crops of the master at native
+// resolution, marked-ring verified — see CLAUDE.md TODO 1b). Orientation is
+// standard north-up (SEPTENTRIO top, MERIDIES bottom). Phoenicia rides the
+// "T. PHOENICIVM" region label printed over the sea off the Tyre-Sidon
+// coast; Sidon sits on its own city symbol just south of the "SIDON." label.
 const places: AtlasPlace[] = [
-  { term: "Phoenicia", x: 1260, y: 2860 },
-  { term: "Sidon", x: 1490, y: 2860 },
+  { term: "Phoenicia", latin: "PHOENICIVM", x: 5015, y: 990 },
+  { term: "Sidon", latin: "SIDON", x: 5690, y: 910 },
 ]
 
 export const palestinaePlate: PlateConfig = {

@@ -16,7 +16,7 @@ import "yet-another-react-lightbox/plugins/thumbnails.css"
 import glossaryData from "@/data/glossary.json"
 import artData from "@/data/art.json"
 import { JOURNEYS, DEFAULT_JOURNEY_SLUG, findStop } from "@/data/journeys"
-import { PLATES, DEFAULT_PLATE_SLUG, findPin } from "@/data/plates"
+import { PLATES, DEFAULT_PLATE_SLUG, findPin, latinFor } from "@/data/plates"
 // Journey-vs-Atlas routing policy for a term, shared with the Atlas's own
 // header search so a place never routes two different ways.
 import { mapLinks, type MapRoute } from "@/data/mapRoutes"
@@ -409,6 +409,11 @@ function App() {
               // offer both. Map-only places open their primary map on
               // whole-card click; everything else keeps gallery-first click
               // and shows the links as small buttons.
+              // The engraved Ortelius toponym for the place's owning pin
+              // ("Knossos (Cnodos)") — findPin picks the same plate the
+              // card's map link opens, so heading and destination agree.
+              const pin = e.tag === "place" ? findPin(e.term) : null
+              const latin = pin ? latinFor(pin.place) : null
               const { primary, journey } = mapLinks(e.term, e.tag === "place")
               const cardOpensMap = !!primary && e.tag === "place" && !hasRealArt(e)
               const extraJourney = journey && primary?.kind !== "journey" ? journey : null
@@ -457,7 +462,15 @@ function App() {
                   <div className="card-body gap-2">
                     <div className="flex items-start justify-between gap-2">
                       <h2 className="card-title font-heading text-3xl font-semibold leading-none">
-                        {e.term}
+                        {/* One nested span so the heading + bracket wrap as
+                            normal text — card-title is a flex row, and two
+                            loose children would gap/align as flex items. */}
+                        <span>
+                          {e.term}
+                          {latin && (
+                            <span className="text-xl font-normal italic opacity-70"> ({latin})</span>
+                          )}
+                        </span>
                       </h2>
                       <div className="flex shrink-0 flex-wrap items-center justify-end gap-1.5">
                         {primary && !cardOpensMap && <MapLink term={e.term} route={primary} />}

@@ -12,6 +12,15 @@ export type AtlasPlace = {
   term: string
   // Optional shorter display name; popup shows `label ?? term`.
   label?: string
+  // The toponym as Ortelius actually engraved it at this pin ("CRETA",
+  // "Cnodos", "Alpheus flu."), harvested by reading each plate master at
+  // native resolution — never guessed from the English name. ABSENT on
+  // interpretive/positional pins where the plate prints no name for the
+  // place (rubri's India, the Underworld cluster…): that absence is
+  // meaningful, and scripts/check-pins.ts enforces it against its NO_LATIN
+  // allowlist. Surfaces show it via latinFor() (index.ts), which hides the
+  // bracket when the engraved form is just the English name over again.
+  latin?: string
   // Marks a poem-text place that intentionally has NO glossary entry (its
   // popup just has no artwork button — the Achaea precedent). Read only by
   // scripts/check-pins.ts to separate "intentional" from "typo".
