@@ -87,27 +87,27 @@ resolution — each sits on its printed label; ✅ `npm run build` + `vite previ
 `#atlas/rubri` (Arabia/Persia/India on their labels; inset decluttered).
 
 ## Phase A — core deep-link wiring (the feature)
-**Status: ☐ not started**
+**Status: ✅ done 2026-08-07**
 **Model: Opus 5 · effort medium** (delicate react-leaflet timing + several documented traps;
 Sonnet 5 · high is the budget alternative — the traps are all written down below).
 
 Tasks:
-- [ ] `src/data/plates/index.ts`: export `PLATE_PRIORITY` (order above) and
+- [x] `src/data/plates/index.ts`: export `PLATE_PRIORITY` (order above) and
   `findPin(term): { slug: string; place: AtlasPlace } | null` — exact-term match over each
   plate's `places` in priority order.
-- [ ] `src/App.tsx` — hash parsing: extend the atlas route to `#atlas/<slug>/@<term>`,
+- [x] `src/App.tsx` — hash parsing: extend the atlas route to `#atlas/<slug>/@<term>`,
   returning `focusTerm` alongside `{slug, eyeball}`.
   **Trap:** `parseMapHash` lowercases the whole hash — split the `@` segment off the RAW
   hash before lowercasing, `decodeURIComponent` it, and resolve it against pin terms
   case-insensitively (store the pin's canonical term in the route).
-- [ ] `src/App.tsx` — cards: for place entries (`tag === "place"`) with a `findPin` hit,
+- [x] `src/App.tsx` — cards: for place entries (`tag === "place"`) with a `findPin` hit,
   apply the approved click rule (map-only → whole-card deep link; art-rich → gallery click +
   compact "Map" button, e.g. MapIcon `btn-xs` beside the tag badge).
   **Trap:** each card is currently a `<button>` — a nested interactive control inside it is
   invalid HTML. Restructure the card to a `<div role="button" tabIndex={0}>` with
   onClick/onKeyDown (keep DaisyUI classes), or overlay the Map control as an
   absolutely-positioned sibling, not a child button.
-- [ ] `src/AtlasMap.tsx` — new optional `focusTerm` prop (App passes `atlasRoute.focusTerm`):
+- [x] `src/AtlasMap.tsx` — new optional `focusTerm` prop (App passes `atlasRoute.focusTerm`):
   - Focus only **after** `FitWhenReady` has landed — gate the effect on the existing
     `bounds` state, then `map.setView(unprojectPixel(map, x, y, config.maxZoom), Z)` with
     `Z ≈ config.maxZoom - 2.5` (tune visually; edit-mode `PlaceFocuser` hardcodes 3).
@@ -121,9 +121,9 @@ Tasks:
     path — positional keys remount markers and Leaflet kills their popups.
   - AtlasMap is keyed by slug in App, so same-plate focus changes do NOT remount — the
     effect must depend on `focusTerm` and re-fire on repeat navigations.
-- [ ] Popup "View artworks" gating: App passes a `hasRealArt(term)` predicate (entry has any
+- [x] Popup "View artworks" gating: App passes a `hasRealArt(term)` predicate (entry has any
   non-`-map` art key); popup shows the button only then.
-- [ ] Ocean and non-place cards: behavior unchanged. `switchPlate` keeps emitting focus-less
+- [x] Ocean and non-place cards: behavior unchanged. `switchPlate` keeps emitting focus-less
   hashes (unchanged).
 
 Verify: `npm run check:pins`; **`npm run build` + `vite preview`** (dev≠prod traps; ports
@@ -132,6 +132,26 @@ cold-load `#atlas/graecia/@Ithaca` → fit, glide, halo, popup opens; Chios card
 map; Troy card → gallery, its Map button → map; popup survives >1s and "View artworks" works
 (popup-death regression); Ocean card → gallery; close map → hash cleared; responsive-mode
 mobile spot check (full-screen modal, popup tappable).
+
+### Phase A — as built (deltas from the plan)
+- Focus zoom landed at **`maxZoom - 1.5`**, not the sketched `-2.5`: at `-2.5` the plate is
+  still too wide to read Ortelius's engraved toponym under the pin (verified side by side on
+  `@Ithaca`). `-1.5` shows the label plus enough coastline to orient.
+- `findPin(term, preferSlug?)` matches exact-then-case-insensitive and lets an explicit route
+  slug outrank `PLATE_PRIORITY`, so `#atlas/rubri/@Ithaca` stays on rubri.
+- The halo now also shows in view mode; swapping a marker's *icon* is safe for an open popup
+  (the popup is its own map layer) — only unmounting the marker kills it.
+- **New guard:** `DeepLinkFocus`'s cleanup closes the popup it opened. A popup left open across
+  a plate switch (AtlasMap remounts on `key={slug}`) is torn down mid-flight and Leaflet's
+  `DivOverlay.update()` then runs `_adjustPan` against a removed map — a hard
+  `Cannot read properties of null (reading 'layerPointToContainerPoint')` that blanks the app.
+  Hit it live during verification; rare before this feature, routine now that every deep link
+  opens a popup.
+- **Testing gotcha (cost most of the debugging time):** an occluded/backgrounded Chrome tab
+  suspends the render loop, so `FitWhenReady`'s **ResizeObserver never fires**, `bounds` stays
+  null and the focus effect never runs — the map just sits at "fit all" with no tiles. It looks
+  exactly like a broken feature. Force a paint (take a screenshot) between navigations when
+  driving these maps from an automation tool.
 
 ## Phase B — search inside the Atlas
 **Status: ☐ not started**
@@ -197,6 +217,12 @@ Fold in CLAUDE.md TODO 3(a) (hero mini-map + "Show on map" from journey cards).
 ## Status log
 - 2026-08-07 — Plan approved (proposal + design decisions locked in conversation). Nothing
   implemented yet. Next: Phase 0.
+- 2026-08-07 — **Phase A done.** `PLATE_PRIORITY` + `findPin` in the plate registry;
+  `#atlas/<slug>/@<term>` parsing (focus segment split off the raw hash before lowercasing,
+  resolved to a canonical pin term); cards restructured to `div role="button"` so art-rich
+  places can carry a nested "Map" button while the 61 map-only places deep-link on whole-card
+  click; `AtlasMap` gained `focusTerm` (glide + halo + auto-opened popup) and `hasArt` popup
+  gating. Verified in a production build. Next: Phase B.
 - 2026-08-07 — **Phase 0 done.** aegyptus's 2 pins and rubri's Arabia/Persia/India calibrated
   offline (PIL grid-crops + marked-ring verification); rubri pruned 100 → 31 pins; PLACES.md
   regenerated; CLAUDE.md TODO 1 (b)/(c) closed. Every Atlas pin is now off its seed grid — the

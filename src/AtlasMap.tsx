@@ -533,6 +533,72 @@ function PlaceFocuser({
   return null
 }
 
+// Deep-link focus (#atlas/<slug>/@<term>): glide to the place's pin, make it
+// announce itself with the same halo the calibration crosshair uses, and open
+// its popup.
+//
+// Gate on `ready` (AtlasMap's `bounds` state): FitWhenReady's one-shot fit
+// calls setView itself once the modal's container has real dimensions, and it
+// would stomp any earlier setView from here. Anything mounted before that
+// lands is focusing a map that is still 0x0.
+//
+// The popup is opened on `moveend` (with a timeout fallback, since setView to
+// a view Leaflet considers unchanged fires no move at all) through a marker
+// ref rather than by touching pin state — reordering/re-keying pins remounts
+// markers and Leaflet closes a remounted marker's popup, which is exactly the
+// bug that made every atlas popup unreachable in production (fixed 1464301).
+function DeepLinkFocus({
+  place,
+  maxZoom,
+  ready,
+  markerRefs,
+  onAnnounce,
+}: {
+  place: Place | null
+  maxZoom: number
+  ready: boolean
+  markerRefs: React.MutableRefObject<Map<string, L.Marker>>
+  onAnnounce: (term: string) => void
+}) {
+  const map = useMap()
+  const term = place?.term ?? null
+  useEffect(() => {
+    if (!ready || !place) return
+    onAnnounce(place.term)
+    // A couple of levels below native: close enough to read Ortelius's own
+    // engraved label under the pin, wide enough to keep its neighbours (and
+    // the coastline) in frame for orientation.
+    map.setView(unprojectPixel(map, place.x, place.y, maxZoom), Math.max(0, maxZoom - 1.5), {
+      animate: true,
+    })
+    let done = false
+    const open = () => {
+      if (done) return
+      done = true
+      markerRefs.current.get(place.term)?.openPopup()
+    }
+    map.once("moveend", open)
+    const t = setTimeout(open, 1500)
+    return () => {
+      map.off("moveend", open)
+      clearTimeout(t)
+      // Close it on the way out. A popup left open while the plate switches
+      // (AtlasMap remounts on key={slug}) is torn down mid-flight, and
+      // Leaflet's own DivOverlay.update() then runs _adjustPan against a map
+      // that is already gone -- a hard "Cannot read properties of null
+      // (reading 'layerPointToContainerPoint')" that blanks the whole app.
+      // Rare before this feature (popups only opened on click); now that
+      // every deep link opens one, a plate switch would hit it routinely.
+      markerRefs.current.get(place.term)?.closePopup()
+    }
+    // `place` is looked up from config.places, so it changes identity only
+    // when the focused term does; re-navigating to the same term is a no-op
+    // by design (the map is already there).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [term, ready, map, maxZoom])
+  return null
+}
+
 // Markers are given in raw image pixel coords (matching places/Calibrator),
 // so placing them needs the same live-map unproject as the bounds fit. In
 // eyeball mode, pins are also draggable -- dragend converts the marker's
@@ -568,7 +634,8 @@ function Pins({
   onMove,
   onClickPin,
   highlightTerm,
-  lookup,
+  hasArt,
+  markerRefs,
 }: {
   pins: Place[]
   editing: boolean
@@ -577,7 +644,8 @@ function Pins({
   onMove: (index: number, p: { x: number; y: number }) => void
   onClickPin?: (index: number) => void
   highlightTerm?: string | null
-  lookup: (term: string) => unknown
+  hasArt: (term: string) => boolean
+  markerRefs?: React.MutableRefObject<Map<string, L.Marker>>
 }) {
   const map = useMap()
   return (
@@ -585,9 +653,19 @@ function Pins({
       {pins.map((p, i) => (
         <Marker
           key={`${p.term}-${i}`}
+          // Terms are unique per plate (scripts/check-pins.ts enforces it), so
+          // a term-keyed registry gives DeepLinkFocus a stable handle on the
+          // marker to open. Swapping a marker's ICON is safe for an open popup
+          // (the popup is its own map layer); only unmounting the marker kills
+          // it.
+          ref={(m) => {
+            if (!markerRefs) return
+            if (m) markerRefs.current.set(p.term, m)
+            else markerRefs.current.delete(p.term)
+          }}
           position={unprojectPixel(map, p.x, p.y, maxZoom)}
-          icon={editing && p.term === highlightTerm ? pinIconFocused : pinIcon}
-          zIndexOffset={editing && p.term === highlightTerm ? 1000 : 0}
+          icon={p.term === highlightTerm ? pinIconFocused : pinIcon}
+          zIndexOffset={p.term === highlightTerm ? 1000 : 0}
           draggable={editing}
           eventHandlers={{
             click: (e) => {
@@ -603,7 +681,7 @@ function Pins({
           <Popup minWidth={160}>
             <div className="flex flex-col gap-2">
               <span className="font-heading text-base font-semibold">{p.label ?? p.term}</span>
-              {lookup(p.term) ? (
+              {hasArt(p.term) ? (
                 <button
                   type="button"
                   className="btn btn-sm btn-primary"
@@ -624,20 +702,27 @@ export default function AtlasMap({
   config,
   open,
   editing,
+  focusTerm,
   onClose,
   onSelect,
-  lookup,
+  hasArt,
 }: {
   config: PlateConfig
   open: boolean
   editing: boolean
+  // Deep-link target (#atlas/<slug>/@<term>), already resolved to a canonical
+  // pin term by App's parseAtlasHash.
+  focusTerm?: string
   onClose: () => void
   onSelect: (term: string) => void
-  lookup: (term: string) => { zhName?: string } | undefined
+  hasArt: (term: string) => boolean
 }) {
   const [pins, setPins] = useState<Place[]>(config.places)
+  const markerRefs = useRef<Map<string, L.Marker>>(new Map())
   const [bounds, setBounds] = useState<L.LatLngBounds | null>(null)
-  const [focusPlace, setFocusPlace] = useState<Place | null>(null)
+  // The calibration footer's crosshair target (edit mode), distinct from the
+  // deep-link `focusPlace` below.
+  const [crosshairPlace, setCrosshairPlace] = useState<Place | null>(null)
   const [searchTerm, setSearchTerm] = useState("")
   // Which pin is currently "announcing" itself after a footer crosshair
   // click. The nonce makes re-clicking the same pin restart the 8s timer
@@ -660,6 +745,13 @@ export default function AtlasMap({
         1,
       ),
     [pins],
+  )
+
+  // Resolve against config.places, not the `pins` state: in view mode they're
+  // identical, and this keeps the focus effect from re-firing on any edit.
+  const focusPlace = useMemo(
+    () => (focusTerm ? config.places.find((p) => p.term === focusTerm) ?? null : null),
+    [focusTerm, config],
   )
 
   useTilePrefetch(open && !editing, config)
@@ -745,9 +837,18 @@ export default function AtlasMap({
                 <Calibrator maxZoom={config.maxZoom} onAdd={(p) => setPins((prev) => [...prev, p])} />
               )}
               <PlaceFocuser
-                focusPlace={focusPlace}
+                focusPlace={crosshairPlace}
                 maxZoom={config.maxZoom}
-                onFocus={() => setFocusPlace(null)}
+                onFocus={() => setCrosshairPlace(null)}
+              />
+              <DeepLinkFocus
+                place={focusPlace}
+                maxZoom={config.maxZoom}
+                ready={!!bounds}
+                markerRefs={markerRefs}
+                onAnnounce={(term) =>
+                  setHighlight((h) => ({ term, nonce: (h?.nonce ?? 0) + 1 }))
+                }
               />
               <Pins
                 pins={pins}
@@ -777,7 +878,8 @@ export default function AtlasMap({
                     : undefined
                 }
                 highlightTerm={highlight?.term ?? null}
-                lookup={lookup}
+                hasArt={hasArt}
+                markerRefs={markerRefs}
               />
             </MapContainer>
           </div>
@@ -796,7 +898,7 @@ export default function AtlasMap({
             setPins={setPins}
             dump={dump}
             onFocusPlace={(p) => {
-              setFocusPlace(p)
+              setCrosshairPlace(p)
               setHighlight((h) => ({ term: p.term, nonce: (h?.nonce ?? 0) + 1 }))
             }}
             searchTerm={searchTerm}

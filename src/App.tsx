@@ -16,7 +16,7 @@ import "yet-another-react-lightbox/plugins/thumbnails.css"
 import glossaryData from "@/data/glossary.json"
 import artData from "@/data/art.json"
 import { JOURNEYS, DEFAULT_JOURNEY_SLUG } from "@/data/journeys"
-import { PLATES, DEFAULT_PLATE_SLUG } from "@/data/plates"
+import { PLATES, DEFAULT_PLATE_SLUG, findPin } from "@/data/plates"
 
 type Entry = {
   term: string
@@ -61,6 +61,19 @@ function artsOf(e: Entry | null): Art[] {
   return e.art.map((k) => art[k]).filter(Boolean)
 }
 
+// 61 of the 84 places are illustrated ONLY by a shared full-plate antique map
+// (their art keys all end in "-map" — equivalent on current data to
+// file.startsWith("/art/map-")). For those the gallery is strictly worse than
+// the tiled plate itself, so the whole card deep-links into the Atlas instead.
+function hasRealArt(e: Entry | undefined): boolean {
+  return (e?.art ?? []).some((k) => art[k] && !k.endsWith("-map"))
+}
+
+// #atlas/<slug>/@<term> — the default plate keeps its bare "atlas" prefix, so
+// the link reads the same way the plate switcher writes it.
+const atlasHash = (slug: string, term: string) =>
+  `${slug === DEFAULT_PLATE_SLUG ? "atlas" : `atlas/${slug}`}/@${encodeURIComponent(term)}`
+
 function App() {
   const [query, setQuery] = useState("")
   const [cat, setCat] = useState("all")
@@ -74,13 +87,30 @@ function App() {
   // calibration route) and the "-eyeball" suffix forms (#atlas-eyeball,
   // #atlas/<slug>-eyeball, #journey/<slug>-eyeball). Writers (AtlasMap's
   // plate switcher) emit only the /edit form. No slug may be named "edit".
+  // A trailing "/@<term>" segment asks the map to open focused on that place
+  // (#atlas/graecia/@Ithaca). It is split off the RAW hash BEFORE the
+  // lowercasing below — pin terms are case- and punctuation-bearing ("Mount
+  // Olympus", "Argos (the city)"), so lowercasing first would destroy them.
+  const splitFocus = (hash: string): { rest: string; focusRaw?: string } => {
+    const raw = hash.replace(/^#/, "")
+    const at = raw.indexOf("/@")
+    if (at < 0) return { rest: raw }
+    const enc = raw.slice(at + 2)
+    let focusRaw = enc
+    try {
+      focusRaw = decodeURIComponent(enc)
+    } catch {
+      // malformed %-escape — fall back to the literal text
+    }
+    return { rest: raw.slice(0, at), focusRaw }
+  }
   const parseMapHash = (
     hash: string,
     base: "journey" | "atlas",
     registry: Record<string, unknown>,
     defaultSlug: string,
   ): { slug: string; eyeball: boolean } | null => {
-    const h = hash.toLowerCase().replace(/^#/, "")
+    const h = splitFocus(hash).rest.toLowerCase()
     if (base === "journey" && h === "humaneyeball") return { slug: defaultSlug, eyeball: true }
     if (h === base) return { slug: defaultSlug, eyeball: false }
     if (h === `${base}/edit` || h === `${base}-eyeball`) return { slug: defaultSlug, eyeball: true }
@@ -92,7 +122,23 @@ function App() {
   }
   const parseJourneyHash = (hash: string) =>
     parseMapHash(hash, "journey", JOURNEYS, DEFAULT_JOURNEY_SLUG)
-  const parseAtlasHash = (hash: string) => parseMapHash(hash, "atlas", PLATES, DEFAULT_PLATE_SLUG)
+  // Atlas routes additionally resolve the "@term" focus segment against the
+  // actual pin data: the route slug gets first refusal, then PLATE_PRIORITY,
+  // so `#atlas/@Ithaca` lands on whichever plate really owns Ithaca. The
+  // pin's CANONICAL term is what goes into the route (AtlasMap matches pins
+  // by exact term), and an unresolvable term just drops the focus rather than
+  // failing the whole route.
+  const parseAtlasHash = (
+    hash: string,
+  ): { slug: string; eyeball: boolean; focusTerm?: string } | null => {
+    const route = parseMapHash(hash, "atlas", PLATES, DEFAULT_PLATE_SLUG)
+    if (!route) return null
+    const { focusRaw } = splitFocus(hash)
+    if (!focusRaw) return route
+    const hit = findPin(focusRaw, route.slug)
+    if (!hit) return route
+    return { slug: hit.slug, eyeball: route.eyeball, focusTerm: hit.place.term }
+  }
   const [journeyRoute, setJourneyRoute] = useState(
     () => (typeof window !== "undefined" ? parseJourneyHash(window.location.hash) : null),
   )
@@ -278,9 +324,12 @@ function App() {
             config={PLATES[atlasRoute.slug]}
             open
             editing={atlasRoute.eyeball}
+            focusTerm={atlasRoute.focusTerm}
             onClose={closeAtlas}
             onSelect={openTerm}
-            lookup={(t) => byTerm.get(t)}
+            // Map-only places' popups show just the name: the plate they're
+            // already looking at IS their only "artwork", at higher res.
+            hasArt={(t) => hasRealArt(byTerm.get(t))}
           />
         </Suspense>
       )}
@@ -296,13 +345,36 @@ function App() {
             {filtered.map((e) => {
               const arts = artsOf(e)
               const cover = arts[0]
+              // Places get an Atlas deep link when a plate actually pins them
+              // (every place but Ocean does). Map-only places open the map on
+              // click; places with real artwork keep gallery-first click and
+              // get the small "Map" button below. Non-places are unaffected.
+              const pin = e.tag === "place" ? findPin(e.term) : null
+              const deepLink = pin ? atlasHash(pin.slug, pin.place.term) : null
+              const cardOpensMap = !!deepLink && !hasRealArt(e)
+              const openGallery = () => {
+                setSelected(e)
+                setLbIndex(0)
+              }
+              const openCard = () => {
+                if (cardOpensMap && deepLink) window.location.hash = deepLink
+                else openGallery()
+              }
               return (
-                <button
+                // A div, not a button: the "Map" affordance below is itself a
+                // button, and a button nested inside a button is invalid HTML
+                // (browsers drop it out of the parent). role/tabIndex/keydown
+                // restore the keyboard + a11y behaviour the element lost.
+                <div
                   key={e.term}
-                  type="button"
-                  onClick={() => {
-                    setSelected(e)
-                    setLbIndex(0)
+                  role="button"
+                  tabIndex={0}
+                  onClick={openCard}
+                  onKeyDown={(ev) => {
+                    if (ev.key === "Enter" || ev.key === " ") {
+                      ev.preventDefault()
+                      openCard()
+                    }
                   }}
                   className="card card-border flex h-full w-full cursor-pointer flex-col overflow-hidden border-base-300 bg-base-200 text-left shadow-md transition-shadow duration-300 hover:shadow-xl"
                 >
@@ -327,9 +399,25 @@ function App() {
                       <h2 className="card-title font-heading text-3xl font-semibold leading-none">
                         {e.term}
                       </h2>
-                      <span className="badge badge-outline badge-sm whitespace-nowrap text-[0.7rem] uppercase tracking-wider text-primary">
-                        {e.tag}
-                      </span>
+                      <div className="flex shrink-0 items-center gap-1.5">
+                        {deepLink && !cardOpensMap && (
+                          <button
+                            type="button"
+                            className="btn btn-xs btn-ghost gap-1 px-1.5"
+                            title={`Show ${e.term} on the Atlas`}
+                            onClick={(ev) => {
+                              ev.stopPropagation()
+                              window.location.hash = deepLink
+                            }}
+                          >
+                            <MapIcon className="size-3.5" aria-hidden="true" />
+                            Map
+                          </button>
+                        )}
+                        <span className="badge badge-outline badge-sm whitespace-nowrap text-[0.7rem] uppercase tracking-wider text-primary">
+                          {e.tag}
+                        </span>
+                      </div>
                     </div>
                     <p className="text-sm italic text-primary">{e.pron}</p>
                     <p className="text-[0.95rem] leading-relaxed opacity-95">{e.def}</p>
@@ -339,7 +427,7 @@ function App() {
                       {e.zhDef}
                     </p>
                   </div>
-                </button>
+                </div>
               )
             })}
           </div>
