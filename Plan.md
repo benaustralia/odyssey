@@ -116,16 +116,75 @@ presentation/query layer over data that already exists, not new sourcing.
 
 ---
 
+## Phase 0d — Custom domain migration (tellmeohmuse.com / singohmuse.com)
+**Status: ✅ (2026-08-07)**
+
+The user owns `tellmeohmuse.com` and `singohmuse.com` (both registered + DNS-hosted at
+Cloudflare, same account as this project's R2 bucket). Wired up as: `tellmeohmuse.com` is the
+canonical/production domain (matches Wilson's own opening line — "Tell me about a complicated
+man" — vs. "Sing, O Muse" being Fagles/Fitzgerald's phrasing, a nice bonus); `singohmuse.com`,
+`www.tellmeohmuse.com`, and `www.singohmuse.com` are all **domain-level 308 (permanent) redirects
+straight to `tellmeohmuse.com`, each a direct single hop — none chain through another redirecting
+domain.** Path is preserved on every redirect (`/entry/circe` survives the hop) — verified live,
+not assumed.
+
+- **Credential handling:** a Cloudflare API token scoped to Zone → DNS → Edit + Zone → Zone →
+  Read, restricted to just these two zones, was created by the user and piped from clipboard
+  straight into a git-ignored `.env.cf-dns.local` (same convention as `.env.r2.local`) — the
+  token value itself never appeared in the chat/transcript. Getting the token scope right took a
+  few iterations: "Registrar" permissions (WHOIS/nameservers/transfer-lock) don't grant DNS
+  record access at all — that's a separate "DNS" permission group under the **Zone** resource
+  type, which Cloudflare's token UI only surfaces once the resource picker is set away from
+  "Entire Account" to a zone-based scope.
+- **Vercel side:** domain-level redirects (the `redirect`/`redirectStatusCode` fields on
+  `PATCH /v9/projects/{id}/domains/{domain}`) aren't exposed by the `vercel` CLI — no flag on
+  `vercel domains add` for it. Used the Vercel REST API directly instead, authenticated by
+  reading the token the CLI already had stored locally (`~/Library/Application
+  Support/com.vercel.cli/auth.json`) — same "reuse an already-authenticated CLI's token" pattern
+  as this user's `gh auth token` convention for the GitHub MCP server, not a new credential.
+  **A first pass used `vercel redirects add` (a *project-level* redirect rule) instead of the
+  proper domain-level redirect** — it happened to also return 301 and preserve the path
+  correctly when tested, but was the wrong mechanism (would have left dead/confusing config
+  once the real domain-level redirects were added) and was removed (`vercel redirects remove` +
+  `promote`) once the correct per-domain `redirect`/`redirectStatusCode` fields were set via the
+  API. **Lesson: an agent's claim that a CLI feature exists is worth independently verifying
+  before trusting the surrounding claims built on it** — in this case the command *did* exist
+  (verified via `--help`), but that shouldn't have been assumed either way without checking.
+- **DNS:** apex A records for both domains, plus A records for `www.tellmeohmuse.com` and
+  `www.singohmuse.com` (Vercel wants a plain A record to `76.76.21.21` even for the `www`
+  subdomains here, not a CNAME — confirmed via `vercel domains inspect` per-domain rather than
+  assumed), all created via the Cloudflare API, **DNS-only / not proxied** (Cloudflare's
+  proxying would interfere with Vercel's own TLS cert issuance and edge routing).
+- **Code:** `scripts/prerender.tsx` and `scripts/sitemap.ts`'s `SITE` constant, plus
+  `public/robots.txt`'s `Sitemap:` line, switched from the `odysseygloss.vercel.app` placeholder
+  to `https://tellmeohmuse.com` — canonical links, OG tags, and all 168 sitemap URLs now point at
+  the real domain.
+- **Verified live** (not just locally): all four hostnames resolve, TLS is provisioned on all of
+  them, `tellmeohmuse.com` serves the real bilingual content, and `curl -D -` against
+  `singohmuse.com`, `www.tellmeohmuse.com`, and `www.singohmuse.com` each show a single-hop `308`
+  straight to `https://tellmeohmuse.com/entry/circe` (path preserved) with no intermediate hop.
+- **Not done:** `odysseygloss.vercel.app` (the original Vercel-assigned domain) still serves the
+  site directly rather than also redirecting to `tellmeohmuse.com` — the `rel="canonical"` tag on
+  every page should be sufficient for Google to consolidate on the real domain regardless, and
+  it's unclear the platform-default `.vercel.app` alias can even be redirected the same way a
+  real custom domain can. Worth revisiting only if it turns out to matter in practice.
+
 ## Manual follow-ups (not code — no files to read, nothing to implement; tracked here so they don't get lost)
 - [ ] **Submit the sitemap to Baidu's Ziyuan webmaster tools** (百度搜索资源平台,
   ziyuan.baidu.com). Phase 0 made every page on the site crawlable by a non-JS crawler and
-  `public/sitemap.xml`/`https://odysseygloss.vercel.app/sitemap.xml` lists all 168 URLs, but
+  `public/sitemap.xml`/`https://tellmeohmuse.com/sitemap.xml` lists all 168 URLs, but
   Baidu still won't discover any of it without the site being registered/verified there and the
   sitemap submitted through that platform — this is the one remaining step between "code-side
   ready" and "actually indexed by Baidu." Needs the user's own Baidu account (site-ownership
   verification, typically a DNS TXT record or an uploaded HTML file) — not something to do from
   this repo alone. Given the ~8-week Chinese-audience window noted above, do this promptly once
   picked up.
+- [ ] **Set up a Domain property (not URL-prefix) for `tellmeohmuse.com` in Google Search
+  Console.** A Domain property covers all four hostnames/protocols at once (apex, `www`, http,
+  https) rather than being blind to whichever variant traffic actually lands on — matters here
+  specifically because three of the four hostnames are redirects. Needs DNS verification (a TXT
+  record at the apex) via the user's own Google account — same "manual, needs an account this
+  repo can't provide" shape as the Baidu item above.
 
 ---
 
