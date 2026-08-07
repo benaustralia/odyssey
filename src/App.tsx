@@ -13,35 +13,13 @@ import "yet-another-react-lightbox/styles.css"
 import "yet-another-react-lightbox/plugins/captions.css"
 import "yet-another-react-lightbox/plugins/counter.css"
 import "yet-another-react-lightbox/plugins/thumbnails.css"
-import glossaryData from "@/data/glossary.json"
-import artData from "@/data/art.json"
 import { JOURNEYS, DEFAULT_JOURNEY_SLUG, findStop } from "@/data/journeys"
 import { PLATES, DEFAULT_PLATE_SLUG, findPin, latinFor } from "@/data/plates"
 // Journey-vs-Atlas routing policy for a term, shared with the Atlas's own
 // header search so a place never routes two different ways.
 import { mapLinks, type MapRoute } from "@/data/mapRoutes"
-
-type Entry = {
-  term: string
-  pron: string
-  tag: string
-  def: string
-  zhName: string
-  zhPinyin: string
-  zhDef: string
-  art?: string[]
-}
-type Art = { file: string; artist: string; title: string; year: string; source: string; license?: string; cld?: string; note?: string }
-
-const entries = glossaryData as Entry[]
-const art = artData as Record<string, Art>
-
-// Images are delivered from Cloudflare R2 (bucket `odyssey-assets`).
-// Masters are already ImageMagick-recompressed to 1600px max / q82 at
-// upload time (see CLAUDE.md), so R2 just serves them as-is — no on-the-fly
-// resize/format transform like Cloudinary's f_auto,q_auto,w_ (R2 has none).
-const R2_ASSETS = "https://pub-b57180e24c9841f58854ecd1c164523a.r2.dev"
-const assetUrl = (a: Art) => `${R2_ASSETS}${a.file}`
+import { type Entry, entries, byTerm, assetUrl, artsOf, hasRealArt, categoryOf } from "@/lib/entries"
+import { slugify } from "@/lib/slug"
 
 const CATEGORIES = [
   { id: "all", label: "All" },
@@ -50,27 +28,6 @@ const CATEGORIES = [
   { id: "monsters", label: "Monsters" },
   { id: "world", label: "World" },
 ]
-
-function categoryOf(tag: string): string {
-  const t = tag.toLowerCase()
-  if (t.startsWith("god")) return "gods"
-  if (t === "monster") return "monsters"
-  if (["hero", "person", "people", "animal"].includes(t)) return "mortals"
-  return "world" // place, thing, idea, trick
-}
-
-function artsOf(e: Entry | null): Art[] {
-  if (!e?.art) return []
-  return e.art.map((k) => art[k]).filter(Boolean)
-}
-
-// 61 of the 84 places are illustrated ONLY by a shared full-plate antique map
-// (their art keys all end in "-map" — equivalent on current data to
-// file.startsWith("/art/map-")). For those the gallery is strictly worse than
-// the tiled plate itself, so the whole card deep-links into the Atlas instead.
-function hasRealArt(e: Entry | undefined): boolean {
-  return (e?.art ?? []).some((k) => art[k] && !k.endsWith("-map"))
-}
 
 // A card's small map affordance. stopPropagation matters: the card itself is a
 // role="button" whose click opens the gallery, and this sits inside it.
@@ -203,7 +160,6 @@ function App() {
 
   // A journey-map pin → open that term's entry in the lightbox. The map stays
   // open underneath, so closing the lightbox returns to the map.
-  const byTerm = useMemo(() => new Map(entries.map((e) => [e.term, e])), [])
   const openTerm = (term: string) => {
     const e = byTerm.get(term)
     if (!e) return
@@ -464,9 +420,20 @@ function App() {
                       <h2 className="card-title font-heading text-3xl font-semibold leading-none">
                         {/* One nested span so the heading + bracket wrap as
                             normal text — card-title is a flex row, and two
-                            loose children would gap/align as flex items. */}
+                            loose children would gap/align as flex items. The
+                            term itself is a real permalink to /entry/<slug>
+                            (stopPropagation so it doesn't also fire the
+                            card's own gallery/map click) — this is what
+                            makes the crawlable link graph connect the home
+                            page to every entry page, not just the sitemap. */}
                         <span>
-                          {e.term}
+                          <a
+                            href={`/entry/${slugify(e.term)}`}
+                            onClick={(ev) => ev.stopPropagation()}
+                            className="text-inherit hover:underline"
+                          >
+                            {e.term}
+                          </a>
                           {latin && (
                             <span className="text-xl font-normal italic opacity-70"> ({latin})</span>
                           )}

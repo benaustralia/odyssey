@@ -1,422 +1,171 @@
-# Plan: Place search → map deep-links (approved 2026-08-07)
+# Plan: Crawlable per-entry pages + near-term content roadmap (approved 2026-08-07)
+
+> Supersedes the previous contents of this file (the place→map deep-link plan, approved
+> 2026-08-07, all phases applied). That plan's full history is preserved in git log and in
+> `CLAUDE.md`'s TODO 0 / "Done (context)" section — nothing is lost, this file just now tracks
+> the next initiative, per this repo's own convention of using `Plan.md` for whichever
+> multi-phase effort is active.
+
+## Why
+The site is entirely client-rendered: `index.html` ships an empty `<div id="root">` and all 167
+glossary entries arrive after JS runs. Confirmed by reading the actual shipped `index.html` and
+`src/App.tsx` — there is no per-entry routing at all (not even client-side; only the two map
+modals get hash routes), and `public/sitemap.xml` lists exactly one URL, the homepage. Google
+renders JS slowly/unreliably for a new zero-authority domain; Baidu (needed for the Chinese half
+of the audience) does not render JS at all. Net effect: 166 of 167 entries are functionally
+invisible to search, and 100% of them are invisible to Baidu specifically.
+
+Decision (user, 2026-08-07): fix this with the lighter option — keep Vite/React (no Next.js
+rewrite, which would put the maps' custom Leaflet/CRS.Simple/lazy-load architecture at needless
+risk) — add real per-entry URLs and prerender them to static HTML at build time.
+
+**Timing note:** the user flagged there's a surge of interest in the Odyssey right now, and
+specifically expects the Chinese-language audience's window of interest to run roughly **8 weeks**
+from 2026-08-07 (~through early October 2026). That argues for shipping Phase 0 (and any Baidu
+submission / indexing follow-through) promptly rather than treating this as background work —
+and it's part of why the two open-ended, multi-month items below are parked rather than
+scheduled: the user isn't sure they're worth it at all, particularly for an audience with a
+near-term window rather than a multi-year one.
 
 ## Resume protocol — read this first
-The user runs this plan **one phase per session**: they `/clear`, set the phase's suggested
-model/effort via `/model`, then prompt **"next phase"**. On that prompt:
-
 1. Read this whole file.
-2. Take the **first phase whose Status is ☐** (skip phases marked PARKED unless the user
-   explicitly opts in). If all non-parked phases are ✅, say so and stop.
-3. Re-read the files that phase lists, implement **only that phase**, run its Verify steps.
+2. Take the first phase whose Status is ☐ (skip PARKED phases unless explicitly opted into).
+3. Re-read the files that phase lists, implement only that phase, run its Verify steps.
 4. Flip its Status to ✅, tick task boxes, append a line to the Status log at the bottom.
-5. Commit (include this file so progress survives), push — `main` auto-deploys. If a push
-   doesn't trigger a deployment, run the `vercel-github-autodeploy` skill.
-
-Model/effort lines are **suggestions for the user to set before prompting** — if the session
-is already on a bigger model, just proceed.
-
-### Verifying a phase in the browser (learned the hard way in Phases A and B)
-Both apply to any phase touching the maps, so they live here rather than in one phase:
-- **Force a paint between navigations.** An occluded/backgrounded Chrome tab suspends the
-  render loop, so `FitWhenReady`'s ResizeObserver never fires, `bounds` stays null and nothing
-  focuses — indistinguishable from a broken feature. Take a screenshot after each navigation.
-- **Cache-bust the preview URL.** `vite preview` reads fresh files from `dist`, but the browser
-  will happily reuse the old hashed chunk across a same-URL reload, so a rebuilt fix looks like
-  it never applied. Navigate to `…/?v=2#atlas/…` (bump the number) after each rebuild.
-
-> This file previously held the Graecia pin-calibration plan (Atlas Phase 4). That work is
-> applied + live (`f0a608f`, 2026-08-07); its history lives in CLAUDE.md's IN-FLIGHT note and
-> the `atlas-phase-status` memory. Its follow-ups are all closed: rubri/aegyptus pin
-> work was Phase 0 below; the flagged-pin review was resolved 2026-08-07 (retired section below).
-
-## Standing reminder — RETIRED ✅ 2026-08-07 (nothing left to surface)
-- [x] **Flagged Graecia pins reviewed** — the user delegated the spot-check; it was re-run
-  offline with fresh marked-ring crops at native resolution (see `graecia-draft/flags.md`
-  "Review resolution" + `graecia-draft/verify/`): Chalcis/Crouni/Enipeus/Gyrae confirmed as
-  drafted; **Phylace moved** (4530,4225)→(5080,4560) — the printed "Phylace" is the Pierian
-  homonym and the plate has no Thessalian one, so Wilson's "city in Thessaly" def wins;
-  **Argos↔Mycenae exchanged** — the engraved diagonal "Mycenę." anchors the SW castle,
-  "Argos." the NE one, so both pins now sit on their own printed labels. `check:pins` clean.
-
-## Goal
-Searching a place on the front page currently ends at a gallery card whose only image is a
-generic full-plate antique map (true for **61 of 84 places**; detection rule: every art key
-ends in `-map` — verified equivalent to `art[k].file.startsWith("/art/map-")` on current
-data). Meanwhile the Atlas already has a calibrated pin for every place except Ocean
-(`npm run check:pins` enforces this). Fix: **place cards deep-link into the Atlas, opened
-zoomed on that place's pin** with the existing announce halo + popup; add map-side search.
-
-### Approved design decisions
-- **Card click rule:** map-only places (61) → whole-card click opens the Atlas deep link
-  (their gallery is strictly worse than the tiled plate). Places with real art (23: Troy,
-  Egypt, Ithaca…) keep gallery-first click and get a small secondary "Map" affordance.
-  Ocean (deliberately unpinned) keeps today's behavior.
-- **Hash route:** `#atlas/<slug>/@<encodeURIComponent(term)>` — shareable/bookmarkable,
-  consistent with "hash is the source of truth". `edit` stays reserved; legacy aliases parse.
-- **Plate priority** for term→pin resolution: graecia → aegyptus → natoliae → palestinae →
-  africae → rubri (rubri last: cramped inset + duplicate Greek pins until Phase 0).
-- **Popup "View artworks"** shows only for entries with non-map art; map-only entries' popup
-  shows just the name (the plate they're looking at IS the artwork, at higher res).
-- Mythic/wandering places (Aeaea, Ogygia, The Underworld…) resolve to rubri's Vlyssis inset
-  for now; routing them to the Journey map instead is PARKED Phase D.
+5. Commit (include this file so progress survives), push — `main` auto-deploys.
 
 ---
 
-## Phase 0 — pin prerequisites (make deep links land somewhere true)
-**Status: ✅ done 2026-08-07**
-**Model: Opus 5 · effort medium.** Vision task, but only 5 pins with large printed regional
-labels — far easier than Graecia's 69 tiny toponyms. Escalate to Fable 5 only if a label
-can't be found confidently. Method: the offline PIL workflow that calibrated Graecia
-(grid-crops of the local master at native resolution, place on Ortelius's own printed
-labels, then render each pin as a marked ring and visually verify — see the
-`graecia-pin-drafting-method` memory; do NOT browser-drag).
+## Phase 0 — Per-entry routes + static prerendering + bilingual sitemap
+**Status: ✅ (2026-08-07)**
 
-Tasks:
-- [x] `src/data/plates/aegyptus.ts`: **Egypt → (3030, 2270)**, on the "YP" of the plate's own
-  printed "AEGYPTVS INFERIOR" Delta label (beside the Menelaites nome — apt for Menelaus).
-  **Pharos → (1163, 3179)**, on the island town symbol labelled "Pharos colonia" inside the
-  "ALEXANDRINOR. NOMVS" inset box, with "Pharos turris" (the lighthouse) labelled just east.
-  The inset is the plate's own highest-fidelity depiction of the island — Ortelius drew it
-  because the main sheet couldn't hold the detail — so pinning inside it is deliberate.
-- [x] `src/data/plates/rubri.ts`: deleted the 69 terms also pinned on graecia (the full
-  graecia term set turned out to be a subset of rubri's) — **rubri 100 → 31 pins**. Kept:
-  Egypt/Libya/Ethiopia/Pharos, Cyprus, the Levantine pins (Phoenicia, Sidon, Mount Solyma),
-  the Vlyssis-inset mythical/voyage places, the Underworld cluster, Ortygia, and the four
-  noGloss regional pins. The Vlyssis inset is now legibly sparse.
-- [x] `src/data/plates/rubri.ts`: **Arabia → (3280, 3960)** on "ARABIA EVDAEMON, Sive FELIX";
-  **Persia → (5250, 3175)** on "PERSIA." inland of the Persian Gulf; **India → (7760, 4530)**
-  mid-peninsula on "Mambari regnum" — the one compromise, since this plate prints **no**
-  "India" anywhere (Ortelius labels the subcontinent with Ptolemaic regional names only:
-  SYNRASTRENA, ARIACA, DACHINABADES, LIMYRICA, MASALIA); the nearest cognate word is the
-  "Indus fluvius" river annotation at ~(7200, 3450), rejected as too far north/off-landmass.
-- [x] Regenerated `PLACES.md` from the plate files + `glossary.json`.
-- [x] Updated CLAUDE.md TODO item 1 (b)/(c) as done, plus its IN-FLIGHT note and the Atlas
-  section's pin-calibration status.
+Goal: every glossary entry gets a real, permanent, crawlable URL (`/entry/<slug>`) whose HTML —
+with zero JS execution — already contains the English **and** Chinese (Simplified) text, so both
+Google and Baidu can index it directly from the raw response.
 
-Verify: ✅ `npm run check:pins` clean (rubri 31 · graecia 69 · aegyptus 2 · natoliae 4 ·
-palestinae 2 · africae 3); ✅ marked-ring crops of all 5 moved pins eyeballed at native
-resolution — each sits on its printed label; ✅ `npm run build` + `vite preview` spot-open of
-`#atlas/aegyptus` (both pins on their labels, Pharos correctly inside the inset) and
-`#atlas/rubri` (Arabia/Persia/India on their labels; inset decluttered).
+Design (no new UI-routing dependency — `react-router-dom` isn't needed for a 2-shape site):
+- `src/lib/slug.ts` — `slugify(term)` (kebab-case; verified no collisions across all 167 terms).
+- `src/EntryContent.tsx` — **pure** presentational component, `(entry: Entry) => JSX`. No hooks,
+  no `window`/`document` access, so it can run identically in the browser and in a plain Node/tsx
+  script. Renders: term + Latin/Ortelius bracket (reuse `findPin`/`latinFor` for places), `pron`,
+  tag badge, EN `def`, ZH `zhName`/`zhDef` (wrapped in `lang="zh"`), cover art `<img>`, Map/Voyage
+  links (reuse `mapLinks` — these must be plain `<a href="/#...">` since the entry page lives at a
+  different path than the maps' hash routes), and a link back to `/`.
+- `src/EntryPage.tsx` — thin client wrapper: takes `slug` prop, looks up the entry, renders
+  `<EntryContent>`, handles the not-found case. Used only in the live SPA (client nav / direct
+  load), not by the prerender script.
+- `src/main.tsx` — dispatch on `window.location.pathname` at boot: `/entry/<slug>` → mount
+  `EntryPage`, everything else → mount the existing `App` unchanged. No router library, no
+  changes to `App.tsx`'s internals (maps, hash routing, calibration mode all untouched).
+- `src/App.tsx` grid cards — wrap the term heading in a real `<a href="/entry/<slug>">`
+  (`stopPropagation` so the card's existing click-to-gallery/click-to-map behavior is unaffected)
+  so the link graph actually connects home → each entry, not just the sitemap.
+- `scripts/prerender.tsx` (run via the already-present `tsx`, **no headless-browser dependency**
+  — `EntryContent` is pure, so this uses `react-dom/server`'s `renderToStaticMarkup` directly):
+  for every entry, render the body HTML, splice it into a copy of the built `dist/index.html`
+  (reusing its hashed `<script>`/`<link>` tags so client hydration/takeover still works), inject
+  a per-entry `<title>`, bilingual `<meta name="description">`, and OG tags, write to
+  `dist/entry/<slug>/index.html`.
+- `scripts/sitemap.tsx` — regenerate `public/sitemap.xml`/`dist/sitemap.xml` listing `/` plus all
+  167 `/entry/<slug>` URLs. (`robots.txt` already allows all and already points at the sitemap —
+  no change needed there.)
+- `package.json` — `"build": "tsc -b && vite build && tsx scripts/prerender.tsx && tsx scripts/sitemap.tsx"`.
+- Vercel: confirm no rewrite/config is needed (static files at matching paths should serve
+  directly under the zero-config Vite preset); add a `vercel.json` only if testing shows
+  otherwise.
 
-## Phase A — core deep-link wiring (the feature)
-**Status: ✅ done 2026-08-07**
-**Model: Opus 5 · effort medium** (delicate react-leaflet timing + several documented traps;
-Sonnet 5 · high is the budget alternative — the traps are all written down below).
+Verify:
+- `npm run build`, then `vite preview`.
+- `curl -s http://localhost:<port>/entry/<some-place-slug>` — confirm the EN def, the ZH def, and
+  a `<title>` reflecting that entry are present in the raw response with **no JS executed**
+  (i.e. don't just check in a browser — curl or `fetch` with JS disabled).
+- Spot-check a handful of entries in an actual browser: page loads, then the client bundle takes
+  over cleanly (no hydration-mismatch console errors), card grid / maps / lightbox still work.
+- `npm run check:pins` (unrelated but cheap — confirm this phase didn't touch plate data).
+- Regenerate and eyeball `public/sitemap.xml` — 168 URLs.
 
-Tasks:
-- [x] `src/data/plates/index.ts`: export `PLATE_PRIORITY` (order above) and
-  `findPin(term): { slug: string; place: AtlasPlace } | null` — exact-term match over each
-  plate's `places` in priority order.
-- [x] `src/App.tsx` — hash parsing: extend the atlas route to `#atlas/<slug>/@<term>`,
-  returning `focusTerm` alongside `{slug, eyeball}`.
-  **Trap:** `parseMapHash` lowercases the whole hash — split the `@` segment off the RAW
-  hash before lowercasing, `decodeURIComponent` it, and resolve it against pin terms
-  case-insensitively (store the pin's canonical term in the route).
-- [x] `src/App.tsx` — cards: for place entries (`tag === "place"`) with a `findPin` hit,
-  apply the approved click rule (map-only → whole-card deep link; art-rich → gallery click +
-  compact "Map" button, e.g. MapIcon `btn-xs` beside the tag badge).
-  **Trap:** each card is currently a `<button>` — a nested interactive control inside it is
-  invalid HTML. Restructure the card to a `<div role="button" tabIndex={0}>` with
-  onClick/onKeyDown (keep DaisyUI classes), or overlay the Map control as an
-  absolutely-positioned sibling, not a child button.
-- [x] `src/AtlasMap.tsx` — new optional `focusTerm` prop (App passes `atlasRoute.focusTerm`):
-  - Focus only **after** `FitWhenReady` has landed — gate the effect on the existing
-    `bounds` state, then `map.setView(unprojectPixel(map, x, y, config.maxZoom), Z)` with
-    `Z ≈ config.maxZoom - 2.5` (tune visually; edit-mode `PlaceFocuser` hardcodes 3).
-    Coordinate math via the live-map helper only (static `L.CRS.Simple` trap).
-  - Reuse the announce halo in view mode: `Pins` picks `pinIconFocused` only when
-    `editing && term === highlightTerm` — drop the `editing &&` gate; set `highlight` from
-    the focus effect (the 8s nonce timer already exists).
-  - Auto-open the focused pin's popup: ref the matching Marker, then
-    `map.once("moveend", () => ref.current?.openPopup())`.
-    **Trap (popup-death, fixed in 1464301):** never `setPins`/reorder in any view-mode
-    path — positional keys remount markers and Leaflet kills their popups.
-  - AtlasMap is keyed by slug in App, so same-plate focus changes do NOT remount — the
-    effect must depend on `focusTerm` and re-fire on repeat navigations.
-- [x] Popup "View artworks" gating: App passes a `hasRealArt(term)` predicate (entry has any
-  non-`-map` art key); popup shows the button only then.
-- [x] Ocean and non-place cards: behavior unchanged. `switchPlate` keeps emitting focus-less
-  hashes (unchanged).
+---
 
-Verify: `npm run check:pins`; **`npm run build` + `vite preview`** (dev≠prod traps; ports
-5173/5174 are usually taken — read Vite's log for the real port). In the prod build:
-cold-load `#atlas/graecia/@Ithaca` → fit, glide, halo, popup opens; Chios card (map-only) →
-map; Troy card → gallery, its Map button → map; popup survives >1s and "View artworks" works
-(popup-death regression); Ocean card → gallery; close map → hash cleared; responsive-mode
-mobile spot check (full-screen modal, popup tappable).
+## Phase 1 — Pronunciation audio (ElevenLabs)
+**Status: ☐ (near-term, not yet scoped in detail)**
 
-### Phase A — as built (deltas from the plan)
-- Focus zoom landed at **`maxZoom - 1.5`**, not the sketched `-2.5`: at `-2.5` the plate is
-  still too wide to read Ortelius's engraved toponym under the pin (verified side by side on
-  `@Ithaca`). `-1.5` shows the label plus enough coastline to orient.
-- `findPin(term, preferSlug?)` matches exact-then-case-insensitive and lets an explicit route
-  slug outrank `PLATE_PRIORITY`, so `#atlas/rubri/@Ithaca` stays on rubri.
-- The halo now also shows in view mode; swapping a marker's *icon* is safe for an open popup
-  (the popup is its own map layer) — only unmounting the marker kills it.
-- **New guard:** `DeepLinkFocus`'s cleanup closes the popup it opened. A popup left open across
-  a plate switch (AtlasMap remounts on `key={slug}`) is torn down mid-flight and Leaflet's
-  `DivOverlay.update()` then runs `_adjustPan` against a removed map — a hard
-  `Cannot read properties of null (reading 'layerPointToContainerPoint')` that blanks the app.
-  Hit it live during verification; rare before this feature, routine now that every deep link
-  opens a popup.
-- **Testing gotcha (cost most of the debugging time):** an occluded/backgrounded Chrome tab
-  suspends the render loop, so `FitWhenReady`'s **ResizeObserver never fires**, `bounds` stays
-  null and the focus effect never runs — the map just sits at "fit all" with no tiles. It looks
-  exactly like a broken feature. Force a paint (take a screenshot) between navigations when
-  driving these maps from an automation tool.
+Every entry already has a text `pron` field (e.g. shown under the term on each card) — this adds
+spoken audio on top, not a new pronunciation system.
+- Reuse the ElevenLabs API key already set up in the sibling project `~/Documents/NAPLANSpelling`
+  — **first step of this phase is locating exactly where that project stores it** (its own
+  `.env`/`.env.local`) and confirming it's still valid before reusing it here.
+- Voice: **standard British voice**, explicitly NOT the young-Australian voice used in
+  `NAPLANSpelling`'s script — pick a specific ElevenLabs voice ID and record the choice here once
+  decided (needs a short voice-sampling pass against the ElevenLabs API/voice library).
+- Scope TBD when this phase starts: audio per glossary `term` only, or per `term` + one example
+  usage; where files land (R2, same as art — `audio/<slug>.mp3`); a small play-button UI on the
+  card and/or entry page.
 
-## Phase B — search inside the Atlas
-**Status: ✅ done 2026-08-07**
-**Model: Sonnet 5 · effort medium** (contained UI feature; the pattern exists in the edit
-footer).
+---
 
-Tasks:
-- [x] View-mode search in the Atlas modal header (edit mode keeps its footer search):
-  expandable icon-button (`PlateSearch` in `AtlasMap.tsx`) — collapsed to a magnifier by
-  default; while open below `sm` the title + plate select step aside so the input owns the
-  row. Not rendered at all in edit mode.
-- [x] Matches across ALL plates: `ALL_PINS` + `searchPins()` in `src/data/plates/index.ts`
-  (flattened in `PLATE_PRIORITY` order), substring match on term/label, ≤8 results with the
-  plate title as a second line; prefix matches first, `noGloss` pins ranked last.
-  Deduped by term — a place pinned on two plates offers one destination, picked the way
-  `findPin` does (the currently-open plate wins, else `PLATE_PRIORITY`).
-- [x] Selecting a result (click, or ↑/↓ + Enter; Escape/blur closes) sets the hash to the
-  deep link — same-plate re-fires the `focusTerm` effect, cross-plate remounts via
-  `key={slug}`. `atlasHash()` moved from `App.tsx` into the plate registry so the card links
-  and the map's own search emit the identical route.
+## Phase 2 — Iconographic index
+**Status: ☐ (near-term, not yet scoped in detail)**
 
-Verify: ✅ production build + `vite preview`. From `#atlas/rubri`: "th" → 8 ranked results
-across plates; "thaca" + Enter → `#atlas/@Ithaca`, plate switches to Graecia, glide + halo +
-popup; same-plate "pylos" → re-focuses, old popup closed, no crash; `#atlas/edit` shows no
-header search and keeps its footer filter; no console errors; narrow (500px) header not
-crowded.
+"Every depiction of [episode], dated and sourced" — the site's existing art curation is most of
+the way there already: `art.json` (492 deduped, licensed images with artist/title/year/source)
+and each entry's `art[]` array already link art to subject. This phase is mostly a
+presentation/query layer over data that already exists, not new sourcing.
+- Open design question for when this phase starts: is "episode" a new concept in the data model
+  (e.g. group entries like Sirens/Circe/Cyclops under a shared episode key), or does this reuse
+  existing `tag`/entry groupings as-is? Needs a short design pass before implementation.
 
-### Phase B — as built (deltas from the plan)
-- Result rows are **not** DaisyUI `menu` items: `.menu li > *` lays children out with
-  `grid-flow-col`, which drew the place name and plate name overlapping on one line. Plain
-  utility-styled buttons inside a bare `<ul>` instead.
-- The dropdown needs an explicit `z-[1000]`: it overlays the map wrapper, which is a *later*
-  positioned sibling and would otherwise paint on top of it.
-- Preview-cache gotcha while verifying: `vite preview` serves fresh files, but the browser
-  kept the old hashed chunk across a same-URL reload — a fix looked like it hadn't applied.
-  Add a `?v=N` query param to force a real re-fetch.
+---
 
-## Phase C — per-place cover crops (optional polish)
-**Status: ✅ done 2026-08-07**
-**Model: Sonnet 5 · effort medium** (mechanical bake behind a mandatory visual QA gate;
-escalate to Opus 5 only if framing judgment gets hairy).
+## Parked / low-conviction (not scheduled — user is not sure these are worth doing at all)
+- **Cross-translation line alignment** — mapping book/line numbers across Wilson, Fagles,
+  Fitzgerald, Lattimore, Butler. Copyright-clean (line numbers only) but a real data-acquisition
+  project on its own. Noted for later consideration only.
+- **Full 24-book coverage** — reframes the site from a 167-entry glossary into a running
+  commentary on the whole poem. Multi-month scope. Noted for later consideration only.
 
-Replace the "same generic plate on 62 cards" look: each place's `<slug>-map` art record gets
-its own crop of the plate it deep-links to, so the card cover shows *its region* and matches
-where the link lands.
-
-**Notes after Phases A/B (read before starting):**
-- The user-facing problem this phase attacks is now *cosmetic only* — a map-only place card
-  already opens the plate zoomed on its pin, and the Atlas has its own cross-plate search, so
-  nothing dead-ends. Treat C as polish and feel free to defer it; nothing else depends on it.
-- Crop from the plate `findPin(term)` resolves to (with no `preferSlug`), i.e. exactly the
-  plate the card's deep link opens — not whichever map the current `art.json` credit names.
-  That is what makes the cover and the destination agree, which is the whole point.
-- Consequence for the credit rewrite: the plate title in the new credit should match the one
-  the Atlas shows for that slug (`PLATES[slug].title`, also what the search dropdown prints),
-  so a card, its lightbox caption and the map header all name the same plate.
-- Crop framing should centre `(x, y)` — the pin coords are the same numbers `DeepLinkFocus`
-  centres on, so the cover reads as a thumbnail of the view the click leads to.
-
-### Picking this up (state as of 2026-08-07, mid-phase)
-A session started Phase C and was cleared before running anything. **Nothing was executed,
-uploaded or committed** — `art.json` and `public/art/` are untouched; the only artefact is an
-untracked `scripts/bake_place_crops.py`. What's already settled:
-
-- **The script is written** (task 1 below is drafted, not verified). It resolves each place's
-  destination plate through the *real* registry — shells `npx tsx -e` to import `findPin`
-  from `src/data/plates/index.ts` rather than re-parsing the plate `.ts` files, so the
-  priority/case-fallback logic stays in one place — then crops with **`vips`**, not PIL: the
-  masters run to 143MP/220MB and PIL would decode the whole plate just to take one bite.
-  Flags: `--dry-run` (print the plan), `--montage` (contact sheet for the QA gate).
-- **Crop geometry decided:** a **2400×1800 native window centred on the pin**, clamped at
-  plate edges, downsampled to **1600×1200**. 4:3 because the card figure is `aspect-[4/3]`;
-  ~1.5× wider than the Atlas's own deep-link view (`maxZoom - 1.5`) because a cover cropped as
-  tight as the destination reads as a blur of engraving rather than a place.
-- **Manifest verified:** **67** places to crop — graecia 56 · rubri 7 · aegyptus 2 · africae 2.
-  Ocean is the only place correctly excluded (unpinned, keeps `map-world`).
-- **Credit rewrite is coded:** artist `"Abraham Ortelius"`, title `PLATES[slug].title` verbatim,
-  year parsed out of `PLATES[slug].attribution`'s `(YYYY)`, `source` from a `PLATE_SOURCE`
-  table of Commons URLs built from each plate file's header comment. It also drops the dead
-  `cld` field on these records (the crop is a brand-new asset, so the leftover Cloudinary id
-  can't mean anything). **Unverified:** those Commons URLs were reconstructed from the header
-  comments and **rubri's was guessed** — check each resolves before trusting the credits.
-- **Known thing to judge at the montage gate:** rubri's five Underworld pins (Acheron, Cocytus,
-  Erebus, Pyriphlegethon, Styx) plus The Underworld sit within ~400px of each other, so at a
-  2400px window their six crops come out near-identical. Not an invariant breach (`*-map` keys
-  are excluded from both dedup sweeps by design), but decide deliberately: accept, or tighten
-  the window for that cluster.
-
-Remaining work is tasks 2–5 below, plus actually running task 1.
-
-Tasks:
-- [x] Script (`scripts/bake_place_crops.py`): for every place with a `-map` art record AND a
-  pin — crop `plates/<findPin slug>/master.jpg` around `(x,y)` (~1600×1200 at native res,
-  clamped at plate edges), recompress per house rule (max 1600px, q82, strip), write
-  `public/art/<key>.jpg` (key = the existing `<slug>-map` key).
-- [x] ImageMagick contact-sheet montage of all crops; **eyeballed before uploading** — caught
-  two real content bugs, not just framing (see "as built" below).
-- [x] Uploaded via boto3 against the **S3-compatible endpoint** (creds `.env.r2.local`), all
-  67 objects, 0 failures.
-- [x] Updated each record in `art.json`: `file: "/art/<key>.jpg"`, credits → the Ortelius
-  plate actually cropped (artist "Abraham Ortelius", plate title, year, plate's Commons
-  `source`). Switched 67 places off the non-Atlas maps onto their Ortelius plate. Ocean
-  (unpinned) keeps `map-world` untouched.
-- [x] `*-map` exclusion in dedup/perceptual checks needed no code change (keys kept the
-  suffix).
-
-Verify: ✅ montage approved after two fixes; ✅ spot-checked Ethiopia + Libya cards and their
-Atlas deep-links live on `vite preview` (cover crop matches the popup location, credit/source
-URLs all resolve 200); ✅ `npm run check:pins` clean throughout.
-
-### Phase C — as built (deltas from the plan)
-- **The montage QA gate caught a real pre-existing bug, not just framing outliers.** Ethiopia
-  and Libya (`africae.ts`) were still on their never-calibrated seed grid — both parked at
-  the same spot in the blank "Oceanus Atlanticus" corner (the file's own header comment
-  flagged this: "SEED GRID... NOT at their real location yet"). Their bake crops rendered as
-  the plate's decorative title cartouche, not any African geography — a correctness bug the
-  crop script couldn't have caught on its own, since it only reads whatever `(x,y)` the pin
-  data gives it. Fixed with the same offline PIL/vips grid-crop + marked-ring method as
-  Plan.md Phase 0: **Africa** (noGloss) → `(3980, 6480)` on the plate's own "AFRI" of
-  "AFRICAE TABULA NOVA"; **Libya** → `(5650, 2450)` on "Lybiae Deserta" (matches the
-  glossary's "northern coast of Africa"); **Ethiopia** → `(7700, 4350)` on "totius Africae" in
-  the plate's Prester John legend — the plate prints no literal "AETHIOPIA" anywhere (checked
-  Nubia, the Horn-of-Africa interior, and the Mozambique/Zanzibar coast; the one
-  "Aethiopicus"-rooted label on the plate is the "Oceanus Aethiopicus" ocean name, which sits
-  over blank water off Brazil — wrong hemisphere), so Prester John's realm — historically
-  identified with Abyssinia/Ethiopia by Renaissance cartographers — is the closest thing to a
-  printed Ethiopia here, the same kind of compromise as rubri's India pin landing on "Mambari
-  regnum". `africae.ts`'s header comment rewritten with the calibration rationale;
-  `check:pins` stayed clean throughout (bounds/structure were always valid — this was a
-  placement-accuracy bug the checker doesn't cover).
-- **Montage font gotcha:** ImageMagick's `-label "%f"` step failed with "unable to read font"
-  on this machine's default config — unrelated to the crop logic. Fixed by passing
-  `-font /System/Library/Fonts/Supplemental/Verdana.ttf` explicitly when building the
-  contact sheet by hand (the script's own `--montage` flag doesn't set a font, so it hits the
-  same error — a follow-up if this script gets reused).
-- **Verified rubri's Commons source before trusting it** (the plan flagged it as guessed): the
-  placeholder URL 404'd. Found the real file by matching pixel dimensions (13238×10802,
-  exactly what `rubri.ts`'s header comment records) against Commons search candidates:
-  `File:Abraham Ortelius, Erythraei sive Rubri Maris Periplus (FL32963697 2720706).jpg`.
-  Confirmed 200 and updated `PLATE_SOURCE["rubri"]` before running the bake for real.
-- Uploaded only the 67 changed `public/art/*.jpg` files directly via a short boto3 call
-  rather than `scripts/upload_to_r2.py`, which walks the entire bucket (~11,650 tile objects
-  + all art masters) — correct for a from-scratch sync, wasteful for 67 files.
-
-## Phase D — Journey-map routing for mythic places
-**Status: ✅ done 2026-08-07** (was parked; the user opted in).
-**Model: Opus 5 · effort high** (JourneyMap's tour/camera code is the trickiest in the repo).
-
-Tasks:
-- [x] Alias table `src/data/journeys/aliases.ts` (`JOURNEY_ALIASES[slug]`): Aeaea→Circe,
-  Aeolia→Aeolus, Ismarus→Cicones, Land of the Cyclopes→"Cyclops (pl. Cyclopes)", Land of
-  the Lotus-Eaters→Lotus-Eaters, Telepylus→Laestrygonians, The Underworld→Hades. Ogygia/
-  Scheria/Thrinacia/Ithaca/Troy are stop terms already and need no entry.
-- [x] `findStop(term, preferSlug?)` + `journeyHash()` + `JOURNEY_PRIORITY` in
-  `src/data/journeys/index.ts` — findPin's twin, same exact→alias→case-insensitive order.
-- [x] `#journey/<slug>/@<term>` parsing in `App.tsx` (reuses the existing `splitFocus`),
-  `focusTerm` prop on `JourneyMap` driving the legend's own `focus` state + a `FocusPopup`
-  that opens the stop's popup on arrival.
-- [x] One shared routing policy, `src/data/mapRoutes.ts` (`mapRoute` / `mapLinks`): the
-  Journey map wins whenever a term has a stop AND its best Atlas pin is on rubri; both the
-  place cards and the Atlas's header search resolve through it, so nothing splits.
-- [x] Cards: whole-card click goes to the term's primary map; a "Voyage" button appears
-  whenever the voyage is an *additional* destination (Troy and Ithaca carry both Map and
-  Voyage), and character stops (Circe, Scylla, the Sirens…) get one too.
-- [x] CLAUDE.md TODO 3(a): the hero now carries a clickable crop of the voyage map
-  (`public/journey-map.jpg`) opening `#journey`, and the "Show on map" links above.
-- [x] `scripts/check-pins.ts` validates the alias table (real journey, real glossary term,
-  real stop, no redundant self-alias).
-
-Verify: ✅ `npm run check:pins`; ✅ production build + `vite preview` — cold
-`#journey/@Circe` lands on Ortelius's own "Aeaea insula, quae Circes domicilium" with halo
-+ popup; The Underworld card → `#journey/@Hades`; Troy's Voyage button → stop 1 without
-opening the gallery; Atlas search on rubri for "ae" labels Aeaea/Aeolia "The Journey of
-Odysseus" and jumps there cleanly (no popup-teardown crash); `#atlas/@Ithaca` unregressed;
-tour still runs; close clears the hash; no console errors; no card-header overflow at 400px.
-
-### Phase D — as built (deltas from the plan)
-- **The journey-preference rule is context-free and data-driven**, not a hand-listed set of
-  ~16 places: prefer the voyage when `findStop` hits AND the context-free `findPin` says the
-  term's owning plate is rubri. rubri's Greek content IS the Vlyssis inset that the Journey
-  map shows full size, so that condition means "the Atlas can only offer a worse copy of the
-  same engraving". It resolves to 9 places (Aeaea, Aeolia, Land of the Cyclopes, Land of the
-  Lotus-Eaters, Ogygia, Scheria, Telepylus, The Underworld, Thrinacia); Ismarus, Troy and
-  Ithaca stay on Graecia and gain a Voyage button instead.
-- **Only 2 of those places actually change their whole-card click** (The Underworld, and
-  Ismarus's Atlas destination): after Phase C most mythic places turned out to have real
-  artwork, so they keep gallery-first click and simply gained the Voyage button.
-- The alias table lives in its own file rather than on `JourneyConfig` so `check-pins` can
-  import it — the journey config files import `.svg` assets, which tsx cannot load (the same
-  constraint that already forces that script to regex their stop terms).
-- **A real pre-existing bug surfaced and is fixed** — see the LockMinZoom note below. It also
-  restores the map's documented "open on the journey's first stop" behaviour, which had been
-  silently undone on every open.
-
-### The bug this phase flushed out (worth reading before touching either map)
-The deep link flew to its stop and then snapped back to "fit all" — with no second `setView`,
-no remount and no error. Cause: `LockMinZoom` called `map.setMinZoom(z)` **before** the
-opening `setView`. Leaflet's `setMinZoom` fires its own **animated** `setZoom` when the map is
-currently below the new floor, and the `animate: false` `setView` that follows does *not*
-clear that animation's pending `transitionend`; the stale handler lands late and runs
-`_move(_animateToCenter, _animateToZoom)` — bounds centre at min zoom — clobbering whatever
-the camera did in between. Fix: set the view first, raise minZoom second, so there is no
-animation to strand. Debugging note: `map.getZoom()` reported the *old* zoom while the pane
-was visibly scaled, and background-tab throttling stretched a 0.9s flyTo to ~6s — measure the
-`.leaflet-image-layer` width (`4000 × 2^zoom`) rather than trusting either the API or a
-screenshot, and force a paint between steps.
+Both are explicitly *not* commitments — the user's stated reasoning (2026-08-07) is they aren't
+sure these matter, especially for the Chinese-language audience, whose interest they expect to be
+a ~8-week window rather than a long-term audience multi-month investments would be built for.
+Don't treat either as "next up" without the user re-raising it.
 
 ---
 
 ## Status log
-- 2026-08-07 — Plan approved (proposal + design decisions locked in conversation). Nothing
-  implemented yet. Next: Phase 0.
-- 2026-08-07 — **Phase A done.** `PLATE_PRIORITY` + `findPin` in the plate registry;
-  `#atlas/<slug>/@<term>` parsing (focus segment split off the raw hash before lowercasing,
-  resolved to a canonical pin term); cards restructured to `div role="button"` so art-rich
-  places can carry a nested "Map" button while the 61 map-only places deep-link on whole-card
-  click; `AtlasMap` gained `focusTerm` (glide + halo + auto-opened popup) and `hasArt` popup
-  gating. Verified in a production build. Next: Phase B.
-- 2026-08-07 — **Phase B done.** In-Atlas place search: `ALL_PINS`/`searchPins()` in the plate
-  registry (all plates, deduped by term, prefix-first, `noGloss` last, ≤8), an expandable
-  `PlateSearch` in the modal header (view mode only), selection navigating by hash so
-  same-plate re-focuses and cross-plate remounts. Verified in a production build. Next: Phase C
-  (per-place cover crops) — optional polish; Phase D stays parked.
-- 2026-08-07 — **Phase 0 done.** aegyptus's 2 pins and rubri's Arabia/Persia/India calibrated
-  offline (PIL grid-crops + marked-ring verification); rubri pruned 100 → 31 pins; PLACES.md
-  regenerated; CLAUDE.md TODO 1 (b)/(c) closed. Every Atlas pin is now off its seed grid — the
-  only pin work left is the user's spot-check of the flagged Graecia pins (standing reminder
-  above). Next: Phase A.
-- 2026-08-07 — **Phase C started, then interrupted** (session cleared mid-task). Crop geometry,
-  plate resolution and the credit rewrite are decided and coded into an untracked
-  `scripts/bake_place_crops.py`; the manifest was validated (67 crops, Ocean excluded). Nothing
-  ran — no images, no `art.json` edit, no upload, no commit. See "Picking this up" under Phase C.
-  Next: finish Phase C (run the script, montage QA gate, upload, verify).
-- 2026-08-07 — **Standing reminder retired.** The flagged-pin review ran in-session (offline
-  marked-ring crops, not live-drag): the four interpretive pins confirmed, Phylace →
-  (5080,4560) Thessaly, Argos↔Mycenae swapped onto their own engraved labels ("Mycenę."
-  diagonal = SW castle, "Argos." = NE castle). `graecia.ts` updated, `check:pins` clean,
-  resolution recorded in `graecia-draft/flags.md`. Phase C remains the next open phase.
-- 2026-08-07 — **Phase C done.** Ran the previously-drafted `bake_place_crops.py`: 67 place
-  covers cropped from their destination Ortelius plate, uploaded to R2, `art.json` credits
-  rewritten. The montage QA gate caught a real bug along the way — `africae.ts`'s Ethiopia
-  and Libya pins were still an uncalibrated seed grid parked in blank ocean, so their bake
-  crops showed the plate's title cartouche instead of Africa; recalibrated both (plus the
-  noGloss Africa pin) with the Phase-0 offline grid-crop method before re-baking. Also fixed
-  rubri's guessed-and-wrong Commons source URL (found the real file by matching pixel
-  dimensions). All 67 crops spot-checked in the montage; Ethiopia/Libya re-verified live via
-  `vite preview` (card cover + Atlas deep-link both correct). `check:pins` clean throughout.
-  Only Phase D (parked) is left, and it stays opt-in only.
-- 2026-08-07 — **Phase D done** (the user opted into the parked phase). Place→stop alias
-  table, `findStop`/`journeyHash`, `#journey/<slug>/@<term>` routing, a `focusTerm` prop on
-  JourneyMap, one shared `mapRoutes` policy behind both the cards and the Atlas search, a
-  "Voyage" affordance on every card the voyage visits, and a clickable voyage-map crop in the
-  hero (closing CLAUDE.md TODO 3a). Fixed a pre-existing `setMinZoom`-before-`setView` bug
-  that had been silently undoing the journey map's opening view. **Every phase of this plan
-  is now applied; nothing here is outstanding.**
+- 2026-08-07 — Plan created. User confirmed: proceed with Phase 0 now; Phase 1 (pronunciation
+  audio) and Phase 2 (iconographic index) are next up after; cross-translation alignment and
+  full-book coverage are explicitly parked/future-only.
+- 2026-08-07 — **Phase 0 done.** No new npm dependencies — `EntryContent` is a pure component,
+  so `scripts/prerender.tsx` renders it via `react-dom/server`'s `renderToStaticMarkup`, loaded
+  through Vite's own SSR module graph (`vite.ssrLoadModule`) rather than a plain tsx/Node import,
+  because its import chain (via `mapRoutes` → `data/journeys`) reaches `.svg` asset imports that
+  plain Node can't load — Vite's dev pipeline resolves those the same way the client build does.
+  Extracted `src/lib/entries.ts` (single source of truth for `entries`/`art`/`byTerm`/`bySlug`/
+  `assetUrl`/`artsOf`/`hasRealArt`/`categoryOf`, previously duplicated only in `App.tsx`) and
+  `src/lib/slug.ts` (`slugify`, verified zero collisions across all 167 terms) so the SPA, the
+  prerender script, and the sitemap script all resolve a term the same way. `main.tsx` dispatches
+  on `window.location.pathname` at boot (`/entry/<slug>` → `EntryPage`, else → the existing `App`
+  unchanged) — no router library added, since a 2-shape site doesn't need one. Grid card term
+  headings are now real `<a href="/entry/<slug>">` links (stopPropagation'd so the card's
+  existing gallery/map click is unaffected), connecting the crawlable link graph from home to
+  every entry, not just the sitemap. `scripts/sitemap.ts` writes all 168 URLs to both
+  `public/sitemap.xml` and `dist/sitemap.xml` (the latter needed because `vite build` copies
+  `public/` into `dist/` *before* this script runs).
+  **Real bug caught during verification:** `vite preview`'s static server (sirv) falls back to
+  serving the SPA shell for `/entry/<slug>` with no trailing slash — the client-side JS then
+  masks it by rendering the right content anyway, so it LOOKS fine in a browser but a
+  non-JS crawler hitting that exact URL form would see an empty shell. Added `vercel.json` with
+  an explicit rewrite (`/entry/:slug` → `/entry/:slug/index.html`) so the actual deployed URLs
+  (used by both our internal links and the sitemap, all written without a trailing slash) serve
+  the real static file. **Not verifiable pre-deploy** — `vercel.json` rewrites aren't understood
+  by `vite preview`, so this specific behavior should be spot-checked once live (e.g.
+  `curl -s https://odysseygloss.vercel.app/entry/circe | grep '<title>'` after deploy).
+  Verified via `curl` (raw HTML has full bilingual content + correct title/meta/OG with zero JS)
+  and in a real browser (console clean, existing card-click-to-gallery and card-click-to-map
+  behavior unchanged, new term-link navigates correctly). `check:pins` clean; the 3 pre-existing
+  `eslint` errors in `AtlasMap.tsx`/`JourneyMap.tsx` predate this work (confirmed via `git
+  stash`) and are untouched by it.
+  **Follow-up, not yet done:** submitting the sitemap to Baidu's own webmaster tools (Baidu
+  Ziyuan) is a manual step outside this repo — code-side discoverability is done, but Baidu
+  won't find it without that registration. Home page (`/`) itself is still client-rendered (only
+  entry pages are prerendered) — acceptable scope cut since Google renders the primary landing
+  page reasonably well; revisit only if that proves not to be true in practice.
