@@ -12,14 +12,21 @@ import type { AtlasPlace, PlateConfig } from "./types"
 // Alexandria in its own inset box top-left). No watermark; one faint
 // horizontal fold-crease mid-page from the source book scan, not a defect.
 //
-// SEED GRID — the 2 places below are parked in open sea ("AEGYPTIVM MARE",
-// top-left of the frame), NOT at their real location yet. Calibrate at
-// #atlas/aegyptus/edit, then paste the JSON back over this array. Egypt
-// and Pharos also have a home on rubri (the Red Sea plate) — this plate is
-// their higher-fidelity second home, per the plan's redistribution notes.
+// CALIBRATED 2026-08-07 (offline PIL grid-crops of the master at native
+// resolution, verified with marked-ring crops — same method as Graecia):
+// - Egypt sits on the "YP" of the plate's own printed "AEGYPTVS INFERIOR"
+//   regional label across the Delta, beside the Menelaites nome (apt).
+// - Pharos sits on the island town symbol labelled "Pharos colonia" inside
+//   the "ALEXANDRINOR. NOMVS" inset box (left of centre) — Ortelius drew
+//   that inset precisely because the main plate couldn't hold the detail
+//   ("Huius Nomi loca omnia, quia ipsa tabula capere non poterat"), so the
+//   inset IS this plate's highest-fidelity depiction of the island; the
+//   "Pharos turris" lighthouse is labelled just east of the pin.
+// Egypt and Pharos also have a home on rubri (the Red Sea plate) — this
+// plate is their higher-fidelity second home.
 const places: AtlasPlace[] = [
-  { term: "Egypt", x: 1400, y: 1550 },
-  { term: "Pharos", x: 1850, y: 1550 },
+  { term: "Egypt", x: 3030, y: 2270 },
+  { term: "Pharos", x: 1163, y: 3179 },
 ]
 
 export const aegyptusPlate: PlateConfig = {
