@@ -1,4 +1,5 @@
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { Crosshair } from "lucide-react"
 import L from "leaflet"
 import { MapContainer, ImageOverlay, Marker, Tooltip, Popup, Polyline, useMap, useMapEvents } from "react-leaflet"
 import "leaflet/dist/leaflet.css"
@@ -941,12 +942,14 @@ export default function JourneyMap({
                     <button
                       type="button"
                       onClick={() => setFocus((f) => (f === i ? -1 : i))}
+                      title={editing ? `Center and zoom on ${s.label}` : undefined}
                       className={`flex w-full items-baseline gap-1.5 rounded px-1 py-[3px] text-left hover:bg-base-200 ${
                         focus === i ? "bg-base-200" : ""
                       }`}
                     >
                       <span className="font-bold text-primary">{s.n}.</span>
-                      <span>{s.label}</span>
+                      <span className="flex-1">{s.label}</span>
+                      {editing && <Crosshair className="size-3.5 shrink-0 text-primary" />}
                     </button>
                   </li>
                 ))}
