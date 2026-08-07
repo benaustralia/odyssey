@@ -334,14 +334,6 @@ function App() {
 
           <button
             type="button"
-            onClick={() => openMap()}
-            className="btn btn-sm btn-primary btn-outline gap-2 lg:btn-md"
-          >
-            <MapIcon className="size-4" aria-hidden="true" />
-            The Journey
-          </button>
-          <button
-            type="button"
             onClick={openAtlas}
             className="btn btn-sm btn-outline gap-2 lg:btn-md"
           >
