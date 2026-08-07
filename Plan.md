@@ -176,6 +176,82 @@ spoken audio on top, not a new pronunciation system.
 
 ---
 
+## Phase 1b — Pronunciation accuracy pass (IPA-sourced overrides)
+**Status: ☐ (scoped 2026-08-08, not started — user wants to steer this phase by phase across
+stop/clear cycles, with a suggested model/approach offered at each step rather than one big run)**
+
+### Why this exists
+Phase 1 shipped on the premise "feed the real term text, the model's own G2P handles it" — true
+for the vast majority of the 167 terms, confirmed by ear. But two spot-checked terms broke that
+assumption: **Aeaea** ("bizarre") and **Circe** (read as an Italian word, "SIR-CHAY"). Root cause,
+confirmed by testing: `eleven_multilingual_v2` sometimes misapplies another language's letter-to-
+sound rules to an English mythological name that happens to *look* foreign (Latin "ae" digraph,
+Italian-looking "ce"). Both were found by chance — nobody has systematically listened to the other
+165 natural-read clips, so more may be wrong. The user wants this done properly with real IPA (not
+another round of guessed English respellings) and explicitly flagged that syllable stress matters,
+not just the vowel sounds.
+
+### What's already verified (2026-08-08, ad hoc — not yet wired into the real pipeline)
+- ElevenLabs pronunciation dictionaries take **phoneme rules** (real IPA, `alphabet: "ipa"`) or
+  **alias rules** (plain text substitution) via `POST /v1/pronunciation-dictionaries/add-from-rules`
+  — JSON body, no need to hand-author a `.pls` XML file.
+- **Phoneme/IPA rules only work on `eleven_flash_v2` and `eleven_v3`** — NOT
+  `eleven_multilingual_v2`, which is what every one of the 167 natural-read clips currently uses.
+  Alias rules aren't documented as model-restricted (plain text substitution, no special model
+  support needed) but are the same "guessed respelling" approach already rejected for the slow
+  clip in Phase 1 — inferior to real IPA when IPA is available, which is why this phase exists.
+- Confirmed working end-to-end: created a real dictionary (`add-from-rules`, id
+  `0Y9wNMygoM3Fs9yLwBtH`) with phoneme rules for Aeaea (`iːˈiːə`) and Circe (`ˈsɜːrsi`) — both IPA
+  transcriptions from Wiktionary (stress markers included, per the user's requirement) — and
+  generated both through `eleven_v3` with `pronunciation_dictionary_locators` pointing at it.
+  Distinct, correctly-durationed audio came back (confirmed via MD5 + `ffprobe`, not just file
+  size). **This was a throwaway test dictionary — not reused by the real pipeline below.** No
+  DELETE endpoint exists for pronunciation dictionaries (tried; `405 Method Not Allowed` — dashboard-
+  only), so it's left as a harmless orphan object on the account rather than something worth
+  chasing further; the real pipeline creates its own dictionary from
+  `pronunciationOverrides.ts` and shouldn't reference this test one.
+- The **slow clip needs no separate fix** — it's `ffmpeg atempo=0.6` derived from the fast clip
+  (Phase 1), so correcting the fast clip's pronunciation fixes both for free.
+
+### Open decision for the user to steer: how far does the model change reach?
+Two shapes, real tradeoff, no clearly-correct default:
+1. **Targeted** — only terms with a flagged mispronunciation get an `ipa` override and get
+   generated on `eleven_v3` + the dictionary; everything else stays on `eleven_multilingual_v2`
+   exactly as today. Smallest blast radius (regenerate only what's actually broken), but the site
+   ends up with two models' output side by side — same voice (Alice), so likely a minor seam if
+   any, but untested at scale.
+2. **Uniform** — move ALL 167 natural-read generations to `eleven_v3` (attaching the dictionary
+   for the subset that need overrides, plain text for the rest), so voice/prosody character is
+   consistent site-wide. Means regenerating and re-uploading all 334 clips again, and re-verifying
+   nothing *else* regressed in the switch (v3 could render some currently-fine term differently).
+Recommendation if asked: start Targeted (cheap, low-risk, fixes the known problems fast); revisit
+Uniform only if a full-audit pass (below) turns up enough flagged terms that "mostly v3 anyway"
+starts to look cheaper than maintaining two code paths.
+
+### Phases (each a real stopping point — pick up wherever the user left off)
+1. **1b.0 — Full-catalogue audit.** Nobody has listened to all 167 natural-read clips
+   systematically; Aeaea/Circe were luck. Build a listen-through tool (same embedded-base64-
+   Artifact pattern as Phase 1's QA) covering every entry's current `-fast.mp3`, let the user flag
+   anything that sounds wrong, record the list here.
+2. **1b.1 — IPA sourcing.** For each flagged term, look up real English IPA from Wiktionary
+   (primary source; cross-check Merriam-Webster/Collins where they have an entry), stress markers
+   included, same rigor CLAUDE.md's Latin-toponym harvest used (cite the source per term, document
+   what's ABSENT/uncertain rather than guessing).
+3. **1b.2 — Build the override as durable data**, not another one-off `curl` — a small
+   `src/data/pronunciationOverrides.ts` (term -> `{ipa, source}`), read by
+   `scripts/tts-pronunciation.ts`. The script creates/updates ONE real dictionary from that table
+   (idempotent — diff against the dictionary's current rules, don't recreate it every run) and
+   picks `eleven_v3` + the locator for overridden terms, `eleven_multilingual_v2` + plain text for
+   everything else (Targeted) or for all terms (Uniform) per whichever decision above.
+4. **1b.3 — Regenerate + re-verify.** Only the flagged terms' fast+slow clips (Targeted) or all
+   334 (Uniform). Publish another listen-through Artifact for final confirmation before touching
+   R2. Upload only the changed objects.
+5. **1b.4 — Docs.** Record the dictionary ID, the override table's provenance, and "how to fix a
+   future mispronunciation" as its own CLAUDE.md subsection under the existing pronunciation-audio
+   section.
+
+---
+
 ## Phase 2 — Iconographic index
 **Status: ☐ (near-term, not yet scoped in detail)**
 
@@ -372,3 +448,12 @@ Don't treat either as "next up" without the user re-raising it.
   and the button renders + doesn't crash in a live dev-server check. `scripts/tts-pronunciation.ts`
   and `scripts/upload_to_r2.py`'s audio support are idempotent (skip existing files; `FORCE=1` to
   re-render) the same way NAPLANSpelling's sibling script works.
+- 2026-08-08 — **Phase 1b scoped, not started.** User caught two mispronunciations by ear (Aeaea,
+  Circe) that Phase 1's "feed the real term text" design didn't anticipate — both are
+  `eleven_multilingual_v2` misapplying another language's letter-to-sound rules to an
+  English name that looks foreign. Verified end-to-end that ElevenLabs' real IPA phoneme
+  pronunciation dictionaries fix this, but only on `eleven_flash_v2`/`eleven_v3`, not the model
+  every existing clip uses — so this isn't a drop-in fix, it's a real phased effort (audit all 167
+  clips by ear, source real IPA per flagged term, decide targeted-vs-uniform model scope, rebuild
+  the override as durable data, regenerate, re-verify, re-upload). User wants to steer each phase
+  rather than have it all run at once — see "Phases" above for the resume points.
