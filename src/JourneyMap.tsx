@@ -510,11 +510,21 @@ export default function JourneyMap({
   // would re-fire the effect (and its per-run `focused` guard) on every
   // JourneyMap re-render, snapping the camera back to the first stop on every
   // tour/zoom/calibration-drag update instead of only on mount/resize.
-  const initialView = useMemo(
-    () => yx(config.stops[0].x, config.stops[0].y),
+  //
+  // Vertical center comes from the full route's y-extent (stops + leg-bend
+  // points), not stop 1 alone — stop 1 (Troy) sits well north of the route's
+  // middle, and at the cover zoom the map is taller than the container, so
+  // centering on Troy's y pinned the view against the top of maxBounds and
+  // cropped the southern loop (Cicones→Lotus-Eaters swings down past Cythera)
+  // off the bottom on first paint. x stays at stop 1's x — harmless either
+  // way, since the cover zoom's binding dimension is width (image width ==
+  // container width exactly, zero horizontal slack to pan regardless of lng).
+  const initialView = useMemo(() => {
+    const ys = [...config.stops.map((s) => s.y), ...config.legVias.flat().map((p) => p.y)]
+    const yMid = (Math.min(...ys) + Math.max(...ys)) / 2
+    return yx(config.stops[0].x, yMid)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [config.stops, config.mapHeight],
-  )
+  }, [config.stops, config.legVias, config.mapHeight])
   // Glide speed is paced by on-screen pixels so a leg's speed is consistent,
   // clamped so it's neither a crawl nor a lurch (some legs are ~10x longer
   // on-screen than others). Memoized: it's threaded into TourController as a
