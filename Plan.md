@@ -168,6 +168,18 @@ Don't treat either as "next up" without the user re-raising it.
   stash`) and are untouched by it.
   **Follow-up, not yet done:** submitting the sitemap to Baidu's own webmaster tools (Baidu
   Ziyuan) is a manual step outside this repo — code-side discoverability is done, but Baidu
-  won't find it without that registration. Home page (`/`) itself is still client-rendered (only
-  entry pages are prerendered) — acceptable scope cut since Google renders the primary landing
-  page reasonably well; revisit only if that proves not to be true in practice.
+  won't find it without that registration.
+- 2026-08-07 — **Home page prerendered too** (commit `bdb34e1`), closing the one scope cut noted
+  above. Empirically confirmed first (a throwaway probe script, deleted after) that `App()`
+  itself renders cleanly via `renderToStaticMarkup` with no browser present — its only
+  window-dependent state (the two map hash routes) already guards on `typeof window !==
+  "undefined"`, so in Node it resolves to `null` and the Suspense-wrapped map modals just never
+  attempt to render. No new component needed: `scripts/prerender.tsx` now also
+  `ssrLoadModule`s `/src/App.tsx`, renders it, and overwrites `dist/index.html`'s `#root` with
+  the default unfiltered 167-card grid (no per-page `<head>` rewrite needed — the static
+  title/description were already the correct site-level generic ones; added a canonical link).
+  Verified in a real browser against the prerendered output: search filtering and card-click
+  gallery both still work post-hydration, console clean. Confirmed live on production
+  (`curl https://odysseygloss.vercel.app/`): raw HTML has all 167 cards, bilingual text, and
+  real `/entry/<slug>` links with zero JS executed. `check:pins` clean; lint unchanged (same 3
+  pre-existing errors). Every page on the site is now fully crawlable by both Google and Baidu.
