@@ -61,4 +61,67 @@ export function findPin(
   return null
 }
 
+// #atlas/<slug>/@<term> — the default plate keeps its bare "atlas" prefix, so
+// a written link reads the same way the plate switcher writes it. Lives here
+// (not in App) because both App's place cards and the Atlas's own search box
+// need to emit it, and the rule depends on DEFAULT_PLATE_SLUG above.
+export const atlasHash = (slug: string, term: string) =>
+  `${slug === DEFAULT_PLATE_SLUG ? "atlas" : `atlas/${slug}`}/@${encodeURIComponent(term)}`
+
+// One row per (plate, pin), in PLATE_PRIORITY order — the corpus the Atlas's
+// in-map search matches against. Flattened once at module load; the pin data
+// is static.
+export type PinRow = {
+  term: string
+  label?: string
+  noGloss?: boolean
+  slug: string
+  plateTitle: string
+}
+
+export const ALL_PINS: PinRow[] = PLATE_PRIORITY.flatMap((slug) => {
+  const plate = PLATES[slug]
+  if (!plate) return []
+  return plate.places.map((p) => ({
+    term: p.term,
+    label: p.label,
+    noGloss: p.noGloss,
+    slug,
+    plateTitle: plate.title,
+  }))
+})
+
+// Substring search over every plate's pins, deduped by term so a place pinned
+// on two plates (Egypt on aegyptus AND rubri) offers one destination, not two.
+// Which plate wins follows findPin's rule: the caller's current plate first
+// (searching a term you can already see shouldn't yank you to another plate),
+// otherwise PLATE_PRIORITY. Ranking: name-prefix matches first, then
+// glossary-linked pins ahead of `noGloss` label-only ones, then alphabetical.
+export function searchPins(query: string, preferSlug?: string, limit = 8): PinRow[] {
+  const q = query.trim().toLowerCase()
+  if (!q) return []
+  const best = new Map<string, PinRow>()
+  for (const row of ALL_PINS) {
+    const name = (row.label ?? row.term).toLowerCase()
+    if (!name.includes(q) && !row.term.toLowerCase().includes(q)) continue
+    const key = row.term.toLowerCase()
+    const held = best.get(key)
+    // ALL_PINS is already in priority order, so the first hit wins unless the
+    // plate the user is looking at also carries the pin.
+    if (!held || (preferSlug && row.slug === preferSlug && held.slug !== preferSlug))
+      best.set(key, row)
+  }
+  const score = (row: PinRow) => {
+    const name = (row.label ?? row.term).toLowerCase()
+    return (name.startsWith(q) ? 0 : 2) + (row.noGloss ? 1 : 0)
+  }
+  return [...best.values()]
+    .sort((a, b) => {
+      const d = score(a) - score(b)
+      if (d) return d
+      return (a.label ?? a.term).localeCompare(b.label ?? b.term)
+    })
+    .slice(0, limit)
+}
+
 export type { AtlasPlace, PlateConfig } from "./types"

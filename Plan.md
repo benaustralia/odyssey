@@ -154,22 +154,40 @@ mobile spot check (full-screen modal, popup tappable).
   driving these maps from an automation tool.
 
 ## Phase B — search inside the Atlas
-**Status: ☐ not started**
+**Status: ✅ done 2026-08-07**
 **Model: Sonnet 5 · effort medium** (contained UI feature; the pattern exists in the edit
 footer).
 
 Tasks:
-- [ ] View-mode search in the Atlas modal header (edit mode keeps its footer search):
-  compact input or expandable icon-button — the header already holds title + plate select +
-  close; don't crowd it on mobile.
-- [ ] Matches across ALL plates: flatten `PLATES` → `{term, label?, slug}`, substring match
-  on term/label, ≤8 results with plate name shown; glossary-linked pins ranked above
-  `noGloss` ones (but include both).
-- [ ] Selecting a result always navigates the hash to the deep link — same-plate changes
-  re-fire the `focusTerm` effect (no remount), cross-plate remounts via `key={slug}`.
+- [x] View-mode search in the Atlas modal header (edit mode keeps its footer search):
+  expandable icon-button (`PlateSearch` in `AtlasMap.tsx`) — collapsed to a magnifier by
+  default; while open below `sm` the title + plate select step aside so the input owns the
+  row. Not rendered at all in edit mode.
+- [x] Matches across ALL plates: `ALL_PINS` + `searchPins()` in `src/data/plates/index.ts`
+  (flattened in `PLATE_PRIORITY` order), substring match on term/label, ≤8 results with the
+  plate title as a second line; prefix matches first, `noGloss` pins ranked last.
+  Deduped by term — a place pinned on two plates offers one destination, picked the way
+  `findPin` does (the currently-open plate wins, else `PLATE_PRIORITY`).
+- [x] Selecting a result (click, or ↑/↓ + Enter; Escape/blur closes) sets the hash to the
+  deep link — same-plate re-fires the `focusTerm` effect, cross-plate remounts via
+  `key={slug}`. `atlasHash()` moved from `App.tsx` into the plate registry so the card links
+  and the map's own search emit the identical route.
 
-Verify: from `#atlas/rubri`, search "Ithaca" → switches to graecia and focuses; same-plate
-search re-focuses; mobile header layout not crowded (responsive mode).
+Verify: ✅ production build + `vite preview`. From `#atlas/rubri`: "th" → 8 ranked results
+across plates; "thaca" + Enter → `#atlas/@Ithaca`, plate switches to Graecia, glide + halo +
+popup; same-plate "pylos" → re-focuses, old popup closed, no crash; `#atlas/edit` shows no
+header search and keeps its footer filter; no console errors; narrow (500px) header not
+crowded.
+
+### Phase B — as built (deltas from the plan)
+- Result rows are **not** DaisyUI `menu` items: `.menu li > *` lays children out with
+  `grid-flow-col`, which drew the place name and plate name overlapping on one line. Plain
+  utility-styled buttons inside a bare `<ul>` instead.
+- The dropdown needs an explicit `z-[1000]`: it overlays the map wrapper, which is a *later*
+  positioned sibling and would otherwise paint on top of it.
+- Preview-cache gotcha while verifying: `vite preview` serves fresh files, but the browser
+  kept the old hashed chunk across a same-URL reload — a fix looked like it hadn't applied.
+  Add a `?v=N` query param to force a real re-fetch.
 
 ## Phase C — per-place cover crops (optional polish)
 **Status: ☐ not started**
@@ -223,6 +241,11 @@ Fold in CLAUDE.md TODO 3(a) (hero mini-map + "Show on map" from journey cards).
   places can carry a nested "Map" button while the 61 map-only places deep-link on whole-card
   click; `AtlasMap` gained `focusTerm` (glide + halo + auto-opened popup) and `hasArt` popup
   gating. Verified in a production build. Next: Phase B.
+- 2026-08-07 — **Phase B done.** In-Atlas place search: `ALL_PINS`/`searchPins()` in the plate
+  registry (all plates, deduped by term, prefix-first, `noGloss` last, ≤8), an expandable
+  `PlateSearch` in the modal header (view mode only), selection navigating by hash so
+  same-plate re-focuses and cross-plate remounts. Verified in a production build. Next: Phase C
+  (per-place cover crops) — optional polish; Phase D stays parked.
 - 2026-08-07 — **Phase 0 done.** aegyptus's 2 pins and rubri's Arabia/Persia/India calibrated
   offline (PIL grid-crops + marked-ring verification); rubri pruned 100 → 31 pins; PLACES.md
   regenerated; CLAUDE.md TODO 1 (b)/(c) closed. Every Atlas pin is now off its seed grid — the

@@ -16,7 +16,9 @@ import "yet-another-react-lightbox/plugins/thumbnails.css"
 import glossaryData from "@/data/glossary.json"
 import artData from "@/data/art.json"
 import { JOURNEYS, DEFAULT_JOURNEY_SLUG } from "@/data/journeys"
-import { PLATES, DEFAULT_PLATE_SLUG, findPin } from "@/data/plates"
+// atlasHash (#atlas/<slug>/@<term>) lives with the plate registry — the Atlas's
+// own header search emits the same links these place cards do.
+import { PLATES, DEFAULT_PLATE_SLUG, findPin, atlasHash } from "@/data/plates"
 
 type Entry = {
   term: string
@@ -68,11 +70,6 @@ function artsOf(e: Entry | null): Art[] {
 function hasRealArt(e: Entry | undefined): boolean {
   return (e?.art ?? []).some((k) => art[k] && !k.endsWith("-map"))
 }
-
-// #atlas/<slug>/@<term> — the default plate keeps its bare "atlas" prefix, so
-// the link reads the same way the plate switcher writes it.
-const atlasHash = (slug: string, term: string) =>
-  `${slug === DEFAULT_PLATE_SLUG ? "atlas" : `atlas/${slug}`}/@${encodeURIComponent(term)}`
 
 function App() {
   const [query, setQuery] = useState("")

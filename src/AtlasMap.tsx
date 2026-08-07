@@ -7,8 +7,8 @@ import "leaflet/dist/leaflet.css"
 import MiniMapControl from "leaflet-minimap"
 import "leaflet-minimap/dist/Control.MiniMap.min.css"
 import CalibrationPanel from "./CalibrationPanel"
-import { PLATES, DEFAULT_PLATE_SLUG } from "@/data/plates"
-import type { AtlasPlace as Place, PlateConfig } from "@/data/plates"
+import { PLATES, DEFAULT_PLATE_SLUG, atlasHash, searchPins } from "@/data/plates"
+import type { AtlasPlace as Place, PlateConfig, PinRow } from "@/data/plates"
 
 function CalibrationFooter({
   pins,
@@ -192,6 +192,126 @@ function CalibrationFooter({
           )
         })}
       </div>
+    </div>
+  )
+}
+
+// View-mode place search (edit mode keeps the calibration footer's own pin
+// filter, which is a different thing: it filters the editable list rather than
+// navigating). Searches every plate's pins, not just this one's, and always
+// acts by setting the hash to the place's deep link — so a result on another
+// plate remounts AtlasMap via App's key={slug}, and a result on THIS plate
+// just hands DeepLinkFocus a new focusTerm (no remount, effect re-fires).
+//
+// Collapsed to an icon button by default: the modal header already carries the
+// title, the plate <select> and the close button, and an always-visible input
+// crowds a phone. While open on a small screen the title/select step aside
+// (see the header markup below).
+function PlateSearch({
+  slug,
+  open,
+  setOpen,
+}: {
+  slug: string
+  open: boolean
+  setOpen: (v: boolean) => void
+}) {
+  const [q, setQ] = useState("")
+  const [active, setActive] = useState(0)
+  const inputRef = useRef<HTMLInputElement>(null)
+  const results = useMemo(() => searchPins(q, slug), [q, slug])
+
+  useEffect(() => {
+    setActive(0)
+  }, [q])
+  useEffect(() => {
+    if (open) inputRef.current?.focus()
+  }, [open])
+
+  const close = () => {
+    setOpen(false)
+    setQ("")
+  }
+  const pick = (row: PinRow | undefined) => {
+    if (!row) return
+    close()
+    window.location.hash = atlasHash(row.slug, row.term)
+  }
+
+  if (!open)
+    return (
+      <button
+        type="button"
+        className="btn btn-circle btn-ghost btn-lg shrink-0 sm:btn-sm"
+        onClick={() => setOpen(true)}
+        aria-label="Search places"
+      >
+        <Search className="size-5 sm:size-4" />
+      </button>
+    )
+
+  return (
+    <div className="relative min-w-0 grow sm:grow-0">
+      <label className="input input-sm input-bordered flex w-full items-center gap-2 sm:w-56">
+        <Search className="size-4 shrink-0 opacity-70" aria-hidden="true" />
+        <input
+          ref={inputRef}
+          type="search"
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          onBlur={(e) => {
+            // Keep the list alive while the pointer is travelling to a result
+            // (mousedown fires before blur, but the click that follows does
+            // not) — only collapse when focus leaves the whole control.
+            if (!e.currentTarget.closest("div")?.contains(e.relatedTarget as Node)) close()
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Escape") return close()
+            if (e.key === "Enter") return pick(results[active])
+            if (e.key === "ArrowDown") {
+              e.preventDefault()
+              setActive((i) => Math.min(i + 1, results.length - 1))
+            } else if (e.key === "ArrowUp") {
+              e.preventDefault()
+              setActive((i) => Math.max(i - 1, 0))
+            }
+          }}
+          placeholder="Find a place…"
+          className="grow"
+          aria-label="Find a place on any plate"
+        />
+      </label>
+      {q.trim() && (
+        // z-index: this dropdown overlays the map wrapper, which is a LATER
+        // positioned sibling — without an explicit z-index the map paints on
+        // top of it.
+        // DaisyUI's `menu` isn't used for the rows: `.menu li > *` lays its
+        // children out with grid-flow-col, which puts the place name and the
+        // plate name on one overlapping line.
+        <ul className="absolute right-0 top-full z-[1000] mt-1 w-72 max-w-[80vw] overflow-hidden rounded-box border border-base-300 bg-base-200 py-1 shadow-lg">
+          {results.length === 0 ? (
+            <li className="px-3 py-2 text-sm opacity-60">No place matches “{q.trim()}”.</li>
+          ) : (
+            results.map((r, i) => (
+              <li key={`${r.slug}-${r.term}`}>
+                <button
+                  type="button"
+                  className={`flex w-full flex-col items-start px-3 py-1.5 text-left ${
+                    i === active ? "bg-base-300" : ""
+                  }`}
+                  onMouseEnter={() => setActive(i)}
+                  onClick={() => pick(r)}
+                >
+                  <span className="text-sm font-medium leading-tight">{r.label ?? r.term}</span>
+                  <span className="text-xs leading-tight opacity-60">
+                    {PLATES[r.slug]?.title ?? r.slug}
+                  </span>
+                </button>
+              </li>
+            ))
+          )}
+        </ul>
+      )}
     </div>
   )
 }
@@ -724,6 +844,9 @@ export default function AtlasMap({
   // deep-link `focusPlace` below.
   const [crosshairPlace, setCrosshairPlace] = useState<Place | null>(null)
   const [searchTerm, setSearchTerm] = useState("")
+  // View-mode header search (see PlateSearch); the footer's `searchTerm` above
+  // is the edit-mode pin filter, unrelated.
+  const [searchOpen, setSearchOpen] = useState(false)
   // Which pin is currently "announcing" itself after a footer crosshair
   // click. The nonce makes re-clicking the same pin restart the 8s timer
   // (plain term state wouldn't change, so the old timeout would fire early).
@@ -770,7 +893,12 @@ export default function AtlasMap({
     <div className="modal modal-open" role="dialog" aria-label="Atlas of the Odyssey">
       <div className="modal-box flex h-dvh max-h-dvh w-full max-w-none flex-col gap-2 rounded-none p-2 overflow-hidden">
         <div className="flex items-center justify-between gap-3">
-          <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+          {/* While the search box is open on a phone there isn't room for the
+              title and the plate picker as well, so they step aside until it
+              closes; from sm: up everything fits at once. */}
+          <div
+            className={`min-w-0 items-center gap-2 sm:gap-3 ${searchOpen ? "hidden sm:flex" : "flex"}`}
+          >
             <h2 className="font-display text-2xl font-semibold tracking-wide sm:text-3xl">
               Atlas
             </h2>
@@ -787,14 +915,19 @@ export default function AtlasMap({
               ))}
             </select>
           </div>
-          <button
-            type="button"
-            className="btn btn-circle btn-ghost btn-lg shrink-0 text-2xl sm:btn-sm sm:text-base"
-            onClick={onClose}
-            aria-label="Close"
-          >
-            ✕
-          </button>
+          <div className={`flex min-w-0 items-center gap-1 ${searchOpen ? "grow sm:grow-0" : ""}`}>
+            {!editing && (
+              <PlateSearch slug={config.slug} open={searchOpen} setOpen={setSearchOpen} />
+            )}
+            <button
+              type="button"
+              className="btn btn-circle btn-ghost btn-lg shrink-0 text-2xl sm:btn-sm sm:text-base"
+              onClick={onClose}
+              aria-label="Close"
+            >
+              ✕
+            </button>
+          </div>
         </div>
 
         <div className="relative w-full grow">
