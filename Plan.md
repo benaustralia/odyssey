@@ -86,6 +86,35 @@ Verify:
 
 ---
 
+## Phase 0e — Fix 4 misplaced rubri Atlas pins
+**Status: ✅ (2026-08-08)**
+
+Found 2026-08-08 during a sweep of all 6 Atlas plates for pins sitting outside their printed map
+content (checked visually by overlaying every pin on a downsampled master + zooming into pixels at
+each coordinate — `npm run check:pins` only validates numeric bounds against the full image
+dimensions, not against the printed neatline, so it didn't catch this). Confirmed by cropping the
+rubri master at native resolution around each coordinate: all 4 land on blank parchment/the
+decorative border strip, no engraving.
+
+4 of `src/data/plates/rubri.ts`'s pins have drifted out of the small **Vlyssis Errores inset**
+(the same engraving `JourneyMap`'s Odysseus voyage uses) straight down into the blank page margin
+below the plate's printed frame:
+- `Land of the Lotus-Eaters` — currently (2000, 9500)
+- `Temese` — currently (4400, 9600)
+- `Ortygia` — currently (6900, 9700)
+- `Land of the Cyclopes` — currently (7500, 10000)
+
+Fix approach: these are the same terms/same base engraving as several `src/data/journeys/odysseus.ts`
+stops, which are already correctly calibrated (just in the standalone crop's coordinate space,
+`public/art/map-wanderings.jpg`, not the full rubri master's). Derive the transform between that
+crop and the rubri master (the crop is a known sub-rect of the master — the mislabelled/replaced
+inset noted in CLAUDE.md's "Vlyssis Errores fix"), map each stop's crop-space coordinate into
+rubri-space, then verify each with a marked-ring crop at native resolution before committing (same
+method as the Graecia pin calibration — offline PIL grid-crop, not browser-dragging). Re-run
+`npm run check:pins` after.
+
+---
+
 ## Phase 1 — Pronunciation audio (ElevenLabs)
 **Status: ☐ (near-term, not yet scoped in detail)**
 
@@ -255,3 +284,26 @@ Don't treat either as "next up" without the user re-raising it.
   (`curl https://odysseygloss.vercel.app/`): raw HTML has all 167 cards, bilingual text, and
   real `/entry/<slug>` links with zero JS executed. `check:pins` clean; lint unchanged (same 3
   pre-existing errors). Every page on the site is now fully crawlable by both Google and Baidu.
+- 2026-08-08 — **Phase 0e done.** Fixed the 4 rubri pins (Lotus-Eaters, Temese, Ortygia,
+  Cyclopes) found sitting on blank parchment below the Vlyssis Errores inset's printed frame.
+  The plan's original approach (reuse `odysseus.ts` journey-stop coordinates via a crop→master
+  transform) only partly worked: Temese and Ortygia aren't journey stops at all, and a first
+  transform attempt (naive FFT correlation over the whole master, downsampled) landed on a
+  false peak in a completely wrong part of the plate — caught by visually stacking the
+  candidate crop against `map-wanderings.jpg` before trusting it, not by the correlation score
+  alone. Re-derived a correct offset (search seeded from the plate's own documented inset
+  bounding box, confirmed via a landmark point match on the "Phaeacia, que Scheria" label
+  appearing in both images), then abandoned the transform entirely in favor of reading each of
+  the 4 terms' labels directly off the master at native resolution once the general inset
+  region was located: Lotus-Eaters -> "LOTOP.HAGI.", Cyclopes -> "CYCLOPES" (Land of the
+  Cyclopes and Land of the Lotus-Eaters both label the same Sicily-standing landmass as the
+  existing Thrinacia pin, via adjacent but distinct captions), Temese -> "Temessa" (a town
+  glyph on the toe of Italy). Ortygia has no engraved caption anywhere on the inset (checked
+  exhaustively, both halves of the frame) — placed on an unlabeled islet in the
+  Scylla/Charybdis strait between Temessa and Thrinacia, matching Wilson's own glossary
+  description ("a small Sicilian island near the mainland"); added to `NO_LATIN` in
+  `check-pins.ts` alongside the plate's other documented-absent terms, while Temese/
+  Lotus-Eaters/Cyclopes came OFF that allowlist now that they carry real `latin` values. All 4
+  verified with marked-ring crops at native resolution before committing (same method as the
+  Graecia calibration pass). `npm run check:pins` clean (rubri still 31 pins — no pins added or
+  removed, just repositioned).

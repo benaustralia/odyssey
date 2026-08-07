@@ -51,6 +51,23 @@ import type { AtlasPlace, PlateConfig } from "./types"
 // none was checked. Phoenicia/Sidon are this plate's placeholder/symbolic
 // duplicates (real home: palestinae.ts); India rides "Mambari regnum",
 // which names the region, not India itself. All three deliberately absent.
+// FIXED 2026-08-08 (Plan.md Phase 0e): 4 pins (Lotus-Eaters, Temese, Ortygia,
+// Cyclopes) had drifted south into the blank page margin below the inset's
+// printed frame — found by a visual sweep, confirmed by cropping the master
+// at native res (blank parchment, no engraving under any of the 4). Fixed by
+// deriving the crop-to-master transform (FFT cross-correlation of
+// public/art/map-wanderings.jpg against plates/rubri/master.jpg, offset
+// confirmed visually via a stacked side-by-side comparison) to relocate the
+// search into the inset's true bounds, then reading each label directly off
+// the master at native resolution. Lotus-Eaters -> "LOTOP.HAGI.", Cyclopes ->
+// "CYCLOPES" (both label the same Sicily-standing landmass as the existing
+// Thrinacia pin, from adjacent but distinct captions), Temese -> "Temessa"
+// (the toe-of-Italy town glyph, north of the strait). Ortygia has no engraved
+// caption anywhere on the inset (checked exhaustively) — parked on an
+// unlabeled islet in the Scylla/Charybdis strait, between Temessa and
+// Thrinacia, matching Wilson's glossary description ("a small Sicilian
+// island near the mainland"). All 4 verified with marked-ring crops at
+// native resolution before committing, same method as the Graecia pins.
 const places: AtlasPlace[] = [
   { term: "Egypt", latin: "ÆGYPTVS", x: 1895.0465881021837, y: 3472.711389904327 },
   { term: "Libya", x: 1413.143047187622, y: 3556.0782783688514 },
@@ -62,12 +79,12 @@ const places: AtlasPlace[] = [
   { term: "Cyprus", x: 7699, y: 9105 },
   { term: "Hyperia", x: 5413, y: 8664 },
   { term: "Cimmerians", x: 7467, y: 7934 },
-  { term: "Temese", x: 4400, y: 9600 },
+  { term: "Temese", latin: "Temessa", x: 5410, y: 7785 },
   { term: "Telepylus", x: 4800, y: 8900 },
   { term: "Artaky", x: 7390, y: 7735 },
   { term: "Aeolia", latin: "Aeoliæ, et Planctæ", x: 3800, y: 8400 },
-  { term: "Land of the Lotus-Eaters", label: "Lotus-Eaters", x: 2000, y: 9500 },
-  { term: "Land of the Cyclopes", label: "Cyclopes", x: 7500, y: 10000 },
+  { term: "Land of the Lotus-Eaters", label: "Lotus-Eaters", latin: "LOTOP.HAGI.", x: 4595, y: 8635 },
+  { term: "Land of the Cyclopes", label: "Cyclopes", latin: "CYCLOPES", x: 4760, y: 8310 },
   { term: "Thrinacia", latin: "THRINACIA, Sive Solis insula", x: 4555, y: 8430 },
   { term: "Styx", x: 2500, y: 7200 },
   { term: "Acheron", x: 2400, y: 7300 },
@@ -78,7 +95,7 @@ const places: AtlasPlace[] = [
   { term: "Phoenicia", x: 3400, y: 5800 },
   { term: "Sidon", x: 3500, y: 5900 },
   { term: "Mount Solyma", label: "Solyma", x: 3700, y: 6100 },
-  { term: "Ortygia", x: 6900, y: 9700 },
+  { term: "Ortygia", x: 5450, y: 8150 },
   { term: "Africa", noGloss: true, x: 1500, y: 5000 },
   { term: "Arabia", noGloss: true, latin: "ARABIA EVDAEMON, Sive FELIX", x: 3280, y: 3960 },
   { term: "India", noGloss: true, x: 7760, y: 4530 },
