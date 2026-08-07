@@ -116,6 +116,19 @@ presentation/query layer over data that already exists, not new sourcing.
 
 ---
 
+## Manual follow-ups (not code — no files to read, nothing to implement; tracked here so they don't get lost)
+- [ ] **Submit the sitemap to Baidu's Ziyuan webmaster tools** (百度搜索资源平台,
+  ziyuan.baidu.com). Phase 0 made every page on the site crawlable by a non-JS crawler and
+  `public/sitemap.xml`/`https://odysseygloss.vercel.app/sitemap.xml` lists all 168 URLs, but
+  Baidu still won't discover any of it without the site being registered/verified there and the
+  sitemap submitted through that platform — this is the one remaining step between "code-side
+  ready" and "actually indexed by Baidu." Needs the user's own Baidu account (site-ownership
+  verification, typically a DNS TXT record or an uploaded HTML file) — not something to do from
+  this repo alone. Given the ~8-week Chinese-audience window noted above, do this promptly once
+  picked up.
+
+---
+
 ## Parked / low-conviction (not scheduled — user is not sure these are worth doing at all)
 - **Cross-translation line alignment** — mapping book/line numbers across Wilson, Fagles,
   Fitzgerald, Lattimore, Butler. Copyright-clean (line numbers only) but a real data-acquisition
