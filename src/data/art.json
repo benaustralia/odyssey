@@ -4990,5 +4990,61 @@
     "source": "https://commons.wikimedia.org/wiki/File:Odysseus_bids_the_Phaeacians_farewell_-_Unknown_-_Google_Cultural_Institute.jpg",
     "cld": "uzcatvrtf5nltydjiqbk",
     "note": "Hyperia — the seafaring Phaeacians, who once dwelt in Hyperia near the Cyclopes, bid Odysseus farewell"
+  },
+  "crete-map": {
+    "file": "/art/crete-map.jpg",
+    "artist": "Abraham Ortelius",
+    "title": "Graecia Sophiani",
+    "year": "1579",
+    "source": "https://commons.wikimedia.org/wiki/File:Graecia_Sophiani.jpg",
+    "note": "Crete — the great island south of the Greek mainland"
+  },
+  "knossos-map": {
+    "file": "/art/knossos-map.jpg",
+    "artist": "Abraham Ortelius",
+    "title": "Graecia Sophiani",
+    "year": "1579",
+    "source": "https://commons.wikimedia.org/wiki/File:Graecia_Sophiani.jpg",
+    "note": "Knossos — Minos's city on Crete"
+  },
+  "thebes-map": {
+    "file": "/art/thebes-map.jpg",
+    "artist": "Abraham Ortelius",
+    "title": "Graecia Sophiani",
+    "year": "1579",
+    "source": "https://commons.wikimedia.org/wiki/File:Graecia_Sophiani.jpg",
+    "note": "Thebes — the city in central Greece, not the Egyptian Thebes Homer also names"
+  },
+  "alpheus-map": {
+    "file": "/art/alpheus-map.jpg",
+    "artist": "Abraham Ortelius",
+    "title": "Graecia Sophiani",
+    "year": "1579",
+    "source": "https://commons.wikimedia.org/wiki/File:Graecia_Sophiani.jpg",
+    "note": "Alpheus — the river of the western Peloponnese"
+  },
+  "enipeus-map": {
+    "file": "/art/enipeus-map.jpg",
+    "artist": "Abraham Ortelius",
+    "title": "Graecia Sophiani",
+    "year": "1579",
+    "source": "https://commons.wikimedia.org/wiki/File:Graecia_Sophiani.jpg",
+    "note": "Enipeus — the river Tyro loved, in northern Greece"
+  },
+  "crouni-map": {
+    "file": "/art/crouni-map.jpg",
+    "artist": "Abraham Ortelius",
+    "title": "Graecia Sophiani",
+    "year": "1579",
+    "source": "https://commons.wikimedia.org/wiki/File:Graecia_Sophiani.jpg",
+    "note": "Crouni — on the west coast of the Peloponnese, passed on Telemachus's voyage home"
+  },
+  "achaea-map": {
+    "file": "/art/achaea-map.jpg",
+    "artist": "Abraham Ortelius",
+    "title": "Graecia Sophiani",
+    "year": "1579",
+    "source": "https://commons.wikimedia.org/wiki/File:Graecia_Sophiani.jpg",
+    "note": "Achaea — Ortelius's northern-Peloponnese region; Homer uses the name for Greece at large"
   }
 }

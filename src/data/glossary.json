@@ -2333,5 +2333,89 @@
   "art": [
    "argos-city-map"
   ]
+ },
+ {
+  "term": "Crete",
+  "pron": "/KREET/",
+  "tag": "place",
+  "def": "A large island south of the Greek mainland, with ninety cities and many mingled languages. Odysseus repeatedly claims to be a Cretan in the false life-stories he tells once home.",
+  "zhName": "克里特",
+  "zhPinyin": "Kèlǐtè",
+  "zhDef": "希腊大陆以南的大岛，据说有九十座城、语言混杂。奥德修斯回乡后编造身世时，一再自称是克里特人。",
+  "art": [
+   "crete-map"
+  ]
+ },
+ {
+  "term": "Knossos",
+  "pron": "/NOS-os/",
+  "tag": "place",
+  "def": "The great city of Crete, where Minos ruled; Odysseus names it as his birthplace in the false tale he tells Penelope.",
+  "zhName": "克诺索斯",
+  "zhPinyin": "Kènuòsuǒsī",
+  "zhDef": "克里特岛上的大城，米诺斯在此为王；奥德修斯向佩涅洛佩编造身世时自称生于此地。",
+  "art": [
+   "knossos-map"
+  ]
+ },
+ {
+  "term": "Thebes",
+  "pron": "/THEEBZ/",
+  "tag": "place",
+  "def": "A city in central Greece, home of the prophet Tiresias and of Oedipus's ruined family. Homer names a second Thebes, in Egypt, as a byword for wealth.",
+  "zhName": "忒拜",
+  "zhPinyin": "Tèbài",
+  "zhDef": "希腊中部的城市，先知忒瑞西阿斯与俄狄浦斯一家的故乡。荷马另提到埃及的忒拜，以富庶著称。",
+  "art": [
+   "thebes-map"
+  ]
+ },
+ {
+  "term": "Alpheus",
+  "pron": "/al-FEE-us/",
+  "tag": "place",
+  "def": "A river of the western Peloponnese, and the river-god who fathered Ortilochus — grandfather of the Diocles who hosts Telemachus at Pherae.",
+  "zhName": "阿尔甫斯河",
+  "zhPinyin": "Ā'ěrfǔsī Hé",
+  "zhDef": "伯罗奔尼撒西部的河流，亦是河神：他生下俄尔提洛科斯，其孙狄俄克勒斯在费莱款待忒勒马科斯。",
+  "art": [
+   "alpheus-map"
+  ]
+ },
+ {
+  "term": "Enipeus",
+  "pron": "/en-ih-PEE-us/",
+  "tag": "place",
+  "def": "A beautiful river in northern Greece that Tyro loved; Poseidon took its shape to lie with her, and she bore Pelias and Neleus.",
+  "zhName": "厄尼佩夫斯河",
+  "zhPinyin": "Ènìpèifūsī Hé",
+  "zhDef": "希腊北部一条秀美的河流，提洛爱恋此河；波塞冬化作它的模样与她结合，她生下佩利阿斯与涅琉斯。",
+  "art": [
+   "enipeus-map"
+  ]
+ },
+ {
+  "term": "Crouni",
+  "pron": "/KROO-nee/",
+  "tag": "place",
+  "def": "A place on the western coast of the Peloponnese that Telemachus sails past on his way home, named in the same breath as Chalcis.",
+  "zhName": "克鲁尼",
+  "zhPinyin": "Kèlǔní",
+  "zhDef": "伯罗奔尼撒西海岸的一处地方，忒勒马科斯归航时经过，与卡尔基斯并称。",
+  "art": [
+   "crouni-map"
+  ]
+ },
+ {
+  "term": "Achaea",
+  "pron": "/uh-KEE-uh/",
+  "tag": "place",
+  "def": "The land of the Achaeans: Homer uses the name for Greece as a whole, rather than for the smaller northern region that later mapmakers labelled Achaea.",
+  "zhName": "阿开亚",
+  "zhPinyin": "Ākāiyà",
+  "zhDef": "阿开亚人的土地：荷马以此名泛指整个希腊，而非后世地图上伯罗奔尼撒北部的那一小片地区。",
+  "art": [
+   "achaea-map"
+  ]
  }
 ]

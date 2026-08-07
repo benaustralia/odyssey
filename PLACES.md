@@ -1,25 +1,27 @@
 # Odyssey Glossary Places — Atlas pin coverage
 
-Term × plate coverage matrix for the 84 Wilson-glossary `place` entries across the Atlas's 6
+Term × plate coverage matrix for the 91 glossary `place` entries across the Atlas's 6
 Ortelius plates (`src/data/plates/{rubri,graecia,aegyptus,natoliae,palestinae,africae}.ts`).
 Regenerated from those files + `glossary.json` — they are the source of truth; this is a
 human-readable index only.
 
-**Last regenerated:** 2026-08-07, after Phase 0 of the place-search plan (repo-root `Plan.md`):
-Graecia's 69 pins are calibrated onto Ortelius's own labels (2026-08-07), Aegyptus's 2 pins are
-off their seed grid, and **rubri's 69 now-redundant Greek pins have been deleted** — every term
-Graecia's frame covers lives there now, and rubri keeps only the places Graecia can't show
-(the Vlyssis Errores inset's mythical/voyage isles, the Underworld rivers, Cyprus, and the
-Levantine/African/Asian pins, whose Arabia/Persia/India placeholders are now calibrated too).
+**Last regenerated:** 2026-08-07, after **Phase 6** (repo-root `Plan.md` is fully applied). Phase 6
+added 7 poem-text places that Wilson's own glossary omits — Achaea, Alpheus, Crete, Crouni, Enipeus,
+Knossos, Thebes — so the glossary now holds 91 places, and those pins are no longer `noGloss`.
+Earlier: Phase 0 calibrated Graecia's 69 pins and Aegyptus's 2, and deleted rubri's 69 redundant
+Greek pins, leaving rubri only what Graecia can't show (the Vlyssis inset's mythical/voyage isles,
+the Underworld rivers, Cyprus, and the Levantine/African/Asian pins).
 
 ## Coverage matrix (x = pinned on that plate)
 
 | Place | rubri | graecia | aegyptus | natoliae | palestinae | africae |
 |---|---|---|---|---|---|---|
+| Achaea |  | x |  |  |  |  |
 | Acheron | x |  |  |  |  |  |
 | Aeaea | x |  |  |  |  |  |
 | Aegae |  | x |  |  |  |  |
 | Aeolia | x |  |  |  |  |  |
+| Alpheus |  | x |  |  |  |  |
 | Amnisus |  | x |  |  |  |  |
 | Arethusa |  | x |  |  |  |  |
 | Argos (the city) |  | x |  |  |  |  |
@@ -30,11 +32,14 @@ Levantine/African/Asian pins, whose Arabia/Persia/India placeholders are now cal
 | Chios |  | x |  |  |  |  |
 | Cimmerians | x |  |  |  |  |  |
 | Cocytus | x |  |  |  |  |  |
+| Crete |  | x |  |  |  |  |
+| Crouni |  | x |  |  |  |  |
 | Cyprus | x |  |  |  |  |  |
 | Cythera |  | x |  |  |  |  |
 | Delos |  | x |  |  |  |  |
 | Egypt | x |  | x |  |  |  |
 | Elis |  | x |  |  |  |  |
+| Enipeus |  | x |  |  |  |  |
 | Ephyra |  | x |  |  |  |  |
 | Erebus | x |  |  |  |  |  |
 | Erymanthus |  | x |  |  |  |  |
@@ -48,6 +53,7 @@ Levantine/African/Asian pins, whose Arabia/Persia/India placeholders are now cal
 | Iolcus |  | x |  |  |  |  |
 | Ismarus |  | x |  |  |  |  |
 | Ithaca |  | x |  |  |  |  |
+| Knossos |  | x |  |  |  |  |
 | Land of the Cyclopes | x |  |  |  |  |  |
 | Land of the Lotus-Eaters | x |  |  |  |  |  |
 | Lemnos |  | x |  |  |  |  |
@@ -95,6 +101,7 @@ Levantine/African/Asian pins, whose Arabia/Persia/India placeholders are now cal
 | Temese | x |  |  |  |  |  |
 | Tenedos |  | x |  | x |  |  |
 | The Underworld | x |  |  |  |  |  |
+| Thebes |  | x |  |  |  |  |
 | Thesprotia |  | x |  |  |  |  |
 | Thrace |  | x |  |  |  |  |
 | Thrinacia | x |  |  |  |  |  |
@@ -113,12 +120,13 @@ These have map pins but no glossary entry (poem-text places or plate-label regio
 popups have no "View artworks" link:
 
 - **rubri:** Africa, Arabia, India, Persia
-- **graecia:** Achaea, Alpheus, Arcadia, Attica, Boeotia, Crete, Crouni, Enipeus, Knossos, Laconia, Peloponnese, Thebes, Thessaly
+- **graecia:** Arcadia, Attica, Boeotia, Laconia, Peloponnese, Thessaly
 - **africae:** Africa
 
-Phase 6 of the Atlas plan (opted into, not started) would turn the plausible ones of these
-(Arcadia, Attica, Boeotia, Laconia, Peloponnese, Thessaly — pending verification they occur in
-Wilson's translation) into real glossary entries; Arabia/India/Persia/Africa stay map-only labels.
+**Phase 6 is done (2026-08-07).** The six regional labels left above were checked against Wilson's
+own text and occur **nowhere in her translated verse** (nor anywhere in the Greek) — they are
+Ortelius's printed regional names and modern geography, not poem vocabulary, so they stay map-only
+labels, as do Arabia/India/Persia/Africa by earlier decision.
 
 ## Pin totals by plate
 
