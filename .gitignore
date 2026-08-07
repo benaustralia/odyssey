@@ -25,6 +25,9 @@ dist-ssr
 
 .vercel
 
+# GA4 analytics-mcp service account key
+.credentials/
+
 # Artwork is hosted on Cloudinary (folder 'odyssey'); kept locally for re-sync
 public/art/
 
