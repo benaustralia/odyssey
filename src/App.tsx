@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from "react"
-import { Search, Map as MapIcon } from "lucide-react"
+import { Search, Map as MapIcon, Sailboat } from "lucide-react"
 
 // Leaflet is heavy and the map is opt-in, so load it only when first opened.
 const JourneyMap = lazy(() => import("./JourneyMap"))
@@ -15,10 +15,11 @@ import "yet-another-react-lightbox/plugins/counter.css"
 import "yet-another-react-lightbox/plugins/thumbnails.css"
 import glossaryData from "@/data/glossary.json"
 import artData from "@/data/art.json"
-import { JOURNEYS, DEFAULT_JOURNEY_SLUG } from "@/data/journeys"
-// atlasHash (#atlas/<slug>/@<term>) lives with the plate registry — the Atlas's
-// own header search emits the same links these place cards do.
-import { PLATES, DEFAULT_PLATE_SLUG, findPin, atlasHash } from "@/data/plates"
+import { JOURNEYS, DEFAULT_JOURNEY_SLUG, findStop } from "@/data/journeys"
+import { PLATES, DEFAULT_PLATE_SLUG, findPin } from "@/data/plates"
+// Journey-vs-Atlas routing policy for a term, shared with the Atlas's own
+// header search so a place never routes two different ways.
+import { mapLinks, type MapRoute } from "@/data/mapRoutes"
 
 type Entry = {
   term: string
@@ -71,6 +72,26 @@ function hasRealArt(e: Entry | undefined): boolean {
   return (e?.art ?? []).some((k) => art[k] && !k.endsWith("-map"))
 }
 
+// A card's small map affordance. stopPropagation matters: the card itself is a
+// role="button" whose click opens the gallery, and this sits inside it.
+function MapLink({ term, route }: { term: string; route: MapRoute }) {
+  const Icon = route.kind === "journey" ? Sailboat : MapIcon
+  return (
+    <button
+      type="button"
+      className="btn btn-xs btn-ghost gap-1 px-1.5"
+      title={`Show ${term} on ${route.title}`}
+      onClick={(ev) => {
+        ev.stopPropagation()
+        window.location.hash = route.hash
+      }}
+    >
+      <Icon className="size-3.5" aria-hidden="true" />
+      {route.kind === "journey" ? "Voyage" : "Map"}
+    </button>
+  )
+}
+
 function App() {
   const [query, setQuery] = useState("")
   const [cat, setCat] = useState("all")
@@ -117,8 +138,21 @@ function App() {
     if (m && registry[m[1]]) return { slug: m[1], eyeball: !!m[2] }
     return null
   }
-  const parseJourneyHash = (hash: string) =>
-    parseMapHash(hash, "journey", JOURNEYS, DEFAULT_JOURNEY_SLUG)
+  // Journey routes resolve their "@term" the way atlas routes do, with one
+  // extra step: findStop also reads the place->stop alias table, so
+  // "#journey/@Aeaea" lands on the stop whose canonical term is "Circe".
+  // The route always carries the STOP's term, which is what JourneyMap matches.
+  const parseJourneyHash = (
+    hash: string,
+  ): { slug: string; eyeball: boolean; focusTerm?: string } | null => {
+    const route = parseMapHash(hash, "journey", JOURNEYS, DEFAULT_JOURNEY_SLUG)
+    if (!route) return null
+    const { focusRaw } = splitFocus(hash)
+    if (!focusRaw) return route
+    const hit = findStop(focusRaw, route.slug)
+    if (!hit) return route
+    return { slug: hit.slug, eyeball: route.eyeball, focusTerm: hit.stop.term }
+  }
   // Atlas routes additionally resolve the "@term" focus segment against the
   // actual pin data: the route slug gets first refusal, then PLATE_PRIORITY,
   // so `#atlas/@Ithaca` lands on whichever plate really owns Ithaca. The
@@ -241,6 +275,31 @@ function App() {
             <p className="mt-5 font-heading text-xl italic opacity-90 sm:text-2xl">
               An illustrated glossary.
             </p>
+            {/* The voyage, offered as a picture rather than a menu item: a
+                crop of the same Ortelius engraving the Journey map opens on
+                (public/journey-map.jpg, cut from art/map-wanderings.jpg
+                around the 15 stops). Deliberately NOT preloaded and lazy —
+                hero.jpg is the LCP element and this must not compete with it. */}
+            <button
+              type="button"
+              onClick={openMap}
+              className="group mx-auto mt-8 block w-full max-w-md overflow-hidden rounded-box border border-base-300 bg-base-100/70 shadow-lg backdrop-blur transition-shadow duration-300 hover:shadow-2xl sm:max-w-lg"
+            >
+              <img
+                src="/journey-map.jpg"
+                alt="Abraham Ortelius's map of the wanderings of Ulysses"
+                loading="lazy"
+                decoding="async"
+                width={900}
+                height={419}
+                className="w-full transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
+              />
+              <span className="flex items-center justify-center gap-2 px-3 py-2 font-heading text-sm sm:text-base">
+                <MapIcon className="size-4 text-primary" aria-hidden="true" />
+                Follow the voyage on the map
+                <span className="text-primary transition-transform group-hover:translate-x-0.5">→</span>
+              </span>
+            </button>
           </div>
         </div>
       </header>
@@ -307,6 +366,7 @@ function App() {
             config={JOURNEYS[journeyRoute.slug]}
             open
             editing={journeyRoute.eyeball}
+            focusTerm={journeyRoute.focusTerm}
             onClose={closeMap}
             onSelect={openTerm}
             lookup={(t) => byTerm.get(t)}
@@ -342,19 +402,22 @@ function App() {
             {filtered.map((e) => {
               const arts = artsOf(e)
               const cover = arts[0]
-              // Places get an Atlas deep link when a plate actually pins them
-              // (every place but Ocean does). Map-only places open the map on
-              // click; places with real artwork keep gallery-first click and
-              // get the small "Map" button below. Non-places are unaffected.
-              const pin = e.tag === "place" ? findPin(e.term) : null
-              const deepLink = pin ? atlasHash(pin.slug, pin.place.term) : null
-              const cardOpensMap = !!deepLink && !hasRealArt(e)
+              // `primary` is the one map this term belongs on (mapRoutes
+              // decides Journey vs Atlas); `journey` is the voyage link when
+              // that ISN'T the primary — Troy and Ithaca are on Ortelius's
+              // real Greek plate, but they're also stops 1 and 15, so they
+              // offer both. Map-only places open their primary map on
+              // whole-card click; everything else keeps gallery-first click
+              // and shows the links as small buttons.
+              const { primary, journey } = mapLinks(e.term, e.tag === "place")
+              const cardOpensMap = !!primary && e.tag === "place" && !hasRealArt(e)
+              const extraJourney = journey && primary?.kind !== "journey" ? journey : null
               const openGallery = () => {
                 setSelected(e)
                 setLbIndex(0)
               }
               const openCard = () => {
-                if (cardOpensMap && deepLink) window.location.hash = deepLink
+                if (cardOpensMap && primary) window.location.hash = primary.hash
                 else openGallery()
               }
               return (
@@ -396,21 +459,9 @@ function App() {
                       <h2 className="card-title font-heading text-3xl font-semibold leading-none">
                         {e.term}
                       </h2>
-                      <div className="flex shrink-0 items-center gap-1.5">
-                        {deepLink && !cardOpensMap && (
-                          <button
-                            type="button"
-                            className="btn btn-xs btn-ghost gap-1 px-1.5"
-                            title={`Show ${e.term} on the Atlas`}
-                            onClick={(ev) => {
-                              ev.stopPropagation()
-                              window.location.hash = deepLink
-                            }}
-                          >
-                            <MapIcon className="size-3.5" aria-hidden="true" />
-                            Map
-                          </button>
-                        )}
+                      <div className="flex shrink-0 flex-wrap items-center justify-end gap-1.5">
+                        {primary && !cardOpensMap && <MapLink term={e.term} route={primary} />}
+                        {extraJourney && <MapLink term={e.term} route={extraJourney} />}
                         <span className="badge badge-outline badge-sm whitespace-nowrap text-[0.7rem] uppercase tracking-wider text-primary">
                           {e.tag}
                         </span>

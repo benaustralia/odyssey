@@ -309,21 +309,68 @@ URLs all resolve 200); ✅ `npm run check:pins` clean throughout.
   rather than `scripts/upload_to_r2.py`, which walks the entire bucket (~11,650 tile objects
   + all art masters) — correct for a from-scratch sync, wasteful for 67 files.
 
-## Phase D — Journey-map routing for mythic places (PARKED — opt-in only)
-**Status: ⏸ parked** — skip on "next phase" unless the user explicitly asks for it.
+## Phase D — Journey-map routing for mythic places
+**Status: ✅ done 2026-08-07** (was parked; the user opted in).
 **Model: Opus 5 · effort high** (JourneyMap's tour/camera code is the trickiest in the repo).
 
-Scope sketch: alias table place-term → journey stop term (Aeaea→Circe,
-Telepylus→Laestrygonians, Land of the Cyclopes→"Cyclops (pl. Cyclopes)", Land of the
-Lotus-Eaters→Lotus-Eaters, The Underworld→Hades, Aeolia→Aeolus; Ogygia/Scheria/Thrinacia/
-Ithaca/Troy are already stop terms); `focusTerm` prop on JourneyMap reusing the legend-focus
-camera path; those ~16 places' cards then prefer the Journey map over rubri's cramped inset.
-Fold in CLAUDE.md TODO 3(a) (hero mini-map + "Show on map" from journey cards).
+Tasks:
+- [x] Alias table `src/data/journeys/aliases.ts` (`JOURNEY_ALIASES[slug]`): Aeaea→Circe,
+  Aeolia→Aeolus, Ismarus→Cicones, Land of the Cyclopes→"Cyclops (pl. Cyclopes)", Land of
+  the Lotus-Eaters→Lotus-Eaters, Telepylus→Laestrygonians, The Underworld→Hades. Ogygia/
+  Scheria/Thrinacia/Ithaca/Troy are stop terms already and need no entry.
+- [x] `findStop(term, preferSlug?)` + `journeyHash()` + `JOURNEY_PRIORITY` in
+  `src/data/journeys/index.ts` — findPin's twin, same exact→alias→case-insensitive order.
+- [x] `#journey/<slug>/@<term>` parsing in `App.tsx` (reuses the existing `splitFocus`),
+  `focusTerm` prop on `JourneyMap` driving the legend's own `focus` state + a `FocusPopup`
+  that opens the stop's popup on arrival.
+- [x] One shared routing policy, `src/data/mapRoutes.ts` (`mapRoute` / `mapLinks`): the
+  Journey map wins whenever a term has a stop AND its best Atlas pin is on rubri; both the
+  place cards and the Atlas's header search resolve through it, so nothing splits.
+- [x] Cards: whole-card click goes to the term's primary map; a "Voyage" button appears
+  whenever the voyage is an *additional* destination (Troy and Ithaca carry both Map and
+  Voyage), and character stops (Circe, Scylla, the Sirens…) get one too.
+- [x] CLAUDE.md TODO 3(a): the hero now carries a clickable crop of the voyage map
+  (`public/journey-map.jpg`) opening `#journey`, and the "Show on map" links above.
+- [x] `scripts/check-pins.ts` validates the alias table (real journey, real glossary term,
+  real stop, no redundant self-alias).
 
-**Note after Phase B:** the Atlas's own search would need the same treatment, or it becomes
-the inconsistent path — `searchPins` returns rubri's inset pin for Aeaea/Ogygia/etc., so
-picking one there would still land on the cramped inset while the card sent you to the
-Journey map. Either route both through the alias table or leave both on rubri; don't split.
+Verify: ✅ `npm run check:pins`; ✅ production build + `vite preview` — cold
+`#journey/@Circe` lands on Ortelius's own "Aeaea insula, quae Circes domicilium" with halo
++ popup; The Underworld card → `#journey/@Hades`; Troy's Voyage button → stop 1 without
+opening the gallery; Atlas search on rubri for "ae" labels Aeaea/Aeolia "The Journey of
+Odysseus" and jumps there cleanly (no popup-teardown crash); `#atlas/@Ithaca` unregressed;
+tour still runs; close clears the hash; no console errors; no card-header overflow at 400px.
+
+### Phase D — as built (deltas from the plan)
+- **The journey-preference rule is context-free and data-driven**, not a hand-listed set of
+  ~16 places: prefer the voyage when `findStop` hits AND the context-free `findPin` says the
+  term's owning plate is rubri. rubri's Greek content IS the Vlyssis inset that the Journey
+  map shows full size, so that condition means "the Atlas can only offer a worse copy of the
+  same engraving". It resolves to 9 places (Aeaea, Aeolia, Land of the Cyclopes, Land of the
+  Lotus-Eaters, Ogygia, Scheria, Telepylus, The Underworld, Thrinacia); Ismarus, Troy and
+  Ithaca stay on Graecia and gain a Voyage button instead.
+- **Only 2 of those places actually change their whole-card click** (The Underworld, and
+  Ismarus's Atlas destination): after Phase C most mythic places turned out to have real
+  artwork, so they keep gallery-first click and simply gained the Voyage button.
+- The alias table lives in its own file rather than on `JourneyConfig` so `check-pins` can
+  import it — the journey config files import `.svg` assets, which tsx cannot load (the same
+  constraint that already forces that script to regex their stop terms).
+- **A real pre-existing bug surfaced and is fixed** — see the LockMinZoom note below. It also
+  restores the map's documented "open on the journey's first stop" behaviour, which had been
+  silently undone on every open.
+
+### The bug this phase flushed out (worth reading before touching either map)
+The deep link flew to its stop and then snapped back to "fit all" — with no second `setView`,
+no remount and no error. Cause: `LockMinZoom` called `map.setMinZoom(z)` **before** the
+opening `setView`. Leaflet's `setMinZoom` fires its own **animated** `setZoom` when the map is
+currently below the new floor, and the `animate: false` `setView` that follows does *not*
+clear that animation's pending `transitionend`; the stale handler lands late and runs
+`_move(_animateToCenter, _animateToZoom)` — bounds centre at min zoom — clobbering whatever
+the camera did in between. Fix: set the view first, raise minZoom second, so there is no
+animation to strand. Debugging note: `map.getZoom()` reported the *old* zoom while the pane
+was visibly scaled, and background-tab throttling stretched a 0.9s flyTo to ~6s — measure the
+`.leaflet-image-layer` width (`4000 × 2^zoom`) rather than trusting either the API or a
+screenshot, and force a paint between steps.
 
 ---
 
@@ -366,3 +413,10 @@ Journey map. Either route both through the alias table or leave both on rubri; d
   dimensions). All 67 crops spot-checked in the montage; Ethiopia/Libya re-verified live via
   `vite preview` (card cover + Atlas deep-link both correct). `check:pins` clean throughout.
   Only Phase D (parked) is left, and it stays opt-in only.
+- 2026-08-07 — **Phase D done** (the user opted into the parked phase). Place→stop alias
+  table, `findStop`/`journeyHash`, `#journey/<slug>/@<term>` routing, a `focusTerm` prop on
+  JourneyMap, one shared `mapRoutes` policy behind both the cards and the Atlas search, a
+  "Voyage" affordance on every card the voyage visits, and a clickable voyage-map crop in the
+  hero (closing CLAUDE.md TODO 3a). Fixed a pre-existing `setMinZoom`-before-`setView` bug
+  that had been silently undoing the journey map's opening view. **Every phase of this plan
+  is now applied; nothing here is outstanding.**

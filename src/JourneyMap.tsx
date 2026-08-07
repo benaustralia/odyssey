@@ -170,30 +170,105 @@ function ZoomWatch({ onZoom }: { onZoom: (z: number) => void }) {
 // edge-to-edge at every breakpoint, no aspect-ratio lock): a wide desktop
 // window shows most of the map, a portrait phone fills the screen and you pan
 // the wide map horizontally. Can't zoom out past that. Recomputes on resize/rotate.
-function LockMinZoom({ bounds, initialView }: { bounds: L.LatLngBounds; initialView: L.LatLngTuple }) {
+function LockMinZoom({
+  bounds,
+  initialView,
+  onReady,
+}: {
+  bounds: L.LatLngBounds
+  initialView: L.LatLngTuple
+  // Called once the opening view has actually landed. A deep link must wait
+  // for it: in a modal the container is still 0x0 on mount, so this runs on a
+  // later tick (the resize/settle path below) and would stomp any camera move
+  // made before it — the same "fit first, focus after" gate AtlasMap's
+  // FitWhenReady/`bounds` provides. Pass a STABLE function (a useState setter
+  // is ideal): it sits in this effect's dependency array.
+  onReady?: (ready: boolean) => void
+}) {
   const map = useMap()
   useEffect(() => {
     let focused = false
+    let settled = false
+    // Announce only once BOTH the opening view has landed and the settle pass
+    // below has run. Announcing from inside the first lock() instead let a
+    // deep link start its flyTo before the 300ms settle, and flyTo's parabolic
+    // path dips BELOW the start zoom on its way — so the settle's own
+    // `getZoom() < z` clamp fired mid-flight and slammed the camera back to
+    // "fit all". Calling this more than once is harmless (it's a useState
+    // setter being handed the same value).
+    const announce = () => {
+      if (focused && settled) onReady?.(true)
+    }
     const lock = () => {
-      const z = map.getBoundsZoom(bounds, true)
-      map.setMinZoom(z)
+      // A 0x0 container (the modal before layout settles) makes getBoundsZoom
+      // meaningless — wait for the resize/settle pass rather than acting on it.
       const sz = map.getSize()
-      if (!focused && sz.x > 0 && sz.y > 0) {
-        // Open on the journey's first stop — the start of the voyage — not the map centre.
-        map.setView(initialView, z, { animate: false })
+      if (sz.x <= 0 || sz.y <= 0) return
+      const z = map.getBoundsZoom(bounds, true)
+      if (!focused) {
+        // Order matters. `setMinZoom` on a map currently zoomed out past the
+        // new floor makes Leaflet fire its OWN animated setZoom (target:
+        // bounds centre at minZoom) — and an `animate: false` setView after it
+        // does not clear that animation's pending `transitionend`. The stale
+        // handler lands late, calls _move(_animateToCenter, _animateToZoom),
+        // and silently snaps the camera back to "fit all": it was undoing both
+        // this opening view and any deep-link flyTo that had started since.
+        // Setting the view FIRST means minZoom is raised to a floor the map is
+        // already sitting on, so there's no animation to strand.
+        map.setView(initialView, z, { animate: false }) // the journey's first stop, not the map centre
+        map.setMinZoom(z)
         focused = true
-      } else if (map.getZoom() < z) {
-        map.setZoom(z)
+        announce()
+        return
       }
+      map.setMinZoom(z)
+      if (map.getZoom() < z) map.setZoom(z)
     }
     lock()
     map.on("resize", lock)
-    const settle = setTimeout(lock, 300)
+    const settle = setTimeout(() => {
+      lock()
+      settled = true
+      announce()
+    }, 300)
     return () => {
       map.off("resize", lock)
       clearTimeout(settle)
     }
-  }, [map, bounds, initialView])
+  }, [map, bounds, initialView, onReady])
+  return null
+}
+
+// Opens the deep-linked stop's popup once the camera has arrived, through a
+// marker ref rather than any pin state — same reasoning as AtlasMap's
+// DeepLinkFocus: re-keying a marker remounts it and Leaflet closes a remounted
+// marker's popup. The timeout is a fallback for a setView Leaflet considers a
+// no-op (no move, so no moveend). `n` is the stop's stable `n`, not its array
+// index, and going null on tour start / a legend click closes the popup again.
+function FocusPopup({
+  n,
+  markerRefs,
+}: {
+  n: number | null
+  markerRefs: React.MutableRefObject<Map<number, L.Marker>>
+}) {
+  const map = useMap()
+  useEffect(() => {
+    if (n == null) return
+    let done = false
+    const open = () => {
+      if (done) return
+      done = true
+      markerRefs.current.get(n)?.openPopup()
+    }
+    map.once("moveend", open)
+    const t = setTimeout(open, 2000)
+    return () => {
+      map.off("moveend", open)
+      clearTimeout(t)
+      markerRefs.current.get(n)?.closePopup()
+    }
+  }, [n, map, markerRefs])
   return null
 }
 
@@ -405,6 +480,7 @@ export default function JourneyMap({
   config,
   open,
   editing,
+  focusTerm,
   onClose,
   onSelect,
   lookup,
@@ -412,6 +488,9 @@ export default function JourneyMap({
   config: JourneyConfig
   open: boolean
   editing: boolean
+  // A stop term from the #journey/<slug>/@<term> route — open the map parked
+  // on that stop instead of idle at the start of the voyage.
+  focusTerm?: string
   onClose: () => void
   onSelect: (term: string) => void
   lookup: (term: string) => EntryInfo | undefined
@@ -569,6 +648,9 @@ export default function JourneyMap({
   )
   const [tour, setTour] = useState(-1) // -1 = not touring; else current stop index
   const [focus, setFocus] = useState(-1) // legend pan target when not touring; -1 = whole map
+  const [ready, setReady] = useState(false) // opening view has landed (see LockMinZoom)
+  const [deepIdx, setDeepIdx] = useState(-1) // stop the current deep link parked on; -1 = none
+  const markerRefs = useRef(new Map<number, L.Marker>())
   const [playing, setPlaying] = useState(false)
   const [zoom, setZoom] = useState<number | null>(null)
   const timer = useRef<number | undefined>(undefined)
@@ -618,6 +700,22 @@ export default function JourneyMap({
     }, cycleMs)
     return () => window.clearTimeout(timer.current)
   }, [playing, tour, cycleMs, config.stops.length])
+
+  // Deep link (#journey/<slug>/@<term>) -> park on that stop. It rides the
+  // legend's existing `focus` state rather than a second camera path, so
+  // TourController does the flying and the legend highlights the stop. Waits
+  // for `ready` (the opening setView) or it focuses a 0x0 map; re-fires on a
+  // new focusTerm, since App keys JourneyMap by SLUG only and a same-journey
+  // link is a prop change, not a remount.
+  useEffect(() => {
+    if (!ready || !focusTerm) return
+    const i = config.stops.findIndex((s) => s.term === focusTerm)
+    if (i < 0) return
+    setTour(-1)
+    setPlaying(false)
+    setFocus(i)
+    setDeepIdx(i)
+  }, [ready, focusTerm, config.stops])
 
   if (!open) return null
 
@@ -675,7 +773,7 @@ export default function JourneyMap({
           >
             <ImageOverlay url={config.mapUrl} bounds={bounds} />
             <ZoomWatch onZoom={setZoom} />
-            <LockMinZoom bounds={bounds} initialView={initialView} />
+            <LockMinZoom bounds={bounds} initialView={initialView} onReady={setReady} />
             {!editing && <Navigator mapUrl={config.mapUrl} bounds={bounds} mapWidth={config.mapWidth} />}
             {/* Casing: a pale halo under the route so it reads on any part of the
                 busy antique map. Same dash+animation as the purple line on top
@@ -739,6 +837,13 @@ export default function JourneyMap({
               return (
                 <Marker
                   key={s.n}
+                  ref={(m) => {
+                    // Term-keyed would collide (Aeaea is two stops), so key the
+                    // registry by the stop's own `n` — the same stable value
+                    // the React key uses.
+                    if (m) markerRefs.current.set(s.n, m)
+                    else markerRefs.current.delete(s.n)
+                  }}
                   position={yx(pos[i].x, pos[i].y)}
                   icon={pin(s.n, i === tour, i === tour || showLabels ? s.short : undefined)}
                   zIndexOffset={i === tour ? 1000 : 0}
@@ -794,6 +899,12 @@ export default function JourneyMap({
               jumpMs={tuning.jumpMs}
               bounds={bounds}
               glideMsFn={glideMs}
+            />
+            {/* Only while the deep-linked stop is still the focused one: start
+                the tour or click another legend entry and the popup shuts. */}
+            <FocusPopup
+              n={tour < 0 && deepIdx >= 0 && focus === deepIdx ? config.stops[deepIdx].n : null}
+              markerRefs={markerRefs}
             />
           </MapContainer>
           </div>

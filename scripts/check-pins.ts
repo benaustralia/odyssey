@@ -16,6 +16,10 @@
 //  - no duplicate term within one plate;
 //  - every journey stop term must be a glossary term (extracted by regex —
 //    journey files import .svg assets, which tsx can't load);
+//  - every place->stop alias (src/data/journeys/aliases.ts, which is a
+//    separate file precisely so this script CAN import it) must name a real
+//    journey, a real glossary term, and a real stop of that journey — a
+//    typo'd alias fails silently, exactly like a mistyped pin term;
 //  - every glossary `place` entry must be pinned on at least one plate,
 //    except Ocean (the world-encircling river isn't a point on a map).
 import { readFileSync, readdirSync } from "node:fs"
@@ -24,6 +28,7 @@ import { fileURLToPath } from "node:url"
 import process from "node:process"
 import glossaryData from "../src/data/glossary.json"
 import { PLATES } from "../src/data/plates"
+import { JOURNEY_ALIASES } from "../src/data/journeys/aliases"
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..")
 const glossary = glossaryData as { term: string; tag: string }[]
@@ -51,13 +56,36 @@ for (const plate of Object.values(PLATES)) {
 }
 
 // ---- Journey stops (regex — see header) ----
+// File basename === journey slug by convention (odysseus.ts -> "odysseus"),
+// which is what lets the alias check below know which stops it may point at.
 const journeysDir = join(root, "src/data/journeys")
+const stopTerms = new Map<string, Set<string>>()
 for (const f of readdirSync(journeysDir)) {
-  if (!f.endsWith(".ts") || f === "types.ts" || f === "index.ts") continue
+  if (!f.endsWith(".ts") || f === "types.ts" || f === "index.ts" || f === "aliases.ts") continue
   const src = readFileSync(join(journeysDir, f), "utf8")
+  const terms = new Set<string>()
   for (const m of src.matchAll(/\bterm:\s*"([^"]+)"/g)) {
+    terms.add(m[1])
     if (!glossaryTerms.has(m[1]))
       errors.push(`journeys/${f}: stop term "${m[1]}" is not an exact glossary term`)
+  }
+  stopTerms.set(f.replace(/\.ts$/, ""), terms)
+}
+
+// ---- Journey place aliases ----
+for (const [slug, aliases] of Object.entries(JOURNEY_ALIASES)) {
+  const stops = stopTerms.get(slug)
+  if (!stops) {
+    errors.push(`aliases.ts: "${slug}" is not a journey (no src/data/journeys/${slug}.ts)`)
+    continue
+  }
+  for (const [place, stop] of Object.entries(aliases)) {
+    const where = `aliases.ts ${slug}: "${place}" -> "${stop}"`
+    if (!glossaryTerms.has(place))
+      errors.push(`${where} — "${place}" is not an exact glossary term`)
+    if (!stops.has(stop)) errors.push(`${where} — "${stop}" is not a stop on this journey`)
+    if (stops.has(place))
+      errors.push(`${where} — "${place}" is itself a stop term; the alias is redundant`)
   }
 }
 
@@ -76,4 +104,6 @@ if (errors.length) {
   for (const e of errors) console.error(`  ✗ ${e}`)
   process.exit(1)
 }
-console.log("✓ all pin terms, bounds, and coverage check out (Ocean deliberately unpinned)")
+console.log(
+  "✓ all pin terms, bounds, coverage and journey aliases check out (Ocean deliberately unpinned)",
+)

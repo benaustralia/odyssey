@@ -8,6 +8,10 @@ import MiniMapControl from "leaflet-minimap"
 import "leaflet-minimap/dist/Control.MiniMap.min.css"
 import CalibrationPanel from "./CalibrationPanel"
 import { PLATES, DEFAULT_PLATE_SLUG, atlasHash, searchPins } from "@/data/plates"
+// Same Journey-vs-Atlas policy the place cards use: a handful of pins here
+// (the Vlyssis-inset isles) belong on the Journey map, and the search must not
+// contradict the card that sends you there.
+import { mapRoute } from "@/data/mapRoutes"
 import type { AtlasPlace as Place, PlateConfig, PinRow } from "@/data/plates"
 
 function CalibrationFooter({
@@ -232,10 +236,19 @@ function PlateSearch({
     setOpen(false)
     setQ("")
   }
+  // Where a result actually goes. For most pins that's this plate (or the one
+  // that owns the term); for the voyage isles pinned only on rubri's cramped
+  // inset it's the Journey map, which shows that same engraving full size. The
+  // row prints the destination's title, so the jump is never a surprise.
+  const destOf = (row: PinRow) =>
+    mapRoute(row.term, row.slug) ?? {
+      hash: atlasHash(row.slug, row.term),
+      title: PLATES[row.slug]?.title ?? row.slug,
+    }
   const pick = (row: PinRow | undefined) => {
     if (!row) return
     close()
-    window.location.hash = atlasHash(row.slug, row.term)
+    window.location.hash = destOf(row).hash
   }
 
   if (!open)
@@ -303,9 +316,7 @@ function PlateSearch({
                   onClick={() => pick(r)}
                 >
                   <span className="text-sm font-medium leading-tight">{r.label ?? r.term}</span>
-                  <span className="text-xs leading-tight opacity-60">
-                    {PLATES[r.slug]?.title ?? r.slug}
-                  </span>
+                  <span className="text-xs leading-tight opacity-60">{destOf(r).title}</span>
                 </button>
               </li>
             ))
