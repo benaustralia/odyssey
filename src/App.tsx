@@ -141,8 +141,8 @@ function App() {
     window.addEventListener("hashchange", sync)
     return () => window.removeEventListener("hashchange", sync)
   }, [])
-  const openMap = () => {
-    window.location.hash = "journey"
+  const openMap = (slug: string = DEFAULT_JOURNEY_SLUG) => {
+    window.location.hash = slug === DEFAULT_JOURNEY_SLUG ? "journey" : `journey/${slug}`
   }
   const closeMap = () => {
     setJourneyRoute(null)
@@ -251,7 +251,7 @@ function App() {
                 hero.jpg is the LCP element and this must not compete with it. */}
             <button
               type="button"
-              onClick={openMap}
+              onClick={() => openMap()}
               className="group mx-auto mt-8 block w-full max-w-md overflow-hidden rounded-box border border-base-300 bg-base-100/70 shadow-lg backdrop-blur transition-shadow duration-300 hover:shadow-2xl sm:max-w-lg"
             >
               <img
@@ -266,6 +266,29 @@ function App() {
               <span className="flex items-center justify-center gap-2 px-3 py-2 font-heading text-sm sm:text-base">
                 <MapIcon className="size-4 text-primary" aria-hidden="true" />
                 Follow the Odysseus journey
+                <span className="text-primary transition-transform group-hover:translate-x-0.5">→</span>
+              </span>
+            </button>
+            {/* Same idea, second voyage: a crop of the Graecia Sophiani plate
+                (public/journey-map-telemachus.jpg, cut from
+                art/map-telemachus.jpg) framing Ithaca/Pylos/Sparta. */}
+            <button
+              type="button"
+              onClick={() => openMap("telemachus")}
+              className="group mx-auto mt-3 block w-full max-w-md overflow-hidden rounded-box border border-base-300 bg-base-100/70 shadow-lg backdrop-blur transition-shadow duration-300 hover:shadow-2xl sm:max-w-lg"
+            >
+              <img
+                src="/journey-map-telemachus.jpg"
+                alt="Abraham Ortelius's map of Graecia Sophiani"
+                loading="lazy"
+                decoding="async"
+                width={900}
+                height={419}
+                className="w-full transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
+              />
+              <span className="flex items-center justify-center gap-2 px-3 py-2 font-heading text-sm sm:text-base">
+                <MapIcon className="size-4 text-primary" aria-hidden="true" />
+                Follow the Telemachus journey
                 <span className="text-primary transition-transform group-hover:translate-x-0.5">→</span>
               </span>
             </button>
@@ -311,7 +334,7 @@ function App() {
 
           <button
             type="button"
-            onClick={openMap}
+            onClick={() => openMap()}
             className="btn btn-sm btn-primary btn-outline gap-2 lg:btn-md"
           >
             <MapIcon className="size-4" aria-hidden="true" />

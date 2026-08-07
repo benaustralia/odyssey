@@ -1,17 +1,20 @@
 import { odysseusJourney } from "./odysseus"
+import { telemachusJourney } from "./telemachus"
 import { JOURNEY_ALIASES } from "./aliases"
 import type { JourneyConfig, Stop } from "./types"
 
 export const JOURNEYS: Record<string, JourneyConfig> = {
   odysseus: odysseusJourney,
+  telemachus: telemachusJourney,
 }
 
 export const DEFAULT_JOURNEY_SLUG = "odysseus"
 
 // Mirrors the Atlas's PLATE_PRIORITY: which journey "owns" a term when more
-// than one visits it. With a single journey this is trivial, but the shape
-// keeps findStop honest when a second personage's voyage is added.
-export const JOURNEY_PRIORITY = [DEFAULT_JOURNEY_SLUG] as const
+// than one visits it. Ithaca is a stop on both voyages, so this order decides
+// which journey a bare "Ithaca" deep link / card Voyage-button resolves to --
+// Odysseus's stays primary as the more prominent voyage.
+export const JOURNEY_PRIORITY = [DEFAULT_JOURNEY_SLUG, "telemachus"] as const
 
 // Term -> the journey a deep link should open, and the stop to focus on it.
 // The Atlas's findPin twin (same match order, same preferSlug escape hatch):

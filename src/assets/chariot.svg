@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 300 180">
+  <defs>
+    <style>
+      .st0 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <g>
+    <!-- wheel -->
+    <circle cx="55" cy="128" r="32"/>
+    <rect x="53" y="100" width="4" height="56" rx="2" class="st0" transform="rotate(0 55 128)"/>
+    <rect x="53" y="100" width="4" height="56" rx="2" class="st0" transform="rotate(60 55 128)"/>
+    <rect x="53" y="100" width="4" height="56" rx="2" class="st0" transform="rotate(120 55 128)"/>
+    <circle cx="55" cy="128" r="7"/>
+    <!-- chariot basket -->
+    <polygon points="30,113 24,66 47,50 78,88 78,108 48,116"/>
+    <!-- harness pole -->
+    <rect x="76" y="94" width="60" height="7" rx="3.5"/>
+    <!-- horse tail -->
+    <path d="M132,72 C114,66 100,74 92,92 C104,84 116,82 130,86 Z"/>
+    <!-- horse body -->
+    <rect x="130" y="68" width="80" height="42" rx="20"/>
+    <!-- horse neck + head -->
+    <path d="M196,68 C204,50 214,36 224,26 C230,20 238,16 246,20 C252,24 250,32 244,36 L262,44 C268,47 267,54 260,54 L246,52 C240,58 224,68 198,74 Z"/>
+    <!-- ear -->
+    <polygon points="222,26 230,10 234,28"/>
+    <!-- legs -->
+    <rect x="194" y="103" width="11" height="58" rx="5" transform="rotate(28 194 103)"/>
+    <rect x="177" y="105" width="11" height="52" rx="5" transform="rotate(-8 177 105)"/>
+    <rect x="154" y="105" width="11" height="50" rx="5" transform="rotate(14 154 105)"/>
+    <rect x="136" y="103" width="11" height="58" rx="5" transform="rotate(-32 136 103)"/>
+  </g>
+</svg>
