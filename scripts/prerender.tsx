@@ -34,7 +34,7 @@ import { slugify } from "../src/lib/slug"
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)))
 const DIST = join(ROOT, "dist")
-const SITE = "https://odysseygloss.vercel.app"
+const SITE = "https://tellmeohmuse.com"
 const R2_ASSETS = "https://pub-b57180e24c9841f58854ecd1c164523a.r2.dev"
 
 const escapeHtml = (s: string) =>

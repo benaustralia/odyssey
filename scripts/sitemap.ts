@@ -16,7 +16,7 @@ import { entries } from "../src/lib/entries"
 import { slugify } from "../src/lib/slug"
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)))
-const SITE = "https://odysseygloss.vercel.app"
+const SITE = "https://tellmeohmuse.com"
 
 const urls = [SITE + "/", ...entries.map((e) => `${SITE}/entry/${slugify(e.term)}`)]
 
