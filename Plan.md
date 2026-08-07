@@ -199,7 +199,7 @@ crowded.
   Add a `?v=N` query param to force a real re-fetch.
 
 ## Phase C — per-place cover crops (optional polish)
-**Status: ☐ not started**
+**Status: ◐ started 2026-08-07 — script drafted but never run; see "picking this up" below**
 **Model: Sonnet 5 · effort medium** (mechanical bake behind a mandatory visual QA gate;
 escalate to Opus 5 only if framing judgment gets hairy).
 
@@ -220,11 +220,43 @@ where the link lands.
 - Crop framing should centre `(x, y)` — the pin coords are the same numbers `DeepLinkFocus`
   centres on, so the cover reads as a thumbnail of the view the click leads to.
 
+### Picking this up (state as of 2026-08-07, mid-phase)
+A session started Phase C and was cleared before running anything. **Nothing was executed,
+uploaded or committed** — `art.json` and `public/art/` are untouched; the only artefact is an
+untracked `scripts/bake_place_crops.py`. What's already settled:
+
+- **The script is written** (task 1 below is drafted, not verified). It resolves each place's
+  destination plate through the *real* registry — shells `npx tsx -e` to import `findPin`
+  from `src/data/plates/index.ts` rather than re-parsing the plate `.ts` files, so the
+  priority/case-fallback logic stays in one place — then crops with **`vips`**, not PIL: the
+  masters run to 143MP/220MB and PIL would decode the whole plate just to take one bite.
+  Flags: `--dry-run` (print the plan), `--montage` (contact sheet for the QA gate).
+- **Crop geometry decided:** a **2400×1800 native window centred on the pin**, clamped at
+  plate edges, downsampled to **1600×1200**. 4:3 because the card figure is `aspect-[4/3]`;
+  ~1.5× wider than the Atlas's own deep-link view (`maxZoom - 1.5`) because a cover cropped as
+  tight as the destination reads as a blur of engraving rather than a place.
+- **Manifest verified:** **67** places to crop — graecia 56 · rubri 7 · aegyptus 2 · africae 2.
+  Ocean is the only place correctly excluded (unpinned, keeps `map-world`).
+- **Credit rewrite is coded:** artist `"Abraham Ortelius"`, title `PLATES[slug].title` verbatim,
+  year parsed out of `PLATES[slug].attribution`'s `(YYYY)`, `source` from a `PLATE_SOURCE`
+  table of Commons URLs built from each plate file's header comment. It also drops the dead
+  `cld` field on these records (the crop is a brand-new asset, so the leftover Cloudinary id
+  can't mean anything). **Unverified:** those Commons URLs were reconstructed from the header
+  comments and **rubri's was guessed** — check each resolves before trusting the credits.
+- **Known thing to judge at the montage gate:** rubri's five Underworld pins (Acheron, Cocytus,
+  Erebus, Pyriphlegethon, Styx) plus The Underworld sit within ~400px of each other, so at a
+  2400px window their six crops come out near-identical. Not an invariant breach (`*-map` keys
+  are excluded from both dedup sweeps by design), but decide deliberately: accept, or tighten
+  the window for that cluster.
+
+Remaining work is tasks 2–5 below, plus actually running task 1.
+
 Tasks:
 - [ ] Script (`scripts/bake_place_crops.py`): for every place with a `-map` art record AND a
   pin — crop `plates/<findPin slug>/master.jpg` around `(x,y)` (~1600×1200 at native res,
   clamped at plate edges), recompress per house rule (max 1600px, q82, strip), write
   `public/art/<key>.jpg` (key = the existing `<slug>-map` key).
+  *Drafted (untracked) but never executed — run `--dry-run` first, then `--montage`.*
 - [ ] ImageMagick contact-sheet montage of all crops; **eyeball BEFORE uploading** — fix
   framing outliers (labels cut off, pin at an edge).
 - [ ] Upload via boto3 against the **S3-compatible endpoint** (creds `.env.r2.local`; NOT
@@ -278,3 +310,8 @@ Journey map. Either route both through the alias table or leave both on rubri; d
   regenerated; CLAUDE.md TODO 1 (b)/(c) closed. Every Atlas pin is now off its seed grid — the
   only pin work left is the user's spot-check of the flagged Graecia pins (standing reminder
   above). Next: Phase A.
+- 2026-08-07 — **Phase C started, then interrupted** (session cleared mid-task). Crop geometry,
+  plate resolution and the credit rewrite are decided and coded into an untracked
+  `scripts/bake_place_crops.py`; the manifest was validated (67 crops, Ocean excluded). Nothing
+  ran — no images, no `art.json` edit, no upload, no commit. See "Picking this up" under Phase C.
+  Next: finish Phase C (run the script, montage QA gate, upload, verify).
