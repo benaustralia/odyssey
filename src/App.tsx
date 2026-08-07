@@ -4,6 +4,7 @@ import { Search, Map as MapIcon, Sailboat } from "lucide-react"
 // Leaflet is heavy and the map is opt-in, so load it only when first opened.
 const JourneyMap = lazy(() => import("./JourneyMap"))
 const AtlasMap = lazy(() => import("./AtlasMap"))
+import JourneysIndex from "./JourneysIndex"
 import Lightbox from "yet-another-react-lightbox"
 import Captions from "yet-another-react-lightbox/plugins/captions"
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen"
@@ -133,10 +134,17 @@ function App() {
   const [atlasRoute, setAtlasRoute] = useState(
     () => (typeof window !== "undefined" ? parseAtlasHash(window.location.hash) : null),
   )
+  // "#journeys" (plural) — a landing grid of every registered journey,
+  // distinct from "#journey"/"#journey/<slug>" (a specific voyage). Exact
+  // string equality, not parseMapHash, since it isn't a per-journey route.
+  const [journeysIndexOpen, setJourneysIndexOpen] = useState(
+    () => (typeof window !== "undefined" ? window.location.hash === "#journeys" : false),
+  )
   useEffect(() => {
     const sync = () => {
       setJourneyRoute(parseJourneyHash(window.location.hash))
       setAtlasRoute(parseAtlasHash(window.location.hash))
+      setJourneysIndexOpen(window.location.hash === "#journeys")
     }
     window.addEventListener("hashchange", sync)
     return () => window.removeEventListener("hashchange", sync)
@@ -157,6 +165,14 @@ function App() {
     if (parseAtlasHash(window.location.hash))
       window.history.replaceState(null, "", window.location.pathname + window.location.search)
   }
+  const openJourneysIndex = () => {
+    window.location.hash = "journeys"
+  }
+  const closeJourneysIndex = () => {
+    setJourneysIndexOpen(false)
+    if (window.location.hash === "#journeys")
+      window.history.replaceState(null, "", window.location.pathname + window.location.search)
+  }
 
   // Esc closes whichever full-screen map is open. Skipped while the lightbox
   // is showing on top of a map — that's YARL's own Escape-to-close, and it
@@ -166,10 +182,11 @@ function App() {
       if (e.key !== "Escape" || (selected && lbIndex >= 0)) return
       if (journeyRoute) closeMap()
       else if (atlasRoute) closeAtlas()
+      else if (journeysIndexOpen) closeJourneysIndex()
     }
     window.addEventListener("keydown", onKey)
     return () => window.removeEventListener("keydown", onKey)
-  }, [journeyRoute, atlasRoute, selected, lbIndex])
+  }, [journeyRoute, atlasRoute, journeysIndexOpen, selected, lbIndex])
 
   // A journey-map pin → open that term's entry in the lightbox. The map stays
   // open underneath, so closing the lightbox returns to the map.
@@ -244,54 +261,69 @@ function App() {
             <p className="mt-5 font-heading text-xl italic opacity-90 sm:text-2xl">
               An illustrated glossary.
             </p>
-            {/* The voyage, offered as a picture rather than a menu item: a
-                crop of the same Ortelius engraving the Journey map opens on
-                (public/journey-map.jpg, cut from art/map-wanderings.jpg
-                around the 15 stops). Deliberately NOT preloaded and lazy —
-                hero.jpg is the LCP element and this must not compete with it. */}
-            <button
-              type="button"
-              onClick={() => openMap()}
-              className="group mx-auto mt-8 block w-full max-w-md overflow-hidden rounded-box border border-base-300 bg-base-100/70 shadow-lg backdrop-blur transition-shadow duration-300 hover:shadow-2xl sm:max-w-lg"
-            >
-              <img
-                src="/journey-map.jpg"
-                alt="Abraham Ortelius's map of the wanderings of Ulysses"
-                loading="lazy"
-                decoding="async"
-                width={900}
-                height={419}
-                className="w-full transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
-              />
-              <span className="flex items-center justify-center gap-2 px-3 py-2 font-heading text-sm sm:text-base">
-                <MapIcon className="size-4 text-primary" aria-hidden="true" />
-                Follow the Odysseus journey
-                <span className="text-primary transition-transform group-hover:translate-x-0.5">→</span>
-              </span>
-            </button>
-            {/* Same idea, second voyage: a crop of the Graecia Sophiani plate
-                (public/journey-map-telemachus.jpg, cut from
-                art/map-telemachus.jpg) framing Ithaca/Pylos/Sparta. */}
-            <button
-              type="button"
-              onClick={() => openMap("telemachus")}
-              className="group mx-auto mt-3 block w-full max-w-md overflow-hidden rounded-box border border-base-300 bg-base-100/70 shadow-lg backdrop-blur transition-shadow duration-300 hover:shadow-2xl sm:max-w-lg"
-            >
-              <img
-                src="/journey-map-telemachus.jpg"
-                alt="Abraham Ortelius's map of Graecia Sophiani"
-                loading="lazy"
-                decoding="async"
-                width={900}
-                height={419}
-                className="w-full transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
-              />
-              <span className="flex items-center justify-center gap-2 px-3 py-2 font-heading text-sm sm:text-base">
-                <MapIcon className="size-4 text-primary" aria-hidden="true" />
-                Follow the Telemachus journey
-                <span className="text-primary transition-transform group-hover:translate-x-0.5">→</span>
-              </span>
-            </button>
+            {/* The voyages, offered as pictures rather than menu items: a
+                swipeable DaisyUI carousel (native CSS scroll-snap, no JS
+                needed for the swipe itself), one slide per registered
+                journey (JOURNEYS) so a third voyage just needs a
+                JourneyConfig entry, no markup changes here. Deliberately NOT
+                preloaded and lazy — hero.jpg is the LCP element and this
+                must not compete with it. Dot nav below uses scrollIntoView
+                on the slide's own id rather than <a href="#..."> — an
+                anchor would rewrite window.location.hash and misfire this
+                app's own hash-based map routing. behavior:"instant", not
+                "smooth": a JS-driven smooth scrollIntoView on a
+                scroll-snap-mandatory container is prone to Chromium
+                silently dropping the animation (raced against the
+                snap-point re-evaluation) — confirmed via manual testing:
+                a real swipe/native scroll always worked, but a smooth
+                scrollIntoView to the last slide intermittently no-opped.
+                Instant sidesteps the race entirely; swiping still glides
+                via the browser's own native momentum scroll. */}
+            <div className="carousel mx-auto mt-8 w-full max-w-md rounded-box sm:max-w-lg">
+              {Object.values(JOURNEYS).map((j) => (
+                <div key={j.slug} id={`hero-slide-${j.slug}`} className="carousel-item w-full">
+                  <button
+                    type="button"
+                    onClick={() => openMap(j.slug)}
+                    className="group block w-full overflow-hidden border border-base-300 bg-base-100/70 shadow-lg backdrop-blur transition-shadow duration-300 hover:shadow-2xl"
+                  >
+                    <img
+                      src={j.heroImage}
+                      alt={j.heroAlt}
+                      loading="lazy"
+                      decoding="async"
+                      width={900}
+                      height={419}
+                      className="w-full transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
+                    />
+                    <span className="flex items-center justify-center gap-2 px-3 py-2 font-heading text-sm sm:text-base">
+                      <Sailboat className="size-4 text-primary" aria-hidden="true" />
+                      {j.heroCta}
+                      <span className="text-primary transition-transform group-hover:translate-x-0.5">→</span>
+                    </span>
+                  </button>
+                </div>
+              ))}
+            </div>
+            {Object.keys(JOURNEYS).length > 1 && (
+              <div className="mt-2 flex w-full items-center justify-center gap-2">
+                {Object.values(JOURNEYS).map((j) => (
+                  <button
+                    key={j.slug}
+                    type="button"
+                    aria-label={`Show ${j.title}`}
+                    onClick={() =>
+                      document
+                        .getElementById(`hero-slide-${j.slug}`)
+                        ?.scrollIntoView({ behavior: "instant", inline: "start", block: "nearest" })
+                    }
+                    className="btn btn-circle btn-ghost btn-sm text-[8px] text-primary"
+                  >
+                    ●
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </header>
@@ -334,6 +366,14 @@ function App() {
 
           <button
             type="button"
+            onClick={openJourneysIndex}
+            className="btn btn-sm btn-outline gap-2 lg:btn-md"
+          >
+            <Sailboat className="size-4" aria-hidden="true" />
+            Journey Maps
+          </button>
+          <button
+            type="button"
             onClick={openAtlas}
             className="btn btn-sm btn-outline gap-2 lg:btn-md"
           >
@@ -342,6 +382,8 @@ function App() {
           </button>
         </div>
       </nav>
+
+      <JourneysIndex open={journeysIndexOpen} onClose={closeJourneysIndex} onOpenJourney={openMap} />
 
       {journeyRoute && (
         <Suspense fallback={null}>

@@ -53,6 +53,10 @@ export type TourTuning = {
 export type JourneyConfig = {
   slug: string
   title: string
+  // The hero carousel slide / Journey Maps index card for this journey.
+  heroImage: string // public/ path to a small teaser crop of mapUrl
+  heroAlt: string
+  heroCta: string // e.g. "Follow the Odysseus journey"
   attribution: { prefix: string; workTitle: string; suffix: string }
   mapWidth: number
   mapHeight: number

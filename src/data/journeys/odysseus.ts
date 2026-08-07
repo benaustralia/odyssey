@@ -84,6 +84,9 @@ const legVias: Pt[][] = [
 export const odysseusJourney: JourneyConfig = {
   slug: "odysseus",
   title: "The Journey of Odysseus",
+  heroImage: "/journey-map.jpg",
+  heroAlt: "Abraham Ortelius's map of the wanderings of Ulysses",
+  heroCta: "Follow the Odysseus journey",
   attribution: { prefix: "Abraham Ortelius, ", workTitle: "Vlyssis Errores", suffix: " (1597)" },
   mapWidth: 4000,
   mapHeight: 2337,
