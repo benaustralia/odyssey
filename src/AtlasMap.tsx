@@ -661,9 +661,13 @@ function PlaceFocuser({
   const map = useMap()
   useEffect(() => {
     if (!focusPlace) return
-    // Zoom in on the place at a reasonable level (z=3 for good detail)
+    // Same zoom level as DeepLinkFocus below (a couple of levels below
+    // native) — a fixed z=3 used to land at or above the plate's own
+    // fit-to-bounds zoom, which is also ~3 on wide plates like Graecia, so
+    // the footer's "center and zoom" button visibly panned but never
+    // actually zoomed in.
     const latlng = unprojectPixel(map, focusPlace.x, focusPlace.y, maxZoom)
-    map.setView(latlng, 3, { animate: true })
+    map.setView(latlng, Math.max(0, maxZoom - 1.5), { animate: true })
     onFocus(focusPlace)
   }, [focusPlace, map, maxZoom, onFocus])
   return null
