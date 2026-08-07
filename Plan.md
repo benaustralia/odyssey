@@ -29,10 +29,14 @@ Both apply to any phase touching the maps, so they live here rather than in one 
 > the `atlas-phase-status` memory. Its open follow-ups are folded in here: rubri/aegyptus pin
 > work is Phase 0 below; the flagged-pin review is the standing reminder just below.
 
-## Standing reminder (not a phase — surface it every session until done)
-- [ ] **USER reviews flagged Graecia pins** live at `#atlas/edit` against
-  `graecia-draft/flags.md`: the four interpretive pins (Chalcis, Crouni, Enipeus, Gyrae), the
-  Phylace label-vs-geography call, the possible Argos↔Mycenae castle swap.
+## Standing reminder — RETIRED ✅ 2026-08-07 (nothing left to surface)
+- [x] **Flagged Graecia pins reviewed** — the user delegated the spot-check; it was re-run
+  offline with fresh marked-ring crops at native resolution (see `graecia-draft/flags.md`
+  "Review resolution" + `graecia-draft/verify/`): Chalcis/Crouni/Enipeus/Gyrae confirmed as
+  drafted; **Phylace moved** (4530,4225)→(5080,4560) — the printed "Phylace" is the Pierian
+  homonym and the plate has no Thessalian one, so Wilson's "city in Thessaly" def wins;
+  **Argos↔Mycenae exchanged** — the engraved diagonal "Mycenę." anchors the SW castle,
+  "Argos." the NE one, so both pins now sit on their own printed labels. `check:pins` clean.
 
 ## Goal
 Searching a place on the front page currently ends at a gallery card whose only image is a
@@ -315,3 +319,8 @@ Journey map. Either route both through the alias table or leave both on rubri; d
   `scripts/bake_place_crops.py`; the manifest was validated (67 crops, Ocean excluded). Nothing
   ran — no images, no `art.json` edit, no upload, no commit. See "Picking this up" under Phase C.
   Next: finish Phase C (run the script, montage QA gate, upload, verify).
+- 2026-08-07 — **Standing reminder retired.** The flagged-pin review ran in-session (offline
+  marked-ring crops, not live-drag): the four interpretive pins confirmed, Phylace →
+  (5080,4560) Thessaly, Argos↔Mycenae swapped onto their own engraved labels ("Mycenę."
+  diagonal = SW castle, "Argos." = NE castle). `graecia.ts` updated, `check:pins` clean,
+  resolution recorded in `graecia-draft/flags.md`. Phase C remains the next open phase.

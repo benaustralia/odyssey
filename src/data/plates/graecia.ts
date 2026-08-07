@@ -11,11 +11,13 @@ import type { AtlasPlace, PlateConfig } from "./types"
 //
 // CALIBRATED 2026-08-06: all 69 pins placed on Ortelius's own labels/symbols
 // by reading the master scan at native resolution (per-pin confidence +
-// evidence in graecia-draft/flags.md; flagged for review there: the four
-// interpretive pins Chalcis/Crouni/Enipeus/Gyrae, the Phylace
-// label-vs-geography call, and a possible Argos/Mycenae castle swap).
+// evidence in graecia-draft/flags.md). Flag review RESOLVED 2026-08-07 (see
+// flags.md "Review resolution"): Argos<->Mycenae exchanged onto their own
+// engraved labels ("Argos." names the NE castle, the diagonal "Mycene." the
+// SW one); Phylace moved off the Pierian homonym label to the Thessalian
+// position per Wilson's def; Chalcis/Crouni/Enipeus/Gyrae confirmed.
 // Adjust any pin at #atlas/graecia/edit (drag -> "Copy all" -> paste back
-// over this array). Next: delete the now-redundant Greek pins from rubri.ts.
+// over this array).
 const places: AtlasPlace[] = [
   { term: "Achaea", noGloss: true, x: 4760, y: 6035 },
   { term: "Aegae", x: 4880, y: 5985 },
@@ -23,7 +25,7 @@ const places: AtlasPlace[] = [
   { term: "Amnisus", x: 7620, y: 7205 },
   { term: "Arcadia", noGloss: true, x: 4660, y: 6695 },
   { term: "Arethusa", x: 3855, y: 5935 },
-  { term: "Argos (the city)", label: "Argos", x: 5530, y: 6483 },
+  { term: "Argos (the city)", label: "Argos", x: 5590, y: 6428 },
   { term: "Asteris", x: 3745, y: 5720 },
   { term: "Athens", x: 6450, y: 5830 },
   { term: "Attica", noGloss: true, x: 6700, y: 5800 },
@@ -57,7 +59,7 @@ const places: AtlasPlace[] = [
   { term: "Mount Neion", label: "Neion", x: 3875, y: 5860 },
   { term: "Mount Neriton", label: "Neriton", x: 3855, y: 5730 },
   { term: "Mount Parnassus", label: "Parnassus", x: 5170, y: 5250 },
-  { term: "Mycenae", x: 5590, y: 6428 },
+  { term: "Mycenae", x: 5530, y: 6483 },
   { term: "Olympus", x: 4700, y: 4400 },
   { term: "Orchomenus", x: 5700, y: 5450 },
   { term: "Ossa", x: 5250, y: 4290 },
@@ -68,7 +70,7 @@ const places: AtlasPlace[] = [
   { term: "Phaestus", x: 7200, y: 7550 },
   { term: "Pherae", x: 4630, y: 7200 },
   { term: "Phthia", x: 5170, y: 4650 },
-  { term: "Phylace", x: 4530, y: 4225 },
+  { term: "Phylace", x: 5080, y: 4560 },
   { term: "Pieria", x: 4520, y: 4090 },
   { term: "Psara", x: 8030, y: 4920 },
   { term: "Pylos", x: 4210, y: 6990 },
