@@ -203,7 +203,7 @@ crowded.
   Add a `?v=N` query param to force a real re-fetch.
 
 ## Phase C — per-place cover crops (optional polish)
-**Status: ◐ started 2026-08-07 — script drafted but never run; see "picking this up" below**
+**Status: ✅ done 2026-08-07**
 **Model: Sonnet 5 · effort medium** (mechanical bake behind a mandatory visual QA gate;
 escalate to Opus 5 only if framing judgment gets hairy).
 
@@ -256,26 +256,58 @@ untracked `scripts/bake_place_crops.py`. What's already settled:
 Remaining work is tasks 2–5 below, plus actually running task 1.
 
 Tasks:
-- [ ] Script (`scripts/bake_place_crops.py`): for every place with a `-map` art record AND a
+- [x] Script (`scripts/bake_place_crops.py`): for every place with a `-map` art record AND a
   pin — crop `plates/<findPin slug>/master.jpg` around `(x,y)` (~1600×1200 at native res,
   clamped at plate edges), recompress per house rule (max 1600px, q82, strip), write
   `public/art/<key>.jpg` (key = the existing `<slug>-map` key).
-  *Drafted (untracked) but never executed — run `--dry-run` first, then `--montage`.*
-- [ ] ImageMagick contact-sheet montage of all crops; **eyeball BEFORE uploading** — fix
-  framing outliers (labels cut off, pin at an edge).
-- [ ] Upload via boto3 against the **S3-compatible endpoint** (creds `.env.r2.local`; NOT
-  the Cloudflare REST API — account-wide rate limit). New keys → no cache-bust concern; old
-  `map-*.jpg` objects stay as accepted orphans.
-- [ ] Update each record in `art.json`: `file: "/art/<key>.jpg"`, credits → the Ortelius
+- [x] ImageMagick contact-sheet montage of all crops; **eyeballed before uploading** — caught
+  two real content bugs, not just framing (see "as built" below).
+- [x] Uploaded via boto3 against the **S3-compatible endpoint** (creds `.env.r2.local`), all
+  67 objects, 0 failures.
+- [x] Updated each record in `art.json`: `file: "/art/<key>.jpg"`, credits → the Ortelius
   plate actually cropped (artist "Abraham Ortelius", plate title, year, plate's Commons
-  `source`). Note this deliberately switches some places off the non-Atlas maps (Delisle
-  northern, Homer world, Lapie voyages) onto their Ortelius plate. Ocean (unpinned) keeps
-  `map-world` untouched.
-- [ ] Keep the `*-map` exclusion in dedup/perceptual checks (keys keep the suffix — no
-  change needed, just don't break it).
+  `source`). Switched 67 places off the non-Atlas maps onto their Ortelius plate. Ocean
+  (unpinned) keeps `map-world` untouched.
+- [x] `*-map` exclusion in dedup/perceptual checks needed no code change (keys kept the
+  suffix).
 
-Verify: montage approved; spot-check several cards + lightbox captions live/preview;
-`npm run check:pins` still clean (no pin data touched, cheap to run).
+Verify: ✅ montage approved after two fixes; ✅ spot-checked Ethiopia + Libya cards and their
+Atlas deep-links live on `vite preview` (cover crop matches the popup location, credit/source
+URLs all resolve 200); ✅ `npm run check:pins` clean throughout.
+
+### Phase C — as built (deltas from the plan)
+- **The montage QA gate caught a real pre-existing bug, not just framing outliers.** Ethiopia
+  and Libya (`africae.ts`) were still on their never-calibrated seed grid — both parked at
+  the same spot in the blank "Oceanus Atlanticus" corner (the file's own header comment
+  flagged this: "SEED GRID... NOT at their real location yet"). Their bake crops rendered as
+  the plate's decorative title cartouche, not any African geography — a correctness bug the
+  crop script couldn't have caught on its own, since it only reads whatever `(x,y)` the pin
+  data gives it. Fixed with the same offline PIL/vips grid-crop + marked-ring method as
+  Plan.md Phase 0: **Africa** (noGloss) → `(3980, 6480)` on the plate's own "AFRI" of
+  "AFRICAE TABULA NOVA"; **Libya** → `(5650, 2450)` on "Lybiae Deserta" (matches the
+  glossary's "northern coast of Africa"); **Ethiopia** → `(7700, 4350)` on "totius Africae" in
+  the plate's Prester John legend — the plate prints no literal "AETHIOPIA" anywhere (checked
+  Nubia, the Horn-of-Africa interior, and the Mozambique/Zanzibar coast; the one
+  "Aethiopicus"-rooted label on the plate is the "Oceanus Aethiopicus" ocean name, which sits
+  over blank water off Brazil — wrong hemisphere), so Prester John's realm — historically
+  identified with Abyssinia/Ethiopia by Renaissance cartographers — is the closest thing to a
+  printed Ethiopia here, the same kind of compromise as rubri's India pin landing on "Mambari
+  regnum". `africae.ts`'s header comment rewritten with the calibration rationale;
+  `check:pins` stayed clean throughout (bounds/structure were always valid — this was a
+  placement-accuracy bug the checker doesn't cover).
+- **Montage font gotcha:** ImageMagick's `-label "%f"` step failed with "unable to read font"
+  on this machine's default config — unrelated to the crop logic. Fixed by passing
+  `-font /System/Library/Fonts/Supplemental/Verdana.ttf` explicitly when building the
+  contact sheet by hand (the script's own `--montage` flag doesn't set a font, so it hits the
+  same error — a follow-up if this script gets reused).
+- **Verified rubri's Commons source before trusting it** (the plan flagged it as guessed): the
+  placeholder URL 404'd. Found the real file by matching pixel dimensions (13238×10802,
+  exactly what `rubri.ts`'s header comment records) against Commons search candidates:
+  `File:Abraham Ortelius, Erythraei sive Rubri Maris Periplus (FL32963697 2720706).jpg`.
+  Confirmed 200 and updated `PLATE_SOURCE["rubri"]` before running the bake for real.
+- Uploaded only the 67 changed `public/art/*.jpg` files directly via a short boto3 call
+  rather than `scripts/upload_to_r2.py`, which walks the entire bucket (~11,650 tile objects
+  + all art masters) — correct for a from-scratch sync, wasteful for 67 files.
 
 ## Phase D — Journey-map routing for mythic places (PARKED — opt-in only)
 **Status: ⏸ parked** — skip on "next phase" unless the user explicitly asks for it.
@@ -324,3 +356,13 @@ Journey map. Either route both through the alias table or leave both on rubri; d
   (5080,4560) Thessaly, Argos↔Mycenae swapped onto their own engraved labels ("Mycenę."
   diagonal = SW castle, "Argos." = NE castle). `graecia.ts` updated, `check:pins` clean,
   resolution recorded in `graecia-draft/flags.md`. Phase C remains the next open phase.
+- 2026-08-07 — **Phase C done.** Ran the previously-drafted `bake_place_crops.py`: 67 place
+  covers cropped from their destination Ortelius plate, uploaded to R2, `art.json` credits
+  rewritten. The montage QA gate caught a real bug along the way — `africae.ts`'s Ethiopia
+  and Libya pins were still an uncalibrated seed grid parked in blank ocean, so their bake
+  crops showed the plate's title cartouche instead of Africa; recalibrated both (plus the
+  noGloss Africa pin) with the Phase-0 offline grid-crop method before re-baking. Also fixed
+  rubri's guessed-and-wrong Commons source URL (found the real file by matching pixel
+  dimensions). All 67 crops spot-checked in the montage; Ethiopia/Libya re-verified live via
+  `vite preview` (card cover + Atlas deep-link both correct). `check:pins` clean throughout.
+  Only Phase D (parked) is left, and it stays opt-in only.

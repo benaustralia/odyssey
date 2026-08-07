@@ -15,14 +15,32 @@ import type { AtlasPlace, PlateConfig } from "./types"
 // Ortelius's own equatorial-Africa labels), not a precise claim about
 // where Homer meant it.
 //
-// SEED GRID — the 3 places below are parked in open water in the
-// "OCEANVS ATLANTICVS" corner, NOT at their real location yet. Calibrate
-// at #atlas/africae/edit, then paste the JSON back over this array.
-// Libya and Ethiopia also have a home on rubri (its margin/inset).
+// Calibrated 2026-08-07 (offline PIL/vips grid-crop + marked-ring
+// verification, same method as Graecia/rubri/aegyptus in Plan.md Phase 0 —
+// these 3 were left on their seed grid, parked in blank ocean in the
+// "OCEANVS ATLANTICVS" corner, until caught mid-Phase-C when their bake
+// crops rendered as the plate's decorative title cartouche instead of any
+// real geography):
+// - Africa (noGloss) → (3980, 6480), on the "AFRI" of the plate's own
+//   "AFRICAE TABULA NOVA" title cartouche.
+// - Libya → (5650, 2450), on "Lybiae Deserta" (the Sahara/Libyan Desert
+//   region label north of Nigritarum Regio) — matches the glossary's "land
+//   on the northern coast of Africa."
+// - Ethiopia → (7700, 4350), on "totius Africae" in the plate's Prester
+//   John legend ("Hic longe lateque imperitat magnus princeps Presbiter
+//   Ioannes dictus totius Africae potentissimus Rex"). The plate prints no
+//   literal "AETHIOPIA" anywhere (checked the Nubia/Horn-of-Africa interior,
+//   the Mozambique/Zanzibar coast, and the "Oceanus Aethiopicus" ocean label
+//   — the last sits over blank ocean off Brazil, wrong hemisphere for an
+//   African place). Prester John's realm is the closest thing to a printed
+//   Ethiopia on this specific plate — Renaissance cartographers themselves
+//   identified it with Abyssinia/Ethiopia — and the glossary's own "not the
+//   modern country" framing makes a legendary anchor an apt compromise, the
+//   same kind of call as rubri's India pin landing on "Mambari regnum."
 const places: AtlasPlace[] = [
-  { term: "Africa", noGloss: true, x: 1340, y: 900 },
-  { term: "Ethiopia", x: 1790, y: 900 },
-  { term: "Libya", x: 1340, y: 1250 },
+  { term: "Africa", noGloss: true, x: 3980, y: 6480 },
+  { term: "Ethiopia", x: 7700, y: 4350 },
+  { term: "Libya", x: 5650, y: 2450 },
 ]
 
 export const africaePlate: PlateConfig = {

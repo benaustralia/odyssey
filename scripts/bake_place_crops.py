@@ -70,7 +70,8 @@ PLATE_SOURCE = {
         "https://commons.wikimedia.org/wiki/File:Theatrum_Orbis_Terrarum_-_Africae_Tabula_Nova.jpg"
     ),
     "rubri": (
-        "https://commons.wikimedia.org/wiki/File:Erythraei_sive_Rubri_Maris_Periplus.jpg"
+        "https://commons.wikimedia.org/wiki/File:Abraham_Ortelius,_Erythraei_sive_Rubri_"
+        "Maris_Periplus_(FL32963697_2720706).jpg"
     ),
 }
 
