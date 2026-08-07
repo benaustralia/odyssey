@@ -15,6 +15,15 @@ model/effort via `/model`, then prompt **"next phase"**. On that prompt:
 Model/effort lines are **suggestions for the user to set before prompting** — if the session
 is already on a bigger model, just proceed.
 
+### Verifying a phase in the browser (learned the hard way in Phases A and B)
+Both apply to any phase touching the maps, so they live here rather than in one phase:
+- **Force a paint between navigations.** An occluded/backgrounded Chrome tab suspends the
+  render loop, so `FitWhenReady`'s ResizeObserver never fires, `bounds` stays null and nothing
+  focuses — indistinguishable from a broken feature. Take a screenshot after each navigation.
+- **Cache-bust the preview URL.** `vite preview` reads fresh files from `dist`, but the browser
+  will happily reuse the old hashed chunk across a same-URL reload, so a rebuilt fix looks like
+  it never applied. Navigate to `…/?v=2#atlas/…` (bump the number) after each rebuild.
+
 > This file previously held the Graecia pin-calibration plan (Atlas Phase 4). That work is
 > applied + live (`f0a608f`, 2026-08-07); its history lives in CLAUDE.md's IN-FLIGHT note and
 > the `atlas-phase-status` memory. Its open follow-ups are folded in here: rubri/aegyptus pin
@@ -198,6 +207,19 @@ Replace the "same generic plate on 62 cards" look: each place's `<slug>-map` art
 its own crop of the plate it deep-links to, so the card cover shows *its region* and matches
 where the link lands.
 
+**Notes after Phases A/B (read before starting):**
+- The user-facing problem this phase attacks is now *cosmetic only* — a map-only place card
+  already opens the plate zoomed on its pin, and the Atlas has its own cross-plate search, so
+  nothing dead-ends. Treat C as polish and feel free to defer it; nothing else depends on it.
+- Crop from the plate `findPin(term)` resolves to (with no `preferSlug`), i.e. exactly the
+  plate the card's deep link opens — not whichever map the current `art.json` credit names.
+  That is what makes the cover and the destination agree, which is the whole point.
+- Consequence for the credit rewrite: the plate title in the new credit should match the one
+  the Atlas shows for that slug (`PLATES[slug].title`, also what the search dropdown prints),
+  so a card, its lightbox caption and the map header all name the same plate.
+- Crop framing should centre `(x, y)` — the pin coords are the same numbers `DeepLinkFocus`
+  centres on, so the cover reads as a thumbnail of the view the click leads to.
+
 Tasks:
 - [ ] Script (`scripts/bake_place_crops.py`): for every place with a `-map` art record AND a
   pin — crop `plates/<findPin slug>/master.jpg` around `(x,y)` (~1600×1200 at native res,
@@ -229,6 +251,11 @@ Lotus-Eaters→Lotus-Eaters, The Underworld→Hades, Aeolia→Aeolus; Ogygia/Sch
 Ithaca/Troy are already stop terms); `focusTerm` prop on JourneyMap reusing the legend-focus
 camera path; those ~16 places' cards then prefer the Journey map over rubri's cramped inset.
 Fold in CLAUDE.md TODO 3(a) (hero mini-map + "Show on map" from journey cards).
+
+**Note after Phase B:** the Atlas's own search would need the same treatment, or it becomes
+the inconsistent path — `searchPins` returns rubri's inset pin for Aeaea/Ogygia/etc., so
+picking one there would still land on the cramped inset while the card sent you to the
+Journey map. Either route both through the alias table or leave both on rubri; don't split.
 
 ---
 
