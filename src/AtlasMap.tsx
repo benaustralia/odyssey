@@ -310,6 +310,18 @@ const pinIcon = L.divIcon({
   iconAnchor: [20, 20],
 })
 
+// Footer-crosshair "announce": while a pin is the focus target it swaps to
+// this icon -- same geometry/hit box as pinIcon, but warning-coloured with a
+// looping animate-ping halo -- so the pin you just asked to locate flags
+// itself among dozens of identical dots. AtlasMap clears the highlight on a
+// timer. (The halo overflows the 40px box on purpose; divIcons don't clip.)
+const pinIconFocused = L.divIcon({
+  className: "",
+  html: `<div class="relative grid size-10 cursor-grab place-items-center active:cursor-grabbing"><span class="absolute size-6 animate-ping rounded-full bg-warning opacity-75"></span><div class="relative size-6 rounded-full bg-warning shadow ring-2 ring-base-100"></div></div>`,
+  iconSize: [40, 40],
+  iconAnchor: [20, 20],
+})
+
 // Gotcha (cost real debugging time): `map.unproject(point, zoom)` (an
 // instance method) correctly divides by CRS.Simple's scale(zoom)=2^zoom and
 // flips the y sign (its transformation is (x,y) -> (x,-y), so pixel-down
@@ -555,6 +567,7 @@ function Pins({
   onSelect,
   onMove,
   onClickPin,
+  highlightTerm,
   lookup,
 }: {
   pins: Place[]
@@ -563,6 +576,7 @@ function Pins({
   onSelect: (term: string) => void
   onMove: (index: number, p: { x: number; y: number }) => void
   onClickPin?: (index: number) => void
+  highlightTerm?: string | null
   lookup: (term: string) => unknown
 }) {
   const map = useMap()
@@ -572,7 +586,8 @@ function Pins({
         <Marker
           key={`${p.term}-${i}`}
           position={unprojectPixel(map, p.x, p.y, maxZoom)}
-          icon={pinIcon}
+          icon={editing && p.term === highlightTerm ? pinIconFocused : pinIcon}
+          zIndexOffset={editing && p.term === highlightTerm ? 1000 : 0}
           draggable={editing}
           eventHandlers={{
             click: (e) => {
@@ -624,6 +639,16 @@ export default function AtlasMap({
   const [bounds, setBounds] = useState<L.LatLngBounds | null>(null)
   const [focusPlace, setFocusPlace] = useState<Place | null>(null)
   const [searchTerm, setSearchTerm] = useState("")
+  // Which pin is currently "announcing" itself after a footer crosshair
+  // click. The nonce makes re-clicking the same pin restart the 8s timer
+  // (plain term state wouldn't change, so the old timeout would fire early).
+  const [highlight, setHighlight] = useState<{ term: string; nonce: number } | null>(null)
+
+  useEffect(() => {
+    if (!highlight) return
+    const t = setTimeout(() => setHighlight(null), 8000)
+    return () => clearTimeout(t)
+  }, [highlight])
 
   // The dump keeps label/noGloss alongside term/x/y so a Copy-all round-trip
   // back into src/data/plates/<slug>.ts loses nothing.
@@ -751,6 +776,7 @@ export default function AtlasMap({
                       }
                     : undefined
                 }
+                highlightTerm={highlight?.term ?? null}
                 lookup={lookup}
               />
             </MapContainer>
@@ -769,7 +795,10 @@ export default function AtlasMap({
             pins={pins}
             setPins={setPins}
             dump={dump}
-            onFocusPlace={(p) => setFocusPlace(p)}
+            onFocusPlace={(p) => {
+              setFocusPlace(p)
+              setHighlight((h) => ({ term: p.term, nonce: (h?.nonce ?? 0) + 1 }))
+            }}
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
           />
