@@ -116,19 +116,63 @@ method as the Graecia pin calibration — offline PIL grid-crop, not browser-dra
 ---
 
 ## Phase 1 — Pronunciation audio (ElevenLabs)
-**Status: ☐ (near-term, not yet scoped in detail)**
+**Status: ✅ (2026-08-08)**
 
 Every entry already has a text `pron` field (e.g. shown under the term on each card) — this adds
 spoken audio on top, not a new pronunciation system.
-- Reuse the ElevenLabs API key already set up in the sibling project `~/Documents/NAPLANSpelling`
-  — **first step of this phase is locating exactly where that project stores it** (its own
-  `.env`/`.env.local`) and confirming it's still valid before reusing it here.
-- Voice: **standard British voice**, explicitly NOT the young-Australian voice used in
-  `NAPLANSpelling`'s script — pick a specific ElevenLabs voice ID and record the choice here once
-  decided (needs a short voice-sampling pass against the ElevenLabs API/voice library).
-- Scope TBD when this phase starts: audio per glossary `term` only, or per `term` + one example
-  usage; where files land (R2, same as art — `audio/<slug>.mp3`); a small play-button UI on the
-  card and/or entry page.
+- **API key:** NOT reusable by copying `NAPLANSpelling`'s `.env.local` value — that file holds a
+  64-char *key ID*, not a usable `sk_...` secret (ElevenLabs' API rejects it explicitly: "API key
+  ID used as API key"). `netlify env:get`/`env:list` against that project's linked site also came
+  back empty/inconsistent across contexts. Resolved instead by the user generating a **fresh key**
+  from the ElevenLabs dashboard (Settings → API Keys) and pasting it directly — stored in this
+  project's own `.env.elevenlabs.local` (git-ignored via the repo's `*.local` rule), independent of
+  NAPLANSpelling's key from here on.
+- **Voice: Alice** (`Xb7hH8MSUJpSbSDYk0k2`) — British, labelled "Clear, Engaging Educator"
+  (informative_educational use case). Chosen over the other 3 British voices on the account
+  (George — storyteller, Daniel — broadcaster, Lily — actress) specifically for articulation
+  clarity at slow syllable-walk speed; explicitly NOT `sai9UY7iXkRDSsXHR0bZ`, the young-Australian
+  voice `NAPLANSpelling` uses. Model: `eleven_multilingual_v2` (same as NAPLANSpelling).
+- **Two-clip design per entry, played back-to-back by one button — REVISED after listening:**
+  the first design generated BOTH clips from ElevenLabs: a natural read of the real term, and a
+  "slow syllable walk" built from the curated `pron` respelling (e.g. `/uh-KEE-unz/` →
+  `uh… KEE… unz`) with ellipsis pauses at `speed≈0.7`. **Confirmed by ear (2026-08-08) that the
+  ellipsis-respelling approach is "a complete failure"** — feeding the model a jammed phonetic
+  pseudo-word produces bad output — while the natural-term read was "perfect". Fix: drop the
+  second API call entirely. The shipped pipeline is:
+  1. **One ElevenLabs call per entry** — the real entry term text (e.g. "Achaeans"), spoken at
+     normal speed (~1.0). Real English/Greek-name text lets the model apply its own trained
+     pronunciation and word-boundary handling, which matters for the 3 multi-word terms
+     ("Lotus-Eaters", "Trojan Horse" — checked all 167 entries' `pron` fields: all
+     well-formed `/syllable-syllable/`, 3 contain a space, none contain apostrophes).
+  2. **Slow clip derived locally, for free** — `ffmpeg -filter:a atempo=0.6` on that same natural
+     clip (pitch-preserving tempo stretch, not a pitch-shifted "chipmunk"/"demon" effect). 0.6×
+     chosen after an A/B against 0.7×: on a ~1s word the two are only ~0.19s apart in absolute
+     terms and genuinely hard to distinguish by ear — went with the more pronounced option since
+     it costs nothing extra to pick. Halves the API cost (167 calls instead of 334) as a side
+     effect of being the better-sounding design, not the goal.
+- **Hosting:** same pattern as art/tiles — pre-rendered offline via `scripts/tts-pronunciation.ts`
+  (not a live client-side API call; this is a static SPA with no server runtime, and baking
+  matches every other asset pipeline in this repo), uploaded to R2 at `audio/<slug>-slow.mp3` /
+  `audio/<slug>-fast.mp3` (extended `scripts/upload_to_r2.py`'s file walk + `ContentType`
+  detection rather than a new uploader). All 334 clips (167 × 2) uploaded 2026-08-08, 0 failures.
+- **UI:** small DaisyUI ghost/circle button (`PronounceButton`, lucide `Volume2` icon) next to
+  `{e.pron}`, both on the home-page cards (`App.tsx`) and the prerendered entry page
+  (`EntryContent.tsx`) — one shared component so behavior can't drift between the two render
+  paths. Plays the slow clip, then the fast clip on `ended`, via two plain `Audio()` instances
+  (no library) — `stopPropagation`'d since it sits inside the card's own clickable area.
+- **Key handling gotcha worth remembering:** `NAPLANSpelling`'s `.env.local` held a 64-char
+  ElevenLabs *key ID*, not a usable `sk_...` secret — its own API rejects that value explicitly.
+  `netlify env:get`/`env:list` against that project's linked site were also inconsistent across
+  contexts (empty in "dev", flaky in "production") and some attempts tripped the permission
+  classifier. Resolved by generating a **fresh key directly from the ElevenLabs dashboard** and
+  pasting it into this project's own `.env.elevenlabs.local` — simplest, most reliable path when
+  a sibling project's stored credential doesn't just work.
+- **QA method:** before spending the full 167-entry batch, rendered 3 test entries (one
+  single-word, one multi-word) and published them as a **self-contained Claude Artifact** (base64
+  audio embedded directly in the HTML, dark-only palette matching the site's own DaisyUI `dracula`
+  theme) so they could be listened to on a phone — a local file/SendUserFile round-trip doesn't
+  give a convenient mobile-listening path the way a URL does. Redeployed the same artifact URL
+  for the 0.6×-vs-0.7× ffmpeg A/B for the same reason.
 
 ---
 
@@ -218,6 +262,10 @@ not assumed.
 ---
 
 ## Parked / low-conviction (not scheduled — user is not sure these are worth doing at all)
+- **ElevenLabs Music exploration** — user flagged interest (2026-08-08) in exploring ElevenLabs'
+  music-generation product for this project, separate from the Phase 1 TTS pronunciation work.
+  No scope defined yet (ambient/theme music? per-episode score?) — needs a proper scoping pass
+  before it's anything more than an idea. Same `.env.elevenlabs.local` key can likely cover it.
 - **Cross-translation line alignment** — mapping book/line numbers across Wilson, Fagles,
   Fitzgerald, Lattimore, Butler. Copyright-clean (line numbers only) but a real data-acquisition
   project on its own. Noted for later consideration only.
@@ -307,3 +355,20 @@ Don't treat either as "next up" without the user re-raising it.
   verified with marked-ring crops at native resolution before committing (same method as the
   Graecia calibration pass). `npm run check:pins` clean (rubri still 31 pins — no pins added or
   removed, just repositioned).
+- 2026-08-08 — **Phase 1 done (pronunciation audio).** Key handling took the longest part of this
+  session: `NAPLANSpelling`'s stored ElevenLabs credential turned out to be a key ID, not a usable
+  secret, and `netlify env:get`/`env:list` against that project were inconsistent/partially
+  blocked by the permission classifier — resolved by generating a fresh key straight from the
+  ElevenLabs dashboard into this project's own `.env.elevenlabs.local`. Queried the account's real
+  voice library (not guessed IDs) and picked Alice (`Xb7hH8MSUJpSbSDYk0k2`, British, "Clear,
+  Engaging Educator") over George/Daniel/Lily for slow-speech articulation clarity. First design
+  (both clips from ElevenLabs, slow clip built from an ellipsis-joined `pron` respelling) failed
+  by ear — confirmed via a phone-listenable Claude Artifact with embedded base64 test clips.
+  Revised to one ElevenLabs call (natural term read) + a local `ffmpeg atempo=0.6` pass for the
+  slow sibling, validated with a second A/B artifact (0.6x vs 0.7x — settled on 0.6x since the gap
+  was inaudible on short words anyway). Ran the full batch (167 entries -> 334 clips, 0 failures),
+  uploaded to R2 (12,056 objects total in that pass — art + tiles + the new audio, 0 failures),
+  wired `PronounceButton` into both `App.tsx` and `EntryContent.tsx`, verified `tsc`/`eslint` clean
+  and the button renders + doesn't crash in a live dev-server check. `scripts/tts-pronunciation.ts`
+  and `scripts/upload_to_r2.py`'s audio support are idempotent (skip existing files; `FORCE=1` to
+  re-render) the same way NAPLANSpelling's sibling script works.

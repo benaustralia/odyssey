@@ -42,6 +42,14 @@ export const bySlug = new Map(entries.map((e) => [slugify(e.term), e]))
 export const R2_ASSETS = "https://pub-b57180e24c9841f58854ecd1c164523a.r2.dev"
 export const assetUrl = (a: Art) => `${R2_ASSETS}${a.file}`
 
+// Pronunciation clips (Plan.md Phase 1): a slow syllable walk built from
+// `pron`, then a natural-speed read of the real term text — pre-rendered by
+// scripts/tts-pronunciation.ts and uploaded to R2 alongside art/tiles.
+export function audioUrls(e: Entry): { slow: string; fast: string } {
+  const slug = slugify(e.term)
+  return { slow: `${R2_ASSETS}/audio/${slug}-slow.mp3`, fast: `${R2_ASSETS}/audio/${slug}-fast.mp3` }
+}
+
 export function artsOf(e: Entry | null | undefined): Art[] {
   if (!e?.art) return []
   return e.art.map((k) => art[k]).filter(Boolean)
