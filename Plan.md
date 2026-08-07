@@ -26,8 +26,8 @@ Both apply to any phase touching the maps, so they live here rather than in one 
 
 > This file previously held the Graecia pin-calibration plan (Atlas Phase 4). That work is
 > applied + live (`f0a608f`, 2026-08-07); its history lives in CLAUDE.md's IN-FLIGHT note and
-> the `atlas-phase-status` memory. Its open follow-ups are folded in here: rubri/aegyptus pin
-> work is Phase 0 below; the flagged-pin review is the standing reminder just below.
+> the `atlas-phase-status` memory. Its follow-ups are all closed: rubri/aegyptus pin
+> work was Phase 0 below; the flagged-pin review was resolved 2026-08-07 (retired section below).
 
 ## Standing reminder — RETIRED ✅ 2026-08-07 (nothing left to surface)
 - [x] **Flagged Graecia pins reviewed** — the user delegated the spot-check; it was re-run
