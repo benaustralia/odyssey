@@ -10,21 +10,19 @@ import type { AtlasPlace, PlateConfig } from "./types"
 // Pamphylia) — it stays on rubri and palestinae.
 //
 // CALIBRATED 2026-08-06: all 69 pins placed on Ortelius's own labels/symbols
-// by reading the master scan at native resolution (per-pin confidence +
-// evidence in graecia-draft/flags.md). Flag review RESOLVED 2026-08-07 (see
-// flags.md "Review resolution"): Argos<->Mycenae exchanged onto their own
-// engraved labels ("Argos." names the NE castle, the diagonal "Mycene." the
-// SW one); Phylace moved off the Pierian homonym label to the Thessalian
-// position per Wilson's def; Chalcis/Crouni/Enipeus/Gyrae confirmed.
+// by reading the master scan at native resolution. Flag review RESOLVED
+// 2026-08-07: Argos<->Mycenae exchanged onto their own engraved labels
+// ("Argos." names the NE castle, the diagonal "Mycene." the SW one); Phylace
+// moved off the Pierian homonym label to the Thessalian position per
+// Wilson's def; Chalcis/Crouni/Enipeus/Gyrae confirmed.
 // Adjust any pin at #atlas/graecia/edit (drag -> "Copy all" -> paste back
 // over this array).
 // Latin forms harvested 2026-08-07 by reading the master at native resolution
 // (per-pin marked-ring crops, same method as the pin calibration itself) —
 // see CLAUDE.md TODO 1b. ABSENT means the plate prints no name for that
-// place at its pin (the 16 already flagged in flags.md as label-absent
-// positional/interpretive placements); scripts/check-pins.ts enforces that
-// absence against its NO_LATIN allowlist rather than letting it slip through
-// unnoticed.
+// place at its pin (16 label-absent positional/interpretive placements);
+// scripts/check-pins.ts enforces that absence against its NO_LATIN allowlist
+// rather than letting it slip through unnoticed.
 const places: AtlasPlace[] = [
   { term: "Achaea", latin: "ACHAIA PROPRIA", x: 4760, y: 6035 },
   { term: "Aegae", x: 4880, y: 5985 },
