@@ -65,7 +65,6 @@ const NO_LATIN = new Set([
   "rubri:Libya",
   "rubri:Ethiopia",
   "rubri:Pharos",
-  "rubri:Aeaea",
   "rubri:Cyprus",
   "rubri:Hyperia",
   "rubri:Cimmerians",

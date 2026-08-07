@@ -68,12 +68,24 @@ import type { AtlasPlace, PlateConfig } from "./types"
 // Thrinacia, matching Wilson's glossary description ("a small Sicilian
 // island near the mainland"). All 4 verified with marked-ring crops at
 // native resolution before committing, same method as the Graecia pins.
+// FIXED 2026-08-08: Aeaea was another of the "loosely placed by geography"
+// pins, sitting in open sea near Ogygia/Scheria with nothing engraved under
+// it — caught because the pronunciation-button work surfaced its missing
+// Latin bracket. Ortelius actually captions Aeaea near "Roma", following the
+// Roman-tradition identification of Circe's island with Cape Circeo on the
+// Italian coast (this inset's whole western half follows that tradition —
+// Scylla/Charybdis at the Strait of Messina, Aeolia at the Lipari islands —
+// not just the Aegean). Found via a downscaled full-inset overview scan
+// (rather than guessing a transform from the Journey map's own base image,
+// which CLAUDE.md already documents as error-prone) and confirmed with a
+// marked-ring crop at native resolution: "Aeæa insula, quæ Circes
+// domicilium".
 const places: AtlasPlace[] = [
   { term: "Egypt", latin: "ÆGYPTVS", x: 1895.0465881021837, y: 3472.711389904327 },
   { term: "Libya", x: 1413.143047187622, y: 3556.0782783688514 },
   { term: "Ethiopia", x: 1650, y: 5650 },
   { term: "Pharos", x: 2391.0785275036137, y: 3261.3480639249724 },
-  { term: "Aeaea", x: 5660, y: 8382 },
+  { term: "Aeaea", latin: "Aeæa insula, quæ Circes domicilium", x: 4480, y: 7390 },
   { term: "Scheria", latin: "Phæacia, quę Scheria", x: 6448, y: 8082 },
   { term: "Ogygia", latin: "Ogygia Calypsonis habitaculum", x: 5818, y: 8011 },
   { term: "Cyprus", x: 7699, y: 9105 },

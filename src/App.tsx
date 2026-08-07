@@ -414,6 +414,7 @@ function App() {
             // Map-only places' popups show just the name: the plate they're
             // already looking at IS their only "artwork", at higher res.
             hasArt={(t) => hasRealArt(byTerm.get(t))}
+            lookup={(t) => byTerm.get(t)}
           />
         </Suspense>
       )}
@@ -540,11 +541,7 @@ function App() {
       <footer className="footer footer-center border-t border-base-300 bg-base-200 p-10 text-base-content">
         <aside className="max-w-2xl">
           <p className="font-display tracking-[0.3em] text-primary">FINIS</p>
-          <p className="mt-2 text-sm opacity-90">
-            Definitions from a study glossary for <em>The Odyssey</em>, trans. Emily Wilson
-            (W.&nbsp;W.&nbsp;Norton).
-          </p>
-          <p className="text-sm opacity-80">
+          <p className="mt-2 text-sm opacity-80">
             Artworks are public domain or openly licensed (CC), via Wikimedia Commons. Built with
             React, Vite, DaisyUI &amp; yet-another-react-lightbox.
           </p>

@@ -7,7 +7,11 @@ import "leaflet/dist/leaflet.css"
 import MiniMapControl from "leaflet-minimap"
 import "leaflet-minimap/dist/Control.MiniMap.min.css"
 import CalibrationPanel from "./CalibrationPanel"
+import { PronounceButton } from "./PronounceButton"
 import type { JourneyConfig, Pt, TourTuning } from "./data/journeys/types"
+import { placeTermForStop } from "./data/journeys"
+import { findPin, latinFor } from "./data/plates"
+import type { Entry } from "./lib/entries"
 
 // react-leaflet v5 never applies `pathOptions.className` to the SVG path
 // (Leaflet only reads a top-level `className` in _initPath, and setStyle skips
@@ -458,15 +462,6 @@ function TourController({
   return null
 }
 
-type EntryInfo = {
-  term: string
-  pron: string
-  def: string
-  zhName: string
-  zhPinyin: string
-  zhDef: string
-}
-
 const DEFAULT_TUNING: Required<TourTuning> = {
   tourZoom: 1,
   labelZoom: -0.6,
@@ -494,7 +489,7 @@ export default function JourneyMap({
   focusTerm?: string
   onClose: () => void
   onSelect: (term: string) => void
-  lookup: (term: string) => EntryInfo | undefined
+  lookup: (term: string) => Entry | undefined
 }) {
   const tuning = { ...DEFAULT_TUNING, ...config.tuning }
   const yx = (x: number, y: number): L.LatLngTuple => [config.mapHeight - y, x]
@@ -845,6 +840,8 @@ export default function JourneyMap({
               )}
             {config.stops.map((s, i) => {
               const info = lookup(s.term)
+              const atlasPin = findPin(placeTermForStop(config.slug, s.term))
+              const latin = atlasPin ? latinFor(atlasPin.place) : null
               return (
                 <Marker
                   key={s.n}
@@ -879,8 +876,14 @@ export default function JourneyMap({
                   {!editing && info && (
                     <Popup minWidth={220} maxWidth={260}>
                       <div className="space-y-1">
-                        <h3 className="font-heading text-lg font-semibold leading-tight">{info.term}</h3>
-                        <p className="text-xs italic text-primary">{info.pron}</p>
+                        <h3 className="font-heading text-lg font-semibold leading-tight">
+                          {info.term}
+                          {latin && <span className="font-normal italic opacity-70"> ({latin})</span>}
+                        </h3>
+                        <p className="flex items-center gap-1 text-xs italic text-primary">
+                          {info.pron}
+                          <PronounceButton entry={info} />
+                        </p>
                         <p className="text-sm leading-snug">{info.def}</p>
                         <p className="font-zh text-sm leading-snug">
                           <span className="font-semibold">{info.zhName}</span>

@@ -35,5 +35,4 @@ npm run build
 Contributor notes, conventions and the hard-won gotchas live in `CLAUDE.md`.
 
 ---
-Definitions: study glossary for *The Odyssey*, trans. Emily Wilson. Artworks: public domain
-or openly licensed (CC), via Wikimedia Commons.
+Artworks: public domain or openly licensed (CC), via Wikimedia Commons.

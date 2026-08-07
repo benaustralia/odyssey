@@ -55,5 +55,15 @@ export function findStop(
 export const journeyHash = (slug: string, term: string) =>
   `${slug === DEFAULT_JOURNEY_SLUG ? "journey" : `journey/${slug}`}/@${encodeURIComponent(term)}`
 
+// The reverse of JOURNEY_ALIASES: a stop's term ("Circe") -> the place term
+// its Atlas pin actually carries ("Aeaea"), so a stop popup can look up the
+// same engraved Latin toponym the Atlas shows. Stops with no alias (Troy,
+// Ithaca, ...) ARE their own place term, so this is the identity there.
+export function placeTermForStop(slug: string, stopTerm: string): string {
+  const aliases = JOURNEY_ALIASES[slug] ?? {}
+  const hit = Object.entries(aliases).find(([, stop]) => stop === stopTerm)
+  return hit ? hit[0] : stopTerm
+}
+
 export { JOURNEY_ALIASES }
 export type { JourneyConfig, Stop } from "./types"

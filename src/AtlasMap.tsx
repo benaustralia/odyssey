@@ -13,6 +13,8 @@ import { PLATES, DEFAULT_PLATE_SLUG, atlasHash, searchPins, latinFor } from "@/d
 // contradict the card that sends you there.
 import { mapRoute } from "@/data/mapRoutes"
 import type { AtlasPlace as Place, PlateConfig, PinRow } from "@/data/plates"
+import { PronounceButton } from "./PronounceButton"
+import type { Entry } from "@/lib/entries"
 
 function CalibrationFooter({
   pins,
@@ -781,6 +783,7 @@ function Pins({
   onClickPin,
   highlightTerm,
   hasArt,
+  lookup,
   markerRefs,
 }: {
   pins: Place[]
@@ -791,6 +794,7 @@ function Pins({
   onClickPin?: (index: number) => void
   highlightTerm?: string | null
   hasArt: (term: string) => boolean
+  lookup: (term: string) => Entry | undefined
   markerRefs?: React.MutableRefObject<Map<string, L.Marker>>
 }) {
   const map = useMap()
@@ -832,6 +836,12 @@ function Pins({
                   <span className="font-normal italic opacity-70"> ({latinFor(p)})</span>
                 )}
               </span>
+              {lookup(p.term) && (
+                <span className="flex items-center gap-1 text-xs italic text-primary">
+                  {lookup(p.term)!.pron}
+                  <PronounceButton entry={lookup(p.term)!} />
+                </span>
+              )}
               {hasArt(p.term) ? (
                 <button
                   type="button"
@@ -857,6 +867,7 @@ export default function AtlasMap({
   onClose,
   onSelect,
   hasArt,
+  lookup,
 }: {
   config: PlateConfig
   open: boolean
@@ -867,6 +878,7 @@ export default function AtlasMap({
   onClose: () => void
   onSelect: (term: string) => void
   hasArt: (term: string) => boolean
+  lookup: (term: string) => Entry | undefined
 }) {
   const [pins, setPins] = useState<Place[]>(config.places)
   const markerRefs = useRef<Map<string, L.Marker>>(new Map())
@@ -1043,6 +1055,7 @@ export default function AtlasMap({
                 }
                 highlightTerm={highlight?.term ?? null}
                 hasArt={hasArt}
+                lookup={lookup}
                 markerRefs={markerRefs}
               />
             </MapContainer>
