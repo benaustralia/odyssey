@@ -279,7 +279,13 @@ function PlateSearch({
             if (!e.currentTarget.closest("div")?.contains(e.relatedTarget as Node)) close()
           }}
           onKeyDown={(e) => {
-            if (e.key === "Escape") return close()
+            if (e.key === "Escape") {
+              // Stop this from also bubbling to the modal's own Escape
+              // handler in App.tsx -- Escape here should just collapse the
+              // search, not close the whole Atlas.
+              e.stopPropagation()
+              return close()
+            }
             if (e.key === "Enter") return pick(results[active])
             if (e.key === "ArrowDown") {
               e.preventDefault()

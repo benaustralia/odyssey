@@ -158,6 +158,19 @@ function App() {
       window.history.replaceState(null, "", window.location.pathname + window.location.search)
   }
 
+  // Esc closes whichever full-screen map is open. Skipped while the lightbox
+  // is showing on top of a map — that's YARL's own Escape-to-close, and it
+  // should close just the lightbox, not the map underneath it too.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape" || (selected && lbIndex >= 0)) return
+      if (journeyRoute) closeMap()
+      else if (atlasRoute) closeAtlas()
+    }
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
+  }, [journeyRoute, atlasRoute, selected, lbIndex])
+
   // A journey-map pin → open that term's entry in the lightbox. The map stays
   // open underneath, so closing the lightbox returns to the map.
   const openTerm = (term: string) => {
@@ -252,7 +265,7 @@ function App() {
               />
               <span className="flex items-center justify-center gap-2 px-3 py-2 font-heading text-sm sm:text-base">
                 <MapIcon className="size-4 text-primary" aria-hidden="true" />
-                Follow the voyage on the map
+                Follow the Odysseus journey
                 <span className="text-primary transition-transform group-hover:translate-x-0.5">→</span>
               </span>
             </button>
