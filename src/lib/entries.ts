@@ -42,17 +42,6 @@ export const bySlug = new Map(entries.map((e) => [slugify(e.term), e]))
 export const R2_ASSETS = "https://pub-b57180e24c9841f58854ecd1c164523a.r2.dev"
 export const assetUrl = (a: Art) => `${R2_ASSETS}${a.file}`
 
-// Pronunciation clips (Plan.md Phase 1b): real, CC-licensed human speech
-// sourced from Wiktionary/Wikimedia Commons for the 70 terms that have one
-// (src/data/approvedAudioTerms.ts) — `fast` is the recording itself
-// (loudness-normalized), `slow` a locally tempo-stretched sibling
-// (ffmpeg atempo=0.6). No synthetic fallback for the rest: both ElevenLabs
-// and Google Cloud TTS were tried and rejected as "sounds computerised."
-export function audioUrls(e: Entry): { slow: string; fast: string } {
-  const slug = slugify(e.term)
-  return { slow: `${R2_ASSETS}/audio/${slug}-slow.mp3`, fast: `${R2_ASSETS}/audio/${slug}-fast.mp3` }
-}
-
 export function artsOf(e: Entry | null | undefined): Art[] {
   if (!e?.art) return []
   return e.art.map((k) => art[k]).filter(Boolean)

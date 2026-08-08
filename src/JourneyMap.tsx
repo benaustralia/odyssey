@@ -7,7 +7,6 @@ import "leaflet/dist/leaflet.css"
 import MiniMapControl from "leaflet-minimap"
 import "leaflet-minimap/dist/Control.MiniMap.min.css"
 import CalibrationPanel from "./CalibrationPanel"
-import { PronounceButton } from "./PronounceButton"
 import type { JourneyConfig, Pt, TourTuning } from "./data/journeys/types"
 import { placeTermForStop } from "./data/journeys"
 import { findPin, latinFor } from "./data/plates"
@@ -880,10 +879,7 @@ export default function JourneyMap({
                           {info.term}
                           {latin && <span className="font-normal italic opacity-70"> ({latin})</span>}
                         </h3>
-                        <p className="flex items-center gap-1 text-xs italic text-primary">
-                          {info.pron}
-                          <PronounceButton entry={info} />
-                        </p>
+                        <p className="text-xs italic text-primary">{info.pron}</p>
                         <p className="text-sm leading-snug">{info.def}</p>
                         <p className="font-zh text-sm leading-snug">
                           <span className="font-semibold">{info.zhName}</span>

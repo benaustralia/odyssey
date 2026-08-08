@@ -1,6 +1,5 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from "react"
 import { Search, Map as MapIcon, Sailboat } from "lucide-react"
-import { PronounceButton } from "./PronounceButton"
 
 // Leaflet is heavy and the map is opt-in, so load it only when first opened.
 const JourneyMap = lazy(() => import("./JourneyMap"))
@@ -519,10 +518,7 @@ function App() {
                         </span>
                       </div>
                     </div>
-                    <p className="flex items-center gap-1 text-sm italic text-primary">
-                      {e.pron}
-                      <PronounceButton entry={e} />
-                    </p>
+                    <p className="text-sm italic text-primary">{e.pron}</p>
                     <p className="text-[0.95rem] leading-relaxed opacity-95">{e.def}</p>
                     <p className="mt-1 font-zh text-sm leading-relaxed opacity-90">
                       <span>{e.zhName}</span>

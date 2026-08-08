@@ -31,8 +31,6 @@ dist-ssr
 # Artwork is hosted on Cloudinary (folder 'odyssey'); kept locally for re-sync
 public/art/
 
-# Pronunciation audio clips are hosted on R2; kept locally for re-sync
-public/audio/
 
 # Playwright MCP debug artifacts (screenshots/snapshots/console logs)
 .playwright-mcp/

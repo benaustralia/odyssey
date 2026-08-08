@@ -116,7 +116,8 @@ method as the Graecia pin calibration — offline PIL grid-crop, not browser-dra
 ---
 
 ## Phase 1 — Pronunciation audio (ElevenLabs)
-**Status: ✅ (2026-08-08)**
+**Status: ✅ shipped 2026-08-08, ⛔ REMOVED ENTIRELY 2026-08-09 — see the top of Phase 1b for why.
+Kept below as the historical record of what was built and why each call was made at the time.**
 
 Every entry already has a text `pron` field (e.g. shown under the term on each card) — this adds
 spoken audio on top, not a new pronunciation system.
@@ -177,13 +178,36 @@ spoken audio on top, not a new pronunciation system.
 ---
 
 ## Phase 1b — Pronunciation accuracy pass (IPA-sourced overrides)
-**Status: ☑ DONE (final scope, 2026-08-08) — see "2026-08-08: FINAL" below. Everything under
-"outcome"/"Deep-dive"/"Open decision"/"Phases 1b.0-1b.4" further down is the historical record of
-how this phase evolved (Uniform IPA-on-v3 decision → 4 rounds of failed ElevenLabs mechanisms →
-pivot to real audio + a Google Cloud TTS pilot → user rejected synthetic speech categorically) —
-read it for context/reasoning, but the "FINAL" section is what's actually true now.**
+**Status: ⛔ MOOT — the entire pronounce-button feature (Phase 1 + this phase) was removed
+2026-08-09. See "2026-08-09: REMOVED" below, which supersedes everything else in this section
+(including the 2026-08-08 "FINAL" scope-down to 70 real-recording terms, which lasted about a day).
+Everything else here — "outcome"/"Deep-dive"/"Open decision"/"Phases 1b.0-1b.4" — is the historical
+record of how the investigation evolved (Uniform IPA-on-v3 → 4 failed ElevenLabs mechanisms → real
+recordings + a Google Cloud TTS pilot → scope down to 70 real-recording terms → full removal). Read
+it for context/reasoning, but don't treat any status claim below "REMOVED" as current.**
 
-### 2026-08-08: FINAL — real recordings only, all synthetic TTS abandoned
+### 2026-08-09: REMOVED — the whole feature is gone, not just synthetic speech
+The 2026-08-08 scope-down (real Wiktionary/Commons recordings for 70 terms, no synthetic fallback
+for the rest) lasted about a day. Hearing the 70-term set back, the user's verdict moved one level
+up: **"strip all audio from site it is a spooky collection or irregular voices"** — a crowd-sourced
+set of different volunteer speakers, each with their own mic/room/accent, doesn't read as one
+coherent feature next to each other; it reads as a novelty, regardless of every individual
+recording being licensed correctly. That's a judgment about the feature's *coherence*, not its
+correctness — nothing left to fix by picking better clips or a different provider.
+
+**Landed:** `PronounceButton.tsx` and `src/data/approvedAudioTerms.ts` deleted; all 4 call sites
+removed (`App.tsx` card, `EntryContent.tsx` page, `AtlasMap.tsx` + `JourneyMap.tsx` pin popups —
+more than the 2 originally documented in Phase 1, since the map popups picked up their own copy of
+the button later). `entries.ts`'s `audioUrls()` helper deleted. `public/audio/` deleted locally;
+`scripts/upload_to_r2.py` no longer walks it. `.claude/rules/pronunciation-audio.md` deleted (the
+feature it documented no longer exists). The 140 real-recording R2 objects are now orphans, same
+"documented, not cleaned up" precedent as the 194 synthetic ones from the prior scope-down and the
+art-dedup orphans under "Image hosting" — no delete tooling exists, low priority, harmless.
+**Don't rebuild this feature without a new conversation with the user first** — two independent
+verdicts now (synthetic speech sounds computerised; a mixed-voice real-recording set sounds spooky)
+converge on "the format itself doesn't work for this site," not "try a different data source."
+
+### 2026-08-08: FINAL (superseded — kept for the record) — real recordings only, all synthetic TTS abandoned
 The Google Cloud TTS pilot below got as far as a clean ɹ-fixed retest of the 2 holdout terms
 (Clytemnestra, Panopeus) — both rendered successfully. But on hearing them the user's verdict was
 categorical, not phonetic: **"this sounds computerised, strip all audio off website except the
