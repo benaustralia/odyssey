@@ -229,10 +229,27 @@ Uniform only if a full-audit pass (below) turns up enough flagged terms that "mo
 starts to look cheaper than maintaining two code paths.
 
 ### Phases (each a real stopping point — pick up wherever the user left off)
-1. **1b.0 — Full-catalogue audit.** Nobody has listened to all 167 natural-read clips
-   systematically; Aeaea/Circe were luck. Build a listen-through tool (same embedded-base64-
-   Artifact pattern as Phase 1's QA) covering every entry's current `-fast.mp3`, let the user flag
-   anything that sounds wrong, record the list here.
+1. **1b.0 — Full-catalogue audit. Tooling built 2026-08-08, review itself not yet run.**
+   Nobody has listened to all 167 natural-read clips systematically; Aeaea/Circe were luck. Built
+   a swipe-through Artifact review tool (all 167 `-fast.mp3` embedded as base64, same pattern as
+   Phase 1's QA pages) — auto-plays each clip, big thumb-zone ✓/✗ buttons plus left/right swipe, an
+   optional per-item note field, localStorage-persisted progress (safe to close and resume later),
+   and an end screen listing every flagged term (+ note) for pasting back here.
+   **Two real bugs found and fixed while building/testing it, before the audit even started:**
+   - **Bracket text read aloud.** 5 terms carry a parenthetical UI disambiguator in `term`
+     ("Cyclops (pl. Cyclopes)", "Argos (the city)", "bard (singer)", "hospitality (xenia)", "Ino
+     (Leucothea)") that `ttsNatural` was feeding to ElevenLabs verbatim — it read the parens
+     literally ("Cyclops, P L period Cyclopes"). Fixed with a `speechText()` helper in
+     `scripts/tts-pronunciation.ts` that strips a trailing `(...)` before synthesis; all 5 terms'
+     fast+slow clips regenerated and uploaded to R2 (targeted 10-object upload, not a full
+     `upload_to_r2.py` run).
+   - **Copy-to-clipboard silently didn't work.** The review tool's swipe handling used
+     `touch-action: none` on `html, body` — page-wide, which also blocked long-press text selection
+     in the end-screen's results textarea on mobile, the standard way to copy on a phone. Scoped
+     `touch-action: none` to just the review card instead. Also hardened the copy button itself
+     (Clipboard API → Web Share API → `execCommand` → honest "copy manually, text is already
+     selected" message, in that order) since a sandboxed Artifact iframe may not grant clipboard
+     permissions at all — never assume the scripted path worked.
 2. **1b.1 — IPA sourcing.** For each flagged term, look up real English IPA from Wiktionary
    (primary source; cross-check Merriam-Webster/Collins where they have an entry), stress markers
    included, same rigor CLAUDE.md's Latin-toponym harvest used (cite the source per term, document

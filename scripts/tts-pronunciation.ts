@@ -57,6 +57,13 @@ if (!apiKey || !voiceId) {
 const audioDir = join(ROOT, "public", "audio")
 mkdirSync(audioDir, { recursive: true })
 
+// 5 terms carry a trailing disambiguator for the UI ("Cyclops (pl. Cyclopes)",
+// "Argos (the city)") that isn't meant to be spoken — TTS read it literally
+// ("Cyclops, P L period Cyclopes"), caught by ear in the review pass.
+function speechText(term: string): string {
+  return term.replace(/\s*\([^)]*\)\s*$/, "")
+}
+
 async function ttsNatural(text: string, outPath: string) {
   const res = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}?output_format=mp3_44100_128`, {
     method: "POST",
@@ -84,7 +91,7 @@ async function renderEntry(e: Entry) {
   const needSlow = force || needFast || !existsSync(slowPath)
   if (!needFast && !needSlow) return console.log(`Skip ${slug} (both exist; FORCE=1 to re-render)`)
 
-  if (needFast) await ttsNatural(e.term, fastPath)
+  if (needFast) await ttsNatural(speechText(e.term), fastPath)
   if (needSlow) deriveSlow(fastPath, slowPath)
   console.log(`Wrote ${slug}${needFast ? " fast" : ""}${needSlow ? " slow" : ""}`)
 }
