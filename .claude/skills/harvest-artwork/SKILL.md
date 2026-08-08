@@ -1,0 +1,14 @@
+---
+name: harvest-artwork
+description: Guidance for sourcing, filtering, and QA-ing new public-domain/CC artwork from Wikimedia Commons for a glossary entry. Use when adding or curating artwork for this project.
+---
+
+## Working with artwork (lessons learned)
+- Fetch scripts query the Commons API (`generator=search`, `prop=imageinfo`, `iiprop=url|mime|extmetadata`). **Filter aggressively:** skip `.pdf/.djvu/.svg`, book scans (`(IA `, "Adventures of Ulysses"), maps, logos, and species/astronomy named after Greek figures (butterflies like *Morpho menelaus* / *Eumaeus atala*, planet "Saturn with auroras"), film stills, perfumery signs, "goddess card" composites.
+- After fetching: build a contact-sheet montage with ImageMagick and eyeball it; check for cross-language duplicate works (same painting filed under English + French/German/Dutch names — dedupe, keep English).
+- A greedy "cover diversification" pass reorders each entry's `art` so covers are unique where alternatives exist.
+- **Full-article harvest (done):** pulled *every* PD/CC image off each entry's en.wikipedia article (`generator=images`), keyed `<slug>-w<NN>`. This sweeps in junk that `generator=images` can't pre-filter — maps, coins, site/building/landscape photos, Britannica diagrams, book-plate scans, museum replicas, ritual photos, a fossil skull, and **off-subject gallery/navbox thumbnails** (e.g. Bernini's *Apollo & Daphne* landed on Ajax). The original Commons filename lives in the `source` field (the on-disk `file` is renamed) — QA by dumping `source` basenames + a contact-sheet montage, then prune. 32 were pruned this round.
+- **Image weight:** local masters in `public/art` are recompressed to `-resize '1600x1600>' -quality 82 -interlace Plane -sampling-factor 4:2:0 -strip` before upload.
+- **Relevance + caption audit (done):** a vision pass over *every* image (subagents that actually open each `public/art/<key>.jpg`) checking (a) is it on-subject for its entry, (b) is the caption helpful. `generator=images` pulls tangential article images that *look* fine by filename but are off-subject — e.g. Blake's *Comus* on Circe, *School of Athens* on hospitality, a "Marlowe" portrait on Helen, a Theseus/Minotaur cup on Hades. **Removed off-subject; never trust the title alone — verify by viewing.** Also killed unusable images (dense scholarly "Nekyia reconstruction" you can't zoom) and same-scene duplicates (kept the clearer one — e.g. Lykaon Painter vase over van Thulden's *Burning of Elpenor*). Be conservative: keep if it plausibly relates; a clarifying `note` often beats removal for indirect connections.
+- **Ajax is two people:** "Ajax the Great" (Telamonian; Book 11 underworld shade) and "Ajax the Lesser" (Locrian, son of Oïleus; Book 4 drowning, the Cassandra outrage) are separate entries. Don't mix their art.
+
