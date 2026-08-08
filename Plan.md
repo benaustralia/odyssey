@@ -250,6 +250,15 @@ starts to look cheaper than maintaining two code paths.
      (Clipboard API → Web Share API → `execCommand` → honest "copy manually, text is already
      selected" message, in that order) since a sandboxed Artifact iframe may not grant clipboard
      permissions at all — never assume the scripted path worked.
+   - **Also added, per user request:** an optional per-item note field (e.g. "sounds Italian"),
+     carried through to the results text for both flagged AND approved-but-noted items — nothing
+     typed is silently dropped. **Then broke it immediately**: the tool's own global keydown
+     shortcuts (arrow keys / space, added for desktop testing) listened on `document` with no check
+     for whether an `<input>` had focus, so typing a space into the note field was hijacked into
+     "replay audio" instead of inserting a space — caught by the user on a real phone keyboard.
+     Fixed by having the handler bail out early when `document.activeElement` is an
+     INPUT/TEXTAREA. A lesson for any future page mixing global keyboard shortcuts with a real text
+     field: that check is not optional.
 2. **1b.1 — IPA sourcing.** For each flagged term, look up real English IPA from Wiktionary
    (primary source; cross-check Merriam-Webster/Collins where they have an entry), stress markers
    included, same rigor CLAUDE.md's Latin-toponym harvest used (cite the source per term, document
