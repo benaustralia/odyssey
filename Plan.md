@@ -200,9 +200,12 @@ removed (`App.tsx` card, `EntryContent.tsx` page, `AtlasMap.tsx` + `JourneyMap.t
 more than the 2 originally documented in Phase 1, since the map popups picked up their own copy of
 the button later). `entries.ts`'s `audioUrls()` helper deleted. `public/audio/` deleted locally;
 `scripts/upload_to_r2.py` no longer walks it. `.claude/rules/pronunciation-audio.md` deleted (the
-feature it documented no longer exists). The 140 real-recording R2 objects are now orphans, same
-"documented, not cleaned up" precedent as the 194 synthetic ones from the prior scope-down and the
-art-dedup orphans under "Image hosting" — no delete tooling exists, low priority, harmless.
+feature it documented no longer exists). **R2 cleaned up too (2026-08-09):** all 334 `audio/*`
+objects (140 real recordings + 194 synthetic clips, both rounds) deleted directly via boto3
+`delete_objects` against the bucket — confirmed 0 remaining under that prefix afterward. Unlike the
+art-dedup orphans under "Image hosting" (no delete tooling exists there yet), this one got a real
+cleanup rather than being left as a documented orphan, since the whole prefix was safe to wipe in
+one shot.
 **Don't rebuild this feature without a new conversation with the user first** — two independent
 verdicts now (synthetic speech sounds computerised; a mixed-voice real-recording set sounds spooky)
 converge on "the format itself doesn't work for this site," not "try a different data source."
@@ -229,11 +232,8 @@ scripts (`scripts/tts-pronunciation.ts` — ElevenLabs, `scripts/tts-pronunciati
 Google Cloud TTS script built for this pilot, never committed) and the now-unconsumed
 `src/data/pronunciationOverrides.ts` IPA data were deleted as dead code — nothing in the shipped
 site calls out to either TTS provider anymore.
-**Known orphan, not cleaned up:** the 194 synthetic clips are still sitting in the R2 bucket from
-the 2026-08-08 `upload_to_r2.py` run (it's a blind upload sync, no delete/mirror capability) — same
-"orphan asset, documented and left" precedent as the art-dedup orphans under "Image hosting" in
-CLAUDE.md. Harmless (nothing references them), but a future from-scratch bucket audit shouldn't be
-surprised to find `audio/<slug>-{fast,slow}.mp3` for terms with no button on the live site.
+**Orphan note superseded 2026-08-09:** these 194 synthetic clips (plus the 140 real ones) were
+deleted from R2 the next day when the feature was removed entirely — see the REMOVED section above.
 
 ### 2026-08-08: outcome — real audio + Google Cloud TTS, TTS-phonetic-tuning abandoned (historical — superseded by FINAL above)
 The Uniform "source real IPA, feed it to eleven_v3" plan (below) was fully executed — all 167
