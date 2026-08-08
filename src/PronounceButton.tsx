@@ -1,12 +1,17 @@
 import { useState } from "react"
 import { Volume2 } from "lucide-react"
 import { type Entry, audioUrls } from "@/lib/entries"
+import { approvedAudioTerms } from "@/data/approvedAudioTerms"
 
 // Plays the slow syllable-walk clip, then the natural-speed clip, back to
 // back. Shared between App.tsx's cards and EntryContent.tsx's page so the
-// two render paths can't drift — see Plan.md Phase 1.
+// two render paths can't drift — see Plan.md Phase 1. Renders nothing for a
+// term without a real, approved recording (src/data/approvedAudioTerms.ts) —
+// no synthetic-speech fallback, see that file for why.
 export function PronounceButton({ entry, className }: { entry: Entry; className?: string }) {
   const [playing, setPlaying] = useState(false)
+
+  if (!approvedAudioTerms.has(entry.term)) return null
 
   const play = (ev: React.MouseEvent) => {
     ev.stopPropagation()

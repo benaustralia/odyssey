@@ -177,8 +177,117 @@ spoken audio on top, not a new pronunciation system.
 ---
 
 ## Phase 1b — Pronunciation accuracy pass (IPA-sourced overrides)
-**Status: ☐ (scoped 2026-08-08, not started — user wants to steer this phase by phase across
-stop/clear cycles, with a suggested model/approach offered at each step rather than one big run)**
+**Status: ☑ DONE (final scope, 2026-08-08) — see "2026-08-08: FINAL" below. Everything under
+"outcome"/"Deep-dive"/"Open decision"/"Phases 1b.0-1b.4" further down is the historical record of
+how this phase evolved (Uniform IPA-on-v3 decision → 4 rounds of failed ElevenLabs mechanisms →
+pivot to real audio + a Google Cloud TTS pilot → user rejected synthetic speech categorically) —
+read it for context/reasoning, but the "FINAL" section is what's actually true now.**
+
+### 2026-08-08: FINAL — real recordings only, all synthetic TTS abandoned
+The Google Cloud TTS pilot below got as far as a clean ɹ-fixed retest of the 2 holdout terms
+(Clytemnestra, Panopeus) — both rendered successfully. But on hearing them the user's verdict was
+categorical, not phonetic: **"this sounds computerised, strip all audio off website except the
+approved open source from wiktionary."** That closes the question this phase spent 4 ElevenLabs
+rounds + 1 Google Cloud TTS pilot trying to answer ("which synthesis mechanism gets the phonemes
+right") by making it moot — no synthesis mechanism is acceptable regardless of phonetic accuracy,
+because it's audibly synthetic. **Don't revisit TTS synthesis for this feature again** — this is a
+stronger, orthogonal verdict on top of the SKILL.md finding that ElevenLabs specifically can't be
+tuned; Google Cloud TTS's classical phoneme pipeline *did* work mechanically (8/10 clean pilot,
+the 2 holdouts fixable) and was rejected anyway.
+
+**Landed:** `src/data/approvedAudioTerms.ts` is now the single source of truth for which terms get
+a pronounce button — the same 70-term real-audio set from the sweep below, verified 1:1 against
+the actual `public/audio/*.mp3` files on disk (140 = 70×2, zero missing, zero extra) before
+building the list. `PronounceButton` renders `null` for any entry not in that set, checked once
+inside the shared component so `App.tsx`/`EntryContent.tsx` can't drift out of sync with each
+other. The 194 synthetic mp3s for the other 97 terms were deleted from `public/audio/`; both TTS
+scripts (`scripts/tts-pronunciation.ts` — ElevenLabs, `scripts/tts-pronunciation-google.ts` — the
+Google Cloud TTS script built for this pilot, never committed) and the now-unconsumed
+`src/data/pronunciationOverrides.ts` IPA data were deleted as dead code — nothing in the shipped
+site calls out to either TTS provider anymore.
+**Known orphan, not cleaned up:** the 194 synthetic clips are still sitting in the R2 bucket from
+the 2026-08-08 `upload_to_r2.py` run (it's a blind upload sync, no delete/mirror capability) — same
+"orphan asset, documented and left" precedent as the art-dedup orphans under "Image hosting" in
+CLAUDE.md. Harmless (nothing references them), but a future from-scratch bucket audit shouldn't be
+surprised to find `audio/<slug>-{fast,slow}.mp3` for terms with no button on the live site.
+
+### 2026-08-08: outcome — real audio + Google Cloud TTS, TTS-phonetic-tuning abandoned (historical — superseded by FINAL above)
+The Uniform "source real IPA, feed it to eleven_v3" plan (below) was fully executed — all 167
+terms got cited IPA (`src/data/pronunciationOverrides.ts`, Wiktionary primary, Anglicized-
+Greek/Latin derivation as a documented fallback) — but **the synthesis side of it failed**. 4
+separate rounds against ElevenLabs (inline v3 IPA; a CMU Arpabet Pronunciation Dictionary on v3;
+the same dictionary on the properly-scoped `eleven_flash_v2`; v3 inline IPA with explicit
+syllable-break dots) all failed the user's listening test, consistently on the same phoneme class
+— schwa dropped, promoted to a full vowel, or misplaced stress — across ~40 generations. Full
+blow-by-blow, including the "voice choice/cloning isn't the missing piece, it's architectural"
+finding, is in `.claude/skills/elevenlabs-pronunciation/SKILL.md` — don't re-attempt ElevenLabs
+phonetic tuning on this project without a genuinely new idea; the space is covered.
+
+Pivoted to two tracks instead:
+1. **Real human recordings** for terms with one available. Swept all 167 terms against
+   Wiktionary's English audio templates (`{{audio|en|...}}`, hosted on Wikimedia Commons,
+   CC0/CC-BY/CC-BY-SA — same license bar as the site's artwork) — 80/167 (48%) had one via
+   exact-title lookup + a normalized-lookup second pass (lowercase, singular, per-word for
+   multi-word terms). Two normalization false positives caught and discarded before use (**"Elis"
+   → "Eli"**, **"Same" → the common word "same"** — both wrong-word matches from naive suffix-
+   stripping, not the actual term). Forvo checked and ruled out as a supplementary source: it
+   dropped its CC license in 2019 and is now non-commercial-only, incompatible with this site's
+   redistribution model. Downloaded, license-verified per file, converted to mp3 (loudness-
+   normalized via `ffmpeg loudnorm`, since community recordings vary wildly in level), slow clips
+   derived the same `atempo=0.6` way as always. User listen-through on `odyssey-pron-review.vercel.app`
+   flagged 10 of the 80 as wrong/mismatched/bad-quality (Aeaea, Ajax the Great, Ajax the Lesser,
+   Artemis, Athena, Athens, Clytemnestra, Nausicaa, Phthia, Trojan Horse) — those 10 were restored
+   to the original Phase 1 baseline (`eleven_multilingual_v2`, plain text) since that's still
+   better-attested than a rejected recording. **70 terms now carry real, QA-approved human
+   audio, uploaded to R2** (full `upload_to_r2.py` run, 2026-08-08 — 12,056 objects, 0 failures;
+   note this uploader has no "approved" concept, it's a blind full sync of `public/audio/*.mp3`,
+   so the other 97 terms' existing baseline clips got re-synced too, unchanged).
+2. **Google Cloud TTS pilot** for the 97 terms with no real recording. Deterministic,
+   classical phoneme-pipeline architecture (SSML `<phoneme alphabet="ipa">`, `en-GB-Neural2-C`
+   voice) — the properly-architected alternative to ElevenLabs' expressive-model approach (see
+   SKILL.md's "Alternative providers" section). Cost is negligible (free tier: 1M
+   chars/month for Neural2, this project needs a few thousand total). First 10-term pilot: **8/10
+   clean on the first try** — a real step-change from ElevenLabs' near-total failure. 2 remain
+   unresolved (Clytemnestra: secondary stress overpowering primary; Panopeus: schwa promoted to
+   /a/ + stress on the wrong syllable) after 5 total attempts each — though a hash-check revealed
+   several of those "5 attempts" were byte-identical (Google's phoneme parser appears to
+   normalize away some syllable-dot/secondary-stress variations, so fewer genuinely distinct
+   inputs were tested than intended) plus one real bug on our side (typed plain "r" instead of
+   the correct IPA `ɹ` in some Clytemnestra retries). **Not yet re-attempted with the bug fixed.**
+   User is separately checking Forvo (https://forvo.com/word/clytemnestra/,
+   https://forvo.com/word/panopeus/) as a listening reference before possibly recording their own
+   pronunciation for these two specific terms — own-voice recordings wouldn't carry Commons'
+   CC license (not third-party content) but that's a non-issue for personal audio.
+
+**Open next steps**: fix the `ɹ` typo and re-test Clytemnestra/Panopeus on Google Cloud TTS
+(or use the user's own recording if they make one); run the Google Cloud TTS approach across the
+other 95 leftover terms; upload whatever the final set becomes.
+
+### Decision: Uniform, not Targeted; review tool skipped entirely
+User's own listening turned up a bad multi-axis miss on "Achaeans" (wrong stress, wrong vowel,
+unvoiced final /s/ that should be /z/) without running the swipe-through review tool at all, and
+called it: **"No point in running the review - it's all off."** Reading that as "assume every one
+of the 167 natural-read clips needs the real-IPA treatment, don't spend effort triaging which ones
+are already fine" — so this collapses the Phase 1b.0 audit step and the Targeted/Uniform fork
+documented below (both now moot) straight into **Uniform**: source real IPA for all 167 terms,
+regenerate all 167 fast clips (+ their ffmpeg-derived slow siblings, free) on `eleven_v3`.
+`odyssey-pron-review.vercel.app` stays live as a possible final-confirmation listen-through
+(1b.3) but is no longer the gate for deciding what needs fixing.
+
+### Deep-dive on the ElevenLabs mechanics (2026-08-08, before the Uniform call)
+Confirmed from current docs why `eleven_multilingual_v2` can't be tuned into correctness no matter
+how the request is worded: it has **zero phonetic-control mechanism** — pronunciation dictionary
+phoneme tags are documented as working only on `eleven_flash_v2` and `eleven_v3`; `multilingual_v2`
+silently ignores them. `eleven_v3` additionally supports **native inline IPA**, no dictionary
+object required: wrap a transcription in slashes directly in the request text (`"/əˈkiːənz/"`),
+stress markers (ˈ primary, ˌ secondary) required or accuracy drops sharply. ElevenLabs' own docs
+cite ~80-90% consistency for this — real improvement over "no control at all," not a perfect fix.
+Also: v3's `voice_settings` shape differs from v2's (drops `similarity_boost`, adds
+`style_exaggeration`) — `ttsNatural()` needs a per-model settings branch, not one shared blob.
+Given the small, single-word-at-a-time nature of every call here, inline slash-IPA is simpler than
+standing up a real Pronunciation Dictionary object (no create/version/locator state to keep in
+sync) — `src/data/pronunciationOverrides.ts` (`term -> {ipa, source}`) stores the data, the script
+interpolates it into the text sent for every term rather than creating a server-side dictionary.
 
 ### Why this exists
 Phase 1 shipped on the premise "feed the real term text, the model's own G2P handles it" — true
