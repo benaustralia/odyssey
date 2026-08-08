@@ -259,6 +259,21 @@ starts to look cheaper than maintaining two code paths.
      Fixed by having the handler bail out early when `document.activeElement` is an
      INPUT/TEXTAREA. A lesson for any future page mixing global keyboard shortcuts with a real text
      field: that check is not optional.
+   - **Verified the copy button for real** (not just "doesn't throw"): a genuine OS-level click
+     (not a scripted `.click()`, which doesn't carry clipboard-write user-activation in most
+     browsers) on "Copy results" produced a `navigator.permissions.query({name:"clipboard-write"})`
+     result of `"granted"` — confirms the write actually succeeds, not just a false-positive toast.
+   - **Moved off the Artifact sandbox entirely, at the user's request**, since the claude.ai
+     iframe's clipboard permissions policy couldn't be fully verified from outside it. Deployed as
+     its own standalone Vercel project — `vercel deploy --prod --yes --name odyssey-pron-review`
+     from a scratch dir (just the one 3.5MB self-contained HTML file, renamed `index.html`) —
+     **deliberately NOT part of the main odyssey git repo**, so this disposable ~3.5MB QA tool
+     never enters that repo's git history. Live at **https://odyssey-pron-review.vercel.app**,
+     under the same Vercel account, torn down whenever the review is done (just ask). The claude.ai
+     Artifact URL from earlier in this phase is superseded by this one.
+   - **Next action, whenever picked back up:** open the Vercel URL and actually run the 167-clip
+     review (nobody has yet) — tap through, flag anything wrong, optionally note why, copy the
+     results back into a fresh session to start 1b.1.
 2. **1b.1 — IPA sourcing.** For each flagged term, look up real English IPA from Wiktionary
    (primary source; cross-check Merriam-Webster/Collins where they have an entry), stress markers
    included, same rigor CLAUDE.md's Latin-toponym harvest used (cite the source per term, document
@@ -483,3 +498,15 @@ Don't treat either as "next up" without the user re-raising it.
   clips by ear, source real IPA per flagged term, decide targeted-vs-uniform model scope, rebuild
   the override as durable data, regenerate, re-verify, re-upload). User wants to steer each phase
   rather than have it all run at once — see "Phases" above for the resume points.
+- 2026-08-08 — **Phase 1b.0 tooling done, review not yet run.** Built + tested the swipe-through
+  review tool, found and fixed 3 real bugs along the way (bracket text read aloud on 5 terms,
+  a `touch-action` bug that silently broke mobile copy, a global-keydown bug that hijacked spacebar
+  in the note field), and verified the copy button actually grants clipboard-write on a real click.
+  Moved the tool off the claude.ai Artifact sandbox to its own standalone Vercel deployment
+  (https://odyssey-pron-review.vercel.app) so there's no sandbox-permissions uncertainty left.
+  Also ran a full `/doctor` health-check pass this session (unrelated to Odyssey directly) —
+  disabled 9 unused Claude Code plugins/MCP connections, migrated ~43.7k chars of this project's
+  own CLAUDE.md into 5 path-scoped `.claude/rules/*.md` files and 2 skills
+  (`harvest-artwork`, `mobile-map-qa`) so they load on demand instead of every session, updated
+  Claude Code to 2.1.226, and switched the default permission mode to `auto`. The CLAUDE.md/
+  `.claude/` changes are uncommitted working-tree edits — review via `git diff` before committing.
