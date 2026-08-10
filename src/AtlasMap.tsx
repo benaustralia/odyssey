@@ -13,6 +13,7 @@ import { PLATES, DEFAULT_PLATE_SLUG, atlasHash, searchPins, latinFor } from "@/d
 // contradict the card that sends you there.
 import { mapRoute } from "@/data/mapRoutes"
 import type { AtlasPlace as Place, PlateConfig, PinRow } from "@/data/plates"
+import { PronounceButton } from "./PronounceButton"
 import type { Entry } from "@/lib/entries"
 
 function CalibrationFooter({
@@ -836,7 +837,10 @@ function Pins({
                 )}
               </span>
               {lookup(p.term) && (
-                <span className="text-xs italic text-primary">{lookup(p.term)!.pron}</span>
+                <span className="flex items-center gap-1 text-xs italic text-primary">
+                  {lookup(p.term)!.pron}
+                  <PronounceButton entry={lookup(p.term)!} />
+                </span>
               )}
               {hasArt(p.term) ? (
                 <button

@@ -7,6 +7,7 @@
 import glossaryData from "@/data/glossary.json"
 import artData from "@/data/art.json"
 import { slugify } from "./slug"
+import { audioTerms } from "@/data/audioTerms"
 
 export type Entry = {
   term: string
@@ -41,6 +42,15 @@ export const bySlug = new Map(entries.map((e) => [slugify(e.term), e]))
 // transform like Cloudinary's f_auto,q_auto,w_ (R2 has none).
 export const R2_ASSETS = "https://pub-b57180e24c9841f58854ecd1c164523a.r2.dev"
 export const assetUrl = (a: Art) => `${R2_ASSETS}${a.file}`
+
+// Pronunciation clip: a single natural-speed read, either the user's own
+// recording (for terms the ElevenLabs voice got wrong) or the ElevenLabs
+// read otherwise (Plan.md). Returns undefined for the terms with neither —
+// PronounceButton renders nothing rather than pointing at a missing file.
+export function audioUrl(e: Entry): string | undefined {
+  if (!audioTerms.has(e.term)) return undefined
+  return `${R2_ASSETS}/audio/${slugify(e.term)}.mp3`
+}
 
 export function artsOf(e: Entry | null | undefined): Art[] {
   if (!e?.art) return []

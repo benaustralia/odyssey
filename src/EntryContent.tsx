@@ -2,6 +2,7 @@ import { Map as MapIcon, Sailboat } from "lucide-react"
 import { findPin, latinFor } from "@/data/plates"
 import { mapLinks } from "@/data/mapRoutes"
 import { type Entry, artsOf, assetUrl, hasRealArt } from "@/lib/entries"
+import { PronounceButton } from "./PronounceButton"
 
 // Pure presentational render of one glossary entry — no hooks, no window/
 // document access. That's load-bearing, not a style preference: this exact
@@ -58,7 +59,10 @@ export function EntryContent({ entry: e }: { entry: Entry }) {
               {e.tag}
             </span>
           </div>
-          <p className="mt-2 text-lg italic text-primary">{e.pron}</p>
+          <p className="mt-2 flex items-center gap-1 text-lg italic text-primary">
+            {e.pron}
+            <PronounceButton entry={e} />
+          </p>
 
           <p className="mt-6 text-lg leading-relaxed opacity-95">{e.def}</p>
 
