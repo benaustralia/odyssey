@@ -10,6 +10,8 @@ Built as a study companion for ESL students.
 
 **Live:** https://odysseygloss.vercel.app
 
+Made by **Ben Hinton** — questions, corrections and ideas welcome: [bahinton@gmail.com](mailto:bahinton@gmail.com).
+
 ## What's in it
 - **167 entries**, 91 of them places, each bilingual with a pronunciation guide.
 - **Two interactive maps**, both code-split so Leaflet stays out of the initial bundle:

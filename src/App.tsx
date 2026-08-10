@@ -630,6 +630,16 @@ function App() {
             Artworks are public domain or openly licensed (CC), via Wikimedia Commons. Built with
             React, Vite, DaisyUI &amp; yet-another-react-lightbox.
           </p>
+          <p className="mt-2 text-sm opacity-80">
+            © 2026 Ben Hinton ·{" "}
+            <a className="link link-hover" href="mailto:bahinton@gmail.com">
+              bahinton@gmail.com
+            </a>{" "}
+            ·{" "}
+            <a className="link link-hover" href="https://github.com/benaustralia/odyssey" target="_blank" rel="noreferrer">
+              GitHub
+            </a>
+          </p>
         </aside>
       </footer>
 
