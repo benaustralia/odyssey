@@ -1,8 +1,10 @@
 // Terms with a pronunciation clip in public/audio/ (uploaded to R2 under audio/).
-// Built from the 165-term merge of ElevenLabs (Alice, female voice) reads and the
-// user's own recordings for terms the ElevenLabs read got wrong (see Plan.md). Orchomenus
-// and Alpheus are still pending a re-recording (wrong syllable stress) and have no button
-// yet — scripts/upload_to_r2.py and public/audio/ are the source of truth for what's ready.
+// All 167 terms now have one: the ElevenLabs (Alice, female voice) reads plus the
+// user's own recordings for terms the ElevenLabs read got wrong (see Plan.md). The
+// final two — Orchomenus and Alpheus, re-recorded 2026-08-10 for wrong syllable
+// stress — went through the same .aup3 → loudnorm (−20.3 LUFS) → mono 44.1kHz
+// 128kbps mp3 pipeline as the other 43 human recordings.
+// scripts/upload_to_r2.py and public/audio/ are the source of truth for what's ready.
 export const audioTerms = new Set<string>([
   "Achaea",
   "Achaeans",
@@ -17,6 +19,7 @@ export const audioTerms = new Set<string>([
   "Ajax the Great",
   "Ajax the Lesser",
   "Alcinous",
+  "Alpheus",
   "Amnisus",
   "Amphinomus",
   "Antinous",
@@ -109,6 +112,7 @@ export const audioTerms = new Set<string>([
   "Odysseus",
   "Ogygia",
   "Olympus",
+  "Orchomenus",
   "Orestes",
   "Ortygia",
   "Ossa",
