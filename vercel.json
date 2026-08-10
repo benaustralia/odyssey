@@ -1,6 +1,12 @@
 {
   "redirects": [
     {
+      "source": "/",
+      "has": [{ "type": "host", "value": "odysseygloss.vercel.app" }],
+      "destination": "https://tellmeohmuse.com/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "odysseygloss.vercel.app" }],
       "destination": "https://tellmeohmuse.com/:path*",
