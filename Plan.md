@@ -890,3 +890,64 @@ residual-gain+limiter treatment as alpheus: TP-ceiling undershoot on high-crest 
 re-encoded mono 44.1kHz 128kbps, re-uploaded to R2, live-verified (pelion now 1.558s =
 68,716 samples ÷ 44,100 exactly). **Rule for next time: never assume the rate — read it from
 the project doc first; it varies per recording session with the input device.**
+
+## Recording-repair script — planned 2026-08-10 (night), NOT yet built
+
+**Context / what's already true:** the 31 morning-batch voice clips were re-shipped tonight at
+their true 44.1kHz (see the postmortem above) and alpheus/orchomenus were verified 48kHz-native.
+The user then flagged that the Audacity sessions were fed by a **stereo DJI Mic Mini (48kHz
+device)** — which explains the rate split (morning projects resampled to a 44.1k project rate,
+evening projects followed the device at 48k) but raises a second, unverified hazard: the
+extraction method concatenates ALL sampleblocks in blockid order and assumes ONE mono channel.
+If any project holds a STEREO track (two channels, each with its own block chain), that
+assumption mis-assembles the audio (word doubled L-then-R, or interleaved chop). Nobody has
+checked channel counts. Hence this plan: a re-runnable script that assumes nothing per-file.
+
+**Suggested model to execute this: Sonnet 5 at default effort.** Every judgment call is made
+below; what remains is careful mechanical work (decode, table, compare, encode, upload).
+Escalate to Fable/Opus ONLY if Phase 0 finds a stereo project or a rate the doc-scan can't
+disambiguate — those need fresh decisions (channel pick vs downmix; see Phase 0 notes).
+Haiku is too light: the phases involve audio sanity judgments (correlation, LUFS anomalies).
+
+### Phase 0 — Evidence table (read-only; decide if anything is actually still wrong)
+Build `scripts/audit_recordings.py` producing one row per .aup3 in the recordings-todo folder
+(path in the postmortem above): slug · project-rate · track-rate(s) · channel count · block
+count · total samples · implied duration at true rate.
+- Rate: scan the `project` table's `dict`+`doc` blobs for `struct.pack('<d', 44100.0)` and
+  48000.0 (also 32000.0 — the DJI Mini transmitter's low-bitrate mode) — the technique already
+  validated tonight. If a file matches multiple candidates ambiguously, decode the doc properly
+  (Audacity's ProjectSerializer tokenized-XML: int16 name-IDs from `dict`, typed fields in
+  `doc`) rather than guessing.
+- Channel count, two independent probes that must agree: (a) proper doc decode — count
+  wavetrack/channel entries; (b) empiric — split the concatenated PCM in half and
+  cross-correlate the halves: near-duplicate halves (peak corr ≈1 near lag 0) = stereo stored
+  as two chained channels; uncorrelated halves = mono. Run (b) on ALL 33, not just suspects.
+- Output verdict per file: OK-as-shipped / needs-rebuild(rate) / needs-rebuild(stereo).
+- **Expected outcome:** all 33 mono → tonight's shipped fix already stands; the script becomes
+  the durable re-runnable pipeline and nothing re-uploads. The user's ear-check after tonight's
+  re-upload is part of this phase's evidence — collect it before building Phase 1.
+
+### Phase 1 — The repair/rebuild script (only if Phase 0 flags files, else build it dormant)
+`scripts/rebuild_recordings.py <recordings-dir>` — supersedes the ad-hoc session pipeline;
+committed, so the next batch of re-recordings doesn't re-derive any of this:
+1. Per file: read rate + channels from the doc (NEVER assume); extract per-channel PCM in
+   blockid order within each channel's chain.
+2. Stereo handling (decision deferred to Phase 0's findings): DJI "stereo" mode often carries a
+   −6dB safety duplicate on ch2, not true stereo — if so, take ch1; if genuinely dual-mono
+   duplicates, take the louder channel; only downmix if the channels are actually distinct.
+   Whichever rule Phase 0 supports, hard-code it with a comment citing the evidence.
+3. Write WAV at the doc's rate (reinterpretation only — never resample the PCM to "fix" pitch).
+4. Loudness: two-pass ffmpeg loudnorm to I=−20.3/TP=−2/LRA=7, linear mode; if the result
+   undershoots by >0.7 LU (TP-ceiling on high-crest clips — hit 5 times tonight), apply the
+   residual gain + `alimiter=limit=0.794:level=false` and re-measure. Encode mono 44.1kHz
+   128kbps mp3 into public/audio/<slug>.mp3 (slug = lowercase basename).
+5. Idempotent + selective: `--slugs a,b,c` to rebuild a subset; default = all found.
+### Phase 2 — Verify before ship
+LUFS table (all within −20.3±1.0), duration = samples÷rate exactly, and a SHORT listen list
+for the user — the 4 gain-corrected clips + 2 random others + alpheus/orchomenus. The user's
+ear is the only true munchkin detector; do not skip.
+### Phase 3 — Ship + records
+Targeted boto3 upload (bucket `odyssey-assets`, keys `audio/<slug>.mp3`, creds `.env.r2.local`,
+ContentType audio/mpeg) for changed slugs only; curl each live URL (200 + expected byte size);
+append outcome to this section and update the pronunciation memory. No site code changes —
+audioTerms.ts is already complete at 167.
