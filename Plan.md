@@ -951,3 +951,18 @@ Targeted boto3 upload (bucket `odyssey-assets`, keys `audio/<slug>.mp3`, creds `
 ContentType audio/mpeg) for changed slugs only; curl each live URL (200 + expected byte size);
 append outcome to this section and update the pronunciation memory. No site code changes —
 audioTerms.ts is already complete at 167.
+
+**Recording-repair plan EXECUTED same night (stereo finding escalated it back per its own
+rule).** The user then heard doubling ("Nausicaa said twice") — Phase 0's audit found **all 31
+morning projects are STEREO** (DJI Mic Mini dual-duplicate channels; halves correlate 1.000
+with identical RMS, so ch2 is a bit-duplicate safety copy, not true stereo), meaning every
+morning clip shipped tonight played the word twice; the two evening clips are mono and were
+fine. No 32000 anywhere in any doc — the DJI's 32kHz wireless link never survives into the
+project; Audacity resamples to the project rate on capture, so the doc rate (44.1k morning /
+48k evening) is the truth, as the user's pitch ear-check confirmed. `scripts/
+rebuild_recordings.py` (committed) is the assumption-free pipeline from the plan: per-file doc
+rate scan (incl. 32k/22k/96k candidates), half-correlation stereo detection → keep ch1,
+loudnorm −20.3 with the auto residual-gain+limiter fallback (6 clips needed it), mono 44.1k
+128k mp3. All 33 rebuilt, uploaded, live-verified (nausicaa 1.03s = one utterance; pelion
+0.78s). Full failure history of the sampleblocks method, for posterity: assumed rate (wrong for
+31), assumed mono (wrong for 31) — the script now derives both from evidence per file.
