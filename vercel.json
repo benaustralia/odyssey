@@ -1,4 +1,12 @@
 {
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "odysseygloss.vercel.app" }],
+      "destination": "https://tellmeohmuse.com/:path*",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     { "source": "/entry/:slug", "destination": "/entry/:slug/index.html" }
   ],

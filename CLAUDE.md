@@ -8,7 +8,7 @@ A bilingual (English · 简体中文 · Pīnyīn) illustrated glossary of **167 
 glossary, plus the 7 Phase 6 added (places her verse names but her glossary omits — see TODO 7). Paired with public-domain / openly-licensed artwork: **492 unique artworks** (deduped by
 source AND by perceptual hash so no image repeats) plus **6 shared antique maps**.
 
-- **Live:** https://odysseygloss.vercel.app (Vercel project `odysseygloss`, native domain, auto-deploys on push to `main`)
+- **Live:** https://tellmeohmuse.com — the canonical domain (Vercel project `odysseygloss`, auto-deploys on push to `main`). singohmuse.com, both www variants, and odysseygloss.vercel.app all 308-redirect to it (the vercel.app one via the host-matched redirect in `vercel.json`; preview URLs are unaffected). Sitemap/canonical/OG/JSON-LD URLs all use tellmeohmuse.com.
 - **Repo:** github.com/benaustralia/odyssey
 - **Final study PDF** (separate deliverable): `~/Desktop/Odyssey Student Packet (final).pdf`
 

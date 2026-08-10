@@ -8,7 +8,7 @@ a 16th-century Ortelius map.
 
 Built as a study companion for ESL students.
 
-**Live:** https://odysseygloss.vercel.app
+**Live:** https://tellmeohmuse.com (also singohmuse.com; odysseygloss.vercel.app redirects here)
 
 Made by **Ben Hinton** — questions, corrections and ideas welcome: [bahinton@gmail.com](mailto:bahinton@gmail.com).
 
