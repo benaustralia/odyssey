@@ -478,7 +478,13 @@ function App() {
                       openCard()
                     }
                   }}
-                  className="card card-border flex h-full w-full cursor-pointer flex-col overflow-hidden border-base-300 bg-base-200 text-left shadow-md transition-shadow duration-300 hover:shadow-xl"
+                  // content-visibility:auto lets the browser skip style/
+                  // layout/paint for offscreen cards (~90% of a 3,700-element
+                  // DOM) — measured ~1.3s of pre-paint layout work on mobile
+                  // before this (Plan.md chase-100 session #2). The
+                  // contain-intrinsic-size estimate (~cover 284px + body)
+                  // reserves scroll height until a card first renders.
+                  className="card card-border flex h-full w-full cursor-pointer flex-col overflow-hidden border-base-300 bg-base-200 text-left shadow-md transition-shadow duration-300 hover:shadow-xl [content-visibility:auto] [contain-intrinsic-size:auto_470px]"
                 >
                   {cover && (
                     <figure className="relative aspect-[4/3] overflow-hidden">
