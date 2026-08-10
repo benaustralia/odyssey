@@ -8,6 +8,7 @@ const AtlasMap = lazy(() => import("./AtlasMap"))
 import JourneysIndex from "./JourneysIndex"
 import Lightbox from "yet-another-react-lightbox"
 import Captions from "yet-another-react-lightbox/plugins/captions"
+import Download from "yet-another-react-lightbox/plugins/download"
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen"
 import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails"
 import Zoom from "yet-another-react-lightbox/plugins/zoom"
@@ -208,8 +209,20 @@ function App() {
   }
 
   const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase()
-    return entries.filter((e) => {
+    const raw = query.trim()
+    const q = raw.toLowerCase()
+    // Rank name matches above matches buried in a definition — searching
+    // "Circe" must put Circe first, not Aeaea (whose def mentions her).
+    // Ties keep the underlying alphabetical order (sort is stable).
+    const rank = (e: Entry) => {
+      const t = e.term.toLowerCase()
+      if (t === q) return 0
+      if (t.startsWith(q)) return 1
+      if (t.includes(q) || e.zhName.includes(raw) || e.zhPinyin.toLowerCase().startsWith(q))
+        return 2
+      return 3
+    }
+    const hits = entries.filter((e) => {
       const inCat = cat === "all" || categoryOf(e.tag) === cat
       if (!inCat) return false
       if (!q) return true
@@ -217,10 +230,11 @@ function App() {
         e.term.toLowerCase().includes(q) ||
         e.def.toLowerCase().includes(q) ||
         e.zhPinyin.toLowerCase().includes(q) ||
-        e.zhName.includes(query.trim()) ||
+        e.zhName.includes(raw) ||
         e.tag.toLowerCase().includes(q)
       )
     })
+    return q ? hits.slice().sort((a, b) => rank(a) - rank(b)) : hits
   }, [query, cat])
 
   const sel = selected
@@ -242,13 +256,26 @@ function App() {
       ) : (
         line || a.note || undefined
       )
-    return { src: assetUrl(a), description }
+    // Download filename: "Artist — Title.jpg" when known, else the R2 file's
+    // own basename ("odysseus-1.jpg"). Without this the blob save falls back
+    // to an opaque browser-generated name.
+    const downloadFilename = (
+      [a.artist, a.title].filter(Boolean).join(" — ") ||
+      a.file.split("/").pop()?.replace(/\.jpe?g$/i, "") ||
+      "artwork"
+    ).replace(/[/\\:*?"<>|]/g, "") + ".jpg"
+    // downloadUrl carries a throwaway query param so it never shares a
+    // browser-cache key with the <img> load: the slide image is fetched
+    // no-cors (no Access-Control-Allow-Origin on that cached response, and
+    // R2 omits Vary on it), so reusing it for the download's CORS fetch
+    // fails and the plugin silently degrades to open-in-new-tab.
+    return { src: assetUrl(a), description, downloadFilename, downloadUrl: `${assetUrl(a)}?download` }
   })
 
   return (
     <div className="min-h-screen bg-base-100 text-base-content">
       {/* ---------- Hero ---------- */}
-      <header className="hero relative min-h-[68vh] overflow-hidden">
+      <header className="hero relative overflow-hidden sm:min-h-[68vh]">
         {/* hero-blur.avif is hero.jpg with the old 3px backdrop-blur AND
             the flat base-100/72 overlay BAKED IN (blur + overlay leave so
             little entropy it encodes to ~2KB vs 101KB). That deletes the
@@ -270,15 +297,15 @@ function App() {
           className="absolute inset-0 h-full w-full object-cover object-[center_28%]"
         />
         <div className="hero-overlay bg-gradient-to-b from-base-100/30 via-base-100/55 to-base-100" />
-        <div className="hero-content text-center">
+        <div className="hero-content py-8 text-center">
           <div className="max-w-2xl">
             <p className="font-display text-sm tracking-[0.5em] text-primary sm:text-base">
               ΟΔΥΣΣΕΙΑ
             </p>
-            <h1 className="mt-4 font-display text-5xl font-semibold tracking-tight sm:text-7xl">
+            <h1 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:mt-4 sm:text-7xl">
               The Odyssey
             </h1>
-            <p className="mt-5 font-heading text-xl italic opacity-90 sm:text-2xl">
+            <p className="mt-3 font-heading text-lg italic opacity-90 sm:mt-5 sm:text-2xl">
               An illustrated glossary.
             </p>
             {/* The voyages, offered as pictures rather than menu items: a
@@ -301,7 +328,7 @@ function App() {
                 scrollIntoView to the last slide intermittently no-opped.
                 Instant sidesteps the race entirely; swiping still glides
                 via the browser's own native momentum scroll. */}
-            <div className="carousel mx-auto mt-8 w-full max-w-md rounded-box sm:max-w-lg">
+            <div className="carousel mx-auto mt-5 w-full max-w-md rounded-box sm:mt-8 sm:max-w-lg">
               {Object.values(JOURNEYS).map((j, slideIndex) => (
                 <div key={j.slug} id={`hero-slide-${j.slug}`} className="carousel-item w-full">
                   <button
@@ -354,17 +381,39 @@ function App() {
       {/* ---------- Toolbar ---------- */}
       <nav className="sticky top-0 z-30 border-b border-base-300 bg-base-100/90 backdrop-blur">
         <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-3 lg:flex-row lg:items-center lg:justify-between">
-          <label className="input input-bordered flex w-full items-center gap-2 lg:max-w-xs">
-            <Search className="size-4 opacity-70" aria-hidden="true" />
-            <input
-              type="search"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search"
-              aria-label="Search the glossary"
-              className="grow"
-            />
-          </label>
+          {/* On mobile the two map buttons ride the search row as icon-only
+              squares (full-width stacked buttons pushed the cards below the
+              fold); at lg they hide and the labeled pair at the end of the
+              toolbar shows instead. */}
+          <div className="flex w-full items-center gap-2 lg:contents">
+            <label className="input input-bordered flex min-w-0 grow items-center gap-2 lg:w-full lg:max-w-xs">
+              <Search className="size-4 opacity-70" aria-hidden="true" />
+              <input
+                type="search"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search"
+                aria-label="Search the glossary"
+                className="grow"
+              />
+            </label>
+            <button
+              type="button"
+              onClick={openJourneysIndex}
+              className="btn btn-square btn-outline lg:hidden"
+              aria-label="Journey Maps"
+            >
+              <Sailboat className="size-4" aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              onClick={openAtlas}
+              className="btn btn-square btn-outline lg:hidden"
+              aria-label="Atlas"
+            >
+              <MapIcon className="size-4" aria-hidden="true" />
+            </button>
+          </div>
 
           <div className="flex w-full justify-center lg:contents">
             <form
@@ -390,7 +439,7 @@ function App() {
           <button
             type="button"
             onClick={openJourneysIndex}
-            className="btn btn-sm btn-outline gap-2 lg:btn-md"
+            className="btn btn-md btn-outline hidden gap-2 lg:inline-flex"
           >
             <Sailboat className="size-4" aria-hidden="true" />
             Journey Maps
@@ -398,7 +447,7 @@ function App() {
           <button
             type="button"
             onClick={openAtlas}
-            className="btn btn-sm btn-outline gap-2 lg:btn-md"
+            className="btn btn-md btn-outline hidden gap-2 lg:inline-flex"
           >
             <MapIcon className="size-4" aria-hidden="true" />
             Atlas
@@ -443,6 +492,14 @@ function App() {
 
       {/* ---------- Gallery ---------- */}
       <main className="mx-auto max-w-6xl px-4 py-10">
+        <div className="mb-6 flex items-baseline gap-3">
+          <h2 className="font-heading text-2xl font-semibold tracking-tight">Glossary</h2>
+          <span className="font-heading text-sm italic opacity-60">
+            {filtered.length === entries.length
+              ? `${entries.length} entries`
+              : `${filtered.length} of ${entries.length}`}
+          </span>
+        </div>
         {filtered.length === 0 ? (
           <p className="py-24 text-center font-heading text-2xl italic opacity-80">
             Nothing found on these shores.
@@ -585,7 +642,7 @@ function App() {
           setSelected(null)
         }}
         slides={slides}
-        plugins={[Thumbnails, Captions, Zoom, Fullscreen]}
+        plugins={[Thumbnails, Captions, Zoom, Fullscreen, Download]}
         captions={{ descriptionTextAlign: "center", descriptionMaxLines: 5, showToggle: true }}
         carousel={{ finite: slides.length <= 1 }}
       />
