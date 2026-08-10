@@ -249,8 +249,19 @@ function App() {
     <div className="min-h-screen bg-base-100 text-base-content">
       {/* ---------- Hero ---------- */}
       <header className="hero relative min-h-[68vh] overflow-hidden">
+        {/* hero-blur.avif is hero.jpg with the old 3px backdrop-blur AND
+            the flat base-100/72 overlay BAKED IN (blur + overlay leave so
+            little entropy it encodes to ~2KB vs 101KB). That deletes the
+            runtime backdrop-filter layer — a real compositing cost on
+            mobile GPUs — and Chrome's low-entropy heuristic drops this img
+            from LCP candidacy, making the first voyage-carousel slide the
+            LCP element instead (it's eager + preloaded for exactly that
+            reason). The bottom gradient stays a live overlay because it's
+            viewport-relative — baking it into image space would misalign
+            under object-cover crops on wide screens. hero.jpg itself stays
+            in public/ for og:image (scripts/prerender.tsx). */}
         <img
-          src="/hero.jpg"
+          src="/hero-blur.avif"
           alt=""
           aria-hidden="true"
           fetchPriority="high"
@@ -258,7 +269,6 @@ function App() {
           height={825}
           className="absolute inset-0 h-full w-full object-cover object-[center_28%]"
         />
-        <div className="hero-overlay bg-base-100/72 backdrop-blur-[3px]" />
         <div className="hero-overlay bg-gradient-to-b from-base-100/30 via-base-100/55 to-base-100" />
         <div className="hero-content text-center">
           <div className="max-w-2xl">
@@ -275,9 +285,11 @@ function App() {
                 swipeable DaisyUI carousel (native CSS scroll-snap, no JS
                 needed for the swipe itself), one slide per registered
                 journey (JOURNEYS) so a third voyage just needs a
-                JourneyConfig entry, no markup changes here. Deliberately NOT
-                preloaded and lazy — hero.jpg is the LCP element and this
-                must not compete with it. Dot nav below uses scrollIntoView
+                JourneyConfig entry, no markup changes here. The FIRST slide
+                is eager + high-priority + preloaded from index.html: since
+                the baked hero-blur.avif is too low-entropy to be an LCP
+                candidate, this in-viewport map crop IS the LCP element.
+                Later slides stay lazy. Dot nav below uses scrollIntoView
                 on the slide's own id rather than <a href="#..."> — an
                 anchor would rewrite window.location.hash and misfire this
                 app's own hash-based map routing. behavior:"instant", not
@@ -290,7 +302,7 @@ function App() {
                 Instant sidesteps the race entirely; swiping still glides
                 via the browser's own native momentum scroll. */}
             <div className="carousel mx-auto mt-8 w-full max-w-md rounded-box sm:max-w-lg">
-              {Object.values(JOURNEYS).map((j) => (
+              {Object.values(JOURNEYS).map((j, slideIndex) => (
                 <div key={j.slug} id={`hero-slide-${j.slug}`} className="carousel-item w-full">
                   <button
                     type="button"
@@ -300,7 +312,8 @@ function App() {
                     <img
                       src={j.heroImage}
                       alt={j.heroAlt}
-                      loading="lazy"
+                      loading={slideIndex === 0 ? "eager" : "lazy"}
+                      fetchPriority={slideIndex === 0 ? "high" : undefined}
                       decoding="async"
                       width={900}
                       height={419}

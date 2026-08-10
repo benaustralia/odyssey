@@ -28,7 +28,7 @@ import { dirname, join } from "node:path"
 import { fileURLToPath } from "node:url"
 import { createServer } from "vite"
 import { createElement } from "react"
-import { renderToStaticMarkup } from "react-dom/server"
+import { renderToStaticMarkup, renderToString } from "react-dom/server"
 import { entries, artsOf } from "../src/lib/entries"
 import { slugify } from "../src/lib/slug"
 
@@ -49,7 +49,11 @@ const { default: App } = await vite.ssrLoadModule("/src/App.tsx")
 // Home page: same template, no per-page <head> rewrite needed (the static
 // title/description in index.html are already the site-level generic
 // ones) — just the default unfiltered 167-card grid rendered into #root.
-const homeBody = renderToStaticMarkup(createElement(App))
+// renderToString, NOT renderToStaticMarkup: the home page is HYDRATED on
+// the client (main.tsx hydrateRoot), and hydration needs the text-boundary
+// comment markers that staticMarkup strips. Entry pages stay staticMarkup —
+// their client path re-renders from scratch and never hydrates.
+const homeBody = renderToString(createElement(App))
 const homeHtml = template
   .replace("</head>", `    <link rel="canonical" href="${SITE}/" />\n  </head>`)
   .replace('<div id="root"></div>', `<div id="root">${homeBody}</div>`)

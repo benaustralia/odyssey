@@ -42,7 +42,11 @@
     <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/cinzel-var-v1.woff2" />
     <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/hanken-var-v1.woff2" />
     <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/hanken-italic-var-v1.woff2" />
-    <link rel="preload" as="image" href="/hero.jpg" fetchpriority="high" />
+    <!-- hero-blur.avif is ~2KB (pre-blurred + pre-darkened, see App.tsx);
+         journey-map.webp is the first carousel slide and, because the baked
+         hero is too low-entropy for LCP candidacy, the actual LCP element. -->
+    <link rel="preload" as="image" href="/hero-blur.avif" fetchpriority="high" />
+    <link rel="preload" as="image" href="/journey-map.webp" fetchpriority="high" />
   </head>
   <body>
     <div id="root"></div>
