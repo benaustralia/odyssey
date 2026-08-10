@@ -837,3 +837,19 @@ absolute numbers (compositor-tick luck makes it score ~20 points high). r2.dev r
 rate-limited for the assets still on it (atlas tiles, lightbox masters, audio) — fine for
 click-driven loads, but the real production fix when ready is a custom domain or Worker proxy
 in front of the bucket.
+
+**Latin self-host follow-up (later that evening, commit `63f20d1`):** Cinzel + Hanken roman +
+Hanken italic are now corpus-subsetted, wght-axis-limited variable woff2s (29/48/50KB) in
+`public/fonts/` (versioned names + immutable header — bump `-v1` in index.html AND index.css
+when regenerating via `scripts/subset_latin_fonts.py`), preloaded same-origin; zero
+fonts.googleapis/gstatic requests remain. **Result: FCP 4.4s → a stable 2.0s on PSI.** PSI
+samples on this deploy: 63 / 77 / 84 (median **77**, up from 55 baseline); CLI: 70/76/80.
+The spread is the ~1.3s compositor-tick race (readiness now straddles it) plus TBT
+bookkeeping — earlier FCP widens the counted TBT window, so the same gtag/hydration tasks
+that used to hide before a 4.4s FCP now land inside it (PSI TBT jitters 30–320ms run to run).
+Remaining levers for the LCP 4.3–5.5s + TBT tail: shave hero.jpg transfer (AVIF ~50-60KB vs
+101KB — retest quality since it sits behind blur overlays anyway), hydrateRoot instead of
+createRoot().render() (halves initial React main-thread work — markup must match the
+prerender exactly), gtag on first-interaction instead of load+idle (undercounts quick
+bounces — ask first), font-display: optional (kills swap-relayout; trades occasional
+first-visit fallback rendering — ask first).
