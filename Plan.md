@@ -747,3 +747,93 @@ Performance 55, LCP 21.3s (desktop was already 100/100/100/100 — see CLAUDE.md
    paginating/virtualizing the home grid so most cards aren't in the DOM at all until scrolled
    to. **Both are real feature/UX decisions** (infinite scroll vs. "load more" vs. pages), not a
    quick tweak — needs the user's call on direction before building.
+
+### Chase-100 research session #2 (2026-08-10, later the same day) — root causes found, fix plan set
+
+Measured with `npx lighthouse` 13.4.1 (the new insights-era scoring), headless, simulated
+Slow-4G mobile, 3 runs: **production scores a rock-stable 55** (LCP 17.9–18.4s, FCP ~14s
+simulated) — lower than the 76 recorded this morning; the delta is measurement setup (LH
+version/environment), so treat 55/LH-13-CLI as the new like-for-like baseline. Every claim
+below was verified causally (request-blocking A/B runs), not from audit lists alone.
+
+**Root causes, in order of measured impact:**
+1. **Noto Sans SC downloads 2,023KB across 38 chunks — 59% of the 3,405KB page.** The
+   `media="print"` deferral only defers the *stylesheet*; the glyph downloads still fire ~900ms
+   in because all 167 entries' Chinese text is in the prerendered DOM. Blocking the font alone:
+   55 → 66. It also explains the mystery **~2.3s observed first paint** on prod (constant across
+   6 runs): the font storm keeps invalidating style/layout of the 3,704-element DOM and first
+   paint loses the race — the **same build served from localhost paints at 255ms and scores 91**
+   (font arrivals land after first paint there; the swap repaints quietly by ~840ms). Proven NOT
+   to be hydration (blocking the JS bundle leaves obsFCP at 2.3s) and NOT backdrop-blur
+   rasterization (localhost paints fine with identical CSS). Fix: the corpus is fixed and known
+   at build time — **only 862 unique CJK codepoints** across all zhName/zhDef, and `font-zh` only
+   ever renders weight 400 — so a build-time pyftsubset/cn-font-split subset (~150–250KB, one
+   weight, self-hosted on Vercel, immutable) replaces 2MB. Or simpler still: drop Noto SC and let
+   the existing `"PingFang SC", sans-serif` fallback stack serve (0KB — needs a visual call).
+2. **r2.dev is a dev-only endpoint and it shows:** thumbs arrive HTTP/1.1 (modern-http-insight),
+   with `Cache-Control: 0` (cache-insight, 405KB re-downloaded every visit), rate-limited by
+   design per Cloudflare docs. Fix: attach a custom domain to the R2 bucket → edge cache +
+   HTTP/2/3 + real Cache-Control, swap the base URL in code. (Alternative: move the ~10MB of
+   thumbs into `public/` and let Vercel's CDN serve them — simpler, but bloats the repo.)
+3. **gtag.js: 166KB in the critical window** (unused-js flags 72KB). Blocking it on top of the
+   font: 66 → 69. Fix: inject it on `load`+idle (Partytown is overkill here — TBT is already 0;
+   it hurts via bandwidth, not blocking).
+4. **The two hero-carousel voyage crops are in-viewport JPEGs** (`journey-map-telemachus.jpg`
+   182KB, `journey-map.jpg` 111KB; image-delivery says 271KB savings) and hero.jpg itself could
+   be WebP/AVIF (−39KB). Pre-bake WebP like the card thumbs.
+5. **Thumb lazy-load concurrency (this morning's finding) is real but now last in line:**
+   Chrome's native `loading="lazy"` prefetches up to 2,500px ahead on slow connections
+   (hardcoded, per web.dev) → ~19 thumbs in flight vs hero. Re-measure after 1–4; if LCP still
+   lags, replace native lazy with a small IntersectionObserver (`rootMargin: '200px'`,
+   `data-src` swap) — no need for the virtualization/pagination UX decision unless that fails.
+
+**Traps for the next session:** localhost Lighthouse runs with `--blocked-url-patterns` are
+noisy/misleading for *predicting* fixed scores (blocked ≠ absent: errored requests distort
+Lantern's graph and can even change the LCP element) — build the fix for real and measure prod.
+The PSI API anonymous quota was exhausted today; use an API key or the web UI for the canonical
+number. `main.tsx` uses `createRoot().render()` over the prerendered HTML (throws the static DOM
+away instead of hydrating) — proven NOT to be the paint bottleneck, but switching to
+`hydrateRoot` is still right eventually for INP/correctness.
+
+### Chase-100 session #2 — RESULTS (2026-08-10, evening)
+
+**Shipped (3 commits: `be7dc91`, `57e7748`; `1ab6bbc` between them is the unrelated audio
+completion) and verified on production. Authoritative PSI mobile: 55 → 69** (post-CV re-run
+read 68 with LCP/TBT jittering the other way — noise, the two runs straddle the same state) (CLI LH 13.4.1 headless agrees: 67–70 across 5 runs).
+Accessibility / Best Practices / SEO stay 100. Page: 3,405KB → 1,397KB, 60 → 23 requests.
+LCP 17.9s → 4.9s sim, FCP 14s → 4.4s sim, TBT ≤80ms, CLS 0.
+
+What landed: the 202KB corpus-subsetted self-hosted Noto Sans SC (was 2,023KB / 38 chunks —
+`scripts/subset_font.py`, output in `src/assets/` so Vite hashes it); card thumbs committed and
+served same-origin from Vercel with a 30-day header (r2.dev keeps only full-res masters, atlas
+tiles, audio); gtag injected on load+idle; the 2 voyage-carousel crops as WebP q70 (hero.jpg
+kept — WebP saved only 7KB at parity, not worth touching the LCP asset);
+`content-visibility:auto` + `contain-intrinsic-size` on the glossary cards.
+
+**Why it's 69 and not higher — the compositor-tick discovery.** The trace
+(`--save-assets`) shows the page fully painted with the layer tree ACTIVATED at ~1.35s, but
+headless Chrome's compositor ticks at ~1Hz when idle (RequestMainThreadFrame at 251ms → 1282ms
+→ 2291ms, ~1009ms apart) — miss a tick and first paint waits for the next one, landing at
+~2.3s observed, which Lantern then scales to FCP ~4.4s. PSI's own environment shows the same
+shape. The same build served from localhost gets ready by ~250ms, catches the FIRST tick, and
+scores 91 — readiness time relative to the tick is everything. content-visibility alone did
+not pull readiness under the ~1.28s tick (obsFP unchanged), so what still gates readiness is
+the font-arrival/swap timeline (Latin woff2s land 511–613ms from fonts.gstatic, a 174ms
+style/layout task follows at ~1.17s), not card layout.
+
+**Next levers, in order (not yet built):**
+1. Self-host Cinzel + Hanken Grotesk latin subsets (same subset_font.py pattern) — kills the
+   fonts.googleapis CSS round-trip and the fonts.gstatic DNS+TLS chain from both the observed
+   timeline and Lantern's graph; fonts arrive ~300ms+ earlier → swap earlier → plausibly ready
+   before the 1.28s tick, which is worth ~2s of simulated FCP in one step.
+2. If still short: `font-display: optional` (+ `size-adjust`-tuned fallbacks) to remove
+   late-swap relayout entirely — trades occasional first-visit fallback rendering against the
+   user's visual-consistency preference, so ask before doing this one.
+3. `unused-css-rules` still flags ~19KB of the bundled CSS; low value, only if desperate.
+
+**Traps:** PSI's anonymous API quota is permanently saturated — use the pagespeed.web.dev UI
+(a haiku browser agent works well) or an API key. Don't A/B against localhost Lighthouse
+absolute numbers (compositor-tick luck makes it score ~20 points high). r2.dev remains
+rate-limited for the assets still on it (atlas tiles, lightbox masters, audio) — fine for
+click-driven loads, but the real production fix when ready is a custom domain or Worker proxy
+in front of the bucket.
