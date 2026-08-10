@@ -3,6 +3,36 @@
   themes: dracula --default;
 }
 
+/* Self-hosted Latin fonts — variable, axis-limited to the weights the site
+   renders, subsetted to the actual corpus (scripts/subset_latin_fonts.py).
+   Replaces the fonts.googleapis stylesheet + fonts.gstatic files: that chain
+   (DNS + TLS + CSS round-trip before any font byte) was what still gated
+   first-paint readiness after the CJK fix (Plan.md chase-100 session #2).
+   These live in public/fonts/ with versioned names — NOT Vite-hashed —
+   because index.html preloads the two first-paint-critical files by URL;
+   bump -v1 here AND there when regenerating. */
+@font-face {
+  font-family: "Cinzel";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/cinzel-var-v1.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Hanken Grotesk";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/hanken-var-v1.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Hanken Grotesk";
+  font-style: italic;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/hanken-italic-var-v1.woff2") format("woff2");
+}
+
 /* Self-hosted Noto Sans SC, subsetted to this site's actual Chinese corpus
    (~900 codepoints, weight 400 only — the one weight font-zh ever renders).
    Replaces the Google-Fonts stylesheet, which pulled ~2MB across 38
