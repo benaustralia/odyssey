@@ -875,3 +875,18 @@ just after a now-early FCP). Levers still on the table, both needing the user's 
 gtag-on-first-interaction (undercounts quick bounces in GA) and font-display:optional
 (occasional first-visit fallback rendering vs the visual-consistency preference). Nothing else
 cheap is left — the page is 1.3MB, 16 requests, one origin + R2 thumbs-free.
+
+**2026-08-10 (night) — pitch bug in the human recordings, found and fixed.** The user reported
+all their own clips "munchkinised" (pitch up). Root cause: the sampleblocks extraction method
+assumes a sample rate when writing the WAV header, and the 31 morning-batch .aup3 projects are
+actually **44.1kHz** — they were extracted/encoded as 48kHz, playing everything 8.84% fast and
+~1.5 semitones high. Ground truth came from scanning each project's serialized doc blob for
+the IEEE-754 doubles 44100.0/48000.0 (`struct.pack('<d', …)` byte patterns in the `project`
+table's dict+doc): morning projects carry 44100×2 (project + track rate), the two evening
+re-recordings (Alpheus/Orchomenus, different input device) carry 48000×2 and were therefore
+correct all along. All 31 were rebuilt from the .aup3 sources — same PCM reinterpreted at
+44.1kHz (no resampling), fresh two-pass loudnorm to −20.3 LUFS (four needed the same
+residual-gain+limiter treatment as alpheus: TP-ceiling undershoot on high-crest clips),
+re-encoded mono 44.1kHz 128kbps, re-uploaded to R2, live-verified (pelion now 1.558s =
+68,716 samples ÷ 44,100 exactly). **Rule for next time: never assume the rate — read it from
+the project doc first; it varies per recording session with the input device.**
