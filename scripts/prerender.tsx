@@ -40,7 +40,20 @@ const R2_ASSETS = "https://pub-b57180e24c9841f58854ecd1c164523a.r2.dev"
 const escapeHtml = (s: string) =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;")
 
-const template = readFileSync(join(DIST, "index.html"), "utf-8")
+let template = readFileSync(join(DIST, "index.html"), "utf-8")
+
+// Inline the render-blocking stylesheet into every prerendered page: on a
+// slow mobile connection the separate CSS fetch was a full round-trip
+// standing between HTML arrival and first paint (Plan.md chase-100
+// session #2 — first paint must be ready before a ~1.3s compositor tick or
+// it waits a whole extra second). Safe to inline verbatim: Vite emits only
+// absolute url()s in this file (checked), and the lazy CalibrationPanel
+// stylesheet is untouched. ~20KB gzipped added to each HTML in exchange
+// for one fewer critical request.
+const cssLink = template.match(/<link rel="stylesheet"[^>]*href="(\/assets\/index-[^"]+\.css)"[^>]*>/)
+if (!cssLink) throw new Error("prerender: main stylesheet link not found in template")
+const cssText = readFileSync(join(DIST, cssLink[1]), "utf-8")
+template = template.replace(cssLink[0], `<style>${cssText}</style>`)
 
 const vite = await createServer({ root: ROOT, server: { middlewareMode: true }, appType: "custom" })
 const { EntryContent } = await vite.ssrLoadModule("/src/EntryContent.tsx")
