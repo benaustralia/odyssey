@@ -33,6 +33,12 @@ def build_file_list(repo_root):
         for jpg_file in sorted(art_dir.glob("*.jpg")):
             files.append((jpg_file, f"art/{jpg_file.name}"))
 
+    # Card-grid cover thumbnails: public/art-thumb/<filename>.webp -> art-thumb/<filename>.webp
+    thumb_dir = repo_root / "public" / "art-thumb"
+    if thumb_dir.exists():
+        for webp_file in sorted(thumb_dir.glob("*.webp")):
+            files.append((webp_file, f"art-thumb/{webp_file.name}"))
+
     # Pronunciation audio: public/audio/<slug>.mp3 -> audio/<slug>.mp3
     audio_dir = repo_root / "public" / "audio"
     if audio_dir.exists():
@@ -65,7 +71,7 @@ def build_file_list(repo_root):
 def upload_file(file_tuple, s3_client, bucket_name, max_retries=3):
     """Upload a single file to S3/R2. boto3 handles retries internally."""
     local_path, object_key = file_tuple
-    content_type = 'audio/mpeg' if local_path.suffix == '.mp3' else 'image/jpeg'
+    content_type = {'.mp3': 'audio/mpeg', '.webp': 'image/webp'}.get(local_path.suffix, 'image/jpeg')
 
     for attempt in range(1, max_retries + 1):
         try:
@@ -126,10 +132,12 @@ def main():
 
     # Group by category for tracking
     art_count = sum(1 for _, key in files if key.startswith("art/"))
+    thumb_count = sum(1 for _, key in files if key.startswith("art-thumb/"))
     audio_count = sum(1 for _, key in files if key.startswith("audio/"))
     print(f"  - {art_count} art masters")
+    print(f"  - {thumb_count} card-cover thumbnails")
     print(f"  - {audio_count} pronunciation clips")
-    print(f"  - {total - art_count - audio_count} atlas tiles")
+    print(f"  - {total - art_count - thumb_count - audio_count} atlas tiles")
 
     # Upload with thread pool
     print(f"\nUploading with 16 concurrent workers (S3 endpoint)...")
@@ -172,6 +180,7 @@ def main():
     # Break down by category
     print(f"\nBreakdown:")
     print(f"  Art masters: {art_count}")
+    print(f"  Card-cover thumbnails: {thumb_count}")
     print(f"  Pronunciation clips: {audio_count}")
     for slug in ["aegyptus", "africae", "graecia", "natoliae", "palestinae", "rubri"]:
         slug_count = sum(1 for _, key in files if key.startswith(f"atlas/{slug}/"))

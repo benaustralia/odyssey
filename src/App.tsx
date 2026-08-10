@@ -20,7 +20,16 @@ import { PLATES, DEFAULT_PLATE_SLUG, findPin, latinFor } from "@/data/plates"
 // Journey-vs-Atlas routing policy for a term, shared with the Atlas's own
 // header search so a place never routes two different ways.
 import { mapLinks, type MapRoute } from "@/data/mapRoutes"
-import { type Entry, entries, byTerm, assetUrl, artsOf, hasRealArt, categoryOf } from "@/lib/entries"
+import {
+  type Entry,
+  entries,
+  byTerm,
+  assetUrl,
+  coverThumbUrl,
+  artsOf,
+  hasRealArt,
+  categoryOf,
+} from "@/lib/entries"
 import { slugify } from "@/lib/slug"
 
 const CATEGORIES = [
@@ -474,7 +483,7 @@ function App() {
                   {cover && (
                     <figure className="relative aspect-[4/3] overflow-hidden">
                       <img
-                        src={assetUrl(cover)}
+                        src={coverThumbUrl(cover)}
                         alt={cover.title}
                         loading="lazy"
                         decoding="async"
