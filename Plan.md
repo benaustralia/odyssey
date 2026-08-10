@@ -708,3 +708,42 @@ Don't treat either as "next up" without the user re-raising it.
   (`harvest-artwork`, `mobile-map-qa`) so they load on demand instead of every session, updated
   Claude Code to 2.1.226, and switched the default permission mode to `auto`. The CLAUDE.md/
   `.claude/` changes are uncommitted working-tree edits — review via `git diff` before committing.
+
+---
+
+## Mobile performance — "chase 100" (2026-08-10)
+
+**Status: 🟡 in progress — one real, verified win landed; the next lever identified but not
+built (needs a UX decision, not just a tweak). Baseline before this: mobile Lighthouse
+Performance 55, LCP 21.3s (desktop was already 100/100/100/100 — see CLAUDE.md's Deploy section).**
+
+1. **Card-grid cover thumbnails (landed, verified: 55 → 76, LCP 21.3s → 4.8s).** The 167 card
+   covers were serving full lightbox-resolution JPEG masters (250-370KB) for a ~380px grid cell.
+   `scripts/make_thumbs.py` pre-bakes an 800px WebP (q78, ~65-115KB) for every entry's `art[0]`
+   — same "R2 has no live transform" pattern as the Atlas minimap thumbs. `coverThumbUrl()` in
+   `entries.ts`, used only by the App.tsx card grid; `EntryContent.tsx`'s larger hero and the
+   lightbox both keep the full-res master via `assetUrl()`.
+2. **Font/script priority tweaks (mostly a wash, one reverted).** Chased the remaining 4.8s LCP
+   by identifying the actual LCP element via a real-browser probe (Playwright + CDP, mobile
+   throttling matching Lighthouse's Moto G Power / Slow-4G profile — `PerformanceObserver`
+   directly, not guessing from Lighthouse's JSON) — confirmed it's genuinely `hero.jpg`, not a
+   lazy card image as first suspected. Split Noto Sans SC (CJK font, ~2MB across ~40 unicode-range
+   chunks, since every entry's Chinese name/def is in the DOM on the home page) into its own
+   deferred stylesheet — kept, sound on its own merits even though it didn't move the score.
+   Also tried dropping the entry `<script>`'s fetch priority to low (page is fully prerendered,
+   first paint needs no JS) — **measured against real Lighthouse this made things worse**
+   (Performance 76→74, TTI 7.5s→9.6s, LCP flat) and was reverted the same session. Lesson: a
+   local CDP-throttled probe and Lighthouse's own (simulated) scoring don't always agree —
+   verify every change against a real Lighthouse run before trusting a local probe's read on it.
+3. **The real remaining bottleneck, found but not fixed: request concurrency, not
+   priority.** Blocking the ~19 lazy-loaded R2 card-thumbnail requests entirely in the same
+   Playwright probe dropped `hero.jpg`'s load time from ~4.8s to ~2.0s — confirming that under
+   throttling, having ~20 requests in flight at once starves `hero.jpg`'s bandwidth share
+   regardless of their `loading="lazy"`/Low-priority tags (CDP-level throttling doesn't strictly
+   enforce priority ordering the way a real prioritized HTTP/2 connection would). Reprioritizing
+   further won't fix this — the fix is fewer concurrent requests in that window: either a custom
+   `IntersectionObserver`-based lazy load with a tight `rootMargin` (replacing native
+   `loading="lazy"`, which is evidently not lazy enough for a 167-card single page), or
+   paginating/virtualizing the home grid so most cards aren't in the DOM at all until scrolled
+   to. **Both are real feature/UX decisions** (infinite scroll vs. "load more" vs. pages), not a
+   quick tweak — needs the user's call on direction before building.
