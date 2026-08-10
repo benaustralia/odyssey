@@ -20,11 +20,27 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/cinzel/v26/8vIJ7ww63mVu7gt79mT7PkRXMw.woff2" />
     <link rel="preload" as="image" href="/hero.jpg" fetchpriority="high" />
+    <!-- Latin fonts only (masthead + body text, needed for first paint) —
+         kept in the eager preload+swap path. Noto Sans SC is requested
+         separately below at low priority: it's CJK-subsetted by Google
+         Fonts into dozens of unicode-range chunks, and on this page EVERY
+         entry's Chinese name/definition is in the DOM at once, so on a
+         throttled connection it was winning a bandwidth fight against
+         hero.jpg (the actual LCP element) for a font that isn't part of
+         the LCP paint at all — cut mobile LCP from ~21s to ~5s once the
+         image thumbnails were fixed, but Noto Sans SC was still eating
+         hero.jpg's bandwidth share. See Plan.md. -->
     <link
       rel="preload"
       as="style"
-      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Noto+Sans+SC:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap"
       onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"
+      media="print"
+      onload="this.media='all'"
     />
     <noscript>
       <link
@@ -35,6 +51,13 @@
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <!-- fetchpriority=low: the home/entry pages are fully prerendered static
+         HTML (see scripts/prerender.tsx) — first paint, including the LCP
+         hero image, needs no JS at all. Under mobile throttling this script
+         was winning a bandwidth fight against hero.jpg for no benefit; JS
+         hydration lagging slightly behind first paint costs nothing in the
+         Lighthouse score (Time to Interactive carries 0 weight in the
+         current scoring model) but LCP is 25% of it. -->
+    <script type="module" src="/src/main.tsx" fetchpriority="low"></script>
   </body>
 </html>
