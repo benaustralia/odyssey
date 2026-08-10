@@ -853,3 +853,25 @@ createRoot().render() (halves initial React main-thread work — markup must mat
 prerender exactly), gtag on first-interaction instead of load+idle (undercounts quick
 bounces — ask first), font-display: optional (kills swap-relayout; trades occasional
 first-visit fallback rendering — ask first).
+
+**Session #2 close-out (late evening — the "simpler beats cleverer" round, commits `d358fc2`,
+`0b0285f`):** three more structural fixes: (1) **hero-blur.avif, 2KB** — hero.jpg with the 3px
+backdrop-blur AND the flat base-100/72 overlay baked in (blur leaves no entropy to encode);
+deletes the runtime backdrop-filter layer; Chrome's low-entropy LCP heuristic then makes the
+first voyage-carousel slide the LCP element, so it's eager + fetchpriority=high + preloaded,
+and later slides stay lazy. The bottom gradient overlay stays live (viewport-relative).
+hero.jpg remains only as og:image. (2) **Real hydration** — prerender emits renderToString
+markup and main.tsx hydrateRoot-adopts the prerendered DOM (entry pages and #hash deep-links
+keep plain render; both legitimately differ from the prerendered tree). Verified
+hydration-warning-free. (3) **Render-blocking CSS inlined** into every prerendered page by
+scripts/prerender.tsx (~20KB gz per page, one fewer critical round-trip; all built url()s are
+absolute so the move is verbatim).
+
+**Where it landed (PSI, this deploy): 76 / 93 — best-run metrics FCP 1.2s, LCP 1.8s, SI 2.0s
+(100-grade when the paint catches the compositor tick); CLI: 94/75/77/77 with obsFP now as low
+as 694ms.** Day's arc on PSI medians: 55 → 69 → 77 → ~85±9. The remaining spread is the ~1s
+compositor-tick race documented above plus TBT jitter (30–310ms; gtag + hydration tasks landing
+just after a now-early FCP). Levers still on the table, both needing the user's call:
+gtag-on-first-interaction (undercounts quick bounces in GA) and font-display:optional
+(occasional first-visit fallback rendering vs the visual-consistency preference). Nothing else
+cheap is left — the page is 1.3MB, 16 requests, one origin + R2 thumbs-free.
