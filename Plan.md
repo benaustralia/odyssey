@@ -116,8 +116,9 @@ method as the Graecia pin calibration — offline PIL grid-crop, not browser-dra
 ---
 
 ## Phase 1 — Pronunciation audio (ElevenLabs)
-**Status: ✅ shipped 2026-08-08, ⛔ REMOVED ENTIRELY 2026-08-09 — see the top of Phase 1b for why.
-Kept below as the historical record of what was built and why each call was made at the time.**
+**Status: ✅ shipped 2026-08-08, ⛔ REMOVED ENTIRELY 2026-08-09, ✅ RESTORED (different design)
+2026-08-10 — see "2026-08-10: RESTORED" under Phase 1b for what's actually live now. Kept below as
+the historical record of what was built and why each call was made at the time.**
 
 Every entry already has a text `pron` field (e.g. shown under the term on each card) — this adds
 spoken audio on top, not a new pronunciation system.
@@ -178,13 +179,77 @@ spoken audio on top, not a new pronunciation system.
 ---
 
 ## Phase 1b — Pronunciation accuracy pass (IPA-sourced overrides)
-**Status: ⛔ MOOT — the entire pronounce-button feature (Phase 1 + this phase) was removed
-2026-08-09. See "2026-08-09: REMOVED" below, which supersedes everything else in this section
-(including the 2026-08-08 "FINAL" scope-down to 70 real-recording terms, which lasted about a day).
-Everything else here — "outcome"/"Deep-dive"/"Open decision"/"Phases 1b.0-1b.4" — is the historical
-record of how the investigation evolved (Uniform IPA-on-v3 → 4 failed ElevenLabs mechanisms → real
-recordings + a Google Cloud TTS pilot → scope down to 70 real-recording terms → full removal). Read
-it for context/reasoning, but don't treat any status claim below "REMOVED" as current.**
+**Status: ✅ RESTORED 2026-08-10 — a new conversation with the user, as the 2026-08-09 REMOVED note
+below required. See "2026-08-10: RESTORED" immediately below, which supersedes both prior verdicts.
+Everything from "2026-08-09: REMOVED" down through "Phases 1b.0-1b.4" is the historical record of
+how the feature got pulled twice and why — still true as history, just no longer the current state.**
+
+### 2026-08-10: RESTORED — single clip, two consistent sources, not a crowd
+The user opened a new conversation asking to rebuild playback from ElevenLabs audio "already done"
+plus recordings of their own for terms the TTS got wrong — precisely the scenario the REMOVED note
+below said needed a fresh conversation before touching this again. Surfaced both prior verdicts
+before starting; the user chose to proceed, so this is a deliberate third attempt, not an
+oversight of the first two.
+
+**What's different this time, addressing why it got pulled twice:** the "spooky crowd of volunteer
+speakers" problem was *many different people's voices* mixed together. This round has exactly two
+voices — one consistent ElevenLabs voice ("Alice", a from-scratch regeneration, not the Phase 1
+voice) for the default, and the user's own voice for corrections — not a crowd. And rather than
+restore the old slow-then-fast sequence (both TTS-generated), the button now plays **one
+natural-speed clip only**: with two source types in play, a slow clip immediately followed by a
+fast clip from a *different* source (synthetic then human, or vice versa) would recreate the
+incoherence complaint inside a single click. Single clip sidesteps that; confirmed with the user
+before building.
+
+**Source material recovered, not regenerated:** the ElevenLabs "Alice" set (170 terms × fast/slow,
+mono 44.1kHz 128kbps mp3) turned out to be live as static files on a separate one-off Vercel
+deployment, `odyssey-pron-review.vercel.app` — NOT R2, and NOT the older base64-embedded clips
+sitting in a claude.ai review artifact from Phase 1 (a red herring initially pursued before the
+user clarified "not the Claude artifact — an actual site we built"). That review site's own `TERMS`
+data carried a `needsRecording: true` flag per term — the mechanism that had already identified
+which ElevenLabs reads were bad enough to need a human replacement, count 45 at the time.
+
+**The 45 human recordings:** made in Audacity (`.aup3` project files, not directly usable). No
+scripting bridge worked (`mod-script-pipe` loaded but its named pipes never appeared despite
+enabling it and restarting Audacity twice) — recovered instead by reading the `.aup3` SQLite
+files' `sampleblocks` table directly (raw 32-bit float PCM, mono, confirmed via consistent
+`sampleformat` and duration-vs-byte-count math across all files, cross-checked against a
+speech-envelope sanity plot) and packaging with `sox`. Loudness-matched to the ElevenLabs set via
+two-pass `ffmpeg loudnorm` (measured target: -20.3 LUFS integrated, median of all 170 ElevenLabs
+clips, stdev only 1.0 LU) — this is the "level my recordings to match the ElevenLabs ones" the user
+asked for. Encoded to the same format as the ElevenLabs clips (mono, 44.1kHz, 128kbps mp3) so
+there's no audible format seam between the two sources.
+
+**Review pass, mid-build:** of the 45 originally-flagged terms, only 31 had a recording when the
+build started; a `needsRecording` filter was pushed live on the (now-repurposed) preview site so
+the user could track and re-record the rest. On relisten, 12 of the remaining 14 turned out fine
+after all (Argos, Pylos, Acheron, Chios, Lemnos, Lesbos, Mount Neion, Ossa, Pharos, Mount Solyma,
+Sounion, Argos (the city)) — those now use the ElevenLabs read like everything else. Only
+**Orchomenus and Alpheus** are still flagged (wrong syllable stress) and have no button until
+re-recorded. The preview site was torn down to match at each step — first to the 14, then to just
+these final 2 — so it always shows exactly the current work queue, not a stale snapshot. It's a
+disposable one-off deploy with no local source checked into this repo; if it's ever needed again
+after these two are done, it isn't retained.
+
+**What shipped:** 165 of 167 terms have a clip (153 ElevenLabs + 12 more ElevenLabs from the
+relisten pass, cross-checked with 0 orphans/0 gaps against `slugify(term)` for every glossary
+entry). `src/data/audioTerms.ts` is the generated source of truth for which terms have a button —
+`PronounceButton` renders nothing for a term not in that set, so the 2 pending terms show no
+button rather than a broken one. All 165 clips confirmed live on R2 (`audio/<slug>.mp3`,
+zero 404s) before the main site deployed. `scripts/upload_to_r2.py`'s audio walk and
+`public/audio/` restored (both were deleted in the REMOVED pass).
+
+**Not carried forward from Phase 1:** `approvedAudioTerms.ts` (replaced by `audioTerms.ts`, same
+idea, regenerated); the slow+fast two-clip sequence (see above); `.claude/rules/pronunciation-audio.md`
+(not recreated — this Plan.md section is now the record).
+
+If this gets pulled a third time, the reason won't be "wrong data source" (both prior fixes tried
+that) — read this section for what was actually different before assuming a variant would help.
+
+---
+
+**Everything below this line predates the 2026-08-10 restoration and is kept as historical record —
+read for context/reasoning, but don't treat status claims below as current.**
 
 ### 2026-08-09: REMOVED — the whole feature is gone, not just synthetic speech
 The 2026-08-08 scope-down (real Wiktionary/Commons recordings for 70 terms, no synthetic fallback
