@@ -30,7 +30,11 @@ export type Art = {
   note?: string
 }
 
-export const entries = glossaryData as Entry[]
+// glossary.json is in historical insertion order (batches were appended over
+// time), so alphabetize here — the one place the array enters the app.
+export const entries = (glossaryData as Entry[])
+  .slice()
+  .sort((a, b) => a.term.localeCompare(b.term, "en", { sensitivity: "base" }))
 export const art = artData as Record<string, Art>
 
 export const byTerm = new Map(entries.map((e) => [e.term, e]))
