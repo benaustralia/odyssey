@@ -632,7 +632,7 @@ function App() {
           </p>
           <p className="mt-2 text-sm opacity-80">
             © 2026 Ben Hinton ·{" "}
-            <a className="link link-hover" href="mailto:bahinton@gmail.com">
+            <a className="link link-hover" href="mailto:bahinton@gmail.com?subject=Via%20tellmeohmuse.com">
               bahinton@gmail.com
             </a>{" "}
             ·{" "}
