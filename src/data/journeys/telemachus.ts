@@ -59,7 +59,7 @@ const legVias: Pt[][] = [
 export const telemachusJourney: JourneyConfig = {
   slug: "telemachus",
   title: "The Journey of Telemachus",
-  heroImage: "/journey-map-telemachus.jpg",
+  heroImage: "/journey-map-telemachus.webp",
   heroAlt: "Abraham Ortelius's map of Graecia Sophiani",
   heroCta: "Follow the Telemachus journey",
   attribution: { prefix: "Abraham Ortelius, ", workTitle: "Graecia Sophiani", suffix: " (1595)" },

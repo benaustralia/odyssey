@@ -3,6 +3,21 @@
   themes: dracula --default;
 }
 
+/* Self-hosted Noto Sans SC, subsetted to this site's actual Chinese corpus
+   (~900 codepoints, weight 400 only — the one weight font-zh ever renders).
+   Replaces the Google-Fonts stylesheet, which pulled ~2MB across 38
+   unicode-range chunks on every load because all 167 entries' Chinese text is
+   in the prerendered DOM. Regenerate with scripts/subset_font.py whenever
+   on-page Chinese text changes — the relative URL keeps it in Vite's
+   content-hashed asset pipeline, so regeneration cache-busts on its own. */
+@font-face {
+  font-family: "Noto Sans SC";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./assets/noto-sans-sc-subset.woff2") format("woff2");
+}
+
 /* Classical typography (DaisyUI governs all colour/theme tokens) */
 @theme {
   --font-sans: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;

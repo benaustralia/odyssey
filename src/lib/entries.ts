@@ -43,15 +43,17 @@ export const bySlug = new Map(entries.map((e) => [slugify(e.term), e]))
 export const R2_ASSETS = "https://pub-b57180e24c9841f58854ecd1c164523a.r2.dev"
 export const assetUrl = (a: Art) => `${R2_ASSETS}${a.file}`
 
-// Card-grid covers only: a pre-baked 800px-wide WebP under art-thumb/, cut
-// from ~250-370KB JPEG masters to ~65-115KB (Lighthouse mobile flagged the
-// masters as 3-4x oversized for their ~380px display width). Same "no
-// on-the-fly transform" constraint as Atlas minimap thumbs — R2 can't crop/
-// resize on request, so this is generated once by scripts/make_thumbs.py and
-// uploaded alongside the masters. Only every entry's art[0] has one (that's
+// Card-grid covers only: a pre-baked 800px-wide WebP under public/art-thumb/,
+// cut from ~250-370KB JPEG masters to ~65-115KB (Lighthouse mobile flagged
+// the masters as 3-4x oversized for their ~380px display width). Generated
+// by scripts/make_thumbs.py and — unlike the full-res masters, which stay on
+// R2 — committed and served same-origin from Vercel: r2.dev is a rate-limited
+// dev endpoint with no edge caching and HTTP/1.1 only, and same-origin
+// HTTP/2 lets the browser prioritise hero.jpg above these lazy loads
+// (Plan.md chase-100 session #2). Only every entry's art[0] has one (that's
 // the only image ever used as a cover); callers must not call this on
 // gallery/lightbox images, which stay full-res via assetUrl.
-export const coverThumbUrl = (a: Art) => `${R2_ASSETS}/art-thumb${a.file.replace(/^\/art\//, "/").replace(/\.jpe?g$/i, ".webp")}`
+export const coverThumbUrl = (a: Art) => `/art-thumb${a.file.replace(/^\/art\//, "/").replace(/\.jpe?g$/i, ".webp")}`
 
 // Pronunciation clip: a single natural-speed read, either the user's own
 // recording (for terms the ElevenLabs voice got wrong) or the ElevenLabs

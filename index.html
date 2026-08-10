@@ -1,14 +1,29 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KKEFFHRLMJ"></script>
+    <!-- Google tag (gtag.js) — injected after load+idle, not <script async>:
+         its 166KB was the third-largest resource in the LCP window on slow
+         mobile (Plan.md chase-100 session #2). gtag() calls made before the
+         script arrives queue in dataLayer and are replayed, so nothing is
+         lost by loading it late. -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
       gtag('config', 'G-KKEFFHRLMJ');
+
+      addEventListener('load', function () {
+        var inject = function () {
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=G-KKEFFHRLMJ';
+          document.head.appendChild(s);
+        };
+        'requestIdleCallback' in window
+          ? requestIdleCallback(inject, { timeout: 3000 })
+          : setTimeout(inject, 2000);
+      });
     </script>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -21,31 +36,24 @@
     <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/cinzel/v26/8vIJ7ww63mVu7gt79mT7PkRXMw.woff2" />
     <link rel="preload" as="image" href="/hero.jpg" fetchpriority="high" />
     <!-- Latin fonts only (masthead + body text, needed for first paint) —
-         kept in the eager preload+swap path. Noto Sans SC is requested
-         separately below, deferred: it's CJK-subsetted by Google Fonts into
-         dozens of unicode-range chunks (~2MB total across every entry's
-         Chinese name/definition, all in the DOM at once on the home page),
-         and none of it is needed for first paint. Measured to NOT be the
-         mobile LCP bottleneck on its own (see Plan.md's "chase 100"
-         investigation — it's request concurrency from the lazy-loaded card
-         thumbnails, not this) but there's no reason for ~2MB of CJK font to
-         compete for bandwidth this early regardless. -->
+         kept in the eager preload+swap path. Noto Sans SC is NOT requested
+         from Google Fonts at all any more: their CJK pipeline sliced it into
+         38 unicode-range chunks totalling ~2MB per cold load (59% of the
+         whole page — the dominant mobile-Lighthouse bottleneck, see Plan.md
+         chase-100 session #2), because every entry's Chinese text is in the
+         prerendered DOM. It's now a 202KB self-hosted subset of the site's
+         actual corpus, declared via @font-face in src/index.css and baked by
+         scripts/subset_font.py. -->
     <link
       rel="preload"
       as="style"
       href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap"
       onload="this.onload=null;this.rel='stylesheet'"
     />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"
-      media="print"
-      onload="this.media='all'"
-    />
     <noscript>
       <link
         rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Noto+Sans+SC:wght@400;500;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap"
       />
     </noscript>
   </head>

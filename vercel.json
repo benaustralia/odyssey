@@ -1,5 +1,13 @@
 {
   "rewrites": [
     { "source": "/entry/:slug", "destination": "/entry/:slug/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/art-thumb/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=2592000" }
+      ]
+    }
   ]
 }
