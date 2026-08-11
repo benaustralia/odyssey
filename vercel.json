@@ -11,6 +11,18 @@
       "has": [{ "type": "host", "value": "odysseygloss.vercel.app" }],
       "destination": "https://tellmeohmuse.com/:path*",
       "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "(www\\.)?singomuse\\.com" }],
+      "destination": "https://tellmeohmuse.com/",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "(www\\.)?singomuse\\.com" }],
+      "destination": "https://tellmeohmuse.com/:path*",
+      "permanent": true
     }
   ],
   "rewrites": [
