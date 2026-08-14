@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from "react"
-import { Search, Map as MapIcon, Sailboat } from "lucide-react"
+import { Search, Map as MapIcon, Sailboat, Heart } from "lucide-react"
 import { PronounceButton } from "./PronounceButton"
+import { SupportModal } from "./SupportModal"
 
 // Leaflet is heavy and the map is opt-in, so load it only when first opened.
 const JourneyMap = lazy(() => import("./JourneyMap"))
@@ -66,6 +67,27 @@ function App() {
   const [cat, setCat] = useState("all")
   const [selected, setSelected] = useState<Entry | null>(null)
   const [lbIndex, setLbIndex] = useState(-1) // >=0 => lightbox open at that slide
+  // The Stripe support modal: one shared open flag for all three entry
+  // points (nav button, end-of-glossary card, footer link) — a modal
+  // rather than a scroll-to-anchor card, matching how JourneyMap/AtlasMap/
+  // the Lightbox already open on this site, and sidestepping scroll-into-
+  // view (and its page-length/DOM-commit-timing traps) entirely.
+  const [supportOpen, setSupportOpen] = useState(false)
+  const openSupport = () => setSupportOpen(true)
+  const closeSupport = () => setSupportOpen(false)
+  // Stripe's Payment Link redirects back here with ?donated=true after a
+  // successful checkout (see SupportModal's after_completion config). The
+  // query param is stripped immediately so a refresh/share of the URL
+  // doesn't re-show the banner; the banner then self-dismisses.
+  const [donationThanks, setDonationThanks] = useState(
+    () => typeof window !== "undefined" && new URLSearchParams(window.location.search).get("donated") === "true",
+  )
+  useEffect(() => {
+    if (!donationThanks) return
+    window.history.replaceState(null, "", window.location.pathname + window.location.hash)
+    const t = setTimeout(() => setDonationThanks(false), 6000)
+    return () => clearTimeout(t)
+  }, [donationThanks])
   // Both maps are URL-addressable via hash routes with ONE universal editing
   // gate: append "/edit" to any map route to open its calibration mode —
   // #journey/edit, #journey/<slug>/edit, #atlas/edit, #atlas/<slug>/edit.
@@ -194,10 +216,11 @@ function App() {
       if (journeyRoute) closeMap()
       else if (atlasRoute) closeAtlas()
       else if (journeysIndexOpen) closeJourneysIndex()
+      else if (supportOpen) closeSupport()
     }
     window.addEventListener("keydown", onKey)
     return () => window.removeEventListener("keydown", onKey)
-  }, [journeyRoute, atlasRoute, journeysIndexOpen, selected, lbIndex])
+  }, [journeyRoute, atlasRoute, journeysIndexOpen, supportOpen, selected, lbIndex])
 
   // A journey-map pin → open that term's entry in the lightbox. The map stays
   // open underneath, so closing the lightbox returns to the map.
@@ -274,6 +297,17 @@ function App() {
 
   return (
     <div className="min-h-screen bg-base-100 text-base-content">
+      {donationThanks && (
+        <div className="toast toast-top toast-center z-50">
+          <div className="alert alert-success shadow-lg">
+            <Heart className="size-4" aria-hidden="true" />
+            <span>
+              <span lang="en">Thank you for your support!</span>{" "}
+              <span lang="zh" className="font-zh">感谢你的支持！</span>
+            </span>
+          </div>
+        </div>
+      )}
       {/* ---------- Hero ---------- */}
       <header className="hero relative overflow-hidden sm:min-h-[68vh]">
         {/* hero-blur.avif is hero.jpg with the old 3px backdrop-blur AND
@@ -298,7 +332,7 @@ function App() {
         />
         <div className="hero-overlay bg-gradient-to-b from-base-100/30 via-base-100/55 to-base-100" />
         <div className="hero-content py-8 text-center">
-          <div className="max-w-2xl">
+          <div className="max-w-2xl lg:max-w-4xl">
             <p className="font-display text-sm tracking-[0.5em] text-primary sm:text-base">
               ΟΔΥΣΣΕΙΑ
             </p>
@@ -328,7 +362,7 @@ function App() {
                 scrollIntoView to the last slide intermittently no-opped.
                 Instant sidesteps the race entirely; swiping still glides
                 via the browser's own native momentum scroll. */}
-            <div className="carousel mx-auto mt-5 w-full max-w-md rounded-box sm:mt-8 sm:max-w-lg">
+            <div className="carousel mx-auto mt-5 w-full max-w-md rounded-box sm:mt-8 sm:max-w-lg lg:max-w-2xl xl:max-w-3xl">
               {Object.values(JOURNEYS).map((j, slideIndex) => (
                 <div key={j.slug} id={`hero-slide-${j.slug}`} className="carousel-item w-full">
                   <button
@@ -413,6 +447,15 @@ function App() {
             >
               <MapIcon className="size-4" aria-hidden="true" />
             </button>
+            <button
+              type="button"
+              onClick={openSupport}
+              className="btn btn-square btn-primary lg:hidden"
+              aria-label="Donate · 捐助"
+              title="Open the support panel"
+            >
+              <Heart className="size-4" aria-hidden="true" />
+            </button>
           </div>
 
           <div className="flex w-full justify-center lg:contents">
@@ -452,10 +495,20 @@ function App() {
             <MapIcon className="size-4" aria-hidden="true" />
             Atlas
           </button>
+          <button
+            type="button"
+            onClick={openSupport}
+            className="btn btn-md btn-primary hidden gap-2 lg:inline-flex"
+            title="Open the support panel"
+          >
+            <Heart className="size-4" aria-hidden="true" />
+            Donate <span lang="zh" className="font-zh">捐助</span>
+          </button>
         </div>
       </nav>
 
       <JourneysIndex open={journeysIndexOpen} onClose={closeJourneysIndex} onOpenJourney={openMap} />
+      <SupportModal open={supportOpen} onClose={closeSupport} />
 
       {journeyRoute && (
         <Suspense fallback={null}>
@@ -620,6 +673,31 @@ function App() {
             })}
           </div>
         )}
+
+        <div className="mt-12">
+          <div className="card mx-auto max-w-xl border border-base-300 bg-base-200 shadow-sm">
+            <div className="card-body items-center text-center">
+              <Heart className="size-6 text-primary" aria-hidden="true" />
+              <h2 lang="en" className="font-heading text-2xl font-semibold">
+                Support this project
+              </h2>
+              <h2 lang="zh" className="font-zh text-xl font-semibold opacity-90">
+                支持这个项目
+              </h2>
+              <p lang="en" className="mt-2 max-w-md leading-relaxed opacity-90">
+                Tell Me, O Muse is free and always will be. If it has been useful to you, a
+                one-off or monthly contribution helps cover hosting and the time spent researching
+                entries.
+              </p>
+              <p lang="zh" className="font-zh mt-1 max-w-md leading-relaxed opacity-90">
+                《Tell Me, O Muse》始终免费开放。如果它对你有帮助，欢迎一次性捐助或按月支持，用于分担网站运行费用与词条研究的时间成本。
+              </p>
+              <button type="button" className="btn btn-primary mt-4" onClick={openSupport}>
+                Donate <span lang="zh" className="font-zh">· 捐助</span>
+              </button>
+            </div>
+          </div>
+        </div>
       </main>
 
       {/* ---------- Footer ---------- */}
@@ -629,6 +707,14 @@ function App() {
           <p className="mt-2 text-sm opacity-80">
             Artworks are public domain or openly licensed (CC), via Wikimedia Commons. Built with
             React, Vite, DaisyUI &amp; yet-another-react-lightbox.
+          </p>
+          <p className="mt-2 text-sm opacity-80">
+            <button type="button" onClick={openSupport} className="link link-hover">
+              <span lang="en">Support this project</span>{" "}
+              <span lang="zh" className="font-zh">
+                · 支持这个项目
+              </span>
+            </button>
           </p>
           <p className="mt-2 text-sm opacity-80">
             © 2026 Ben Hinton ·{" "}
