@@ -1,5 +1,4 @@
 import { Map as MapIcon, Sailboat } from "lucide-react"
-import { findPin, latinFor } from "@/data/plates"
 import { mapLinks } from "@/data/mapRoutes"
 import { type Entry, artsOf, assetUrl, hasRealArt } from "@/lib/entries"
 import { PronounceButton } from "./PronounceButton"
@@ -17,8 +16,6 @@ import { PronounceButton } from "./PronounceButton"
 export function EntryContent({ entry: e }: { entry: Entry }) {
   const arts = artsOf(e)
   const cover = arts[0]
-  const pin = e.tag === "place" ? findPin(e.term) : null
-  const latin = pin ? latinFor(pin.place) : null
   const { primary, journey } = mapLinks(e.term, e.tag === "place")
   const extraJourney = journey && primary?.kind !== "journey" ? journey : null
   const mapOnly = e.tag === "place" && !hasRealArt(e)
@@ -51,10 +48,7 @@ export function EntryContent({ entry: e }: { entry: Entry }) {
           )}
 
           <div className="flex items-start justify-between gap-2">
-            <h1 className="font-heading text-4xl font-semibold leading-none">
-              {e.term}
-              {latin && <span className="text-2xl font-normal italic opacity-70"> ({latin})</span>}
-            </h1>
+            <h1 className="font-heading text-4xl font-semibold leading-none">{e.term}</h1>
             <span className="badge badge-outline badge-sm whitespace-nowrap text-[0.7rem] uppercase tracking-wider text-primary">
               {e.tag}
             </span>
