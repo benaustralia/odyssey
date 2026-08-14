@@ -30,9 +30,9 @@ export function PronounceButton({ entry, className }: { entry: Entry; className?
       aria-label={`Play pronunciation of ${entry.term}`}
       onClick={play}
       disabled={playing}
-      className={`btn btn-ghost btn-xs btn-circle ${playing ? "text-primary animate-pulse" : ""} ${className ?? ""}`}
+      className={`btn btn-ghost btn-sm btn-circle ${playing ? "text-primary animate-pulse" : ""} ${className ?? ""}`}
     >
-      <Volume2 className="size-3.5" aria-hidden="true" />
+      <Volume2 className="size-4" aria-hidden="true" />
     </button>
   )
 }
