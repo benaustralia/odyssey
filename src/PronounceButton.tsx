@@ -32,7 +32,7 @@ export function PronounceButton({ entry, className }: { entry: Entry; className?
       disabled={playing}
       className={`btn btn-ghost btn-md btn-circle ${playing ? "text-primary animate-pulse" : ""} ${className ?? ""}`}
     >
-      <Volume2 className="size-5" aria-hidden="true" />
+      <Volume2 className="size-6" aria-hidden="true" />
     </button>
   )
 }
