@@ -700,6 +700,21 @@ function App() {
             Artworks are public domain or openly licensed (CC), via Wikimedia Commons. Built with
             React, Vite, DaisyUI &amp; yet-another-react-lightbox.
           </p>
+          <p className="mt-4 text-xs opacity-60">
+            Research sources (APA):
+            <br />
+            Cartledge, P. (2011). <span className="italic">Ancient Greece: A very short introduction.</span>{" "}
+            Oxford, England: Oxford University Press.
+            <br />
+            Reid, J. D. (1993).{" "}
+            <span className="italic">
+              The Oxford guide to classical mythology in the arts, 1300–1990s
+            </span>{" "}
+            (Vols. 1–2). New York, NY: Oxford University Press.
+            <br />
+            Solomon, J. (2001). <span className="italic">The ancient world in the cinema</span>{" "}
+            (Rev. and expanded ed.). New Haven, CT: Yale University Press.
+          </p>
           <p className="mt-2 text-sm opacity-80">
             <button type="button" onClick={openSupport} className="link link-hover">
               <span lang="en">Support this project</span>{" "}

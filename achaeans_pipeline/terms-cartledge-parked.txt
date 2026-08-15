@@ -1,0 +1,207 @@
+# PARKED 2026-08-14 — do NOT feed to discover yet.
+# The user decided not to deviate from the Odyssey scope for now; this
+# historical-Greece list (mined from Cartledge, 'Ancient Greece: A VSI' —
+# Glossary + Who's Who headwords, the eleven cities, the 24 plates' signature
+# objects) is future material for a possible expansion. The ACTIVE hunt list
+# is terms.txt, authored from the user's own Odyssey-scoped terms when they
+# supply them. Mythic names below (Agamemnon, Apollo, Zeus…) already have art
+# on tellmeohmuse — the dedupe gates catch image-level overlap.
+
+# — The eleven cities + Panhellenic sanctuaries —
+Knossos
+Mycenae
+Argos
+Miletus
+Massalia
+Sparta
+Athens
+Syracuse Sicily
+Thebes Greece
+Alexandria
+Byzantion
+Olympia Greece
+Delphi
+
+# — Signature objects (the book's plates) —
+Lion Gate Mycenae
+Mask of Agamemnon
+Vapheio cups
+Doryphoros
+Vix krater
+Arcesilas cup
+Erechtheum Caryatid
+Ostracon
+Athenian owl tetradrachm
+Syracuse decadrachm
+Lion of Chaeronea
+Azara Herm
+Alexander Mosaic
+Tazza Farnese
+Serpent Column
+Helmet of Miltiades
+Nike of Paionios
+Temple of Apollo Delphi
+Charioteer of Delphi
+Didyma
+
+# — Institutions & concepts (Glossary) —
+Acropolis
+Agoge
+Agora
+Greek alphabet
+Amphictyonic League
+Archaic Age
+Archon
+Aristocracy
+Attica
+Choregus
+Chorus
+Classical Age
+Coinage
+Colonization
+Comedy
+Dark Age
+Delian League
+Deme
+Democracy
+Demos
+Dithyramb
+Dorians
+Drachma
+Ecclesia
+Ephors
+Great Dionysia
+Hellenistic Age
+Helot
+Hetaera
+Hoplite
+Hubris
+Ionians
+King's Peace
+Koine
+Lacedaemon
+Logos
+Medes
+Metic
+Mystae
+Obol
+Oikos
+Oligarchy
+Olympiad
+Olympians
+Ostracism
+Paganism
+Peloponnese
+Peloponnesian War
+Persian Empire
+Plataea
+Polis
+Pythia
+Sacred Band
+Satrap
+Satyr-Drama
+Seven Sages of Greece
+Stadion
+Stasis
+Synoecism
+Talent
+Thermopylae
+Thirty Tyrants
+Trireme
+Tyrant
+
+# — People (Who's Who) —
+Aeschylus
+Agamemnon
+Agesilaus II
+Alcibiades
+Alexander the Great
+Anaximander
+Antalcidas
+Antiphon
+Apollo
+Archimedes
+Aristides
+Aristophanes
+Aristotle
+Artemis
+Aspasia
+Athena
+Bacchylides
+Callicrates
+Callimachus
+Callisthenes
+Chilon
+Cimon
+Cleisthenes
+Cleon
+Cleopatra
+Critias
+Croesus
+Cyrus the Great
+Darius I
+Democritus
+Demosthenes
+Dionysius I
+Dionysus
+Draco
+Epaminondas
+Ephialtes
+Eratosthenes
+Euclid
+Euripides
+Gelon
+Gorgias
+Harmodius
+Hecataeus
+Hera
+Herodotus
+Hesiod
+Hieron I
+Hippias
+Hippocrates
+Hippodamus
+Homer
+Ictinus
+Leonidas I
+Lycurgus
+Lysander
+Lysias
+Lysippus
+Mausolus
+Menander
+Miltiades
+Myron
+Nicias
+Parmenides
+Pausanias of Magnesia
+Pelopidas
+Pericles
+Phidias
+Philip II
+Phrynichus
+Pindar
+Pisistratus
+Plato
+Plutarch
+Polyclitus
+Praxiteles
+Protagoras
+Ptolemy I
+Pythagoras
+Pytheas
+Sappho
+Scopas
+Simonides
+Socrates
+Solon
+Sophocles
+Thales
+Themistocles
+Theophrastus
+Thrasybulus
+Thucydides
+Timoleon
+Xenophon
+Xerxes
+Zeus

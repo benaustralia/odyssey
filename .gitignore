@@ -44,6 +44,9 @@ public/audio/
 # Playwright MCP debug artifacts (screenshots/snapshots/console logs)
 .playwright-mcp/
 
+# Achaean media pipeline output (downloaded Commons art, IA film pulls, clips)
+/achaeans_pipeline/achaeans_curated_library/
+
 # Atlas plate masters + generated tile pyramids (hosted on Cloudinary)
 # Anchored to repo root only -- unanchored "plates/" also matched
 # src/data/plates/ (the plate config registry, real source code) and
